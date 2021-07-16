@@ -1,0 +1,51 @@
+.cta
+  position: relative
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  cursor: pointer
+  font-family: $f-alternative
+  font-size: 1.6rem
+  font-weight: 700
+  line-height: 1.25
+  padding: 1.4rem 2.4rem
+  margin-top: 2.2rem
+  border: 2px solid $c-black
+  text-align: center
+
+  > span
+    color: $c-black
+    text-transform: uppercase
+    flex: 0 1 auto
+
+  &.--white
+    background-color: #FFF
+    border-color: #FFF
+
+    > span
+      color: $c-brand
+  
+  &.--white-hollow
+    border-color: #FFF
+
+    > span
+      color: #FFF
+
+  &.--link
+    padding: 0
+    margin-top: 0
+    background-color: transparent
+    border: none
+    
+    > span
+      color: $c-brand 
+    
+    &::after
+      content: ''
+      width: 1.6rem
+      height: 1rem
+      background-size: contain
+      background-position: center center
+      background-repeat: no-repeat
+      margin-left: .8rem
+      background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="16" height="10"%3E%3Cpath fill="%2300A1B0" fill-rule="nonzero" d="M10.3 9.7a1 1 0 001.4 0l4-4a1 1 0 000-1.4l-4-4a1 1 0 00-1.4 1.4L12.59 4H1c-.55 0-1 .39-1 .97A1 1 0 001 6h11.59l-2.3 2.3a1 1 0 000 1.4z"/%3E%3C/svg%3E')

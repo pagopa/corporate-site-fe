@@ -1,0 +1,40 @@
+.block
+  position: relative
+  display: block
+  padding-top: 8rem
+  margin-bottom: 8rem
+  padding-left: 1.6rem
+  padding-right: 1.6rem
+
+  &__content
+    padding: 4rem 2.7rem
+  
+  &.--has-bg-color
+    padding-top: 6rem
+    padding-bottom: 6rem
+    margin-bottom: 0
+
+  &.--hero
+    padding-top: 0
+
+  &.--block-text
+    &:not(.--centered)  
+      + .--block-text, + .--block-visual-text
+        padding-top: 4rem
+      
+      + .--block-useful-links
+        padding-top: 0
+  
+  &.--block-intro
+    padding-top: 7rem
+    
+  &.--block-cta-banner
+    margin-bottom: 0
+  
+  &.--block-useful-links
+    ul
+      li
+        margin-bottom: 1.4rem
+  
+  &.--block-projects-carousel
+    background-color: $c-gray-extralight

@@ -1,0 +1,95 @@
+.menu-main
+  ul
+    position: relative
+    display: flex
+
+    li
+      position: relative
+      margin: 0 1.6rem
+      font-family: 'Roboto Mono'
+      font-weight: 700
+      text-transform: uppercase
+      font-size: 1.6rem
+      line-height: 1.25
+
+      a
+        text-decoration: none
+      
+      &.is-current
+        &::before
+          content: ''
+          position: absolute
+          bottom: -1rem
+          left: 50%
+          margin-left: -.3rem
+          width: .6rem
+          height: .6rem
+          display: block
+          background-color: $c-brand
+          border-radius: 50%
+
+      &.w-sub
+        padding-right: 2rem
+
+        &::after
+          content: ''
+          width: 1.2rem
+          height: .7rem
+          display: block
+          position: absolute
+          top: 50%
+          transform: translateY(-50%)
+          transform-origin: center center
+          right: 0
+          background-image: url(../../images/ui/chevron-down.svg)
+          margin-left: .8rem
+    
+      > ul
+        position: absolute
+        top: 100%
+        left: 50%
+        transform: translate3d(-50%, 0, 0)
+        min-width: 24rem
+        background-color: rgba(#FFF, .8)
+        opacity: 0
+        visibility: hidden
+        display: block
+        padding-top: 3rem
+
+        li
+          position: relative
+          display: block
+          width: 100%
+          text-align: center
+          margin: 0
+          font-size: 1.8rem
+          color: #FFF
+          background-color: $c-brand
+          padding: 0 1.2rem
+
+          &:not(:last-child)
+            a
+              border-bottom: 1px solid #fff
+
+          a
+            display: block
+            padding: 1rem 0
+          
+          &:first-child
+            &::before
+              content: ''
+              width: 0
+              height: 0
+              position: absolute
+              left: 50%
+              bottom: 100%
+              margin-left: -1.2rem
+              border-bottom: 1.6rem solid $c-brand
+              border-left: 1.2rem solid transparent
+              border-right: 1.2rem solid transparent
+            
+      
+      &:hover
+        > ul
+          opacity: 1
+          visibility: visible

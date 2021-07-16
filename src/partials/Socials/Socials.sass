@@ -1,0 +1,16 @@
+.socials
+  display: flex
+  align-items: center
+
+  li
+    &:not(:first-child)
+      margin-left: 2rem
+
+    svg
+      display: block
+
+  &.--in-header
+    li
+      svg
+        path
+          fill: $c-black

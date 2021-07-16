@@ -1,0 +1,97 @@
+trigger:
+- master
+
+name: $(Year:yy).$(Month).$(DayOfMonth).$(BuildID)-$(SourceBranchName)
+
+parameters:
+  - name: environment
+    displayName: Target Environment
+    type: string
+    default: uat
+    values:
+      - dev
+      - uat
+      - prod
+
+# variables set on azdevops to avoid circular dependency warning
+# $(BLOB_CONTAINER_NAME)
+variables:
+  AgentImage: "ubuntu-latest"
+  ${{ if eq(parameters['environment'], 'dev') }}:
+    AZURE_SUBSCRIPTION: $(DEV_AZURE_SUBSCRIPTION)
+    STORAGE_ACCOUNT_NAME: $(DEV_STORAGE_ACCOUNT_NAME)
+    PROFILE_CDN_NAME: $(DEV_PROFILE_CDN_NAME)
+    ENDPOINT_NAME: $(DEV_ENDPOINT_NAME)
+    RESOURCE_GROUP_NAME: $(DEV_RESOURCE_GROUP_NAME)
+    BACKEND_BASE_URL: $(DEV_BACKEND_BASE_URL)
+    FRONTEND_PASSWORD: $(DEV_FRONTEND_PASSWORD)
+    FRONTEND_BASE_URL: $(DEV_FRONTEND_BASE_URL)
+  ${{ if eq(parameters['environment'], 'uat') }}:
+    AZURE_SUBSCRIPTION: $(UAT_AZURE_SUBSCRIPTION)
+    STORAGE_ACCOUNT_NAME: $(UAT_STORAGE_ACCOUNT_NAME)
+    PROFILE_CDN_NAME: $(UAT_PROFILE_CDN_NAME)
+    ENDPOINT_NAME: $(UAT_ENDPOINT_NAME)
+    RESOURCE_GROUP_NAME: $(UAT_RESOURCE_GROUP_NAME)
+    BACKEND_BASE_URL: $(UAT_BACKEND_BASE_URL)
+    FRONTEND_PASSWORD: $(UAT_FRONTEND_PASSWORD)
+    FRONTEND_BASE_URL: $(UAT_FRONTEND_BASE_URL)
+  ${{ if eq(parameters['environment'], 'prod') }}:
+    AZURE_SUBSCRIPTION: $(PROD_AZURE_SUBSCRIPTION)
+    STORAGE_ACCOUNT_NAME: $(PROD_STORAGE_ACCOUNT_NAME)
+    PROFILE_CDN_NAME: $(PROD_PROFILE_CDN_NAME)
+    ENDPOINT_NAME: $(PROD_ENDPOINT_NAME)
+    RESOURCE_GROUP_NAME: $(PROD_RESOURCE_GROUP_NAME)
+    BACKEND_BASE_URL: $(PROD_BACKEND_BASE_URL)
+    FRONTEND_PASSWORD: $(PROD_FRONTEND_PASSWORD)
+    FRONTEND_BASE_URL: $(PROD_FRONTEND_BASE_URL)
+
+# schedules:
+# - cron: '0 3 * * *'
+#   displayName: 'Deploy every day at 3 A.M.'
+#   branches:
+#     include:
+#     - release
+#   always: false 
+
+pool:
+  vmImage: $(AgentImage)
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: "14.x"
+  displayName: "Install Node.js"
+- script: |
+    yarn install
+  displayName: "Install dependencies"
+- script: |
+    yarn build
+  displayName: "Gatsby build"
+- task: AzureCLI@2
+  displayName: Azure CLI
+  inputs:
+    azureSubscription: '$(AZURE_SUBSCRIPTION)'
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      az --version
+      az account show
+- script: |
+    find . -type f | wc -l 
+    ls -la $(Build.SourcesDirectory)/public
+    echo BLOB_CONTAINER_NAME: $(BLOB_CONTAINER_NAME) 
+  displayName: 'Check Site'
+- task: AzureCLI@1
+  displayName: 'Sync Storage'
+  inputs:
+    azureSubscription: '$(AZURE_SUBSCRIPTION)'
+    scriptLocation: inlineScript
+    inlineScript: |
+      az storage blob sync --container '$web' --account-name $(STORAGE_ACCOUNT_NAME) -s "$(Build.SourcesDirectory)/public"
+- task: AzureCLI@1
+  displayName: 'Purge CDN'
+  inputs:
+    azureSubscription: '$(AZURE_SUBSCRIPTION)'
+    scriptLocation: inlineScript
+    inlineScript: |
+      az cdn endpoint purge -g $(RESOURCE_GROUP_NAME) -n $(ENDPOINT_NAME) --profile-name $(PROFILE_CDN_NAME) --content-paths "/*" --no-wait
