@@ -18,27 +18,23 @@ const Footer = ({ locale }) => {
     <footer className="footer">
       <div className="container-fluid">
         <div className="footer__top">
+          
           <div className="row">
-            <div className="col-12 col-md-3 col-lg-2">
+            <div className="col-12">
               <Logo version="light" />
             </div>
-            <div className="col-12 col-md-9 col-lg-10">
-              <div className="row justify-content-between">
-                <div className="col-12 col-md-6 col-lg-auto">
-                  <h5>SEDI</h5>
-                  <div dangerouslySetInnerHTML={{ __html: companyData }} />
-                </div>
-                <div className="col-12 col-md-6 col-lg-4">
-                  <h5>CONTATTI</h5>
-                  <MenuContacts />
-                </div>
-                <div className="col-12 col-md-6 col-lg-auto">
-                  <h5>SEGUICI SU</h5>
-                  <Socials />
-                </div>
-              </div>
+          </div>
+
+          <div className="row justify-content-between">
+            <div className="col-12 col-md-6">
+              <div dangerouslySetInnerHTML={{ __html: companyData }} />
+            </div>
+            <div className="col-12 col-md-auto">
+              <h5>SEGUICI SU</h5>
+              <Socials />
             </div>
           </div>
+          
         </div>
         <div className="footer__bottom">
           <div className="row justify-content-between">
