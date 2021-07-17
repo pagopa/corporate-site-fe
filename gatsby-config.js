@@ -1,8 +1,8 @@
-require("dotenv").config({
+require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 })
 
-const languages = require("./src/data/languages")
+const languages = require('./src/data/languages')
 
 module.exports = {
   siteMetadata: {
@@ -39,7 +39,7 @@ module.exports = {
         additionalData: `@import "${__dirname}/src/sass/vars"`,
         sassOptions: {
           indentedSyntax: true,
-          includePaths: ["node_modules/bootstrap/scss"],
+          includePaths: ['node_modules/bootstrap/scss'],
         },
       },
     },
@@ -48,7 +48,7 @@ module.exports = {
       options: {
         host: process.env.FRONTEND_BASE_URL,
         sitemap: `${process.env.FRONTEND_BASE_URL}/sitemap.xml`,
-        policy: [{ userAgent: "*", disallow: "/" }],
+        policy: [{ userAgent: '*', disallow: '/' }],
       },
     },
     `gatsby-plugin-react-helmet`,

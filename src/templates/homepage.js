@@ -1,9 +1,9 @@
-import React from "react"
+import React from 'react'
 
-import { graphql } from "gatsby"
+import { graphql } from 'gatsby'
 
-import Layout from "../partials/Layout"
-import Block from "../components/Block/Block"
+import Layout from '../partials/Layout'
+import Block from '../components/Block/Block'
 
 const HomePage = ({ data }) => {
   const { node } = data.allWpPage.edges[0],

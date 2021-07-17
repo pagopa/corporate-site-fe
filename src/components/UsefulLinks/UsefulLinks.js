@@ -1,6 +1,6 @@
-import React from "react"
+import React from 'react'
 
-import Cta from "../Cta/Cta"
+import Cta from '../Cta/Cta'
 
 const UsefulLinks = ({ data, classes, locale }) => {
   const { title, links } = data

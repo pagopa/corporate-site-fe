@@ -1,13 +1,13 @@
-import React from "react"
+import React from 'react'
 
-import { Link } from "gatsby"
+import { Link } from 'gatsby'
 
-import "./Cta.sass"
+import './Cta.sass'
 
-const Cta = ({ label, url, blank = false, variant = false, locale = "it" }) => {
-  const isAbsolute = new RegExp("^(?:[a-z]+:)?//", "i")
+const Cta = ({ label, url, blank = false, variant = false, locale = 'it' }) => {
+  const isAbsolute = new RegExp('^(?:[a-z]+:)?//', 'i')
   let urlParts,
-    theUrl = ""
+    theUrl = ''
 
   if (isAbsolute.test(url)) {
     const urlObject = new URL(url)
@@ -24,13 +24,13 @@ const Cta = ({ label, url, blank = false, variant = false, locale = "it" }) => {
         <a
           href={theUrl}
           target="_blank"
-          className={`cta${variant ? ` --${variant}` : ""}`}
+          className={`cta${variant ? ` --${variant}` : ''}`}
           rel="noopene noreferrer"
         >
           <span>{label}</span>
         </a>
       ) : (
-        <Link to={theUrl} className={`cta${variant ? ` --${variant}` : ""}`}>
+        <Link to={theUrl} className={`cta${variant ? ` --${variant}` : ''}`}>
           <span>{label}</span>
         </Link>
       )}

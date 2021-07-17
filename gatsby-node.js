@@ -1,7 +1,7 @@
-const _ = require("lodash")
-const path = require("path")
-const { createFilePath } = require("gatsby-source-filesystem")
-const { paginate } = require("gatsby-awesome-pagination")
+const _ = require('lodash')
+const path = require('path')
+const { createFilePath } = require('gatsby-source-filesystem')
+const { paginate } = require('gatsby-awesome-pagination')
 
 exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions

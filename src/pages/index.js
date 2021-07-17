@@ -1,29 +1,31 @@
 import { useEffect } from 'react'
 
 import { navigate } from 'gatsby'
+import { useSiteMetadata } from '../hooks/useSiteMetadata'
 
-const getRedirectLanguage = () => {
-  if (typeof navigator === `undefined`) {
-    return 'en'
-  }
+const getRedirectLanguage = (defaultLanguage, languages) => {
+  let targetLanguage = defaultLanguage
 
-  const lang = navigator && navigator.language && navigator.language.split('-')[0]
-  
-  if (!lang) return 'en'
+  if (typeof navigator === `undefined`) return targetLanguage
 
-  switch (lang) {
-    case 'it':
-      return 'it'
-    default:
-      return 'en'
-  }
+  const userLanguage =
+    navigator && navigator.language && navigator.language.split('-')[0]
+
+  if (!userLanguage) return targetLanguage
+
+  languages.forEach(language => {
+    if (language === userLanguage) targetLanguage = language
+  })
+
+  return targetLanguage
 }
 
 const IndexPage = () => {
+  const { defaultLanguage, languages } = useSiteMetadata()
   useEffect(() => {
-    const urlLang = getRedirectLanguage()
-    navigate(`/${urlLang}/`, {
-      replace: true
+    const urlLanguage = getRedirectLanguage(defaultLanguage, languages)
+    navigate(`/${urlLanguage}/`, {
+      replace: true,
     })
   }, [])
   return null

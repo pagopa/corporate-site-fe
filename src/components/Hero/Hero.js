@@ -1,20 +1,20 @@
-import React, { useState } from "react"
+import React, { useState } from 'react'
 
 import SwiperCore, {
   Navigation,
   Pagination,
   EffectFade,
   Controller,
-} from "swiper"
+} from 'swiper'
 
-import { Swiper, SwiperSlide } from "swiper/react"
-import "swiper/swiper.min.css"
-import "swiper/components/effect-fade/effect-fade.min.css"
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/swiper.min.css'
+import 'swiper/components/effect-fade/effect-fade.min.css'
 
-import Cta from "../Cta/Cta"
-import Image from "../Image/Image"
+import Cta from '../Cta/Cta'
+import Image from '../Image/Image'
 
-import "./Hero.sass"
+import './Hero.sass'
 
 SwiperCore.use([Navigation, Pagination, EffectFade, Controller])
 
@@ -86,15 +86,15 @@ const Hero = ({ data, locale }) => {
                 centeredSlides={true}
                 loop={swiperCommons.loop}
                 navigation={{
-                  prevEl: ".hero__nav.--prev",
-                  nextEl: ".hero__nav.--next",
+                  prevEl: '.hero__nav.--prev',
+                  nextEl: '.hero__nav.--next',
                 }}
                 pagination={{
                   clickable: true,
-                  el: ".hero__pagination",
-                  bulletClass: "bullet",
-                  bulletActiveClass: "is-current",
-                  type: "bullets",
+                  el: '.hero__pagination',
+                  bulletClass: 'bullet',
+                  bulletActiveClass: 'is-current',
+                  type: 'bullets',
                 }}
                 controller={{
                   control: contentSwiper,

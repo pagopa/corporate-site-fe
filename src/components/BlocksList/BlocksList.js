@@ -1,7 +1,7 @@
-import React from "react"
+import React from 'react'
 
-import Image from "../Image/Image"
-import "./BlocksList.sass"
+import Image from '../Image/Image'
+import './BlocksList.sass'
 
 const BlocksList = ({ data, classes, locale }) => {
   const { template, title: blockTitle, items: blocks } = data
@@ -21,13 +21,13 @@ const BlocksList = ({ data, classes, locale }) => {
                   const { image, text } = block
 
                   const isOdd = key % 2
-                  const hasOffset = template === "staggered" && isOdd
+                  const hasOffset = template === 'staggered' && isOdd
 
                   return (
                     <div
                       className={`col-12 col-md-5${
-                        isOdd ? " offset-md-1" : ""
-                      }${hasOffset ? " offset" : ""}`}
+                        isOdd ? ' offset-md-1' : ''
+                      }${hasOffset ? ' offset' : ''}`}
                       key={key}
                     >
                       <div className={`blocks-list-entry`}>

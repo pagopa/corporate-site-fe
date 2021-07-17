@@ -1,14 +1,14 @@
-import React from "react"
+import React from 'react'
 
-import { useWpOptionsPage } from "../../hooks/useWpOptionsPage"
+import { useWpOptionsPage } from '../../hooks/useWpOptionsPage'
 
-import Logo from "../Logo/Logo"
-import Socials from "../Socials/Socials"
-import Language from "../Language/Language"
-import MenuFooter from "../MenuFooter/MenuFooter"
-import MenuContacts from "../MenuContacts/MenuContacts"
+import Logo from '../Logo/Logo'
+import Socials from '../Socials/Socials'
+import Language from '../Language/Language'
+import MenuFooter from '../MenuFooter/MenuFooter'
+import MenuContacts from '../MenuContacts/MenuContacts'
 
-import "./Footer.sass"
+import './Footer.sass'
 
 const Footer = ({ locale }) => {
   // const date = new Date().getFullYear()

@@ -1,24 +1,24 @@
-import React from "react"
+import React from 'react'
 
-import Image from "../Image/Image"
+import Image from '../Image/Image'
 
-import "./Visual.sass"
+import './Visual.sass'
 
 const Text = ({ data, classes, locale }) => {
   const { template, caption, image } = data
 
   const layout = {
     wide: {
-      columns: "col-md-10 offset-md-1",
-      type: "wide",
+      columns: 'col-md-10 offset-md-1',
+      type: 'wide',
     },
     sx: {
-      columns: "col-md-6 offset-md-1",
-      type: "partial",
+      columns: 'col-md-6 offset-md-1',
+      type: 'partial',
     },
     dx: {
-      columns: "col-md-6 offset-md-6",
-      type: "partial",
+      columns: 'col-md-6 offset-md-6',
+      type: 'partial',
     },
   }
 

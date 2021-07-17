@@ -1,8 +1,8 @@
-import React from "react"
+import React from 'react'
 
-import { useWpOptionsPage } from "../../hooks/useWpOptionsPage"
-import { ReactSVG } from "react-svg"
-import "./Socials.sass"
+import { useWpOptionsPage } from '../../hooks/useWpOptionsPage'
+import { ReactSVG } from 'react-svg'
+import './Socials.sass'
 
 const Socials = ({ header }) => {
   const { socials } = useWpOptionsPage()
@@ -18,7 +18,7 @@ const Socials = ({ header }) => {
 
   return (
     <>
-      <ul className={`socials${header ? " --in-header" : ""}`}>
+      <ul className={`socials${header ? ' --in-header' : ''}`}>
         {collection.map((social, key) => {
           return (
             <li key={key}>

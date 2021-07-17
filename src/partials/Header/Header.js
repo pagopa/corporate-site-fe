@@ -19,7 +19,6 @@ const Header = ({ siteTitle, slug }) => (
         </div>
       </div>
     </div>
-
   </header>
 )
 

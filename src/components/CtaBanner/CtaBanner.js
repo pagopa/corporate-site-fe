@@ -1,7 +1,7 @@
-import React from "react"
+import React from 'react'
 
-import Cta from "../Cta/Cta"
-import "./CtaBanner.sass"
+import Cta from '../Cta/Cta'
+import './CtaBanner.sass'
 
 const CtaBanner = ({ data, classes, locale }) => {
   const { title: ctaMessage, bannerCtaLink: link } = data

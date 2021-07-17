@@ -3,11 +3,10 @@ import { useStaticQuery, graphql } from 'gatsby'
 
 import './MenuContacts.sass'
 
-
 const MenuContacts = () => {
   const data = useStaticQuery(graphql`
     query MenuContacts {
-      wpMenu(name: {eq: "Contacts"}) {
+      wpMenu(name: { eq: "Contacts" }) {
         menuItems {
           nodes {
             url
@@ -26,7 +25,9 @@ const MenuContacts = () => {
         {menu.map((_item, key) => {
           return (
             <li key={key}>
-              <a href={_item.url} target="_blank" rel="noopener noreferrer">{_item.label}</a>
+              <a href={_item.url} target="_blank" rel="noopener noreferrer">
+                {_item.label}
+              </a>
             </li>
           )
         })}

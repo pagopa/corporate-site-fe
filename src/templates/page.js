@@ -8,9 +8,7 @@ const Page = ({ data, intl }) => {
 
   return (
     <Layout>
-      <h2>
-        {page.title}
-      </h2>
+      <h2>{page.title}</h2>
       <div
         className="content"
         dangerouslySetInnerHTML={{ __html: page.content }}
@@ -19,12 +17,11 @@ const Page = ({ data, intl }) => {
   )
 }
 
-
 export default injectIntl(Page)
 
 export const pageQuery = graphql`
   query PageById($id: String!) {
-    wpPage(id: {eq: $id}) {
+    wpPage(id: { eq: $id }) {
       id
       title
       content

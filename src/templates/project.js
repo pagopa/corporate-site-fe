@@ -1,15 +1,14 @@
-import React from "react"
+import React from 'react'
 
-import { graphql } from "gatsby"
+import { graphql } from 'gatsby'
 
-import Layout from "../partials/Layout"
-import Block from "../components/Block/Block"
+import Layout from '../partials/Layout'
+import Block from '../components/Block/Block'
 
 const ProjectPage = ({ data }) => {
-
   const { node } = data.allWpPage.edges[0],
     blocks = node.flexibleContent.body.blocks
-    
+
   const currentLocale = node.locale.id,
     currentSlug = node.slug
 
@@ -26,9 +25,7 @@ export default ProjectPage
 
 export const projectQuery = graphql`
   query project($locale: ID) {
-    allWpProject(
-      filter: {locale: { id: { eq: $locale } }}
-    ) {
+    allWpProject(filter: { locale: { id: { eq: $locale } } }) {
       edges {
         node {
           locale {
@@ -162,8 +159,6 @@ export const projectQuery = graphql`
                     }
                   }
                 }
-
-
               }
             }
           }

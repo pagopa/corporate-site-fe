@@ -54,7 +54,12 @@ export const MenuItem = ({ item, currentPath }) => {
   // }
 
   return (
-    <li className={`menu-main__item ${classes.join(' ')} ${submenuOpen ? 'is-sub-open' : ''}`} {...props}>
+    <li
+      className={`menu-main__item ${classes.join(' ')} ${
+        submenuOpen ? 'is-sub-open' : ''
+      }`}
+      {...props}
+    >
       <ItemMarkup />
 
       {hasChildren && (
@@ -96,7 +101,9 @@ const MenuMain = ({ currentPath }) => {
   return (
     <nav className="menu-main">
       <ul>
-        {menu.map((item, key) => <MenuItem item={item} currentPath={currentPath} key={key} />)}
+        {menu.map((item, key) => (
+          <MenuItem item={item} currentPath={currentPath} key={key} />
+        ))}
       </ul>
     </nav>
   )

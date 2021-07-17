@@ -1,6 +1,6 @@
-import React from "react"
-import Cta from "../Cta/Cta"
-import Image from "../Image/Image"
+import React from 'react'
+import Cta from '../Cta/Cta'
+import Image from '../Image/Image'
 
 const VisualText = ({ data, classes, locale }) => {
   const { reverse, backgroundColor, content, visual } = data
@@ -16,7 +16,7 @@ const VisualText = ({ data, classes, locale }) => {
     if (!reverse) {
       if (visualWidth <= 5) {
         visualColumns = `col-md-${visualWidth} offset-md-1`
-        contentColumns = `col-md-5${visualWidth < 5 ? " offset-md-1" : ""}`
+        contentColumns = `col-md-5${visualWidth < 5 ? ' offset-md-1' : ''}`
       } else {
         if (visualWidth > 5 && visualWidth < 9) {
           visualColumns = `col-md-${visualWidth}`
@@ -37,16 +37,16 @@ const VisualText = ({ data, classes, locale }) => {
   return (
     <section
       className={`block --${classes}${
-        backgroundColor ? " --has-bg-color" : ""
+        backgroundColor ? ' --has-bg-color' : ''
       }`}
       style={{
-        backgroundColor: backgroundColor ? backgroundColor : "transparent",
+        backgroundColor: backgroundColor ? backgroundColor : 'transparent',
       }}
     >
       <div className="container-fluid">
         <div
           className={`row align-items-center${
-            reverse ? " flex-row-reverse justify-content-end" : ""
+            reverse ? ' flex-row-reverse justify-content-end' : ''
           }`}
         >
           {fullWidthLayout && (

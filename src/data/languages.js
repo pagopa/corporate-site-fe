@@ -1,4 +1,5 @@
 module.exports = {
-  keys: ['it', 'en'],
-  default: 'it'
+  // keys: ['it', 'en'],
+  keys: ['it'],
+  default: 'it',
 }

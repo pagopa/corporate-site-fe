@@ -1,18 +1,21 @@
-import React from "react"
+import React from 'react'
 
-import "./ContactsList.sass"
+import './ContactsList.sass'
 
 const ContactsList = ({ data, classes, locale }) => {
   const { title, contacts: items } = data
 
   return (
-    <section className={`block --${classes} contacts-list${!title ? " --no-title" : ""}`}>
+    <section
+      className={`block --${classes} contacts-list${
+        !title ? ' --no-title' : ''
+      }`}
+    >
       <div className="container-fluid">
         <div className="row align-items-center">
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
             {title && <h1>{title}</h1>}
             <div className="row">
-
               {items.map((item, key) => {
                 const { title, email } = item
                 return (
@@ -35,7 +38,6 @@ const ContactsList = ({ data, classes, locale }) => {
                   </div>
                 )
               })}
-              
             </div>
           </div>
         </div>

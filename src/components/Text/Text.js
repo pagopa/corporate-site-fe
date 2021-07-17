@@ -1,12 +1,12 @@
-import React from "react"
+import React from 'react'
 
-import Cta from "../Cta/Cta"
-import "./Text.sass"
+import Cta from '../Cta/Cta'
+import './Text.sass'
 
 const Text = ({ data, classes, locale }) => {
   const { template, content } = data
 
-  const columns = template === "outdented" ? "col-lg-6" : "col-lg-8 offset-lg-2"
+  const columns = template === 'outdented' ? 'col-lg-6' : 'col-lg-8 offset-lg-2'
 
   const { eyelet, title, text, note, link } = content
 
@@ -17,7 +17,7 @@ const Text = ({ data, classes, locale }) => {
           <div className={`col-12 col-md-10 offset-md-1 ${columns}`}>
             {eyelet && <h4>{eyelet}</h4>}
             {title ? (
-              template === "centered" ? (
+              template === 'centered' ? (
                 <h2>{title}</h2>
               ) : (
                 <h1>{title}</h1>

@@ -1,13 +1,13 @@
-import React from "react"
+import React from 'react'
 
-import SwiperCore, { Navigation } from "swiper"
+import SwiperCore, { Navigation } from 'swiper'
 
-import { Swiper, SwiperSlide } from "swiper/react"
-import "swiper/swiper.min.css"
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/swiper.min.css'
 
-import Cta from "../Cta/Cta"
-import Image from "../Image/Image"
-import "./ProjectsCarousel.sass"
+import Cta from '../Cta/Cta'
+import Image from '../Image/Image'
+import './ProjectsCarousel.sass'
 
 SwiperCore.use([Navigation])
 
@@ -43,8 +43,8 @@ const ProjectsCarousel = ({ data, locale, classes }) => {
                 spaceBetween={swiperCommons.spaceBetween}
                 slidesPerView={swiperCommons.slidesPerView}
                 navigation={{
-                  prevEl: ".projects-carousel__nav.--prev",
-                  nextEl: ".projects-carousel__nav.--next",
+                  prevEl: '.projects-carousel__nav.--prev',
+                  nextEl: '.projects-carousel__nav.--next',
                 }}
               >
                 {items.map(
@@ -79,7 +79,7 @@ const ProjectsCarousel = ({ data, locale, classes }) => {
                             {image && (
                               <Image
                                 image={image.localFile}
-                                title={image.altText ? image.altText : "image"}
+                                title={image.altText ? image.altText : 'image'}
                               />
                             )}
                           </div>

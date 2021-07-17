@@ -1,8 +1,8 @@
-import React from "react"
+import React from 'react'
 
-import Image from "../Image/Image"
+import Image from '../Image/Image'
 
-import "./MapBox.sass"
+import './MapBox.sass'
 
 const MapBox = ({ data, classes, locale }) => {
   const { image, items } = data
