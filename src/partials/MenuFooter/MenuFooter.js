@@ -9,7 +9,7 @@ const MenuFooter = () => {
       wpMenu(name: { eq: "End Footer" }) {
         menuItems {
           nodes {
-            url
+            path
             label
           }
         }
@@ -22,11 +22,12 @@ const MenuFooter = () => {
   return (
     <nav className="menu-footer">
       <ul>
-        {menu.map((_item, key) => {
+        {menu.map((item, key) => {
+          const { path, label } = item
           return (
             <li key={key}>
-              <a href={_item.url} target="_blank" rel="noopener noreferrer">
-                {_item.label}
+              <a href={path} target="_blank" rel="noopener noreferrer">
+                {label}
               </a>
             </li>
           )
