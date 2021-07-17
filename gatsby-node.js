@@ -7,9 +7,10 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const pageTemplate = path.resolve(`./src/templates/page.js`)
 
   const result = await graphql(`
-
     {
-      homePages: allWpPage(filter: { template: { templateName: { eq: "Homepage" } } }) {
+      homePages: allWpPage(
+        filter: { template: { templateName: { eq: "Homepage" } } }
+      ) {
         edges {
           node {
             id
@@ -19,7 +20,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           }
         }
       }
-      defaultPages: allWpPage(filter: {template: {templateName: {eq: "Default"}}}) {
+      defaultPages: allWpPage(
+        filter: { template: { templateName: { eq: "Default" } } }
+      ) {
         edges {
           node {
             id
@@ -51,7 +54,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       },
     })
   })
-  
+
   const defaultNodes = result.data.defaultPages.edges
 
   _.each(defaultNodes, ({ node: page }) => {
@@ -64,5 +67,4 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       },
     })
   })
-
 }
