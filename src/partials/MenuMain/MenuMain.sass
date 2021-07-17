@@ -5,7 +5,7 @@
 
     li
       position: relative
-      margin: 0 1.6rem
+      padding: 0 1.6rem
       font-family: 'Roboto Mono'
       font-weight: 700
       text-transform: uppercase
@@ -29,7 +29,12 @@
           border-radius: 50%
 
       &.w-sub
-        padding-right: 2rem
+        padding-right: 3.6rem
+
+        &.is-sub-open, &:hover
+          > ul
+            opacity: 1
+            visibility: visible
 
         &::after
           content: ''
@@ -40,7 +45,7 @@
           top: 50%
           transform: translateY(-50%)
           transform-origin: center center
-          right: 0
+          right: 1.6rem
           background-image: url(../../images/ui/chevron-down.svg)
           margin-left: .8rem
     
@@ -50,7 +55,6 @@
         left: 50%
         transform: translate3d(-50%, 0, 0)
         min-width: 24rem
-        background-color: rgba(#FFF, .8)
         opacity: 0
         visibility: hidden
         display: block
@@ -87,9 +91,3 @@
               border-bottom: 1.6rem solid $c-brand
               border-left: 1.2rem solid transparent
               border-right: 1.2rem solid transparent
-            
-      
-      &:hover
-        > ul
-          opacity: 1
-          visibility: visible

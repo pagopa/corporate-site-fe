@@ -16,7 +16,7 @@ const MapBox = ({ data, classes, locale }) => {
               <div className="row">
                 <div className="col-12 col-md-5 pe-md-0">
                   <figure>
-                    <Image image={image.localFile} />
+                    <Image image={image.localFile} title="" />
                   </figure>
                 </div>
                 <div className="col-12 col-md-7">

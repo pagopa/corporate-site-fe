@@ -15,7 +15,7 @@ const CtaGrid = ({ data, classes, locale }) => {
               {items.map((item, key) => {
                 const { title, text, link } = item
                 return (
-                  <div className="col-12 col-md-6 col-lg-4 d-flex">
+                  <div className="col-12 col-md-6 col-lg-4 d-flex" key={key}>
                     <div className="cta-grid__entry">
                       <div>
                         <h4 className="cta-grid__title --primary">{title}</h4>
