@@ -1,18 +1,30 @@
 const _ = require('lodash')
 const path = require('path')
-const { createFilePath } = require('gatsby-source-filesystem')
-const { paginate } = require('gatsby-awesome-pagination')
 
-exports.createPages = ({ actions, graphql }) => {
+exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions
 
-  return graphql(`
+  const pageTemplate = path.resolve(`./src/templates/page.js`)
+
+  const result = await graphql(`
+
     {
-      allWpPage(filter: { template: { templateName: { eq: "Homepage" } } }) {
+      homePages: allWpPage(filter: { template: { templateName: { eq: "Homepage" } } }) {
+        edges {
+          node {
+            id
+            locale {
+              id
+            }
+          }
+        }
+      }
+      defaultPages: allWpPage(filter: {template: {templateName: {eq: "Default"}}}) {
         edges {
           node {
             id
             slug
+            uri
             locale {
               id
             }
@@ -20,61 +32,37 @@ exports.createPages = ({ actions, graphql }) => {
         }
       }
     }
-  `).then(result => {
-    if (result.errors) {
-      result.errors.forEach(e => console.error(e.toString()))
-      return Promise.reject(result.errors)
-    }
+  `)
 
-    const homeTemplate = path.resolve(`./src/templates/homepage.js`)
+  if (result.errors) {
+    reporter.panicOnBuild(`Something went horrible wrong!`, result.errors)
+    return
+  }
 
-    const homepages = result.data.allWpPage.edges
+  const homepageNodes = result.data.homePages.edges
 
-    _.each(homepages, ({ node: page }) => {
-      createPage({
-        // path: `/${page.slug}/`,
-        path: `/${page.locale.id}/`,
-        component: homeTemplate,
-        context: {
-          id: page.id,
-          locale: page.locale.id,
-        },
-      })
+  _.each(homepageNodes, ({ node: page }) => {
+    createPage({
+      path: `/${page.locale.id}/`,
+      component: pageTemplate,
+      context: {
+        id: page.id,
+        locale: page.locale.id,
+      },
     })
   })
+  
+  const defaultNodes = result.data.defaultPages.edges
+
+  _.each(defaultNodes, ({ node: page }) => {
+    createPage({
+      path: `/${page.locale.id}/${page.uri}`,
+      component: pageTemplate,
+      context: {
+        id: page.id,
+        locale: page.locale.id,
+      },
+    })
+  })
+
 }
-
-// exports.onCreatePage = ({ page, actions }) => {
-//   const { createPage, deletePage } = actions
-//   const { locale } = page.context
-//   const { language, originalPath } = page.context.intl
-
-//   deletePage(page)
-
-//   const pathExceptions = ['/', '/dev-404-page/'];
-//   const localeCheck = locale === language;
-//   const pathCheck = pathExceptions.indexOf(originalPath) !== -1;
-
-//   if (localeCheck || pathCheck) {
-//     createPage({
-//       ...page,
-//       context: {
-//         ...page.context,
-//         locale: page.context.intl.language,
-//       },
-//     })
-//   }
-// }
-
-// exports.onCreateNode = ({ node, actions, getNode }) => {
-//   const { createNodeField } = actions
-
-//   if (node.internal.type === `MarkdownRemark`) {
-//     const value = createFilePath({ node, getNode })
-//     createNodeField({
-//       name: `slug`,
-//       node,
-//       value,
-//     })
-//   }
-// }
