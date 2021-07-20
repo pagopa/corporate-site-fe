@@ -64,8 +64,11 @@ module.exports = {
       resolve: `gatsby-plugin-sharp`,
       options: {
         defaults: {
-          placeholder: `dominantColor`,
+          placeholder: `tracedSVG`,
           quality: 90,
+          tracedSVGOptions: {
+            color: '#00a1b0',
+          },
         },
       },
     },

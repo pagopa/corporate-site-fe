@@ -243,6 +243,21 @@ export const pageQuery = graphql`
                 title
               }
             }
+            ... on WpPage_Flexiblecontent_Body_Blocks_BlockLogoLinks {
+              fieldGroupName
+              title
+              items {
+                image {
+                  altText
+                  localFile {
+                    childImageSharp {
+                      gatsbyImageData
+                    }
+                  }
+                }
+                logoLink
+              }
+            }
           }
         }
       }

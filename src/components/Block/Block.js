@@ -8,6 +8,7 @@ import Intro from './../Intro/Intro'
 import MapBox from './../MapBox/MapBox'
 import Visual from './../Visual/Visual'
 import CtaGrid from './../CtaGrid/CtaGrid'
+import LogoLinks from './../LogoLinks/LogoLinks'
 import CtaBanner from './../CtaBanner/CtaBanner'
 import BlocksList from './../BlocksList/BlocksList'
 import VisualText from './../VisualText/VisualText'
@@ -35,11 +36,7 @@ const Block = ({ data, locale }) => {
       )}
       {data.fieldGroupName ===
         'Page_Flexiblecontent_Body_Blocks_ProjectCarousel' && (
-        <ProjectsCarousel
-          data={data}
-          classes="block-project-carousel"
-          locale={locale}
-        />
+        <ProjectsCarousel data={data} classes="block-project-carousel" locale={locale} />
       )}
       {data.fieldGroupName ===
         'Page_Flexiblecontent_Body_Blocks_BlockVisual' && (
@@ -62,15 +59,15 @@ const Block = ({ data, locale }) => {
       )}
       {data.fieldGroupName ===
         'Page_Flexiblecontent_Body_Blocks_BlockContactsList' && (
-        <ContactsList
-          data={data}
-          classes="block-contacts-list"
-          locale={locale}
-        />
+        <ContactsList data={data} classes="block-contacts-list" locale={locale} />
       )}
       {data.fieldGroupName ===
         'Page_Flexiblecontent_Body_Blocks_BlockMapBox' && (
         <MapBox data={data} classes="block-map-box" locale={locale} />
+      )}
+      {data.fieldGroupName ===
+        'Page_Flexiblecontent_Body_Blocks_BlockLogoLinks' && (
+        <LogoLinks data={data} classes="block-logo-links" locale={locale} />
       )}
     </>
   )
