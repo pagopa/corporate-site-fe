@@ -67,7 +67,7 @@ module.exports = {
           placeholder: `tracedSVG`,
           quality: 90,
           tracedSVGOptions: {
-            color: '#00a1b0',
+            color: '#9ad8de',
           },
         },
       },
