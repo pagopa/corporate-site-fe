@@ -6,17 +6,17 @@ import Layout from '../partials/Layout'
 import Block from '../components/Block/Block'
 
 const ProjectPage = ({ data }) => {
-  const { node } = data.allWpPage.edges[0],
-    blocks = node.flexibleContent.body.blocks
+  const { title, slug, locale, flexibleContent, nodeType } = data.wpProject,
+    blocks = flexibleContent.body.blocks
 
-  const currentLocale = node.locale.id,
-    currentSlug = node.slug
+  const currentLocale = locale.id,
+    currentSlug = slug
 
   return (
     <Layout locale={currentLocale} slug={currentSlug}>
       {blocks &&
         blocks.map((block, key) => {
-          return <Block data={block} locale={currentLocale} key={key} />
+          return <Block data={block} locale={currentLocale} key={key} type={nodeType} />
         })}
     </Layout>
   )
@@ -24,84 +24,111 @@ const ProjectPage = ({ data }) => {
 export default ProjectPage
 
 export const projectQuery = graphql`
-  query project($locale: ID) {
-    allWpProject(filter: { locale: { id: { eq: $locale } } }) {
-      edges {
-        node {
-          locale {
-            id
-          }
-          title
-          slug
-          flexibleContent {
-            body {
-              blocks {
-                ... on WpProject_Flexiblecontent_Body_Blocks_HeroSlider {
-                  fieldGroupName
-                  items {
-                    content {
-                      text
-                      title
-                      link {
-                        target
-                        title
-                        url
-                      }
-                    }
-                    image {
-                      altText
-                      localFile {
-                        childImageSharp {
-                          gatsbyImageData(
-                            placeholder: DOMINANT_COLOR
-                            layout: FULL_WIDTH
-                            quality: 90
-                            width: 520
-                            height: 400
-                            aspectRatio: 1.3
-                            transformOptions: { cropFocus: ATTENTION }
-                          )
-                        }
-                      }
+  query project($id: String!) {
+    wpProject(id: { eq: $id }) {
+      nodeType
+      locale {
+        id
+      }
+      title
+      slug
+      flexibleContent {
+        body {
+          blocks {
+            ... on WpProject_Flexiblecontent_Body_Blocks_HeroSlider {
+              fieldGroupName
+              items {
+                content {
+                  text
+                  title
+                  link {
+                    target
+                    title
+                    url
+                  }
+                }
+                image {
+                  altText
+                  localFile {
+                    childImageSharp {
+                      gatsbyImageData(
+                        layout: FULL_WIDTH
+                        width: 520
+                        height: 400
+                        aspectRatio: 1.3
+                        transformOptions: { cropFocus: ATTENTION }
+                      )
                     }
                   }
                 }
-                ... on WpProject_Flexiblecontent_Body_Blocks_BlockText {
+              }
+            }
+            ... on WpProject_Flexiblecontent_Body_Blocks_BlockText {
+              fieldGroupName
+              template
+              content {
+                eyelet
+                link {
+                  target
+                  title
+                  url
+                }
+                note {
                   fieldGroupName
-                  template
-                  content {
-                    eyelet
-                    link {
-                      target
-                      title
-                      url
+                  noteText
+                  noteTitle
+                }
+                text
+                title
+              }
+            }
+            ... on WpProject_Flexiblecontent_Body_Blocks_BlockVisualText {
+              fieldGroupName
+              reverse
+              backgroundColor
+              content {
+                eyelet
+                text
+                title
+                link {
+                  title
+                  url
+                  target
+                }
+              }
+              visual {
+                width
+                image {
+                  altText
+                  localFile {
+                    childImageSharp {
+                      gatsbyImageData
                     }
-                    note {
-                      fieldGroupName
-                      noteText
-                      noteTitle
-                    }
-                    text
-                    title
                   }
                 }
-                ... on WpProject_Flexiblecontent_Body_Blocks_BlockVisualText {
-                  fieldGroupName
-                  reverse
-                  backgroundColor
-                  content {
-                    eyelet
-                    text
-                    title
-                    link {
-                      title
-                      url
-                      target
-                    }
-                  }
-                  visual {
-                    width
-                    image {
+              }
+            }
+            ... on WpProject_Flexiblecontent_Body_Blocks_UsefulLinks {
+              fieldGroupName
+              title
+              links {
+                link {
+                  target
+                  title
+                  url
+                }
+              }
+            }
+            ... on WpProject_Flexiblecontent_Body_Blocks_ProjectCarousel {
+              fieldGroupName
+              title
+              items {
+                ... on WpProject {
+                  title
+                  slug
+                  nodeType
+                  featuredImage {
+                    node {
                       altText
                       localFile {
                         childImageSharp {
@@ -110,55 +137,126 @@ export const projectQuery = graphql`
                       }
                     }
                   }
-                }
-                ... on WpProject_Flexiblecontent_Body_Blocks_UsefulLinks {
-                  fieldGroupName
-                  title
-                  links {
-                    link {
-                      target
+                  projectCustomFields {
+                    carouselFields {
+                      button
+                      text
                       title
-                      url
-                    }
-                  }
-                }
-
-                ... on WpProject_Flexiblecontent_Body_Blocks_ProjectCarousel {
-                  fieldGroupName
-                  title
-                  items {
-                    ... on WpProject {
-                      title
-                      slug
-                      nodeType
-                      featuredImage {
-                        node {
-                          altText
-                          localFile {
-                            childImageSharp {
-                              gatsbyImageData
-                            }
-                          }
-                        }
-                      }
-                      projectCustomFields {
-                        carouselFields {
-                          button
-                          text
-                          title
-                          image {
-                            altText
-                            localFile {
-                              childImageSharp {
-                                gatsbyImageData
-                              }
-                            }
+                      image {
+                        altText
+                        localFile {
+                          childImageSharp {
+                            gatsbyImageData
                           }
                         }
                       }
                     }
                   }
                 }
+              }
+            }
+            ... on WpProject_Flexiblecontent_Body_Blocks_BlockVisual {
+              caption
+              fieldGroupName
+              template
+              image {
+                altText
+                localFile {
+                  childImageSharp {
+                    gatsbyImageData
+                  }
+                }
+              }
+            }
+            ... on WpProject_Flexiblecontent_Body_Blocks_BlockIntro {
+              fieldGroupName
+              eyelet
+              title
+              text
+              image {
+                altText
+                localFile {
+                  childImageSharp {
+                    gatsbyImageData(layout: FULL_WIDTH)
+                  }
+                }
+              }
+            }
+            ... on WpProject_Flexiblecontent_Body_Blocks_BlockList {
+              fieldGroupName
+              template
+              title
+              items {
+                title
+                text
+                image {
+                  altText
+                  localFile {
+                    childImageSharp {
+                      gatsbyImageData
+                    }
+                  }
+                }
+              }
+            }
+            ... on WpProject_Flexiblecontent_Body_Blocks_BlockBannerCta {
+              fieldGroupName
+              title
+              bannerCtaLink {
+                target
+                title
+                url
+              }
+            }
+            ... on WpProject_Flexiblecontent_Body_Blocks_BlockCtaGrid {
+              fieldGroupName
+              items {
+                text
+                title
+                link {
+                  target
+                  title
+                  url
+                }
+              }
+            }
+            ... on WpProject_Flexiblecontent_Body_Blocks_BlockContactsList {
+              fieldGroupName
+              title
+              contacts {
+                email
+                fieldGroupName
+                title
+              }
+            }
+            ... on WpProject_Flexiblecontent_Body_Blocks_BlockMapBox {
+              fieldGroupName
+              image {
+                localFile {
+                  childImageSharp {
+                    gatsbyImageData
+                  }
+                }
+                altText
+              }
+              items {
+                text
+                title
+              }
+            }
+            ... on WpProject_Flexiblecontent_Body_Blocks_BlockLogoLinks {
+              fieldGroupName
+              title
+              items {
+                image {
+                  altText
+                  localFile {
+                    childImageSharp {
+                      gatsbyImageData
+                    }
+                  }
+                }
+                logoLink
               }
             }
           }

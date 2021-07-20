@@ -47,9 +47,7 @@ const ProjectsCarousel = ({ data, locale, classes }) => {
                   nextEl: '.projects-carousel__nav.--next',
                 }}
               >
-                {items.map(
-                  (
-                    {
+                {items.map(({
                       projectCustomFields,
                       title,
                       slug,

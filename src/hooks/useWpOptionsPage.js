@@ -8,6 +8,11 @@ export const useWpOptionsPage = () => {
       wp(locales: { eq: "it" }) {
         options {
           globalData {
+            translations {
+              stringKey
+              itValue
+              enValue
+            }
             companyData
             newsletter {
               checkboxesTitle

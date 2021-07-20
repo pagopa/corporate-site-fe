@@ -1,81 +1,58 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import { useStaticQuery, graphql, Link } from 'gatsby'
 
+import { LocaleContext } from '../../contexts/LocaleContext.js'
+import { useWpOptionsPage } from '../../hooks/useWpOptionsPage'
 import { menuHierarchify } from '../../helpers/menuHierarchify'
+
 import './MenuMain.sass'
 
-export const MenuItem = ({ item, currentPath }) => {
-  const [submenuOpen, setSubmenuOpen] = useState(false)
-  const openTheSubmenu = () => setSubmenuOpen(true)
-  const closeTheSubmenu = () => setSubmenuOpen(false)
+const convertCPTDir = (fragments, translations, locale) => {
+  
+  let newPath
 
-  const { label, path, cssClasses, childItems: children } = item
-  const slug = path.match(/[^/]+/g).slice(-1)[0]
-  const classes = [...cssClasses]
-  const isDisabled = classes.includes('disabled')
-  const isExternal = new RegExp('^(?:[a-z]+:)?//', 'i')
-  const hasChildren = children.length ? true : false
+  if (fragments.find(f => f === 'project')) {
+    const projectTranslations = translations.find(
+        t => t.stringKey === 'project_cpt_slug'
+      ),
+      projectDir =
+        locale === 'it' ? projectTranslations.itValue : projectTranslations.enValue
 
-  // current class check
-  if (slug === currentPath) classes.push('is-current')
-  if (hasChildren) {
-    classes.push('w-sub')
-    children.forEach(child => {
-      const childSlug = child.path.match(/[^/]+/g).slice(-1)[0]
-      if (childSlug === currentPath) classes.push('is-current')
-    })
+    newPath = `/it/${projectDir}/${fragments.slice(-1)[0]}`
+  } else {
+    newPath = `/${fragments.join('/')}`
   }
-  // end current class check
+  return newPath
+}
 
-  const ItemMarkup = () => {
+export const MenuItem = ({ item, isDisabled, locale }) => {
+  const { translations } = useWpOptionsPage()
+
+  const { label, path, cssClasses } = item
+
+  const pathFragments = path.match(/[^/]+/g)
+
+  const newUrl = convertCPTDir(pathFragments, translations, locale)
+
+  const isExternal = new RegExp('^(?:[a-z]+:)?//', 'i')
+
+  const TheLink = () => {
     if (isDisabled) {
-      return <span {...props}>{label}</span>
+      return <span>{label}</span>
     } else {
       if (isExternal.test(path)) {
         return (
-          <a href={path} target="_blank" rel="noopener noreferrer" {...props}>
+          <a href={path} target="_blank" rel="noopener noreferrer">
             {label}
           </a>
         )
       } else {
-        return (
-          <Link to={path} {...props}>
-            {label}
-          </Link>
-        )
+        return <Link to={newUrl}>{label}</Link>
       }
     }
   }
 
-  const props = {}
-  // if (hasChildren) {
-  //   props.onMouseEnter = openTheSubmenu
-  //   props.onMouseLeave = closeTheSubmenu
-  // }
-
-  return (
-    <li
-      className={`menu-main__item ${classes.join(' ')} ${
-        submenuOpen ? 'is-sub-open' : ''
-      }`}
-      {...props}
-    >
-      <ItemMarkup />
-
-      {hasChildren && (
-        <ul>
-          {children.map((item, key) => {
-            const { label, path } = item
-            return (
-              <li key={key}>
-                <Link to={path}>{label}</Link>
-              </li>
-            )
-          })}
-        </ul>
-      )}
-    </li>
-  )
+  return <TheLink />
 }
 
 const MenuMain = ({ currentPath }) => {
@@ -97,13 +74,66 @@ const MenuMain = ({ currentPath }) => {
   `)
 
   const menu = menuHierarchify(data.wpMenu.menuItems.nodes)
+  const locale = useContext(LocaleContext)
 
   return (
     <nav className="menu-main">
       <ul>
-        {menu.map((item, key) => (
-          <MenuItem item={item} currentPath={currentPath} key={key} />
-        ))}
+        {menu.map((item, key) => {
+          const { childItems, cssClasses, path } = item
+          const classes = [...cssClasses]
+
+          const hasChilds = childItems.length ? true : false
+          const isDisabled = classes.includes('disabled')
+
+          const getSlug = path => {
+            const pathFragments = path.match(/[^/]+/g)
+            return pathFragments.slice(-1)[0]
+          }
+          const slug = getSlug(path)
+
+          // classes check
+          if (slug === currentPath) {
+            classes.push('is-current')
+          }
+
+          if (hasChilds) {
+            classes.push('w-sub')
+            childItems.forEach(i => {
+              const { path } = i
+              const slug = getSlug(path)
+              if (slug === currentPath) {
+                classes.push('is-current')
+              }
+            })
+          }
+
+          return (
+            <li className={`menu-main__item ${classes.join(' ')}`} key={key}>
+              <MenuItem
+                item={item}
+                currentPath={currentPath}
+                locale={locale}
+                isDisabled
+              />
+              {hasChilds && (
+                <ul>
+                  {childItems.map((item, key) => {
+                    return (
+                      <li key={key}>
+                        <MenuItem
+                          item={item}
+                          currentPath={currentPath}
+                          locale={locale}
+                        />
+                      </li>
+                    )
+                  })}
+                </ul>
+              )}
+            </li>
+          )
+        })}
       </ul>
     </nav>
   )

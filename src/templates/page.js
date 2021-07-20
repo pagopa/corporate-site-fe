@@ -6,7 +6,7 @@ import Layout from '../partials/Layout'
 import Block from '../components/Block/Block'
 
 const Page = ({ data }) => {
-  const { title, slug, locale, flexibleContent } = data.wpPage,
+  const { title, slug, locale, flexibleContent, nodeType } = data.wpPage,
     blocks = flexibleContent.body.blocks
 
   const currentLocale = locale.id,
@@ -16,7 +16,7 @@ const Page = ({ data }) => {
     <Layout locale={currentLocale} slug={currentSlug}>
       {blocks &&
         blocks.map((block, key) => {
-          return <Block data={block} locale={currentLocale} key={key} />
+          return <Block data={block} locale={currentLocale} key={key} type={nodeType} />
         })}
     </Layout>
   )
@@ -26,6 +26,7 @@ export default Page
 export const pageQuery = graphql`
   query page($id: String!) {
     wpPage(id: { eq: $id }) {
+      nodeType
       locale {
         id
       }

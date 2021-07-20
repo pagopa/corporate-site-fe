@@ -11,6 +11,7 @@ export const useSiteMetadata = () => {
           description
           author
           siteUrl
+          cmsUrl
           languages
           defaultLanguage
         }

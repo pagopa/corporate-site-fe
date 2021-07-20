@@ -10,6 +10,7 @@ module.exports = {
     description: ``,
     author: ``,
     siteUrl: process.env.FRONTEND_BASE_URL,
+    cmsUrl: process.env.BACKEND_BASE_URL,
     languages: languages.keys,
     defaultLanguage: languages.default,
   },
