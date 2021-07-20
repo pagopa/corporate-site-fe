@@ -1,4 +1,6 @@
 .menu-main
+  margin-left: 1rem
+  
   ul
     position: relative
     display: flex
@@ -15,6 +17,9 @@
       a
         text-decoration: none
       
+      span
+        cursor: default
+      
       &.is-current
         &::before
           content: ''
@@ -27,14 +32,23 @@
           display: block
           background-color: $c-brand
           border-radius: 50%
+      
+      &.highlight
+        color: $c-brand
 
       &.w-sub
-        padding-right: 3.6rem
+        padding-right: 2rem
+
+        &:not(:last-child)
+          margin-right: 1.6rem
+        
 
         &.is-sub-open, &:hover
           > ul
             opacity: 1
             visibility: visible
+            transform: translate3d(-50%, 0, 0) scale(1)
+            transition-delay: 0
 
         &::after
           content: ''
@@ -45,7 +59,7 @@
           top: 50%
           transform: translateY(-50%)
           transform-origin: center center
-          right: 1.6rem
+          right: 0
           background-image: url(../../images/ui/chevron-down.svg)
           margin-left: .8rem
     
@@ -53,12 +67,14 @@
         position: absolute
         top: 100%
         left: 50%
-        transform: translate3d(-50%, 0, 0)
+        transform: translate3d(-50%, 5%, 0) scale(1.02)
         min-width: 24rem
         opacity: 0
         visibility: hidden
         display: block
         padding-top: 3rem
+        backface-visibility: hidden
+        transition: all $transition-micro $duration
 
         li
           position: relative
@@ -86,7 +102,7 @@
               height: 0
               position: absolute
               left: 50%
-              bottom: 100%
+              bottom: calc(100% - 1px)
               margin-left: -1.2rem
               border-bottom: 1.6rem solid $c-brand
               border-left: 1.2rem solid transparent
