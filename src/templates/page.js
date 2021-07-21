@@ -6,17 +6,22 @@ import Layout from '../partials/Layout'
 import Block from '../components/Block/Block'
 
 const Page = ({ data }) => {
-  const { title, slug, locale, flexibleContent, nodeType } = data.wpPage,
-    blocks = flexibleContent.body.blocks
+  const { title, slug, locale, flexibleContent, nodeType, featuredImage } = data.wpPage,
+        blocks = flexibleContent.body.blocks
 
   const currentLocale = locale.id,
         currentSlug = slug
+
+  const props = {
+    title,
+    featuredImage
+  }
 
   return (
     <Layout locale={currentLocale} slug={currentSlug}>
       {blocks &&
         blocks.map((block, key) => {
-          return <Block data={block} locale={currentLocale} key={key} type={nodeType} />
+          return <Block data={block} key={key} type={nodeType} {...props} />
         })}
     </Layout>
   )
@@ -32,6 +37,16 @@ export const pageQuery = graphql`
       }
       title
       slug
+      featuredImage {
+        node {
+          altText
+          localFile {
+            childImageSharp {
+              gatsbyImageData
+            }
+          }
+        }
+      }
       flexibleContent {
         body {
           blocks {
@@ -257,6 +272,16 @@ export const pageQuery = graphql`
                   }
                 }
                 logoLink
+              }
+            }
+            ... on WpPage_Flexiblecontent_Body_Blocks_BlockJobsListing {
+              fieldGroupName
+              eyelet
+              title
+              text
+              commonFeatures {
+                featureText
+                featureTitle
               }
             }
           }

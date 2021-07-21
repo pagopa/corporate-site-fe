@@ -48,9 +48,12 @@ h5, .h5
 p
   font-size: 1.8rem
   line-height: 1.78
-
-  // &:not(:last-child)
   margin-bottom: 1.78em
+
+  &.--label
+    color: $c-brand
+    font-size: 1.4rem
+    font-weight: 700
 
 a
   text-decoration: none
@@ -60,13 +63,14 @@ a
   display: block
   padding-top: 4rem
   padding-bottom: 4rem
-  margin-top: 4rem
+  margin-top: 8rem
   border-top: 1px solid $c-gray-light
   border-bottom: 1px solid $c-gray-light
 
   p
-    font-size: 1.4rem
-    line-height: 1.57
+    // font-size: 1.4rem
+    // line-height: 1.57
+    margin-bottom: 0
   
 .mail-link
   position: relative
@@ -109,9 +113,6 @@ a
           &::before
             content: '–'
             margin-right: 1rem
-
-
-
 
   blockquote
     padding-top: 7rem

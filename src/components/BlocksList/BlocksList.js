@@ -3,7 +3,7 @@ import React from 'react'
 import Image from '../Image/Image'
 import './BlocksList.sass'
 
-const BlocksList = ({ data, classes, locale }) => {
+const BlocksList = ({ data, classes }) => {
   const { template, title: blockTitle, items: blocks } = data
 
   const items = [...blocks]

@@ -6,17 +6,22 @@ import Layout from '../partials/Layout'
 import Block from '../components/Block/Block'
 
 const ProjectPage = ({ data }) => {
-  const { title, slug, locale, flexibleContent, nodeType } = data.wpProject,
+  const { title, slug, locale, flexibleContent, nodeType, featuredImage } = data.wpProject,
     blocks = flexibleContent.body.blocks
 
   const currentLocale = locale.id,
     currentSlug = slug
 
+  const props = {
+    title,
+    featuredImage
+  }
+
   return (
     <Layout locale={currentLocale} slug={currentSlug}>
       {blocks &&
         blocks.map((block, key) => {
-          return <Block data={block} locale={currentLocale} key={key} type={nodeType} />
+          return <Block data={block} key={key} type={nodeType} {...props} />
         })}
     </Layout>
   )
@@ -32,6 +37,16 @@ export const projectQuery = graphql`
       }
       title
       slug
+      featuredImage {
+        node {
+          altText
+          localFile {
+            childImageSharp {
+              gatsbyImageData
+            }
+          }
+        }
+      }
       flexibleContent {
         body {
           blocks {

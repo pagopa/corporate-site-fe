@@ -8,7 +8,7 @@ import { convertCPTDir } from '../../helpers/convertCPTDir'
 
 import './MenuMain.sass'
 
-export const MenuItem = ({ item, isDisabled, locale }) => {
+export const MenuItem = ({ item, disabled, locale }) => {
   const { translations } = useWpOptionsPage()
 
   const { label, path, cssClasses } = item
@@ -20,7 +20,7 @@ export const MenuItem = ({ item, isDisabled, locale }) => {
   const isExternal = new RegExp('^(?:[a-z]+:)?//', 'i')
 
   const TheLink = () => {
-    if (isDisabled) {
+    if (disabled) {
       return <span>{label}</span>
     } else {
       if (isExternal.test(path)) {
@@ -97,7 +97,7 @@ const MenuMain = ({ currentPath }) => {
                 item={item}
                 currentPath={currentPath}
                 locale={locale}
-                isDisabled
+                disabled={isDisabled}
               />
               {hasChilds && (
                 <ul>

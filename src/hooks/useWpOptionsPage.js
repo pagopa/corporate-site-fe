@@ -8,6 +8,9 @@ export const useWpOptionsPage = () => {
       wp(locales: { eq: "it" }) {
         options {
           globalData {
+            various {
+              jobIframe
+            }
             translations {
               stringKey
               itValue

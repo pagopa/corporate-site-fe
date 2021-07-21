@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import { Link } from 'gatsby'
 
+import { LocaleContext } from '../../contexts/LocaleContext.js'
 import { useSiteMetadata } from '../../hooks/useSiteMetadata'
 import { useWpOptionsPage } from '../../hooks/useWpOptionsPage'
 import { convertCPTDir } from '../../helpers/convertCPTDir'
@@ -47,7 +48,9 @@ const urlParser = data => {
 }
 
 
-const Cta = ({ label, url, blank = false, variant = false, locale = 'it', type }) => {
+const Cta = ({ label, url, blank = false, variant = false, type }) => {
+
+  const locale = useContext(LocaleContext)
   
   const { siteUrl, cmsUrl } = useSiteMetadata()
   const { translations } = useWpOptionsPage()
@@ -56,8 +59,6 @@ const Cta = ({ label, url, blank = false, variant = false, locale = 'it', type }
 
   const theHref = urlParser(params),
         isBlank = blank
-
-  // console.log(`${url} --- ${type}`)
 
   return (
     <>

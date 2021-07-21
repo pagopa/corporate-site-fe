@@ -18,7 +18,8 @@ import './Hero.sass'
 
 SwiperCore.use([Navigation, Pagination, EffectFade, Controller])
 
-const Hero = ({ data, locale }) => {
+const Hero = ({ data }) => {
+
   const [contentSwiper, setContentSwiper] = useState(null)
 
   const { items } = data
@@ -66,7 +67,6 @@ const Hero = ({ data, locale }) => {
                             url={content.link.url}
                             blank={content.link.target}
                             variant="white"
-                            locale={locale}
                           />
                         )}
                       </article>

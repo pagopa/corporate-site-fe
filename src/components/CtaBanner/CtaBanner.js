@@ -3,7 +3,7 @@ import React from 'react'
 import Cta from '../Cta/Cta'
 import './CtaBanner.sass'
 
-const CtaBanner = ({ data, classes, locale }) => {
+const CtaBanner = ({ data, classes }) => {
   const { title: ctaMessage, bannerCtaLink: link } = data
   const { title: linkLabel, url: linkUrl, target: linkTarget } = link
 
@@ -22,7 +22,6 @@ const CtaBanner = ({ data, classes, locale }) => {
               url={linkUrl}
               blank={linkTarget}
               variant="white-hollow"
-              locale={locale}
             />
           </div>
         </div>

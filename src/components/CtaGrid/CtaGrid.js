@@ -3,7 +3,7 @@ import React from 'react'
 import Cta from '../Cta/Cta'
 import './CtaGrid.sass'
 
-const CtaGrid = ({ data, classes, locale }) => {
+const CtaGrid = ({ data, classes }) => {
   const { items } = data
 
   return (
@@ -27,7 +27,6 @@ const CtaGrid = ({ data, classes, locale }) => {
                           url={link.url}
                           blank={link.target}
                           variant="link"
-                          locale={locale}
                         />
                       </div>
                     </div>

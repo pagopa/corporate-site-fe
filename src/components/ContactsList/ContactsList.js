@@ -2,7 +2,7 @@ import React from 'react'
 
 import './ContactsList.sass'
 
-const ContactsList = ({ data, classes, locale }) => {
+const ContactsList = ({ data, classes }) => {
   const { title, contacts: items } = data
 
   return (

@@ -6,6 +6,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   const pageTemplate = path.resolve(`./src/templates/page.js`)
   const projectTemplate = path.resolve(`./src/templates/project.js`)
+  const jobTemplate = path.resolve(`./src/templates/job.js`)
 
   const result = await graphql(`
     {
@@ -59,6 +60,18 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           }
         }
       }
+      jobPages: allWpJobPosition {
+        edges {
+          node {
+            id
+            slug
+            uri
+            locale {
+              id
+            }
+          }
+        }
+      }
     }
   `)
 
@@ -97,10 +110,13 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     })
   })
 
+  // cpts generation with directory slug replace
+
+  const { translations } = result.data.themeSettings.options.globalData
+
   // projects
 
   const projectNodes = result.data.projectPages.edges
-  const { translations } = result.data.themeSettings.options.globalData
 
   const projectTranslations = translations.find(
     t => t.stringKey === 'project_cpt_slug'
@@ -114,6 +130,29 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     createPage({
       path: `/${page.locale.id}/${projectDir}/${page.slug}`,
       component: projectTemplate,
+      context: {
+        id: page.id,
+        locale: page.locale.id,
+      },
+    })
+  })
+
+  // job positions
+
+  const jobNodes = result.data.jobPages.edges
+
+  const jobTranslations = translations.find(
+    t => t.stringKey === 'job_cpt_slug'
+  )
+
+  _.each(jobNodes, ({ node: page }) => {
+    const jobDir = page.locale.id === 'it'
+        ? jobTranslations.itValue
+        : jobTranslations.enValue
+
+    createPage({
+      path: `/${page.locale.id}/${jobDir}/${page.slug}`,
+      component: jobTemplate,
       context: {
         id: page.id,
         locale: page.locale.id,
