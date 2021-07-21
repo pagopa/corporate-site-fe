@@ -82,6 +82,10 @@ a
   display: block
   text-align: left
 
+  h4
+    &:not(:first-child)
+      margin-top: 6rem
+
   a
     color: $c-brand
     font-weight: 700
@@ -90,11 +94,13 @@ a
     list-style: disc
     padding-left: 3.2rem
     line-height: 1.78
+    margin-bottom: 1.78em
 
     li
       > ul
         list-style: none
         padding-left: 1.6rem
+        margin-bottom: 0
 
         li
           &::before
@@ -142,6 +148,9 @@ a
   mark
     background-color: $c-brand-light
     font-style: normal
-    padding: .6rem
+    padding: .6rem .8rem
+    margin-left: -.8rem
+    margin-right: -.8rem
     font-size: 2.4rem
     line-height: 1.83
+    box-decoration-break: clone
