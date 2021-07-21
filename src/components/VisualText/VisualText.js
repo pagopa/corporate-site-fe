@@ -69,7 +69,7 @@ const VisualText = ({ data, classes, locale }) => {
               {!fullWidthLayout && title && <h1>{title}</h1>}
               {text && (
                 <div
-                  className="wysiwig"
+                  className="wysiwyg"
                   dangerouslySetInnerHTML={{ __html: text }}
                 />
               )}
