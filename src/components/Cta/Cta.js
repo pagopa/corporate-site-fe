@@ -4,6 +4,7 @@ import { Link } from 'gatsby'
 
 import { useSiteMetadata } from '../../hooks/useSiteMetadata'
 import { useWpOptionsPage } from '../../hooks/useWpOptionsPage'
+import { convertCPTDir } from '../../helpers/convertCPTDir'
 
 
 import './Cta.sass'
@@ -27,7 +28,11 @@ const urlParser = data => {
     // complete url
     if (urlObject.origin === siteUrl || urlObject.origin === cmsUrl) {
       // url inside domain: get path
-      theHref = `${urlObject.pathname}`
+      
+      const cptParsedUrl = convertCPTDir(urlObject.pathname.match(/[^/]+/g), translations, locale)
+
+      theHref = cptParsedUrl
+
     } else {
       // url outside domain: get url
       theHref = url
@@ -42,7 +47,6 @@ const urlParser = data => {
 }
 
 
-
 const Cta = ({ label, url, blank = false, variant = false, locale = 'it', type }) => {
   
   const { siteUrl, cmsUrl } = useSiteMetadata()
@@ -52,6 +56,8 @@ const Cta = ({ label, url, blank = false, variant = false, locale = 'it', type }
 
   const theHref = urlParser(params),
         isBlank = blank
+
+  // console.log(`${url} --- ${type}`)
 
   return (
     <>

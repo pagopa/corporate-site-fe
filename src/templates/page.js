@@ -10,7 +10,7 @@ const Page = ({ data }) => {
     blocks = flexibleContent.body.blocks
 
   const currentLocale = locale.id,
-    currentSlug = slug
+        currentSlug = slug
 
   return (
     <Layout locale={currentLocale} slug={currentSlug}>
