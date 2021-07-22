@@ -3,51 +3,46 @@ import Cta from '../Cta/Cta'
 import Image from '../Image/Image'
 
 const VisualText = ({ data, classes, locale }) => {
-  const { reverse, backgroundColor, content, visual } = data
-
-  const visualWidth = parseInt(visual.width)
-  const fullWidthLayout = visualWidth > 8
-
-  let visualColumns, contentColumns
+  const { blockOptions, reverse, backgroundColor, content, visual } = data
 
   const { eyelet, title, text, link } = content
 
-  if (visual.image && visualWidth) {
-    if (!reverse) {
-      if (visualWidth <= 5) {
-        visualColumns = `col-md-${visualWidth} offset-md-1`
-        contentColumns = `col-md-5${visualWidth < 5 ? ' offset-md-1' : ''}`
-      } else {
-        if (visualWidth > 5 && visualWidth < 9) {
-          visualColumns = `col-md-${visualWidth}`
-          contentColumns = `col-md-${backgroundColor ? 5 : 4}`
-        } else if (visualWidth === 9) {
-          visualColumns = `col-md-${visualWidth} offset-md-1`
-          contentColumns = `col-md-5 offset-md-5`
-        }
-      }
-    } else {
-      if (visualWidth <= 5) {
-        visualColumns = `col-md-5`
-        contentColumns = `col-md-${visualWidth} offset-md-1`
-      }
+  const { backgroundGraphics } = blockOptions
+  
+
+  const visualSize = visual.width
+
+  const columns = {
+    small: {
+      visual: `col-md-${reverse ? 5 : 4} offset-md-1`,
+      content: `col-md-${reverse ? 4 : 5} offset-md-1`
+    },
+    half: {
+      visual: `col-md-5${reverse ? '' : ' offset-md-1'}`,
+      content: `col-md-5${reverse ? ' offset-md-1' : ''}`
+    },
+    big: {
+      visual: `col-md-6`,
+      content: `col-md-${backgroundColor ? 5 : 4}`
+    },
+    full: {
+      visual: `col-md-9 offset-md-1`,
+      content: `col-md-5 offset-md-5`
     }
   }
 
+
+  const fullWidthLayout = visualSize === 'full'
+
+
   return (
     <section
-      className={`block --${classes}${
-        backgroundColor ? ' --has-bg-color' : ''
-      }`}
-      style={{
-        backgroundColor: backgroundColor ? backgroundColor : 'transparent',
-      }}
+      className={`block --${classes}${backgroundColor ? ' --has-bg-color' : ''}`}
+      style={{ backgroundColor: backgroundColor ? backgroundColor : 'transparent'}}
     >
       <div className="container-fluid">
         <div
-          className={`row align-items-center${
-            reverse ? ' flex-row-reverse justify-content-end' : ''
-          }`}
+          className={`row align-items-center${reverse && ' flex-row-reverse justify-content-end'}`}
         >
           {fullWidthLayout && (
             <div className="col-12 col-md-10 offset-md-1">
@@ -55,7 +50,7 @@ const VisualText = ({ data, classes, locale }) => {
               {title && <h1>{title}</h1>}
             </div>
           )}
-          <div className={`col-12 ${visualColumns}`}>
+          <div className={`col-12 ${columns[visualSize].visual}`}>
             <div className="block__visual">
               <Image
                 image={visual.image.localFile}
@@ -63,7 +58,7 @@ const VisualText = ({ data, classes, locale }) => {
               />
             </div>
           </div>
-          <div className={`col-12 ${contentColumns}`}>
+          <div className={`col-12 ${columns[visualSize].content}`}>
             <div className="block__content">
               {!fullWidthLayout && eyelet && <h4>{eyelet}</h4>}
               {!fullWidthLayout && title && <h1>{title}</h1>}

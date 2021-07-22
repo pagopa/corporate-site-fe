@@ -14,7 +14,7 @@ const LogoLinks = ({ data, classes, locale }) => {
             {blockTitle && <h4>{blockTitle}</h4>}
 
             {logos.length && (
-              <div className="row justify-content-center">
+              <div className="row">
                 {logos.map((logo, key) => {
                   const { image, logoLink } = logo
 

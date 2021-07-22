@@ -14,6 +14,7 @@ import BlocksList from './../BlocksList/BlocksList'
 import VisualText from './../VisualText/VisualText'
 import JobsListing from './../JobsListing/JobsListing'
 import UsefulLinks from './../UsefulLinks/UsefulLinks'
+import PressRelease from './../PressRelease/PressRelease'
 import ContactsList from './../ContactsList/ContactsList'
 import ProjectsCarousel from './../ProjectsCarousel/ProjectsCarousel'
 
@@ -62,6 +63,9 @@ const Block = ({ data, type, featuredImage, title }) => {
       )}
       {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockJobsListing` && (
         <JobsListing data={data} classes="block-jobs-listing" />
+      )}
+      {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockPressRelease` && (
+        <PressRelease data={data} classes="block-press-release" />
       )}
     </>
   )

@@ -3,17 +3,33 @@ import React from 'react'
 import './ContactsList.sass'
 
 const ContactsList = ({ data, classes }) => {
-  const { title, contacts: items } = data
+  const { blockOptions, title, contacts: items } = data
+
+  const { backgroundGraphics, blockPosition, blockWidth } = blockOptions
+
+  const columns = {}
+
+  if (blockPosition === 'center') {
+    columns.standard = `col-md-10 offset-md-1 col-lg-8 offset-lg-2`
+    columns.wide = `col-md-10 offset-md-1`
+  }
+  if (blockPosition === 'left') {
+    columns.standard = `col-md-10 offset-md-1 col-lg-8 offset-lg-1`
+    columns.wide = `col-md-10 offset-md-1`
+  }
+  if (blockPosition === 'right') {
+    columns.standard = `col-md-10 offset-md-1 col-lg-8 offset-lg-1`
+    columns.wide = `col-md-10 offset-md-3`
+  }
+
 
   return (
     <section
-      className={`block --${classes} contacts-list${
-        !title ? ' --no-title' : ''
-      }`}
+      className={`block --${classes} contacts-list${!title ? ' --no-title' : ''}`}
     >
       <div className="container-fluid">
         <div className="row align-items-center">
-          <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+          <div className={`col-12 ${columns[blockWidth]}`}>
             {title && <h1>{title}</h1>}
             <div className="row">
               {items.map((item, key) => {

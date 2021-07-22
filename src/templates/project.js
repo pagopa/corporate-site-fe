@@ -80,18 +80,25 @@ export const projectQuery = graphql`
             }
             ... on WpProject_Flexiblecontent_Body_Blocks_BlockText {
               fieldGroupName
-              template
+
+              blockOptions {
+                backgroundGraphics {
+                  fieldGroupName
+                  size
+                  xposition
+                  yposition
+                }
+                blockPosition
+                blockWidth
+              }
+              
+              iscentered
               content {
                 eyelet
                 link {
                   target
                   title
                   url
-                }
-                note {
-                  fieldGroupName
-                  noteText
-                  noteTitle
                 }
                 text
                 title
@@ -100,6 +107,16 @@ export const projectQuery = graphql`
             ... on WpProject_Flexiblecontent_Body_Blocks_BlockVisualText {
               fieldGroupName
               reverse
+              blockOptions {
+                backgroundGraphics {
+                  fieldGroupName
+                  size
+                  xposition
+                  yposition
+                }
+                blockPosition
+                blockWidth
+              }
               backgroundColor
               content {
                 eyelet
@@ -125,6 +142,16 @@ export const projectQuery = graphql`
             }
             ... on WpProject_Flexiblecontent_Body_Blocks_UsefulLinks {
               fieldGroupName
+              blockOptions {
+                backgroundGraphics {
+                  fieldGroupName
+                  size
+                  xposition
+                  yposition
+                }
+                blockPosition
+                blockWidth
+              }
               title
               links {
                 link {
@@ -171,6 +198,16 @@ export const projectQuery = graphql`
               }
             }
             ... on WpProject_Flexiblecontent_Body_Blocks_BlockVisual {
+              blockOptions {
+                backgroundGraphics {
+                  fieldGroupName
+                  size
+                  xposition
+                  yposition
+                }
+                blockPosition
+                blockWidth
+              }
               caption
               fieldGroupName
               template
@@ -199,6 +236,16 @@ export const projectQuery = graphql`
             }
             ... on WpProject_Flexiblecontent_Body_Blocks_BlockList {
               fieldGroupName
+              blockOptions {
+                backgroundGraphics {
+                  fieldGroupName
+                  size
+                  xposition
+                  yposition
+                }
+                blockPosition
+                blockWidth
+              }
               template
               title
               items {
@@ -225,6 +272,16 @@ export const projectQuery = graphql`
             }
             ... on WpProject_Flexiblecontent_Body_Blocks_BlockCtaGrid {
               fieldGroupName
+              blockOptions {
+                backgroundGraphics {
+                  fieldGroupName
+                  size
+                  xposition
+                  yposition
+                }
+                blockPosition
+                blockWidth
+              }
               items {
                 text
                 title
@@ -237,6 +294,16 @@ export const projectQuery = graphql`
             }
             ... on WpProject_Flexiblecontent_Body_Blocks_BlockContactsList {
               fieldGroupName
+              blockOptions {
+                backgroundGraphics {
+                  fieldGroupName
+                  size
+                  xposition
+                  yposition
+                }
+                blockPosition
+                blockWidth
+              }
               title
               contacts {
                 email
@@ -246,6 +313,7 @@ export const projectQuery = graphql`
             }
             ... on WpProject_Flexiblecontent_Body_Blocks_BlockMapBox {
               fieldGroupName
+              
               image {
                 localFile {
                   childImageSharp {
@@ -272,6 +340,16 @@ export const projectQuery = graphql`
                   }
                 }
                 logoLink
+              }
+            }
+            ... on WpProject_Flexiblecontent_Body_Blocks_BlockJobsListing {
+              fieldGroupName
+              eyelet
+              title
+              text
+              commonFeatures {
+                featureText
+                featureTitle
               }
             }
           }

@@ -4,38 +4,50 @@ import Cta from '../Cta/Cta'
 import './Text.sass'
 
 const Text = ({ data, classes, locale }) => {
-  const { template, content } = data
+  const { blockOptions, iscentered, content } = data
 
-  const columns = template === 'outdented' ? 'col-lg-6' : 'col-lg-8 offset-lg-2'
+  const { backgroundGraphics, blockPosition, blockWidth } = blockOptions
+
+  const columns = {}
+
+  if (blockPosition === 'center') {
+    columns.standard = `col-md-10 offset-md-1 col-lg-8 offset-lg-2`
+    columns.wide = `col-md-10 offset-md-1`
+  }
+  if (blockPosition === 'left') {
+    columns.standard = `col-md-10 offset-md-1 col-lg-8 offset-lg-1`
+    columns.wide = `col-md-10 offset-md-1`
+  }
+  if (blockPosition === 'right') {
+    columns.standard = `col-md-10 offset-md-1 col-lg-8 offset-lg-1`
+    columns.wide = `col-md-10 offset-md-3`
+  }
+
+  // {
+  //   backgroundGraphics {
+  //     fieldGroupName
+  //     size
+  //     xposition
+  //     yposition
+  //   }
+  //   blockPosition
+  //   blockWidth
+  // }
 
   const { eyelet, title, text, note, link } = content
 
   return (
-    <section className={`block --${classes} text --${template}`}>
+    <section className={`block --${classes} text${iscentered && ' --centered'}`}>
       <div className="container-fluid">
         <div className="row">
-          <div className={`col-12 col-md-10 offset-md-1 ${columns}`}>
+          <div className={`col-12 ${columns[blockWidth]}`}>
             {eyelet && <h4>{eyelet}</h4>}
-            {title ? (
-              template === 'centered' ? (
-                <h2>{title}</h2>
-              ) : (
-                <h1>{title}</h1>
-              )
-            ) : (
-              false
-            )}
+            {title ? iscentered ? <h2>{title}</h2> : <h1>{title}</h1> : false}
             {text && (
               <div
                 className="wysiwyg"
                 dangerouslySetInnerHTML={{ __html: text }}
               />
-            )}
-            {note && (note.noteTitle || note.noteText) && (
-              <div className="text-note">
-                <h4>{note.noteTitle}</h4>
-                <div dangerouslySetInnerHTML={{ __html: note.noteText }} />
-              </div>
             )}
             {link && (
               <Cta
