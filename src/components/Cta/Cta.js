@@ -19,7 +19,10 @@ const urlParser = data => {
     // CPTs slug translations
 
   const projectTranslations = translations.find(t => t.stringKey === 'project_cpt_slug'),
-        projectDir = locale === 'it' ? projectTranslations.itValue : projectTranslations.enValue
+        pressReleaseTranslations = translations.find(t => t.stringKey === 'pressrelease_cpt_slug'),
+        projectDir = projectTranslations[`${locale}Value`],
+        pressReleaseDir = pressReleaseTranslations[`${locale}Value`]
+
 
   let theHref
 
@@ -42,6 +45,9 @@ const urlParser = data => {
     if (type === 'Project') {
       theHref = `/${locale}/${projectDir}/${url}/`
     }
+    if (type === 'PressReleases') {
+      theHref = `/${locale}/${pressReleaseDir}/${url}/`
+    }
   }
 
   return theHref
@@ -49,6 +55,9 @@ const urlParser = data => {
 
 
 const Cta = ({ label, url, blank = false, variant = false, type }) => {
+
+
+  console.log(url)
 
   const locale = useContext(LocaleContext)
   

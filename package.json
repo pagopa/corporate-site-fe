@@ -28,6 +28,7 @@
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
     "react-svg": "^14.0.4",
+    "react-truncate": "^2.4.0",
     "sass": "^1.35.1",
     "swiper": "^6.7.5"
   },
