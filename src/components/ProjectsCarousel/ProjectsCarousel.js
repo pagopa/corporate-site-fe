@@ -11,7 +11,7 @@ import './ProjectsCarousel.sass'
 
 SwiperCore.use([Navigation])
 
-const ProjectsCarousel = ({ data, locale, classes }) => {
+const ProjectsCarousel = ({ data }) => {
   const { items } = data
 
   const swiperCommons = {
@@ -22,7 +22,7 @@ const ProjectsCarousel = ({ data, locale, classes }) => {
   }
 
   return (
-    <section className={`block --${classes} projects-carousel`}>
+    <section className="block --block-project-carousel projects-carousel">
       <div className="container-fluid">
         <div className="row">
           <div className="col-12 col-md-10 offset-md-1 d-flex align-items-center justify-content-center">
@@ -92,7 +92,6 @@ const ProjectsCarousel = ({ data, locale, classes }) => {
                             <Cta
                               label={content.button}
                               url={`${slug}`}
-                              locale={locale}
                               type={nodeType}
                               variant="white-hollow"
                             />

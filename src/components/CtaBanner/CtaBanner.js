@@ -3,12 +3,12 @@ import React from 'react'
 import Cta from '../Cta/Cta'
 import './CtaBanner.sass'
 
-const CtaBanner = ({ data, classes }) => {
+const CtaBanner = ({ data }) => {
   const { title: ctaMessage, bannerCtaLink: link } = data
   const { title: linkLabel, url: linkUrl, target: linkTarget } = link
 
   return (
-    <section className={`block --${classes} cta-banner`}>
+    <section className="block --block-cta-banner cta-banner">
       <div className="container-fluid">
         <div className="row align-items-center">
           <div className="col-12 col-md-5 offset-md-1 col-lg-7 offset-lg-1">

@@ -18,7 +18,7 @@ import PressRelease from './../PressRelease/PressRelease'
 import ContactsList from './../ContactsList/ContactsList'
 import ProjectsCarousel from './../ProjectsCarousel/ProjectsCarousel'
 
-const Block = ({ data, type, featuredImage, title }) => {
+const Block = ({ data, type, featuredImage }) => {
 
   return (
     <>
@@ -26,46 +26,46 @@ const Block = ({ data, type, featuredImage, title }) => {
         <Hero data={data} />
       )}
       {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockText` && (
-        <Text data={data} classes="block-text" />
+        <Text data={data} />
       )}
       {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockVisualText` && (
-        <VisualText data={data} classes="block-visual-text" />
+        <VisualText data={data} />
       )}
       {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_UsefulLinks` && (
-        <UsefulLinks data={data} classes="block-useful-links" />
+        <UsefulLinks data={data} />
       )}
       {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_ProjectCarousel` && (
-        <ProjectsCarousel data={data} classes="block-project-carousel" />
+        <ProjectsCarousel data={data} />
       )}
       {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockVisual` && (
-        <Visual data={data} classes="block-visual" />
+        <Visual data={data} />
       )}
       {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockIntro` && (
-        <Intro data={data} classes="block-intro" featuredImage={featuredImage} />
+        <Intro data={data} featuredImage={featuredImage} />
       )}
       {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockList` && (
-        <BlocksList data={data} classes="block-blocks-list" />
+        <BlocksList data={data} />
       )}
       {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockBannerCta` && (
-        <CtaBanner data={data} classes="block-cta-banner" />
+        <CtaBanner data={data} />
       )}
       {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockCtaGrid` && (
-        <CtaGrid data={data} classes="block-cta-grid" />
+        <CtaGrid data={data} />
       )}
       {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockContactsList` && (
-        <ContactsList data={data} classes="block-contacts-list" />
+        <ContactsList data={data} />
       )}
       {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockMapBox` && (
-        <MapBox data={data} classes="block-map-box" />
+        <MapBox data={data} />
       )}
       {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockLogoLinks` && (
-        <LogoLinks data={data} classes="block-logo-links" />
+        <LogoLinks data={data} />
       )}
       {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockJobsListing` && (
-        <JobsListing data={data} classes="block-jobs-listing" />
+        <JobsListing data={data} />
       )}
       {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockPressRelease` && (
-        <PressRelease data={data} classes="block-press-release" />
+        <PressRelease data={data} />
       )}
     </>
   )

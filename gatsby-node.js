@@ -7,6 +7,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const pageTemplate = path.resolve(`./src/templates/page.js`)
   const projectTemplate = path.resolve(`./src/templates/project.js`)
   const jobTemplate = path.resolve(`./src/templates/job.js`)
+  const pressReleasesTemplate = path.resolve(`./src/templates/pressRelease.js`)
 
   const result = await graphql(`
     {
@@ -65,7 +66,17 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           node {
             id
             slug
-            uri
+            locale {
+              id
+            }
+          }
+        }
+      }
+      pressReleases: allWpPressReleases {
+        edges {
+          node {
+            id
+            slug
             locale {
               id
             }
@@ -159,4 +170,28 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       },
     })
   })
+
+  // press releases
+
+  const pressReleasesNodes = result.data.pressReleases.edges
+
+  const pressReleasesTranslations = translations.find(
+    t => t.stringKey === 'pressrelease_cpt_slug'
+  )
+
+  _.each(pressReleasesNodes, ({ node: page }) => {
+    const pressReleasesDir = page.locale.id === 'it'
+        ? pressReleasesTranslations.itValue
+        : pressReleasesTranslations.enValue
+
+    createPage({
+      path: `/${page.locale.id}/${pressReleasesDir}/${page.slug}`,
+      component: pressReleasesTemplate,
+      context: {
+        id: page.id,
+        locale: page.locale.id,
+      },
+    })
+  })
+
 }

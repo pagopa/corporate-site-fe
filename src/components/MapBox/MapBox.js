@@ -4,11 +4,11 @@ import Image from '../Image/Image'
 
 import './MapBox.sass'
 
-const MapBox = ({ data, classes, locale }) => {
+const MapBox = ({ data }) => {
   const { image, items } = data
 
   return (
-    <section className={`block --${classes} map-box`}>
+    <section className="block --block-map-box map-box">
       <div className="container-fluid">
         <div className="row align-items-center">
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">

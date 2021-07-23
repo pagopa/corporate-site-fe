@@ -72,13 +72,13 @@ const JobsList = () => {
   )
 }
 
-const JobsListing = ({ data, classes, locale }) => {
+const JobsListing = ({ data }) => {
   const { eyelet, title, text, commonFeatures } = data
 
   const hasCommonFeatures = commonFeatures.length
 
   return (
-    <section className={`block --${classes} jobs-listing`}>
+    <section className="block --block-jobs-listing jobs-listing">
       <div className="container-fluid">
         <div className="row">
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">

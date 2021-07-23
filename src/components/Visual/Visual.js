@@ -4,7 +4,7 @@ import Image from '../Image/Image'
 
 import './Visual.sass'
 
-const Text = ({ data, classes, locale }) => {
+const Text = ({ data }) => {
   const { template, caption, image } = data
 
   const layout = {
@@ -23,7 +23,7 @@ const Text = ({ data, classes, locale }) => {
   }
 
   return (
-    <section className={`block --${classes} visual --${layout[template].type}`}>
+    <section className={`block --block-visual visual --${layout[template].type}`}>
       <div className="container-fluid">
         <div className="row">
           <div className={`col-12 ${layout[template].columns}`}>

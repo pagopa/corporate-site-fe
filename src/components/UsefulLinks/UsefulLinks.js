@@ -2,11 +2,11 @@ import React from 'react'
 
 import Cta from '../Cta/Cta'
 
-const UsefulLinks = ({ data, classes, locale }) => {
+const UsefulLinks = ({ data, classes }) => {
   const { title, links } = data
 
   return (
-    <section className={`block --${classes}`}>
+    <section className="block --block-useful-links">
       <div className="container-fluid">
         <div className="row">
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
@@ -20,7 +20,6 @@ const UsefulLinks = ({ data, classes, locale }) => {
                       url={link.url}
                       blank={link.target}
                       variant="link"
-                      locale={locale}
                     />
                   </li>
                 )

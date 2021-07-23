@@ -3,7 +3,7 @@ import React from 'react'
 import Cta from '../Cta/Cta'
 import './Text.sass'
 
-const Text = ({ data, classes, locale }) => {
+const Text = ({ data, locale }) => {
   const { blockOptions, iscentered, content } = data
 
   const { backgroundGraphics, blockPosition, blockWidth } = blockOptions
@@ -37,7 +37,7 @@ const Text = ({ data, classes, locale }) => {
   const { eyelet, title, text, note, link } = content
 
   return (
-    <section className={`block --${classes} text${iscentered && ' --centered'}`}>
+    <section className={`block --block-text text${iscentered && ' --centered'}`}>
       <div className="container-fluid">
         <div className="row">
           <div className={`col-12 ${columns[blockWidth]}`}>

@@ -3,13 +3,13 @@ import React from 'react'
 import Image from '../Image/Image'
 import './BlocksList.sass'
 
-const BlocksList = ({ data, classes }) => {
+const BlocksList = ({ data }) => {
   const { template, title: blockTitle, items: blocks } = data
 
   const items = [...blocks]
 
   return (
-    <section className={`block --${classes} blocks-list`}>
+    <section className="block --block-blocks-list blocks-list">
       <div className="container-fluid">
         <div className="row">
           <div className={`col-12 col-lg-10 offset-lg-1 col-xl-9 offset-xl-2`}>

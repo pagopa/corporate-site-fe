@@ -3,11 +3,11 @@ import React from 'react'
 import Image from '../Image/Image'
 import './LogoLinks.sass'
 
-const LogoLinks = ({ data, classes, locale }) => {
+const LogoLinks = ({ data }) => {
   const { title: blockTitle, items: logos } = data
 
   return (
-    <section className={`block --${classes} logo-links`}>
+    <section className="block --block-logo-links logo-links">
       <div className="container-fluid">
         <div className="row">
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">

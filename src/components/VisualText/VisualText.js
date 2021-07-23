@@ -2,7 +2,7 @@ import React from 'react'
 import Cta from '../Cta/Cta'
 import Image from '../Image/Image'
 
-const VisualText = ({ data, classes, locale }) => {
+const VisualText = ({ data }) => {
   const { blockOptions, reverse, backgroundColor, content, visual } = data
 
   const { eyelet, title, text, link } = content
@@ -37,7 +37,7 @@ const VisualText = ({ data, classes, locale }) => {
 
   return (
     <section
-      className={`block --${classes}${backgroundColor ? ' --has-bg-color' : ''}`}
+      className={`block --block-visual-text${backgroundColor ? ' --has-bg-color' : ''}`}
       style={{ backgroundColor: backgroundColor ? backgroundColor : 'transparent'}}
     >
       <div className="container-fluid">
@@ -73,7 +73,6 @@ const VisualText = ({ data, classes, locale }) => {
                   label={link.title}
                   url={link.url}
                   blank={link.target}
-                  locale={locale}
                 />
               )}
             </div>

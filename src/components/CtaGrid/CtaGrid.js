@@ -3,11 +3,11 @@ import React from 'react'
 import Cta from '../Cta/Cta'
 import './CtaGrid.sass'
 
-const CtaGrid = ({ data, classes }) => {
+const CtaGrid = ({ data }) => {
   const { items } = data
 
   return (
-    <section className={`block --${classes} cta-grid`}>
+    <section className="block --block-cta-grid cta-grid">
       <div className="container-fluid">
         <div className="row align-items-center">
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">

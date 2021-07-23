@@ -2,7 +2,7 @@ import React from 'react'
 
 import './ContactsList.sass'
 
-const ContactsList = ({ data, classes }) => {
+const ContactsList = ({ data }) => {
   const { blockOptions, title, contacts: items } = data
 
   const { backgroundGraphics, blockPosition, blockWidth } = blockOptions
@@ -25,7 +25,7 @@ const ContactsList = ({ data, classes }) => {
 
   return (
     <section
-      className={`block --${classes} contacts-list${!title ? ' --no-title' : ''}`}
+      className={`block --block-contacts-list contacts-list${!title ? ' --no-title' : ''}`}
     >
       <div className="container-fluid">
         <div className="row align-items-center">

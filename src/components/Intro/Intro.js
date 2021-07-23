@@ -3,7 +3,7 @@ import React from 'react'
 import Image from '../Image/Image'
 import './Intro.sass'
 
-const Intro = ({ data, classes, featuredImage }) => {
+const Intro = ({ data, featuredImage }) => {
   const { eyelet, title, text, image } = data
 
   const coverImage = image
@@ -27,7 +27,7 @@ const Intro = ({ data, classes, featuredImage }) => {
   }
 
   return (
-    <header className={`block --${classes} intro`}>
+    <header className="block --block-intro intro">
       <div className="container-fluid">
         <div className="row">
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">

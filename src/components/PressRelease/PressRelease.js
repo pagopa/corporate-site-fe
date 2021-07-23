@@ -18,9 +18,10 @@ const LatestPress = () => {
 
   const data = useStaticQuery(graphql`
     query pressReleases {
-      allWpPressReleases(limit: 2) {
+      allWpPressReleases {
         edges {
           node {
+            date
             title
             slug
             content
@@ -40,18 +41,30 @@ const LatestPress = () => {
   return (
     <>
       {currentLocalePress.map((pr, key) => {
-        const { title, slug, content, nodeType } = pr.node
+        const { date, title, slug, content, locale, nodeType } = pr.node
+
+
+        const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' }
+
+        const theDate = new Date(date).toLocaleDateString(locale.id, dateOptions)
 
         const text = content.replace(/(<([^>]+)>)/ig, '')
         
         return (
-          <div className="col-12 col-lg-6">
-            <article className="press-release" key={key}>
-              <h4 className="--primary">{title}</h4>
-              <Truncate lines={3}>
-                {text}
-              </Truncate>
-              
+          <div className="col-12 col-lg-6 d-flex" key={key}>
+            <article className="press-release">
+              <div>
+                <h4>{theDate}</h4>
+                <h4 className="--primary --medium">{title}</h4>
+                <div className="wysiwyg">
+                  <p>
+                    <Truncate lines={3}>
+                      {text}
+                    </Truncate>
+                  </p>
+                </div>
+              </div>
+
               <Cta url={slug} label="Leggi" type={nodeType}/>
             </article>
           </div>
@@ -64,14 +77,20 @@ const LatestPress = () => {
 
 const PressRelease = ({ data }) => {
 
-  const { title } = data
+  const { title, link } = data
+
+  const { title: ctaTitle, url } = link
+
   return (
-    <section className="block">
+    <section className="block --block-press-release press-releases">
       <div className="container-fluid">
         <div className="row">
           <div className="col-12 col-md-10 offset-md-1">
             <h1>{title}</h1>
-            <LatestPress />
+            <div className="row pt-5">
+              <LatestPress />
+            </div>
+            <Cta label={ctaTitle} url={url} variant="link" />
           </div>
         </div>
       </div>
