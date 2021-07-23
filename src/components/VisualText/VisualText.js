@@ -42,7 +42,7 @@ const VisualText = ({ data }) => {
     >
       <div className="container-fluid">
         <div
-          className={`row align-items-center${reverse && ' flex-row-reverse justify-content-end'}`}
+          className={`row align-items-center${reverse ? ' flex-row-reverse justify-content-end' : ''}`}
         >
           {fullWidthLayout && (
             <div className="col-12 col-md-10 offset-md-1">

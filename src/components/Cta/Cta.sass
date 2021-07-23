@@ -1,10 +1,12 @@
 .cta
   position: relative
   display: inline-flex
+  overflow: hidden
   align-items: center
   justify-content: center
   cursor: pointer
   font-family: $f-alternative
+  color: $c-black
   font-size: 1.6rem
   font-weight: 700
   line-height: 1.25
@@ -13,24 +15,64 @@
   border: 2px solid $c-black
   text-align: center
   min-width: 16rem
+  transition: border $transition-fast
 
   > span
-    color: $c-black
+    position: relative
+    color: inherit
     text-transform: uppercase
     flex: 0 1 auto
+    transition: color $transition-fast
+    z-index: 10
+  
+  &::before
+    content: ''
+    position: absolute
+    top: 50%
+    left: 0
+    background-color: $c-brand
+    width: 102%
+    height: 102%
+    z-index: 1
+    transition: transform $transition-fast
+    transform: translate3d(-101%, -49%, 0)
+
+  &:hover
+    transition-delay: 0
+    border-color: $c-brand
+    
+    > span
+      transition-delay: 0
+      color: #fff
+
+    &::before
+      transition-delay: 0
+      transform: translate3d(-1%, -49%, 0)
+  
 
   &.--white
     background-color: #FFF
     border-color: #FFF
+    color: $c-brand
+    
+    &:hover
+      border-color: $c-brand-dark
+      color: #fff
 
-    > span
-      color: $c-brand
-  
+      &::before
+        background-color: $c-brand-dark
+
   &.--white-hollow
     border-color: #FFF
+    color: #FFF
 
-    > span
-      color: #FFF
+    &::before
+      background-color: #FFF
+
+    &:hover
+      > span
+        color: $c-brand
+
 
   &.--link
     padding: 0
