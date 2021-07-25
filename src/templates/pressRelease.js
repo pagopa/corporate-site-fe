@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { graphql } from 'gatsby'
-import { useWpOptionsPage } from '../hooks/useWpOptionsPage'
 
 import Layout from '../partials/Layout'
 
@@ -16,7 +15,7 @@ const pressReleasePage = ({ data }) => {
     <Layout locale={currentLocale} slug={currentSlug}>
       <article className="job">
         <h1>{title}</h1>
-        {content}
+        <div dangerouslySetInnerHTML={{ __html: content }}></div>
       </article>
     </Layout>
   )

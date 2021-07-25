@@ -24,7 +24,6 @@ const JobsList = () => {
             jobPositionFields {
               openDate
               isNew
-              embedId
               closeDate
             }
             title
@@ -46,7 +45,7 @@ const JobsList = () => {
     <>
       <div className="jobs-listing__list">
         {currentLocaleJobs.map((job, key) => {
-          const { slug, nodeType, locale, jobPositionFields: { isNew, openDate, closeDate, embedId }, title} = job.node
+          const { slug, locale, jobPositionFields: { isNew, openDate, closeDate }, title} = job.node
 
           const startDate = new Date(openDate).toLocaleDateString(locale.id)
           const endDate = new Date(closeDate).toLocaleDateString(locale.id)

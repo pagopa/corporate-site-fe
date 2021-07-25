@@ -3,7 +3,7 @@ import React from 'react'
 import Cta from '../Cta/Cta'
 import './Text.sass'
 
-const Text = ({ data, locale }) => {
+const Text = ({ data }) => {
   const { blockOptions, iscentered, content } = data
 
   const { backgroundGraphics, blockPosition, blockWidth } = blockOptions
@@ -34,7 +34,7 @@ const Text = ({ data, locale }) => {
   //   blockWidth
   // }
 
-  const { eyelet, title, text, note, link } = content
+  const { eyelet, title, text, link } = content
 
   return (
     <section className={`block --block-text text${iscentered && ' --centered'}`}>
@@ -54,7 +54,6 @@ const Text = ({ data, locale }) => {
                 label={link.title}
                 url={link.url}
                 blank={link.target}
-                locale={locale}
               />
             )}
           </div>

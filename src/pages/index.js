@@ -27,7 +27,7 @@ const IndexPage = () => {
     navigate(`/${urlLanguage}/`, {
       replace: true,
     })
-  }, [])
+  }, [defaultLanguage, languages])
   return null
 }
 

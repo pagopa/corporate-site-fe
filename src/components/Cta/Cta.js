@@ -24,8 +24,6 @@ const urlParser = data => {
         pressReleaseDir = pressReleaseTranslations[`${locale}Value`]
 
 
-  let theHref
-
   const urlObject = isAbsolute ? new URL(url) : false
 
   if (urlObject) {
@@ -35,29 +33,28 @@ const urlParser = data => {
       
       const cptParsedUrl = convertCPTDir(urlObject.pathname.match(/[^/]+/g), translations, locale)
 
-      theHref = cptParsedUrl
+      return cptParsedUrl
 
     } else {
       // url outside domain: get url
-      theHref = url
+      return url
     }
   } else {
     if (type === 'Project') {
-      theHref = `/${locale}/${projectDir}/${url}/`
+      return `/${locale}/${projectDir}/${url}/`
     }
     if (type === 'PressReleases') {
-      theHref = `/${locale}/${pressReleaseDir}/${url}/`
+      return `/${locale}/${pressReleaseDir}/${url}/`
     }
   }
 
-  return theHref
+
+  return url
 }
 
 
 const Cta = ({ label, url, blank = false, variant = false, type }) => {
 
-
-  console.log(url)
 
   const locale = useContext(LocaleContext)
   

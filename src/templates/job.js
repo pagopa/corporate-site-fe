@@ -56,7 +56,7 @@ const JobIntro = ({ intro, openDate, closeDate, locale }) => {
 }
 
 const JobPage = ({ data }) => {
-  const { title, slug, locale, nodeType, jobPositionFields, id } = data.wpJobPosition
+  const { slug, locale, jobPositionFields } = data.wpJobPosition
 
   const { openDate, closeDate, embedId, intro, textBlocks } = jobPositionFields
 

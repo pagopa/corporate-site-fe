@@ -11,7 +11,7 @@ import './MenuMain.sass'
 export const MenuItem = ({ item, disabled, locale }) => {
   const { translations } = useWpOptionsPage()
 
-  const { label, path, cssClasses } = item
+  const { label, path } = item
 
   const pathFragments = path.match(/[^/]+/g)
 

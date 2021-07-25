@@ -6,7 +6,6 @@ import Logo from '../Logo/Logo'
 import Socials from '../Socials/Socials'
 import Language from '../Language/Language'
 import MenuFooter from '../MenuFooter/MenuFooter'
-import MenuContacts from '../MenuContacts/MenuContacts'
 
 import './Footer.sass'
 

@@ -2,18 +2,15 @@ import React, { useContext } from 'react'
 
 import Truncate from 'react-truncate'
 
-import { useStaticQuery, graphql, Link } from 'gatsby'
+import { useStaticQuery, graphql } from 'gatsby'
 
 import { LocaleContext } from '../../contexts/LocaleContext.js'
-import { useWpOptionsPage } from '../../hooks/useWpOptionsPage'
 
 import Cta from '../../components/Cta/Cta'
 
 import './PressRelease.sass'
-import { link } from 'joi';
 
 const LatestPress = () => {
-  const { translations } = useWpOptionsPage()
   const locale = useContext(LocaleContext)
 
   const data = useStaticQuery(graphql`

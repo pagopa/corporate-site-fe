@@ -27,9 +27,9 @@ const ProjectsCarousel = ({ data }) => {
         <div className="row">
           <div className="col-12 col-md-10 offset-md-1 d-flex align-items-center justify-content-center">
             <header className="projects-carousel__header">
-              <button className="projects-carousel__nav --prev" title="prev" />
+              <button className="projects-carousel__nav --prev" title="prev" aria-labelledby="prev" />
               <h2>{data.title}</h2>
-              <button className="projects-carousel__nav --next" title="next" />
+              <button className="projects-carousel__nav --next" title="next" aria-labelledby="next" />
             </header>
           </div>
         </div>

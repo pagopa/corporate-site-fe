@@ -35,8 +35,8 @@ const Hero = ({ data }) => {
     <section className="block --hero hero">
       <div className="hero__background" />
       <div className="container-fluid">
-        <button className="hero__nav --prev" title="prev" />
-        <button className="hero__nav --next" title="next" />
+        <button className="hero__nav --prev" title="prev" aria-labelledby="prev" />
+        <button className="hero__nav --next" title="next" aria-labelledby="next" />
 
         <div className="row d-flex align-items-center">
           <div className="col-12 col-lg-6 offset-lg-1">

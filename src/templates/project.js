@@ -154,7 +154,13 @@ export const projectQuery = graphql`
               }
               title
               links {
-                link {
+                usefulAttachment {
+                  title
+                  localFile {
+                    publicURL
+                  }
+                }
+                usefulLink {
                   target
                   title
                   url
