@@ -20,6 +20,8 @@
   &.--block-press-release
 
   &.--block-text
+    margin-bottom: 5rem
+    
     &:not(.--centered)  
       + .--block-text, + .--block-visual-text
         padding-top: 4rem
@@ -44,6 +46,9 @@
     ul
       li
         margin-bottom: 1.4rem
+    
+    + .--block-useful-links
+      padding-top: 0
   
   &.--block-projects-carousel
     background-color: $c-gray-extralight
