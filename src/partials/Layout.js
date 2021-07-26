@@ -1,5 +1,7 @@
 import React from 'react'
+
 import { useSiteMetadata } from '../hooks/useSiteMetadata.js'
+
 import { LocaleContext } from '../contexts/LocaleContext.js'
 
 import '../sass/app.sass'
@@ -8,7 +10,6 @@ import Header from '../partials/Header/Header'
 import Footer from '../partials/Footer/Footer'
 
 const Layout = ({ children, locale, slug }) => {
-
 
   const { title } = useSiteMetadata()
   return (

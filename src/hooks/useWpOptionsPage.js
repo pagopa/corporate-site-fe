@@ -8,6 +8,7 @@ export const useWpOptionsPage = () => {
           globalData {
             various {
               jobIframe
+              onetrustSnippet
             }
             translations {
               stringKey
