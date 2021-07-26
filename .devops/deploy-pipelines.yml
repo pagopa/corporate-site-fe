@@ -45,13 +45,13 @@ variables:
     FRONTEND_PASSWORD: $(PROD_FRONTEND_PASSWORD)
     FRONTEND_BASE_URL: $(PROD_FRONTEND_BASE_URL)
 
-# schedules:
-# - cron: '0 3 * * *'
-#   displayName: 'Deploy every day at 3 A.M.'
-#   branches:
-#     include:
-#     - release
-#   always: false 
+schedules:
+- cron: '0 * * * *'
+  displayName: 'Deploy every hour'
+  branches:
+    include:
+    - main
+  always: true 
 
 pool:
   vmImage: $(AgentImage)
