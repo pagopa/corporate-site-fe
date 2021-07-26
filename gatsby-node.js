@@ -9,6 +9,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const jobTemplate = path.resolve(`./src/templates/job.js`)
   const brandAssetsTemplate = path.resolve(`./src/templates/brandAssets.js`)
   const pressReleasesTemplate = path.resolve(`./src/templates/pressArticle.js`)
+  const pressTemplate = path.resolve(`./src/templates/press.js`)
 
   const result = await graphql(`
     {
@@ -39,6 +40,21 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
       defaultPages: allWpPage(
         filter: { template: { templateName: { eq: "Default" } } }
+      ) {
+        edges {
+          node {
+            id
+            slug
+            uri
+            locale {
+              id
+            }
+          }
+        }
+      }
+      
+      pressPages: allWpPage(
+        filter: { template: { templateName: { eq: "Press Release" } } }
       ) {
         edges {
           node {
@@ -97,6 +113,23 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     return
   }
 
+  // press
+
+  const pressNodes = result.data.pressPages.edges
+
+  _.each(pressNodes, ({ node: page }) => {
+    createPage({
+      path: `/${page.locale.id}/${page.uri}`,
+      component: pressTemplate,
+      context: {
+        id: page.id,
+        locale: page.locale.id,
+      },
+    })
+  })
+
+
+
   // homepages
 
   const homepageNodes = result.data.homePages.edges
@@ -126,6 +159,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       },
     })
   })
+
 
   // cpts generation with directory slug replace
 

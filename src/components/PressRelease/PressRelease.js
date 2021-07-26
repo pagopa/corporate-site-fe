@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
 
-import Truncate from 'react-truncate'
-
 import { useStaticQuery, graphql } from 'gatsby'
+
+import LinesEllipsis from 'react-lines-ellipsis'
 
 import { LocaleContext } from '../../contexts/LocaleContext.js'
 
@@ -54,9 +54,12 @@ const LatestPress = () => {
                 <h4 className="--primary --medium">{title}</h4>
                 <div className="wysiwyg">
                   <p>
-                    <Truncate lines={3}>
-                      {text}
-                    </Truncate>
+                    <LinesEllipsis
+                      text={text}
+                      maxLine='3'
+                      trimRight
+                      basedOn='letters'
+                    />
                   </p>
                 </div>
               </div>
