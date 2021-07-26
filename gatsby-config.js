@@ -25,7 +25,7 @@ module.exports = {
     {
       resolve: `gatsby-source-wordpress`,
       options: {
-        url: `${process.env.BACKEND_BASE_URL}/wp/graphql`,
+        url: `${process.env.BACKEND_BASE_URL}/wp/index.php?graphql`,
         html: {
           createStaticFiles: true,
         }
