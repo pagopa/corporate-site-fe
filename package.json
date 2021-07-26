@@ -7,7 +7,7 @@
   "dependencies": {
     "@mkitio/gatsby-theme-password-protect": "^2.1.2",
     "bootstrap": "^5.0.2",
-    "gatsby": "^3.10.1",
+    "gatsby": "^3.9",
     "gatsby-awesome-pagination": "^0.3.8",
     "gatsby-plugin-catch-links": "^3.10.0",
     "gatsby-plugin-google-gtag": "^3.10.0",

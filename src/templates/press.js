@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 
-import { useStaticQuery, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
 import parse from 'html-react-parser'
 
 import LinesEllipsis from 'react-lines-ellipsis'
@@ -76,9 +76,6 @@ const PressPage = ({ data }) => {
 
   const currentLocale = locale.id,
     currentSlug = slug
-
-  // const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' },
-  //   theDate = new Date(date).toLocaleDateString(currentLocale, dateOptions)
 
   return (
     <Layout locale={currentLocale} slug={currentSlug}>
