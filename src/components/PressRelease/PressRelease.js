@@ -41,9 +41,8 @@ const LatestPress = () => {
         const { date, title, slug, content, locale, nodeType } = pr.node
 
 
-        const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' }
-
-        const theDate = new Date(date).toLocaleDateString(locale.id, dateOptions)
+        const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' },
+              theDate = new Date(date).toLocaleDateString(locale.id, dateOptions)
 
         const text = content.replace(/(<([^>]+)>)/ig, '')
         

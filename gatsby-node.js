@@ -7,7 +7,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const pageTemplate = path.resolve(`./src/templates/page.js`)
   const projectTemplate = path.resolve(`./src/templates/project.js`)
   const jobTemplate = path.resolve(`./src/templates/job.js`)
-  const pressReleasesTemplate = path.resolve(`./src/templates/pressRelease.js`)
+  const brandAssetsTemplate = path.resolve(`./src/templates/brandAssets.js`)
+  const pressReleasesTemplate = path.resolve(`./src/templates/pressArticle.js`)
 
   const result = await graphql(`
     {
@@ -35,6 +36,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           }
         }
       }
+
       defaultPages: allWpPage(
         filter: { template: { templateName: { eq: "Default" } } }
       ) {
@@ -49,6 +51,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           }
         }
       }
+
       projectPages: allWpProject {
         edges {
           node {
@@ -61,6 +64,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           }
         }
       }
+
       jobPages: allWpJobPosition {
         edges {
           node {
@@ -72,6 +76,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           }
         }
       }
+
       pressReleases: allWpPressReleases {
         edges {
           node {
@@ -83,6 +88,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           }
         }
       }
+
     }
   `)
 

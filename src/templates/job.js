@@ -1,11 +1,11 @@
 import React from 'react'
 
 import { graphql } from 'gatsby'
+import parse from 'html-react-parser'
+
 import { useWpOptionsPage } from '../hooks/useWpOptionsPage'
 
 import Layout from '../partials/Layout'
-
-import './job.sass'
 
 const JobIntro = ({ intro, openDate, closeDate, locale }) => {
   const { eyelet, title, text } = intro
@@ -85,7 +85,9 @@ const JobPage = ({ data }) => {
                 <div className="row">
                   <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
                     <h4>{title}</h4>
-                    <div className="wysiwyg" dangerouslySetInnerHTML={{ __html: description }}></div>
+                    <div className="wysiwyg">
+                      {parse(description)}
+                    </div>
                   </div>
                 </div>
               </div>

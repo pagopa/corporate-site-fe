@@ -21,7 +21,7 @@
 
   &.--block-text
     margin-bottom: 5rem
-    
+
     &:not(.--centered)  
       + .--block-text, + .--block-visual-text
         padding-top: 4rem
@@ -45,7 +45,8 @@
   &.--block-useful-links
     ul
       li
-        margin-bottom: 1.4rem
+        &:not(:last-child)
+          margin-bottom: 1.4rem
     
     + .--block-useful-links
       padding-top: 0

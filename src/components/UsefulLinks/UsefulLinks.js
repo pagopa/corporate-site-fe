@@ -2,7 +2,7 @@ import React from 'react'
 
 import Cta from '../Cta/Cta'
 
-const UsefulLinks = ({ data, classes }) => {
+const UsefulLinks = ({ data }) => {
   const { title, links } = data
 
 

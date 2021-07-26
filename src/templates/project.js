@@ -50,6 +50,7 @@ export const projectQuery = graphql`
       flexibleContent {
         body {
           blocks {
+
             ... on WpProject_Flexiblecontent_Body_Blocks_HeroSlider {
               fieldGroupName
               items {
@@ -65,6 +66,8 @@ export const projectQuery = graphql`
                 image {
                   altText
                   localFile {
+                    extension
+                    publicURL
                     childImageSharp {
                       gatsbyImageData(
                         layout: FULL_WIDTH
@@ -133,6 +136,8 @@ export const projectQuery = graphql`
                 image {
                   altText
                   localFile {
+                    extension
+                    publicURL
                     childImageSharp {
                       gatsbyImageData
                     }
@@ -193,6 +198,8 @@ export const projectQuery = graphql`
                       image {
                         altText
                         localFile {
+                          extension
+                          publicURL
                           childImageSharp {
                             gatsbyImageData
                           }
@@ -220,6 +227,8 @@ export const projectQuery = graphql`
               image {
                 altText
                 localFile {
+                  extension
+                  publicURL
                   childImageSharp {
                     gatsbyImageData
                   }
@@ -234,8 +243,10 @@ export const projectQuery = graphql`
               image {
                 altText
                 localFile {
+                  extension
+                  publicURL
                   childImageSharp {
-                    gatsbyImageData(layout: FULL_WIDTH)
+                    gatsbyImageData
                   }
                 }
               }
@@ -260,6 +271,8 @@ export const projectQuery = graphql`
                 image {
                   altText
                   localFile {
+                    extension
+                    publicURL
                     childImageSharp {
                       gatsbyImageData
                     }
@@ -322,6 +335,8 @@ export const projectQuery = graphql`
               
               image {
                 localFile {
+                  extension
+                  publicURL
                   childImageSharp {
                     gatsbyImageData
                   }
@@ -340,6 +355,8 @@ export const projectQuery = graphql`
                 image {
                   altText
                   localFile {
+                    extension
+                    publicURL
                     childImageSharp {
                       gatsbyImageData
                     }
@@ -358,6 +375,48 @@ export const projectQuery = graphql`
                 featureTitle
               }
             }
+            ... on WpProject_Flexiblecontent_Body_Blocks_BlockPressRelease {
+              fieldGroupName
+              title
+              link {
+                target
+                title
+                url
+              }
+            }
+            ... on WpProject_Flexiblecontent_Body_Blocks_BlockAttachmentsGrid {
+              title
+              entries {
+                icon {
+                  localFile {
+                    extension
+                    publicURL
+                    childImageSharp {
+                      gatsbyImageData(width: 140)
+                    }
+                  }
+                }
+                attachment {
+                  title
+                  localFile {
+                    publicURL
+                  }
+                }
+                label
+              }
+              fieldGroupName
+              blockOptions {
+                blockPosition
+                blockWidth
+                backgroundGraphics {
+                  fieldGroupName
+                  size
+                  xposition
+                  yposition
+                }
+              }
+            }
+
           }
         }
       }

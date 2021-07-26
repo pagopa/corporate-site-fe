@@ -16,6 +16,7 @@ import JobsListing from './../JobsListing/JobsListing'
 import UsefulLinks from './../UsefulLinks/UsefulLinks'
 import PressRelease from './../PressRelease/PressRelease'
 import ContactsList from './../ContactsList/ContactsList'
+import AttachmentsGrid from './../AttachmentsGrid/AttachmentsGrid'
 import ProjectsCarousel from './../ProjectsCarousel/ProjectsCarousel'
 
 const Block = ({ data, type, featuredImage }) => {
@@ -66,6 +67,9 @@ const Block = ({ data, type, featuredImage }) => {
       )}
       {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockPressRelease` && (
         <PressRelease data={data} />
+      )}
+      {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockAttachmentsGrid` && (
+        <AttachmentsGrid data={data} />
       )}
     </>
   )
