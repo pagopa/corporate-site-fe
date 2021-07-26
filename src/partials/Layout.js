@@ -25,6 +25,11 @@ const Layout = ({ children, locale, slug }) => {
         {parse(onetrustSnippet)}
       </Helmet>
 
+      <Helmet script={[{
+        type: 'text/javascript', 
+        innerHTML: 'function OptanonWrapper() { }'
+      }]} />
+
       <Header siteTitle={title || `Title`} slug={slug} />
       <main>{children}</main>
       <Footer locale={locale} />
