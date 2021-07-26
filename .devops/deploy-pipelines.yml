@@ -32,7 +32,7 @@ variables:
     PROFILE_CDN_NAME: $(UAT_PROFILE_CDN_NAME)
     ENDPOINT_NAME: $(UAT_ENDPOINT_NAME)
     RESOURCE_GROUP_NAME: $(UAT_RESOURCE_GROUP_NAME)
-    BACKEND_BASE_URL: $(UAT_BACKEND_BASE_URL)
+    BACKEND_BASE_URL: "https://cms.uat.sitecorporate.pagopa.it"
     FRONTEND_PASSWORD: $(UAT_FRONTEND_PASSWORD)
     FRONTEND_BASE_URL: $(UAT_FRONTEND_BASE_URL)
   ${{ if eq(parameters['environment'], 'prod') }}:
