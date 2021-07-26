@@ -6,6 +6,21 @@ export const useWpOptionsPage = () => {
       wp(locales: { eq: "it" }) {
         options {
           globalData {
+            footer {
+              linksAttachments {
+                footerAttachment {
+                  localFile {
+                    publicURL
+                  }
+                  title
+                }
+                footerLink {
+                  target
+                  title
+                  url
+                }
+              }
+            }
             various {
               jobIframe
               onetrustSnippet

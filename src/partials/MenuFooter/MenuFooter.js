@@ -1,34 +1,35 @@
 import React from 'react'
-import { useStaticQuery, graphql } from 'gatsby'
+
+import { useWpOptionsPage } from '../../hooks/useWpOptionsPage'
+
+import Cta from '../../components/Cta/Cta'
 
 import './MenuFooter.sass'
 
 const MenuFooter = () => {
-  const data = useStaticQuery(graphql`
-    query MenuFooter {
-      wpMenu(name: { eq: "End Footer" }) {
-        menuItems {
-          nodes {
-            path
-            label
-          }
-        }
-      }
-    }
-  `)
-
-  const menu = data.wpMenu.menuItems.nodes
+  const { linksAttachments } = useWpOptionsPage().footer
 
   return (
     <nav className="menu-footer">
       <ul>
-        {menu.map((item, key) => {
-          const { path, label } = item
+        {linksAttachments.map((item, key) => {
+
+          const { footerLink, footerAttachment } = item
+
+          const linkObj = {
+            title: footerLink ? footerLink.title : footerAttachment ? footerAttachment.title : false,
+            url: footerLink ? footerLink.url : footerAttachment ? footerAttachment.localFile.publicURL : false,
+            blank: true
+          }
+
           return (
             <li key={key}>
-              <a href={path} target="_blank" rel="noopener noreferrer">
-                {label}
-              </a>
+              {linkObj.url && <Cta
+                label={linkObj.title}
+                url={linkObj.url}
+                blank={linkObj.blank}
+                variant="link-simple"
+              />}
             </li>
           )
         })}
@@ -38,3 +39,17 @@ const MenuFooter = () => {
 }
 
 export default MenuFooter
+
+
+
+// footerAttachment {
+//   localFile {
+//     publicURL
+//   }
+//   title
+// }
+// footerLink {
+//   target
+//   title
+//   url
+// }
