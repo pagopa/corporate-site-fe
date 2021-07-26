@@ -37,6 +37,22 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        trackingIds: [
+          'UA-162375189-1'
+        ],
+        gtagConfig: {
+          anonymize_ip: true,
+          cookie_expires: 60 * 60 * 24 * 28 * 6,
+        },
+        pluginConfig: {
+          head: false,
+          respectDNT: true
+        },
+      },
+    },
+    {
       resolve: `gatsby-plugin-sass`,
       options: {
         additionalData: `@import "${__dirname}/src/sass/vars"`,

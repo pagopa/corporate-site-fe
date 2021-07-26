@@ -50,14 +50,12 @@ const AllPressReleases = ({ data }) => {
               <h4>{theDate}</h4>
               <h3 className="--light">{title}</h3>
               <div className="wysiwyg">
-                <p>
-                  <LinesEllipsis
-                    text={text}
-                    maxLine='3'
-                    trimRight
-                    basedOn='letters'
-                  />
-                </p>
+                <LinesEllipsis
+                  text={text}
+                  maxLine='3'
+                  component="p"
+                  basedOn='letters'
+                />
               </div>
             </div>
 

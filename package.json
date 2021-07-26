@@ -10,6 +10,7 @@
     "gatsby": "^3.10.1",
     "gatsby-awesome-pagination": "^0.3.8",
     "gatsby-plugin-catch-links": "^3.10.0",
+    "gatsby-plugin-google-gtag": "^3.10.0",
     "gatsby-plugin-i18n": "^1.0.1",
     "gatsby-plugin-image": "^1.10.1",
     "gatsby-plugin-intl": "^0.3.3",

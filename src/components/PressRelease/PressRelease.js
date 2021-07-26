@@ -53,14 +53,12 @@ const LatestPress = () => {
                 <h4>{theDate}</h4>
                 <h4 className="--primary --medium">{title}</h4>
                 <div className="wysiwyg">
-                  <p>
-                    <LinesEllipsis
-                      text={text}
-                      maxLine='3'
-                      trimRight
-                      basedOn='letters'
-                    />
-                  </p>
+                  <LinesEllipsis
+                    text={text}
+                    maxLine='3'
+                    component="p"
+                    basedOn='letters'
+                  />
                 </div>
               </div>
 
@@ -71,7 +69,6 @@ const LatestPress = () => {
       })}
     </>
   )
-  
 }
 
 const PressRelease = ({ data }) => {
