@@ -11,8 +11,9 @@ import { LocaleContext } from '../contexts/LocaleContext.js'
 
 import '../sass/app.sass'
 import './Layout.sass'
-import Header from '../partials/Header/Header'
-import Footer from '../partials/Footer/Footer'
+import Header from './Header/Header'
+import Footer from './Footer/Footer'
+import HeadScripts from './HeadScripts'
 
 const Layout = ({ children, locale, slug }) => {
 
@@ -21,14 +22,8 @@ const Layout = ({ children, locale, slug }) => {
 
   return (
     <LocaleContext.Provider value={locale}>
-      <Helmet>
-        {parse(onetrustSnippet)}
-      </Helmet>
-
-      <Helmet script={[{
-        type: 'text/javascript', 
-        innerHTML: 'function OptanonWrapper() { }'
-      }]} />
+      
+      <HeadScripts />
 
       <Header siteTitle={title || `Title`} slug={slug} />
       <main>{children}</main>
