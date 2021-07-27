@@ -71,8 +71,10 @@ stages:
         ls -la $(Build.SourcesDirectory)/public
         echo BLOB_CONTAINER_NAME: $(BLOB_CONTAINER_NAME) 
       displayName: 'Check Site'
-    - publish: $(Build.SourcesDirectory)/public
-      artifact: Site
+    - task: PublishPipelineArtifact@1
+      inputs:
+        artifactName: 'WebApp'
+        targetPath: $(Build.SourcesDirectory)/public
 
 - stage: 'Deploy_to_${{parameters.environment}}'
   dependsOn: ['Build']
