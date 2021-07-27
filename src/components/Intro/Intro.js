@@ -1,17 +1,15 @@
 import React from 'react'
 
+import parse from 'html-react-parser'
+
 import Image from '../Image/Image'
 import './Intro.sass'
 
 const Intro = ({ data, featuredImage }) => {
   const { eyelet, title, text, image } = data
 
-  const coverImage = image
-    ? image
-    : featuredImage
-      ? featuredImage.node
-      : false
-      
+  const coverImage = image ? image : featuredImage ? featuredImage.node : false
+
   const ImageMarkup = () => {
     if (image) {
       return (
@@ -27,13 +25,17 @@ const Intro = ({ data, featuredImage }) => {
   }
 
   return (
-    <header className="block --block-intro intro">
+    <header
+      className={`block --block-intro intro${
+        !coverImage && !text ? ' mb-0 --nocontent' : ''
+      }`}
+    >
       <div className="container-fluid">
         <div className="row">
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
             <div className="intro__heading">
               {eyelet && <h4>{eyelet}</h4>}
-              {title && <h1>{title}</h1>}
+              {title && <h1>{parse(title)}</h1>}
             </div>
           </div>
         </div>
@@ -41,10 +43,7 @@ const Intro = ({ data, featuredImage }) => {
         {text && (
           <div className={`row${image ? ' mt-5' : ''}`}>
             <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-              <div
-                className="wysiwyg"
-                dangerouslySetInnerHTML={{ __html: text }}
-              />
+              <div className="wysiwyg">{parse(text)}</div>
             </div>
           </div>
         )}

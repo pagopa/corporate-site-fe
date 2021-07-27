@@ -42,9 +42,6 @@ const Footer = ({ locale }) => {
             </div>
             <div className="col-auto">
               <Language currentLocale={locale} />
-              {/* Pulsante "Inizio" delle impostazioni cookie OneTrust */}
-              <button id="ot-sdk-btn" className="cta --white-hollow"><span>Impostazioni dei cookie</span></button>
-              {/* Pulsante "Fine" delle impostazioni cookie OneTrust */}
             </div>
           </div>
         </div>

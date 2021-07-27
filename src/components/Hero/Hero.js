@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 
+import parse from 'html-react-parser'
+
 import SwiperCore, {
   Navigation,
   Pagination,
@@ -19,7 +21,6 @@ import './Hero.sass'
 SwiperCore.use([Navigation, Pagination, EffectFade, Controller])
 
 const Hero = ({ data }) => {
-
   const [contentSwiper, setContentSwiper] = useState(null)
 
   const { items } = data
@@ -35,8 +36,16 @@ const Hero = ({ data }) => {
     <section className="block --hero hero">
       <div className="hero__background" />
       <div className="container-fluid">
-        <button className="hero__nav --prev" title="prev" aria-labelledby="prev" />
-        <button className="hero__nav --next" title="next" aria-labelledby="next" />
+        <button
+          className="hero__nav --prev"
+          title="prev"
+          aria-labelledby="prev"
+        />
+        <button
+          className="hero__nav --next"
+          title="next"
+          aria-labelledby="next"
+        />
 
         <div className="row d-flex align-items-center">
           <div className="col-12 col-lg-6 offset-lg-1">
@@ -54,18 +63,17 @@ const Hero = ({ data }) => {
                 onSwiper={setContentSwiper}
               >
                 {items.map(({ content }, key) => {
+                  const { title, text, link } = content
                   return (
                     <SwiperSlide key={key}>
                       <article>
-                        <h1>{content.title}</h1>
-                        <div
-                          dangerouslySetInnerHTML={{ __html: content.text }}
-                        />
-                        {content.link && (
+                        <h1>{parse(title)}</h1>
+                        <div className="wysiwyg">{parse(text)}</div>
+                        {link && (
                           <Cta
-                            label={content.link.title}
-                            url={content.link.url}
-                            blank={content.link.target}
+                            label={link.title}
+                            url={link.url}
+                            blank={link.target}
                             variant="white"
                           />
                         )}

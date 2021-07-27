@@ -1,5 +1,7 @@
 import React from 'react'
 
+import parse from 'html-react-parser'
+
 import SwiperCore, { Navigation } from 'swiper'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -83,11 +85,11 @@ const ProjectsCarousel = ({ data }) => {
                           </div>
                           <div>
                             {projectPostAbstract && (
-                              <p
-                                dangerouslySetInnerHTML={{
-                                  __html: projectPostAbstract,
-                                }}
-                              />
+                              <div className="wysiwyg">
+                                <p>
+                                  {parse(projectPostAbstract)}
+                                </p>
+                              </div>
                             )}
                             <Cta
                               label={content.button}

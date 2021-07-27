@@ -1,4 +1,7 @@
 import React from 'react'
+
+import parse from 'html-react-parser'
+
 import Cta from '../Cta/Cta'
 import Image from '../Image/Image'
 
@@ -47,7 +50,7 @@ const VisualText = ({ data }) => {
           {fullWidthLayout && (
             <div className="col-12 col-md-10 offset-md-1">
               {eyelet && <h4>{eyelet}</h4>}
-              {title && <h1>{title}</h1>}
+              {title && <h1>{parse(title)}</h1>}
             </div>
           )}
           <div className={`col-12 ${columns[visualSize].visual}`}>
@@ -61,12 +64,11 @@ const VisualText = ({ data }) => {
           <div className={`col-12 ${columns[visualSize].content}`}>
             <div className="block__content">
               {!fullWidthLayout && eyelet && <h4>{eyelet}</h4>}
-              {!fullWidthLayout && title && <h1>{title}</h1>}
+              {!fullWidthLayout && title && <h1>{parse(title)}</h1>}
               {text && (
-                <div
-                  className="wysiwyg"
-                  dangerouslySetInnerHTML={{ __html: text }}
-                />
+                <div className="wysiwyg">
+                  {parse(text)}
+                </div>
               )}
               {link && (
                 <Cta

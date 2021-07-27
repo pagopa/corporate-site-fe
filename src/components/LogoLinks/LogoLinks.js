@@ -51,18 +51,3 @@ const LogoLinks = ({ data }) => {
 }
 
 export default LogoLinks
-
-// ... on WpPage_Flexiblecontent_Body_Blocks_BlockLogoLinks {
-//   fieldGroupName
-//   title
-//   items {
-//     image {
-//       localFile {
-//         childImageSharp {
-//           gatsbyImageData
-//         }
-//       }
-//     }
-//     logoLink
-//   }
-// }
