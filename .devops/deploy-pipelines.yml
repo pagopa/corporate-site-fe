@@ -67,15 +67,6 @@ steps:
 - script: |
     yarn build
   displayName: "Gatsby build"
-- task: AzureCLI@2
-  displayName: Azure CLI
-  inputs:
-    azureSubscription: '$(AZURE_SUBSCRIPTION)'
-    scriptType: bash
-    scriptLocation: inlineScript
-    inlineScript: |
-      az --version
-      az account show
 - script: |
     find . -type f | wc -l 
     ls -la $(Build.SourcesDirectory)/public
