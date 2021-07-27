@@ -2,6 +2,14 @@ import React, { useContext } from 'react'
 
 import parse from 'html-react-parser'
 
+import {
+  Accordion,
+  AccordionItem,
+  AccordionItemHeading,
+  AccordionItemButton,
+  AccordionItemPanel,
+} from 'react-accessible-accordion'
+
 import { useStaticQuery, graphql, Link } from 'gatsby'
 
 import { LocaleContext } from '../../contexts/LocaleContext.js'
@@ -81,39 +89,53 @@ const JobsList = () => {
           )
         })}
       </div>
+
       <div className="jobs-listing__past">
-        <h3>Posizioni chiuse</h3>
-        {pastListing.map((job, key) => {
-          const {
-            slug,
-            locale,
-            jobPositionFields: { openDate, closeDate },
-            title,
-          } = job.node
+        <Accordion allowZeroExpanded>
+          <AccordionItem className="accordion-entry">
+            <AccordionItemHeading className="accordion-entry__header">
+              <AccordionItemButton className="accordion-entry__button">
+                <h3 className="mb-0">Posizioni chiuse</h3>
+              </AccordionItemButton>
+            </AccordionItemHeading>
 
-          const startDate = new Date(openDate).toLocaleDateString(locale.id)
-          const endDate = new Date(closeDate).toLocaleDateString(locale.id)
+            <AccordionItemPanel className="accordion-entry__content">
+              <div>
+                {pastListing.map((job, key) => {
+                  const {
+                    slug,
+                    locale,
+                    jobPositionFields: { openDate, closeDate },
+                    title,
+                  } = job.node
 
-          const jobDir =
-            locale.id === 'it'
-              ? jobTranslations.itValue
-              : jobTranslations.enValue
+                  const startDate = new Date(openDate).toLocaleDateString(locale.id)
+                  const endDate = new Date(closeDate).toLocaleDateString(locale.id)
 
-          const path = `/${locale.id}/${jobDir}/${slug}`
+                  const jobDir =
+                    locale.id === 'it'
+                      ? jobTranslations.itValue
+                      : jobTranslations.enValue
 
-          return (
-            <Link to={path} key={key}>
-              <article className="job-entry">
-                <h4 className="--primary job-entry__title">
-                  {title}
-                </h4>
-                <p className="job-entry__timeframe">
-                  Data di apertura: {startDate} - Data di chiusura: {endDate}
-                </p>
-              </article>
-            </Link>
-          )
-        })}
+                  const path = `/${locale.id}/${jobDir}/${slug}`
+
+                  return (
+                    <Link to={path} key={key}>
+                      <article className="job-entry">
+                        <h4 className="--primary job-entry__title">
+                          {title}
+                        </h4>
+                        <p className="job-entry__timeframe">
+                          Data di apertura: {startDate} - Data di chiusura: {endDate}
+                        </p>
+                      </article>
+                    </Link>
+                  )
+                })}
+              </div>
+            </AccordionItemPanel>
+          </AccordionItem>
+        </Accordion>
       </div>
     </>
   )

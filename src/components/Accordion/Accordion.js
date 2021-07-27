@@ -2,9 +2,17 @@ import React from 'react'
 
 import parse from 'html-react-parser'
 
+import {
+  Accordion,
+  AccordionItem,
+  AccordionItemHeading,
+  AccordionItemButton,
+  AccordionItemPanel,
+} from 'react-accessible-accordion'
+
 import './Accordion.sass'
 
-const Accordion = ({ data }) => {
+const AccordionComp = ({ data }) => {
   const { blockOptions, title, entries } = data
 
   // const hasEntries = entries.length ? true : false
@@ -28,41 +36,49 @@ const Accordion = ({ data }) => {
 
   return (
     <>
-      <section className="block --block-accordion accordion">
+      <section className="block --block-accordion">
         <div className="container-fluid">
           <div className="row">
             <div className={`col-12 ${columns[blockWidth]}`}>
               <h1>{title}</h1>
 
-              {entries &&
-                entries.map((e, key) => {
-                  const { heading, content, attachments } = e.accordion
-                  return (
-                    <article className="accordion-entry" key={key}>
-                      <header className="accordion-entry__header">
-                        <h4 className="--primary --light">{heading}</h4>
-                      </header>
-                      <section className="accordion-entry__content">
-                        {parse(content)}
-                        {attachments &&
-                          attachments.map((a, key) => {
-                            const { title, localFile } = a.file
-                            return (
-                              <a
-                                href={localFile.publicURL}
-                                className="cta --link"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                key={key}
-                              >
-                                <span>{title}</span>
-                              </a>
-                            )
-                          })}
-                      </section>
-                    </article>
-                  )
-                })}
+              {entries && (
+                <Accordion allowZeroExpanded>
+                  {entries.map((e, key) => {
+                    const { heading, content, attachments } = e.accordion
+                    return (
+                      <AccordionItem className="accordion-entry" key={key}>
+                        <AccordionItemHeading className="accordion-entry__header">
+                          <AccordionItemButton className="accordion-entry__button">
+                            <h4 className="--primary --medium">{heading}</h4>
+                          </AccordionItemButton>
+                        </AccordionItemHeading>
+
+                        <AccordionItemPanel className="accordion-entry__content">
+                          <div className="wysiwyg">
+                            {parse(content)}
+                            {attachments &&
+                              attachments.map((a, key) => {
+                                const { title, localFile } = a.file
+                                return (
+                                  <a
+                                    href={localFile.publicURL}
+                                    className="cta --link"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    key={key}
+                                  >
+                                    <span>{title}</span>
+                                  </a>
+                                )
+                              })}
+                          </div>
+                        </AccordionItemPanel>
+                      </AccordionItem>
+                    )
+                  })}
+                </Accordion>
+              )}
             </div>
           </div>
         </div>
@@ -71,7 +87,7 @@ const Accordion = ({ data }) => {
   )
 }
 
-export default Accordion
+export default AccordionComp
 
 // blockOptions {
 //   blockPosition
