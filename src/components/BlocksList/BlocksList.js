@@ -1,5 +1,7 @@
 import React from 'react'
 
+import parse from 'html-react-parser'
+
 import Image from '../Image/Image'
 import './BlocksList.sass'
 
@@ -40,10 +42,9 @@ const BlocksList = ({ data }) => {
                           </figure>
                         )}
                         {text && (
-                          <div
-                            className="wysiwyg"
-                            dangerouslySetInnerHTML={{ __html: text }}
-                          />
+                          <div className="wysiwyg">
+                            {parse(text)}
+                            </div>
                         )}
                       </div>
                     </div>

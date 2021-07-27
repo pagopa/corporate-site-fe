@@ -1,5 +1,7 @@
 import React, { useContext } from 'react'
 
+import parse from 'html-react-parser'
+
 import { useStaticQuery, graphql, Link } from 'gatsby'
 
 import { LocaleContext } from '../../contexts/LocaleContext.js'
@@ -12,31 +14,33 @@ const JobsList = () => {
   const locale = useContext(LocaleContext)
 
   const data = useStaticQuery(graphql`
-    query jobs {
-      allWpJobPosition(sort: {fields: jobPositionFields___openDate, order: DESC}) {
-        edges {
-          node {
-            slug
-            nodeType
-            locale {
-              id
+      query jobs {
+        allWpJobPosition(
+          sort: { fields: jobPositionFields___openDate, order: DESC }
+        ) {
+          edges {
+            node {
+              slug
+              nodeType
+              locale {
+                id
+              }
+              jobPositionFields {
+                openDate
+                isNew
+                closeDate
+              }
+              title
             }
-            jobPositionFields {
-              openDate
-              isNew
-              closeDate
-            }
-            title
           }
         }
       }
-    }
-  `),
-  { edges: jobs } = data.allWpJobPosition
+    `),
+    { edges: jobs } = data.allWpJobPosition
 
   const jobTranslations = translations.find(t => t.stringKey === 'job_cpt_slug')
   const currentLocaleJobs = jobs.filter(j => j.node.locale.id === locale)
-  
+
   // const today = Date.now()
   // const activeListing = jobs.filter(j => Date.parse(j.node.jobPositionFields.closeDate) >= today)
   // const pastListing = jobs.filter(j => Date.parse(j.node.jobPositionFields.closeDate) < today)
@@ -45,13 +49,20 @@ const JobsList = () => {
     <>
       <div className="jobs-listing__list">
         {currentLocaleJobs.map((job, key) => {
-          const { slug, locale, jobPositionFields: { isNew, openDate, closeDate }, title} = job.node
+          const {
+            slug,
+            locale,
+            jobPositionFields: { isNew, openDate, closeDate },
+            title,
+          } = job.node
 
           const startDate = new Date(openDate).toLocaleDateString(locale.id)
           const endDate = new Date(closeDate).toLocaleDateString(locale.id)
 
-
-          const jobDir = locale.id === 'it' ? jobTranslations.itValue : jobTranslations.enValue
+          const jobDir =
+            locale.id === 'it'
+              ? jobTranslations.itValue
+              : jobTranslations.enValue
 
           const path = `/${locale.id}/${jobDir}/${slug}`
 
@@ -59,9 +70,12 @@ const JobsList = () => {
             <Link to={path} key={key}>
               <article className="job-entry">
                 <h4 className="--primary job-entry__title">
-                  {title}{isNew && <span>NEW</span>}
+                  {title}
+                  {isNew && <span>NEW</span>}
                 </h4>
-                <p className="job-entry__timeframe">Data di apertura: {startDate} - Data di chiusura: {endDate}</p>
+                <p className="job-entry__timeframe">
+                  Data di apertura: {startDate} - Data di chiusura: {endDate}
+                </p>
               </article>
             </Link>
           )
@@ -83,12 +97,7 @@ const JobsListing = ({ data }) => {
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
             {eyelet && <h4>{eyelet}</h4>}
             {title ? <h1>{title}</h1> : false}
-            {text && (
-              <div
-                className="wysiwyg"
-                dangerouslySetInnerHTML={{ __html: text }}
-              />
-            )}
+            {text && <div className="wysiwyg">{parse(text)}</div>}
             {hasCommonFeatures && (
               <div className="jobs-listing__common">
                 {commonFeatures.map((cf, key) => {

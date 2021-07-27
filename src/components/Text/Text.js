@@ -1,5 +1,7 @@
 import React from 'react'
 
+import parse from 'html-react-parser'
+
 import Cta from '../Cta/Cta'
 import './Text.sass'
 
@@ -42,12 +44,11 @@ const Text = ({ data }) => {
         <div className="row">
           <div className={`col-12 ${columns[blockWidth]}`}>
             {eyelet && <h4>{eyelet}</h4>}
-            {title ? iscentered ? <h2>{title}</h2> : <h1>{title}</h1> : false}
+            {title ? iscentered ? <h2>{parse(title)}</h2> : <h1>{parse(title)}</h1> : false}
             {text && (
-              <div
-                className="wysiwyg"
-                dangerouslySetInnerHTML={{ __html: text }}
-              />
+              <div className="wysiwyg">
+                {parse(text)}
+              </div>
             )}
             {link && (
               <Cta
