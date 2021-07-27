@@ -15,6 +15,7 @@ parameters:
 # variables set on azdevops to avoid circular dependency warning
 # $(BLOB_CONTAINER_NAME)
 variables:
+  AgentImage: "ubuntu-latest"
   ${{ if eq(parameters['environment'], 'uat') }}:
     AZURE_SUBSCRIPTION: $(UAT_AZURE_SUBSCRIPTION)
     STORAGE_ACCOUNT_NAME: $(UAT_STORAGE_ACCOUNT_NAME)
@@ -45,7 +46,7 @@ schedules:
   always: true 
 
 pool:
-  name: $(AGENT_POOL)
+  name: $(AgentImage)
 
 steps:
 - task: NodeTool@0
@@ -53,10 +54,10 @@ steps:
     versionSpec: "14.x"
   displayName: "Install Node.js"
 - script: |
-    yarn install
+    npm install
   displayName: "Install dependencies"
 - script: |
-    yarn build
+    npm build
   displayName: "Gatsby build"
 - script: |
     find . -type f | wc -l 
