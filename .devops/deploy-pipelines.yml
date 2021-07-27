@@ -46,7 +46,7 @@ variables:
     FRONTEND_BASE_URL: $(PROD_FRONTEND_BASE_URL)
 
 schedules:
-- cron: '0 * * * *'
+- cron: '0 10 * * *'
   displayName: 'Deploy every hour'
   branches:
     include:
