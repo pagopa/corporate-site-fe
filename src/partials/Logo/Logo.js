@@ -4,8 +4,8 @@ import pagopaColor from '../../images/pagopa.svg'
 import pagopaLight from '../../images/pagopa-light.svg'
 import './Logo.sass'
 
-const Logo = ({ title, version }) => {
-  const logoSrc = version === 'light' ? pagopaLight : pagopaColor
+const Logo = ({ title, version, menuOpen }) => {
+  const logoSrc = version === 'light' ? pagopaLight : menuOpen ? pagopaLight : pagopaColor
   return (
     <>
       <div className="logo">

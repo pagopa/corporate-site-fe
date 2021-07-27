@@ -1,8 +1,5 @@
 import React from 'react'
 
-import parse from 'html-react-parser'
-import { Helmet } from 'react-helmet'
-
 import { useWpOptionsPage } from '../hooks/useWpOptionsPage'
 import { useSiteMetadata } from '../hooks/useSiteMetadata.js'
 
@@ -22,9 +19,8 @@ const Layout = ({ children, locale, slug }) => {
 
   return (
     <LocaleContext.Provider value={locale}>
-      
       <HeadScripts />
-
+      
       <Header siteTitle={title || `Title`} slug={slug} />
       <main>{children}</main>
       <Footer locale={locale} />

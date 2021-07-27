@@ -2,6 +2,14 @@ import React, { useContext } from 'react'
 
 import parse from 'html-react-parser'
 
+import {
+  Accordion,
+  AccordionItem,
+  AccordionItemHeading,
+  AccordionItemButton,
+  AccordionItemPanel,
+} from 'react-accessible-accordion'
+
 import { useStaticQuery, graphql, Link } from 'gatsby'
 
 import { LocaleContext } from '../../contexts/LocaleContext.js'
@@ -41,14 +49,14 @@ const JobsList = () => {
   const jobTranslations = translations.find(t => t.stringKey === 'job_cpt_slug')
   const currentLocaleJobs = jobs.filter(j => j.node.locale.id === locale)
 
-  // const today = Date.now()
-  // const activeListing = jobs.filter(j => Date.parse(j.node.jobPositionFields.closeDate) >= today)
-  // const pastListing = jobs.filter(j => Date.parse(j.node.jobPositionFields.closeDate) < today)
+  const today = Date.now()
+  const activeListing = currentLocaleJobs.filter(j => Date.parse(j.node.jobPositionFields.closeDate) >= today)
+  const pastListing = currentLocaleJobs.filter(j => Date.parse(j.node.jobPositionFields.closeDate) < today)
 
   return (
     <>
       <div className="jobs-listing__list">
-        {currentLocaleJobs.map((job, key) => {
+        {activeListing.map((job, key) => {
           const {
             slug,
             locale,
@@ -80,6 +88,54 @@ const JobsList = () => {
             </Link>
           )
         })}
+      </div>
+
+      <div className="jobs-listing__past">
+        <Accordion allowZeroExpanded>
+          <AccordionItem className="accordion-entry">
+            <AccordionItemHeading className="accordion-entry__header">
+              <AccordionItemButton className="accordion-entry__button">
+                <h3 className="mb-0">Posizioni chiuse</h3>
+              </AccordionItemButton>
+            </AccordionItemHeading>
+
+            <AccordionItemPanel className="accordion-entry__content">
+              <div>
+                {pastListing.map((job, key) => {
+                  const {
+                    slug,
+                    locale,
+                    jobPositionFields: { openDate, closeDate },
+                    title,
+                  } = job.node
+
+                  const startDate = new Date(openDate).toLocaleDateString(locale.id)
+                  const endDate = new Date(closeDate).toLocaleDateString(locale.id)
+
+                  const jobDir =
+                    locale.id === 'it'
+                      ? jobTranslations.itValue
+                      : jobTranslations.enValue
+
+                  const path = `/${locale.id}/${jobDir}/${slug}`
+
+                  return (
+                    <Link to={path} key={key}>
+                      <article className="job-entry">
+                        <h4 className="--primary job-entry__title">
+                          {title}
+                        </h4>
+                        <p className="job-entry__timeframe">
+                          Data di apertura: {startDate} - Data di chiusura: {endDate}
+                        </p>
+                      </article>
+                    </Link>
+                  )
+                })}
+              </div>
+            </AccordionItemPanel>
+          </AccordionItem>
+        </Accordion>
       </div>
     </>
   )

@@ -23,13 +23,23 @@ h1, .h1
   font-size: 5.6rem
   margin-bottom: 4rem
 
+  @media (max-width: $tablet - 1)
+    font-size: 3.6rem
+
 h2, .h2
   font-size: 4.2rem
   margin-bottom: 4rem
 
+  @media (max-width: $tablet - 1)
+    font-size: 3.2rem
+
 h3, .h3
   font-size: 3.2rem
   margin-bottom: 4rem
+  
+  @media (max-width: $tablet - 1)
+    font-size: 2.8rem
+
 
 h4, .h4
   font-size: 2.4rem
@@ -38,6 +48,9 @@ h4, .h4
   text-transform: uppercase
   margin-bottom: 2.4rem
   letter-spacing: 1px
+
+  @media (max-width: $tablet - 1)
+    font-size: 2rem
 
   &.--primary
     font-family: $f-primary
@@ -164,3 +177,14 @@ a
     font-size: 2.4rem
     line-height: 1.83
     box-decoration-break: clone
+  
+  hr
+    display: block
+    margin-top: 4rem
+    margin-bottom: 4rem
+    border: none
+    height: 1px
+    background-color: $c-gray-light
+    
+    + h4
+      margin-top: 0 !important

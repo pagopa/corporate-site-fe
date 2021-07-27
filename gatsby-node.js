@@ -49,6 +49,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             locale {
               id
             }
+            postConfig {
+              doNotBuild
+            }
           }
         }
       }
@@ -150,14 +153,16 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const defaultNodes = result.data.defaultPages.edges
 
   _.each(defaultNodes, ({ node: page }) => {
-    createPage({
-      path: `/${page.locale.id}/${page.uri}`,
-      component: pageTemplate,
-      context: {
-        id: page.id,
-        locale: page.locale.id,
-      },
-    })
+    if (!page.postConfig.doNotBuild) {
+      createPage({
+        path: `/${page.locale.id}/${page.uri}`,
+        component: pageTemplate,
+        context: {
+          id: page.id,
+          locale: page.locale.id,
+        },
+      })
+    }
   })
 
 
