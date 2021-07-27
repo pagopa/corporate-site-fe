@@ -46,7 +46,7 @@ schedules:
   always: true 
 
 pool:
-  name: $(AgentImage)
+  name: $(AGENT_POOL)
 
 steps:
 - task: NodeTool@0
