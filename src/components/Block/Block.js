@@ -10,6 +10,7 @@ import Visual from './../Visual/Visual'
 import CtaGrid from './../CtaGrid/CtaGrid'
 import LogoLinks from './../LogoLinks/LogoLinks'
 import CtaBanner from './../CtaBanner/CtaBanner'
+import Accordion from './../Accordion/Accordion'
 import BlocksList from './../BlocksList/BlocksList'
 import VisualText from './../VisualText/VisualText'
 import JobsListing from './../JobsListing/JobsListing'
@@ -70,6 +71,9 @@ const Block = ({ data, type, featuredImage }) => {
       )}
       {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockAttachmentsGrid` && (
         <AttachmentsGrid data={data} />
+      )}
+      {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockAccordion` && (
+        <Accordion data={data} />
       )}
     </>
   )

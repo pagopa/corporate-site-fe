@@ -419,6 +419,36 @@ export const pageQuery = graphql`
               }
             }
 
+            ... on WpPage_Flexiblecontent_Body_Blocks_BlockAccordion {
+              fieldGroupName
+              title
+              blockOptions {
+                blockPosition
+                blockWidth
+                fieldGroupName
+                backgroundGraphics {
+                  fieldGroupName
+                  size
+                  xposition
+                  yposition
+                }
+              }
+              entries {
+                accordion {
+                  heading
+                  content
+                  attachments {
+                    file {
+                      title
+                      localFile {
+                        publicURL
+                      }
+                    }
+                  }
+                }
+              }
+            }
+
           }
         }
       }
