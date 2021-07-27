@@ -46,35 +46,56 @@ schedules:
   always: true 
 
 pool:
-  name: $(AgentImage)
+  name: $(AGENT_POOL)
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: "14.x"
-  displayName: "Install Node.js"
-- script: |
-    npm install
-  displayName: "Install dependencies"
-- script: |
-    npm build
-  displayName: "Gatsby build"
-- script: |
-    find . -type f | wc -l 
-    ls -la $(Build.SourcesDirectory)/public
-    echo BLOB_CONTAINER_NAME: $(BLOB_CONTAINER_NAME) 
-  displayName: 'Check Site'
-- task: AzureCLI@1
-  displayName: 'Sync Storage'
-  inputs:
-    azureSubscription: '$(AZURE_SUBSCRIPTION)'
-    scriptLocation: inlineScript
-    inlineScript: |
-      az storage blob sync --container '$web' --account-name $(STORAGE_ACCOUNT_NAME) -s "$(Build.SourcesDirectory)/public"
-- task: AzureCLI@1
-  displayName: 'Purge CDN'
-  inputs:
-    azureSubscription: '$(AZURE_SUBSCRIPTION)'
-    scriptLocation: inlineScript
-    inlineScript: |
-      az cdn endpoint purge -g $(RESOURCE_GROUP_NAME) -n $(ENDPOINT_NAME) --profile-name $(PROFILE_CDN_NAME) --content-paths "/*" --no-wait
+stages:
+- stage: 'Build'
+  displayName: 'Build'
+  jobs:
+  - job: 'Build'
+    pool:
+      vmImage: $(AgentImage)
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: "14.x"
+      displayName: "Install Node.js"
+    - script: |
+        npm install
+      displayName: "Install dependencies"
+    - script: |
+        npm build
+      displayName: "Gatsby build"
+    - script: |
+        find . -type f | wc -l 
+        ls -la $(Build.SourcesDirectory)/public
+        echo BLOB_CONTAINER_NAME: $(BLOB_CONTAINER_NAME) 
+      displayName: 'Check Site'
+    - publish: $(Build.SourcesDirectory)/public
+      artifact: Site
+
+- stage: 'Deploy_to_${{parameters.environment}}'
+  dependsOn: ['Build']
+  jobs:
+  - job: 'Deploy'
+    steps:
+    - download: current
+      artifact: WebApp
+      path: $(Build.SourcesDirectory)/public
+    - task: AzureCLI@1
+      displayName: 'Sync Storage'
+      inputs:
+        azureSubscription: '$(AZURE_SUBSCRIPTION)'
+        scriptLocation: inlineScript
+        inlineScript: |
+          az storage blob sync --container '$web' --account-name $(STORAGE_ACCOUNT_NAME) -s "$(Build.SourcesDirectory)/public"
+    - task: AzureCLI@1
+      displayName: 'Purge CDN'
+      inputs:
+        azureSubscription: '$(AZURE_SUBSCRIPTION)'
+        scriptLocation: inlineScript
+        inlineScript: |
+          az cdn endpoint purge -g $(RESOURCE_GROUP_NAME) -n $(ENDPOINT_NAME) --profile-name $(PROFILE_CDN_NAME) --content-paths "/*" --no-wait
+
+
+
