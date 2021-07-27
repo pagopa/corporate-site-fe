@@ -73,8 +73,9 @@ stages:
       displayName: 'Check Site'
     - task: PublishPipelineArtifact@1
       inputs:
-        artifactName: 'WebApp'
-        targetPath: $(Build.SourcesDirectory)/public
+        targetPath: '$(Pipeline.Workspace)'
+        artifact: 'WebApp'
+        publishLocation: 'pipeline'
 
 - stage: 'Deploy_to_${{parameters.environment}}'
   dependsOn: ['Build']
@@ -83,8 +84,9 @@ stages:
     steps:
     - task: DownloadPipelineArtifact@2
       inputs:
-        artifact: 'WebApp'
-        path: $(Build.SourcesDirectory)/public
+        buildType: 'current'
+        artifactName: 'WebApp'
+        targetPath: '$(Pipeline.Workspace)'
     - task: AzureCLI@1
       displayName: 'Sync Storage'
       inputs:
