@@ -18,12 +18,14 @@ const HeadScripts = () => {
 
       <Helmet script={[{
         type: 'text/javascript', 
-        innerHTML: `function OptanonWrapper() {
-          var C0002 = OnetrustActiveGroups.includes("C0002");
-          if (C0002 == false) {
-            window['ga-disable-UA-162375189-1'] = true;
+        innerHTML: `
+          function OptanonWrapper() {
+            var C0002 = OnetrustActiveGroups.includes("C0002");
+            if (C0002 == false) {
+              window['ga-disable-UA-162375189-1'] = true;
+            }
           }
-        }`
+        `
       }]} />
 
       <Helmet script={[{

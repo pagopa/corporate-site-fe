@@ -37,7 +37,7 @@ const Text = ({ data }) => {
   const { eyelet, title, text, link } = content
 
   return (
-    <section className={`block --block-text text${iscentered && ' --centered'}`}>
+    <section className={`block --block-text text${iscentered ? ' --centered' : ''}`}>
       <div className="container-fluid">
         <div className="row">
           <div className={`col-12 ${columns[blockWidth]}`}>
