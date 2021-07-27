@@ -79,9 +79,10 @@ stages:
   jobs:
   - job: 'Deploy'
     steps:
-    - download: current
-      artifact: WebApp
-      path: $(Build.SourcesDirectory)/public
+    - task: DownloadPipelineArtifact@2
+      inputs:
+        artifact: 'WebApp'
+        path: $(Build.SourcesDirectory)/public
     - task: AzureCLI@1
       displayName: 'Sync Storage'
       inputs:
