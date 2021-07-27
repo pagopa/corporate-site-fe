@@ -16,16 +16,7 @@ parameters:
 # variables set on azdevops to avoid circular dependency warning
 # $(BLOB_CONTAINER_NAME)
 variables:
-  AgentImage: "ubuntu-latest"
-  ${{ if eq(parameters['environment'], 'dev') }}:
-    AZURE_SUBSCRIPTION: $(DEV_AZURE_SUBSCRIPTION)
-    STORAGE_ACCOUNT_NAME: $(DEV_STORAGE_ACCOUNT_NAME)
-    PROFILE_CDN_NAME: $(DEV_PROFILE_CDN_NAME)
-    ENDPOINT_NAME: $(DEV_ENDPOINT_NAME)
-    RESOURCE_GROUP_NAME: $(DEV_RESOURCE_GROUP_NAME)
-    BACKEND_BASE_URL: $(DEV_BACKEND_BASE_URL)
-    FRONTEND_PASSWORD: $(DEV_FRONTEND_PASSWORD)
-    FRONTEND_BASE_URL: $(DEV_FRONTEND_BASE_URL)
+  AGENT_POOL: "scorp-uat-linux"
   ${{ if eq(parameters['environment'], 'uat') }}:
     AZURE_SUBSCRIPTION: $(UAT_AZURE_SUBSCRIPTION)
     STORAGE_ACCOUNT_NAME: $(UAT_STORAGE_ACCOUNT_NAME)
@@ -35,6 +26,7 @@ variables:
     BACKEND_BASE_URL: $(UAT_BACKEND_BASE_URL)
     FRONTEND_PASSWORD: $(UAT_FRONTEND_PASSWORD)
     FRONTEND_BASE_URL: $(UAT_FRONTEND_BASE_URL)
+    AGENT_POOL: "scorp-uat-linux"
   ${{ if eq(parameters['environment'], 'prod') }}:
     AZURE_SUBSCRIPTION: $(PROD_AZURE_SUBSCRIPTION)
     STORAGE_ACCOUNT_NAME: $(PROD_STORAGE_ACCOUNT_NAME)
@@ -44,6 +36,7 @@ variables:
     BACKEND_BASE_URL: $(PROD_BACKEND_BASE_URL)
     FRONTEND_PASSWORD: $(PROD_FRONTEND_PASSWORD)
     FRONTEND_BASE_URL: $(PROD_FRONTEND_BASE_URL)
+    AGENT_POOL: "scorp-prod-linux"
 
 schedules:
 - cron: '0 10 * * *'
@@ -54,7 +47,7 @@ schedules:
   always: true 
 
 pool:
-  vmImage: $(AgentImage)
+  name: $(AGENT_POOL)
 
 steps:
 - task: NodeTool@0
