@@ -1,14 +1,17 @@
 .menu-main
   margin-left: 1rem
+  z-index: 1
   
   ul
     position: relative
     display: flex
+  
+  @media (min-width: $desktop)
 
-    li
+    &__item
       position: relative
       padding: 0 1.6rem
-      font-family: 'Roboto Mono'
+      font-family: $f-alternative
       font-weight: 700
       text-transform: uppercase
       font-size: 1.6rem
@@ -107,3 +110,116 @@
               border-bottom: 1.6rem solid $c-brand
               border-left: 1.2rem solid transparent
               border-right: 1.2rem solid transparent
+  
+  @media (max-width: $desktop - 1)
+    opacity: 0
+    visibility: hidden
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    height: 100vh
+    max-height: 100vh
+    overflow: hidden
+    overflow-y: auto
+    -webkit-overflow-scrolling: touch
+    background-color: $c-brand
+    margin-left: 0
+    transition: all $transition-micro
+    padding: $header-height-mobile 4rem
+    
+    ul
+      flex-wrap: wrap
+
+    &__item
+      position: relative
+      font-size: 3.6rem
+      color: #FFF
+      font-family: $f-primary
+      text-transform: none
+      font-weight: 400
+      width: 100%
+      display: block
+      text-align: right
+      margin-right: 0
+      margin-bottom: 2rem
+      padding-right: 5.4rem
+      
+      &.highlight
+        a, span
+          font-family: $f-alternative
+          background-color: #FFF
+          color: $c-brand
+          position: relative
+          display: inline-flex
+          overflow: hidden
+          align-items: center
+          justify-content: center
+          text-transform: uppercase
+          font-size: 1.6rem
+          font-weight: 700
+          line-height: 1.25
+          padding: 1.4rem 2.4rem
+          margin-top: 2.2rem
+          text-align: center
+          min-width: 16rem
+
+      &.is-current
+        > span, > a
+          text-decoration: underline
+
+      span
+        cursor: default
+
+      > ul
+        position: relative
+        top: auto
+        left: auto
+        transform: none
+        opacity: 0
+        visibility: visible
+        display: block
+        backface-visibility: hidden
+        transition: all $transition-fast $tf
+        max-height: 0
+        overflow: hidden
+
+        li
+          padding: 1.2rem 0
+          font-size: 2rem
+          font-weight: 500
+
+          &:first-child
+            margin-top: 1rem
+      
+      &.w-sub
+        &::after
+          content: ''
+          width: 1.8rem
+          height: 1.1rem
+          display: block
+          position: absolute
+          top: 2.6rem
+          transform: translateY(-50%)
+          transform-origin: center center
+          right: .7rem
+          background-image: url(../../images/ui/chevron-down-white.svg)
+          background-repeat: no-repeat
+          background-size: 100%
+          transform-origin: center center
+          transition: all $transition-fast
+
+        &.is-sub-open
+          &::after
+            top: 2rem
+            transform: rotate(-180deg)
+
+          > ul
+            max-height: 30rem
+            margin-bottom: 2rem
+            opacity: 1
+
+.menu-is-open
+  .menu-main
+    opacity: 1
+    visibility: visible

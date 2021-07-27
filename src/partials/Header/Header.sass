@@ -11,3 +11,12 @@
   background-color: rgba(#FFF, .8)
   backdrop-filter: blur(1rem)
   z-index: 100
+
+  @media (max-width: $desktop - 1)
+    height: $header-height-mobile
+    
+    .socials
+      display: none
+    
+    .hamburger
+      display: block
