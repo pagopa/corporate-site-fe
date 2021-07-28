@@ -61,19 +61,18 @@ stages:
         versionSpec: "14.x"
       displayName: "Install Node.js"
     - script: |
-        npm install
+        yarn install
       displayName: "Install dependencies"
     - script: |
-        npm build
+        yarn build
       displayName: "Gatsby build"
     - script: |
         find . -type f | wc -l 
         ls -la $(Build.SourcesDirectory)/public
-        echo BLOB_CONTAINER_NAME: $(BLOB_CONTAINER_NAME) 
       displayName: 'Check Site'
     - task: PublishPipelineArtifact@1
       inputs:
-        targetPath: '$(Pipeline.Workspace)'
+        targetPath: '$(Build.SourcesDirectory)/public'
         artifact: 'WebApp'
         publishLocation: 'pipeline'
 
@@ -86,7 +85,7 @@ stages:
       inputs:
         buildType: 'current'
         artifactName: 'WebApp'
-        targetPath: '$(Pipeline.Workspace)'
+        targetPath: '$(Build.SourcesDirectory)/public'
     - task: AzureCLI@1
       displayName: 'Sync Storage'
       inputs:
