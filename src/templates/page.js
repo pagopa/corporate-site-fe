@@ -5,10 +5,10 @@ import { graphql } from 'gatsby'
 import Layout from '../partials/Layout'
 import Block from '../components/Block/Block'
 
-// import Seo from '../components/Seo'
+import SeoHelmet from '../components/SeoHelmet'
 
 const Page = ({ data }) => {
-  const { title, slug, locale, flexibleContent, nodeType, featuredImage } = data.wpPage,
+  const { title, slug, locale, flexibleContent, nodeType, featuredImage, seo } = data.wpPage,
         blocks = flexibleContent.body.blocks
 
   const currentLocale = locale.id,
@@ -22,7 +22,7 @@ const Page = ({ data }) => {
   return (
     <Layout locale={currentLocale} slug={currentSlug}>
       
-      {/* <SEO /> */}
+      <SeoHelmet yoast={seo} locale={currentLocale} />
 
       {blocks &&
         blocks.map((block, key) => {
@@ -54,6 +54,22 @@ export const pageQuery = graphql`
           }
         }
       }
+
+      seo {
+        opengraphTitle
+        opengraphSiteName
+        opengraphDescription
+        opengraphImage {
+          localFile {
+            publicURL
+          }
+        }
+        opengraphType
+        title
+        twitterDescription
+        twitterTitle
+      }
+
       flexibleContent {
         body {
           blocks {
@@ -436,7 +452,6 @@ export const pageQuery = graphql`
                 }
               }
             }
-
             ... on WpPage_Flexiblecontent_Body_Blocks_BlockAccordion {
               fieldGroupName
               title
