@@ -3,8 +3,6 @@ import React, { useContext } from 'react'
 import { graphql } from 'gatsby'
 import parse from 'html-react-parser'
 
-import LinesEllipsis from 'react-lines-ellipsis'
-
 import { LocaleContext } from '../contexts/LocaleContext.js'
 
 import Layout from '../partials/Layout'
@@ -43,6 +41,7 @@ const AllPressReleases = ({ data }) => {
               theDate = new Date(date).toLocaleDateString(locale.id, dateOptions)
 
         const text = content.replace(/(<([^>]+)>)/ig, '')
+        const abstract = text.split(" ").splice(0,36).join(" ")
         
         return (
           <article className="press-release" key={key}>
@@ -50,12 +49,7 @@ const AllPressReleases = ({ data }) => {
               <h4>{theDate}</h4>
               <h3 className="--light">{title}</h3>
               <div className="wysiwyg">
-                <LinesEllipsis
-                  text={text}
-                  maxLine='3'
-                  component="p"
-                  basedOn='letters'
-                />
+                <p>{abstract}...</p>
               </div>
             </div>
 
