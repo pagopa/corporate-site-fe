@@ -2,8 +2,6 @@ import React, { useContext } from 'react'
 
 import { useStaticQuery, graphql } from 'gatsby'
 
-import LinesEllipsis from 'react-lines-ellipsis'
-
 import { LocaleContext } from '../../contexts/LocaleContext.js'
 
 import Cta from '../../components/Cta/Cta'
@@ -45,6 +43,8 @@ const LatestPress = () => {
               theDate = new Date(date).toLocaleDateString(locale.id, dateOptions)
 
         const text = content.replace(/(<([^>]+)>)/ig, '')
+
+        const abstract = text.split(" ").splice(0,24).join(" ")
         
         return (
           <div className="col-12 col-lg-6 d-flex" key={key}>
@@ -53,12 +53,7 @@ const LatestPress = () => {
                 <h4>{theDate}</h4>
                 <h4 className="--primary --medium">{title}</h4>
                 <div className="wysiwyg">
-                  <LinesEllipsis
-                    text={text}
-                    maxLine='3'
-                    component="p"
-                    basedOn='letters'
-                  />
+                  <p>{abstract}...</p>
                 </div>
               </div>
 
