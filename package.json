@@ -10,7 +10,6 @@
     "gatsby": "^3.9",
     "gatsby-awesome-pagination": "^0.3.8",
     "gatsby-plugin-catch-links": "^3.10.0",
-    "gatsby-plugin-google-gtag": "^3.10.0",
     "gatsby-plugin-i18n": "^1.0.1",
     "gatsby-plugin-image": "^1.10.1",
     "gatsby-plugin-intl": "^0.3.3",
@@ -33,7 +32,6 @@
     "react-helmet": "^6.1.0",
     "react-lines-ellipsis": "^0.15.0",
     "react-svg": "^14.0.6",
-    "react-truncate": "^2.4.0",
     "sass": "^1.36.0",
     "swiper": "^6.7.5"
   },

@@ -39,7 +39,7 @@
     @media (max-width: $tablet - 1)
       margin-bottom: 4rem
 
-    &:not(.--centered)  
+    &:not(.--centered)
       + .--block-text, + .--block-visual-text
         padding-top: 4rem
       
@@ -48,6 +48,11 @@
       
       + .--block-jobs-listing
         padding-top: 3rem
+  
+  &.--block-visual-text
+    &:not(.--has-bg-color)
+      + .--block-visual-text
+        padding-top: 2rem
   
   &.--block-intro
     padding-top: 7rem

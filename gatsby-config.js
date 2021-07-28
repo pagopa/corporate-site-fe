@@ -6,8 +6,8 @@ const languages = require('./src/data/languages')
 
 module.exports = {
   siteMetadata: {
-    title: `pagopa`,
-    description: ``,
+    title: `PagoPA`,
+    description: `PagoPA S.p.A. è una società pubblica ad alto livello specialistico, che ha la mission di diffondere i servizi pubblici digitali attraverso lo sviluppo di progetti innovativi e la gestione di infrastrutture tecnologiche strategiche per accompagnare la modernizzazione della Pubblica Amministrazione e del Paese.`,
     author: ``,
     siteUrl: process.env.FRONTEND_BASE_URL,
     cmsUrl: process.env.BACKEND_BASE_URL,
@@ -92,12 +92,12 @@ module.exports = {
       },
     },
 
-    // temporary password
-    {
-      resolve: `@mkitio/gatsby-theme-password-protect`,
-      options: {
-        password: process.env.FRONTEND_PASSWORD,
-      },
-    },
+    // // temporary password
+    // {
+    //   resolve: `@mkitio/gatsby-theme-password-protect`,
+    //   options: {
+    //     password: process.env.FRONTEND_PASSWORD,
+    //   },
+    // },
   ],
 }

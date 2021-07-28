@@ -15,7 +15,7 @@ const LatestPress = () => {
 
   const data = useStaticQuery(graphql`
     query pressReleases {
-      allWpPressReleases {
+      allWpPressReleases(limit: 2, sort: {fields: date, order: DESC}) {
         edges {
           node {
             date
