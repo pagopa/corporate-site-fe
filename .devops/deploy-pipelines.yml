@@ -1,5 +1,4 @@
-trigger:
-- master
+trigger: none
 
 name: $(Year:yy).$(Month).$(DayOfMonth).$(BuildID)-$(SourceBranchName)
 
@@ -53,8 +52,6 @@ stages:
   displayName: 'Build'
   jobs:
   - job: 'Build'
-    pool:
-      vmImage: $(AgentImage)
     steps:
     - task: NodeTool@0
       inputs:
@@ -64,16 +61,15 @@ stages:
         npm install
       displayName: "Install dependencies"
     - script: |
-        npm build
+        npm run-script build
       displayName: "Gatsby build"
     - script: |
         find . -type f | wc -l 
         ls -la $(Build.SourcesDirectory)/public
-        echo BLOB_CONTAINER_NAME: $(BLOB_CONTAINER_NAME) 
       displayName: 'Check Site'
     - task: PublishPipelineArtifact@1
       inputs:
-        targetPath: '$(Pipeline.Workspace)'
+        targetPath: '$(Build.SourcesDirectory)/public'
         artifact: 'WebApp'
         publishLocation: 'pipeline'
 
@@ -81,12 +77,14 @@ stages:
   dependsOn: ['Build']
   jobs:
   - job: 'Deploy'
+    pool:
+      vmImage: $(AgentImage)
     steps:
     - task: DownloadPipelineArtifact@2
       inputs:
         buildType: 'current'
         artifactName: 'WebApp'
-        targetPath: '$(Pipeline.Workspace)'
+        targetPath: '$(Build.SourcesDirectory)/public'
     - task: AzureCLI@1
       displayName: 'Sync Storage'
       inputs:
