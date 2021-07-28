@@ -58,10 +58,13 @@ stages:
         versionSpec: "14.x"
       displayName: "Install Node.js"
     - script: |
-        npm install
+        npm install -g yarn
+      displayName: "Install Yarn"
+    - script: |
+        yarn install
       displayName: "Install dependencies"
     - script: |
-        npm run-script build
+        yarn build
       displayName: "Gatsby build"
     - script: |
         find . -type f | wc -l 
