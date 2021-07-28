@@ -5,7 +5,7 @@ import { graphql } from 'gatsby'
 import Layout from '../partials/Layout'
 import Block from '../components/Block/Block'
 
-import SEO from '../components/SEO'
+// import Seo from '../components/Seo'
 
 const Page = ({ data }) => {
   const { title, slug, locale, flexibleContent, nodeType, featuredImage } = data.wpPage,

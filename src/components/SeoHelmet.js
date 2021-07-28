@@ -5,27 +5,18 @@ import { useStaticQuery, graphql } from 'gatsby'
 import { useWpOptionsPage } from '../hooks/useWpOptionsPage'
 import { useSiteMetadata } from '../hooks/useSiteMetadata'
 
-const SEO = ({ description, lang, meta, title }) => {
+const SeoHelmet = ({ description, lang, meta, title }) => {
 
   const { defaultSeo } = useWpOptionsPage()
-  const { site } = useSiteMetadata()
   console.log(site)
 
   const { seoTitle, seoDescription, image } = defaultSeo
 
-  // const { site } = useStaticQuery(
-  //   graphql`
-  //     query {
-  //       site {
-  //         siteMetadata {
-  //           title
-  //           description
-  //           author
-  //         }
-  //       }
-  //     }
-  //   `
-  // )
+  const seoValues = {
+    title: seoTitle ? seoTitle : false,
+    description: seoTitle ? seoTitle: false,
+    image: seoTitle ? seoTitle: false
+  }
 
   const metaDescription = description || site.siteMetadata.description
   const defaultTitle = site.siteMetadata?.title
@@ -75,7 +66,7 @@ const SEO = ({ description, lang, meta, title }) => {
   )
 }
 
-export default SEO
+export default SeoHelmet
 
 
 // seo {
