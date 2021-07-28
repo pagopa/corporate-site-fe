@@ -128,6 +128,8 @@
     width: 100%
     height: 100vh
     max-height: 100vh
+    // height: -webkit-fill-available
+    // min-height: -webkit-fill-available
     overflow: hidden
     overflow-y: auto
     -webkit-overflow-scrolling: touch
@@ -135,6 +137,9 @@
     margin-left: 0
     transition: all $transition-micro
     padding: $header-height-mobile 4rem
+
+    @media (max-width: $mobile-xs)
+      padding: $header-height-mobile 2.4rem calc(#{$header-height-mobile} + 2rem)
     
     ul
       flex-wrap: wrap
@@ -223,7 +228,7 @@
             transform: rotate(-180deg)
 
           > ul
-            max-height: 30rem
+            max-height: 55rem
             margin-bottom: 2rem
             opacity: 1
 

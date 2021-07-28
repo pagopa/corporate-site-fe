@@ -36,13 +36,13 @@ const Footer = ({ locale }) => {
           
         </div>
         <div className="footer__bottom">
-          <div className="row justify-content-between">
+          <div className="row justify-content-between flex-row-reverse">
+            <div className="col-12 col-md-auto">
+              <MenuFooter />
+              {/* <Language currentLocale={locale} /> */}
+            </div>
             <div className="col">
               <MenuService />
-            </div>
-            <div className="col-auto">
-              <MenuFooter />
-              <Language currentLocale={locale} />
             </div>
           </div>
         </div>

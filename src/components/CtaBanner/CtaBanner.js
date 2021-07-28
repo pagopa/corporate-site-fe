@@ -16,7 +16,7 @@ const CtaBanner = ({ data }) => {
               <h3 className="cta-banner__title mb-md-0">{ctaMessage}</h3>
             )}
           </div>
-          <div className="col-12 col-md-5 col-lg-3 d-flex justify-content-end align-items-start">
+          <div className="col-12 col-md-5 col-lg-3 d-flex justify-content-md-end align-items-start">
             <Cta
               label={linkLabel}
               url={linkUrl}

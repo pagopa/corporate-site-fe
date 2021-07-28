@@ -18,8 +18,8 @@ const ProjectsCarousel = ({ data }) => {
 
   const swiperCommons = {
     speed: 480,
-    spaceBetween: 32,
-    slidesPerView: 1.14,
+    spaceBetween: 16,
+    slidesPerView: 1.1,
     loop: true,
   }
 
@@ -87,10 +87,12 @@ const ProjectsCarousel = ({ data }) => {
                           <div>
                             <h1>{projectPostTitle}</h1>
                             {image && (
-                              <Image
-                                image={image.localFile}
-                                title={image.altText ? image.altText : 'image'}
-                              />
+                              <figure>
+                                <Image
+                                  image={image.localFile}
+                                  title={image.altText ? image.altText : 'image'}
+                                />
+                              </figure>
                             )}
                           </div>
                           <div>
