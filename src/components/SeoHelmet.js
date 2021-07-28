@@ -1,20 +1,21 @@
 import React from 'react'
+
 import { Helmet } from 'react-helmet'
 import { useStaticQuery, graphql } from 'gatsby'
 
 import { useWpOptionsPage } from '../hooks/useWpOptionsPage'
 import { useSiteMetadata } from '../hooks/useSiteMetadata'
 
-const SeoHelmet = ({ yoast, locale }) => {
+const SeoHelmet = ({ yoast, locale, data }) => {
+
+  const { title, description, siteUrl } = useSiteMetadata()
 
   const { defaultSeo: { seoTitle, seoDescription, image } } = useWpOptionsPage()
   const {
     opengraphTitle,
     opengraphDescription,
     opengraphImage,
-    opengraphType,
-    twitterDescription,
-    twitterTitle,
+    opengraphType
   } = yoast
 
   // opengraphTitle
@@ -31,8 +32,8 @@ const SeoHelmet = ({ yoast, locale }) => {
   // twitterTitle
 
   const seoSettings = {
-    title: seoTitle || opengraphTitle,
-    description: seoTitle ? seoTitle : false,
+    title: opengraphTitle || seoTitle || title,
+    description: opengraphDescription || seoDescription || description,
     image: image?.localFile.publicURL,
   }
 
@@ -44,48 +45,47 @@ const SeoHelmet = ({ yoast, locale }) => {
   // const defaultTitle = site.siteMetadata?.title
 
   return (
-    <></>
-    // <Helmet
-    //   htmlAttributes={{
-    //     lang,
-    //   }}
-    //   title={title}
-    //   titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
-    //   // meta={[
-    //   //   {
-    //   //     name: `description`,
-    //   //     content: metaDescription,
-    //   //   },
-    //   //   {
-    //   //     property: `og:title`,
-    //   //     content: title,
-    //   //   },
-    //   //   {
-    //   //     property: `og:description`,
-    //   //     content: metaDescription,
-    //   //   },
-    //   //   {
-    //   //     property: `og:type`,
-    //   //     content: `website`,
-    //   //   },
-    //   //   {
-    //   //     name: `twitter:card`,
-    //   //     content: `summary`,
-    //   //   },
-    //   //   {
-    //   //     name: `twitter:creator`,
-    //   //     content: site.siteMetadata?.author || ``,
-    //   //   },
-    //   //   {
-    //   //     name: `twitter:title`,
-    //   //     content: title,
-    //   //   },
-    //   //   {
-    //   //     name: `twitter:description`,
-    //   //     content: metaDescription,
-    //   //   },
-    //   // ].concat(meta)}
-    // />
+    <Helmet
+      htmlAttributes={{
+        lang: locale,
+      }}
+      title={seoSettings.title}
+      //   titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
+      meta={[
+        {
+          name: `description`,
+          content: seoSettings.description,
+        },
+        {
+          property: `og:title`,
+          content: seoSettings.title,
+        },
+        {
+          property: `og:description`,
+          content: seoSettings.description,
+        },
+        {
+          property: `og:image`,
+          content: `${siteUrl}${seoSettings.image}`,
+        },
+        {
+          property: `og:type`,
+          content: `website`,
+        },
+        {
+          name: `twitter:card`,
+          content: `summary`,
+        },
+        {
+          name: `twitter:title`,
+          content: seoSettings.title,
+        },
+        {
+          name: `twitter:description`,
+          content: seoSettings.description,
+        },
+      ]}
+    />
   )
 }
 
