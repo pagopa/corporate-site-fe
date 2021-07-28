@@ -71,7 +71,7 @@
         top: 100%
         left: 50%
         transform: translate3d(-50%, 5%, 0) scale(1.02)
-        min-width: 24rem
+        min-width: 28rem
         opacity: 0
         visibility: hidden
         display: block
@@ -86,9 +86,17 @@
           margin: 0
           font-size: 1.6rem
           font-weight: 400
+          font-family: $f-primary
           color: #FFF
           background-color: $c-brand
-          padding: 0 1.2rem
+          padding: 0 1.6rem
+          text-transform: none
+
+          &:first-child
+            padding-top: 1.2rem
+
+          &:last-child
+            padding-bottom: 1.2rem
 
           &:not(:last-child)
             a
@@ -96,7 +104,7 @@
 
           a
             display: block
-            padding: 1.2rem 0 1.1rem
+            padding: 1.4rem 0 1.3rem
           
           &:first-child
             &::before

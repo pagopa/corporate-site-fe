@@ -26,14 +26,11 @@ module.exports = {
       resolve: `gatsby-source-wordpress`,
       options: {
         url: `${process.env.BACKEND_BASE_URL}/wp/index.php?graphql`,
-        html: {
-          createStaticFiles: true,
-        },
-        schema: {
-          perPage: 20, // default 100
-          requestConcurrency: 5, // default 15
-          previewRequestConcurrency: 2, // default 5
-        }
+        // schema: {
+        //   perPage: 20, // default 100
+        //   requestConcurrency: 5, // default 15
+        //   previewRequestConcurrency: 2, // default 5
+        // }
       },
     },
     {
