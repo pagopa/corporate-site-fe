@@ -6,6 +6,17 @@ export const useWpOptionsPage = () => {
       wp(locales: { eq: "it" }) {
         options {
           globalData {
+            
+            defaultSeo {
+              seoTitle
+              seoDescription
+              image {
+                localFile {
+                  publicURL
+                }
+              }
+            }
+
             footer {
               linksAttachments {
                 footerAttachment {
@@ -21,15 +32,18 @@ export const useWpOptionsPage = () => {
                 }
               }
             }
+
             various {
               jobIframe
               onetrustSnippet
             }
+
             translations {
               stringKey
               itValue
               enValue
             }
+            
             companyData
             newsletter {
               checkboxesTitle

@@ -13,12 +13,14 @@ const MapBox = ({ data }) => {
         <div className="row align-items-center">
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
             <div className="map-box__inner">
-              <div className="row">
-                <div className="col-12 col-md-5 pe-md-0">
-                  <figure>
-                    <Image image={image.localFile} title="" />
-                  </figure>
-                </div>
+              <div className="row justify-content-center">
+                {image && (
+                  <div className="col-12 col-md-5 pe-md-0">
+                    <figure>
+                      <Image image={image.localFile} title="" />
+                    </figure>
+                  </div>
+                )}
                 <div className="col-12 col-md-7">
                   <div className="map-box__locations">
                     {items.map((item, key) => {
