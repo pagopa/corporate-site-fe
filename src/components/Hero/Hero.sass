@@ -3,9 +3,23 @@ $hero-transition-speed: .48s
 .hero
   position: relative
   display: block
+  z-index: 10
+
+  @media (max-width: $tablet - 1)
+    margin-bottom: 60vw
+
+  @media (max-width: $mobile - 1)
+    margin-bottom: 50vw
+
+  @media (max-width: $mobile-xs - 1)
+    margin-bottom: 54vw
+
 
   .container, .container-fluid
     position: relative
+
+    @media (max-width: $tablet - 1)
+      padding-bottom: 11rem
 
   &__background
     position: absolute
@@ -15,6 +29,9 @@ $hero-transition-speed: .48s
     height: 100%
     background-color: $c-brand
     z-index: 1
+
+    @media (max-width: $tablet - 1)
+      width: 100%
   
   &__nav
     position: absolute
@@ -29,6 +46,15 @@ $hero-transition-speed: .48s
     cursor: pointer
     border: none
 
+    @media (max-width: $tablet - 1)
+      bottom: 0
+      top: auto
+      margin-top: 0
+      margin-bottom: 2.4rem
+
+    &.swiper-button-disabled
+      display: none
+
     &.--prev
       left: 1.6rem
       background-color: #FFF
@@ -37,7 +63,12 @@ $hero-transition-speed: .48s
     &.--next
       right: 1.6rem
       background-color: $c-brand
-      background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="10" height="18"%3E%3Cpath fill="%23FFF" fill-rule="nonzero" d="M10 9c0 .33-.12.66-.37.91l-7.5 7.71c-.48.5-1.27.5-1.76 0a1.31 1.31 0 010-1.81L6.98 9 .37 2.2a1.31 1.31 0 010-1.82c.48-.5 1.28-.5 1.76 0l7.5 7.71c.25.25.37.58.37.9z"/%3E%3C/svg%3E')  
+      background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="10" height="18"%3E%3Cpath fill="%23FFF" fill-rule="nonzero" d="M10 9c0 .33-.12.66-.37.91l-7.5 7.71c-.48.5-1.27.5-1.76 0a1.31 1.31 0 010-1.81L6.98 9 .37 2.2a1.31 1.31 0 010-1.82c.48-.5 1.28-.5 1.76 0l7.5 7.71c.25.25.37.58.37.9z"/%3E%3C/svg%3E')
+
+      @media (max-width: $tablet - 1)
+        right: auto
+        left: 1.6rem
+        margin-bottom: -7.4rem
   
   &__pagination
     position: absolute
@@ -45,8 +76,11 @@ $hero-transition-speed: .48s
     left: 50%
     transform: translateX(-50%)
     z-index: 100
-    display: flex
     justify-content: center
+    display: none
+
+    &.swiper-pagination-bullets
+      display: flex
     
     .bullet
       display: flex
@@ -75,6 +109,13 @@ $hero-transition-speed: .48s
     padding-bottom: 6rem
     padding-right: 6%
     z-index: 1
+    
+    @media (max-width: $tablet - 1)
+      padding-bottom: 3rem
+    
+    @media (max-width: $mobile-xs - 1)
+      padding-top: 4rem
+
 
     h1
       margin-bottom: 1.6rem
@@ -91,14 +132,26 @@ $hero-transition-speed: .48s
         z-index: 10
   
   &__image
-    // margin-left: 7.4%
     position: relative
     z-index: 10
+
+    @media (max-width: $tablet - 1)
+      position: absolute
+      right: -4rem
+      width: calc(100% - 6.6rem)
+    
+    @media (max-width: $mobile-xs - 1)
+      right: -2.4rem
+      width: calc(100% - 6.6rem)
+      
 
     figure
       width: 100%
       display: block
       padding-right: 2.5rem
+
+      @media (max-width: $tablet - 1)
+        padding-right: 0
     
     .swiper-container
       // position: static

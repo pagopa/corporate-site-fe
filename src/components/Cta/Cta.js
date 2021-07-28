@@ -28,7 +28,7 @@ const urlParser = data => {
 
   if (urlObject) {
     // complete url
-    if (urlObject.origin === siteUrl || urlObject.origin === cmsUrl) {
+    if (urlObject.origin === siteUrl.replace(/\/$/, "") || urlObject.origin === cmsUrl.replace(/\/$/, "")) {
       // url inside domain: get path
       
       const cptParsedUrl = convertCPTDir(urlObject.pathname.match(/[^/]+/g), translations, locale)

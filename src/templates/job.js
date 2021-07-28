@@ -5,6 +5,8 @@ import parse from 'html-react-parser'
 
 import { useWpOptionsPage } from '../hooks/useWpOptionsPage'
 
+import Cta from '../components/Cta/Cta'
+
 import Layout from '../partials/Layout'
 
 const JobIntro = ({ intro, openDate, closeDate, locale }) => {
@@ -58,7 +60,7 @@ const JobIntro = ({ intro, openDate, closeDate, locale }) => {
 const JobPage = ({ data }) => {
   const { slug, locale, jobPositionFields } = data.wpJobPosition
 
-  const { openDate, closeDate, embedId, intro, textBlocks } = jobPositionFields
+  const { openDate, closeDate, embedId, intro, textBlocks, applicationLink } = jobPositionFields
 
   const { jobIframe } = useWpOptionsPage().various
 
@@ -94,6 +96,16 @@ const JobPage = ({ data }) => {
             </section>
           )
         })}
+        
+        {applicationLink && (
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+                <Cta url={applicationLink.url} label={applicationLink.title} blank={applicationLink.target} />
+              </div>
+            </div>
+          </div>
+        )}
 
         {hasEmbedForm && (
           <section className="job__form">
@@ -125,8 +137,14 @@ export const jobQuery = graphql`
       jobPositionFields {
         openDate
         isNew
-        embedId
         closeDate
+        embedId
+
+        applicationLink {
+          target
+          title
+          url
+        }
         intro {
           eyelet
           text
