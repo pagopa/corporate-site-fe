@@ -1,65 +1,47 @@
 import React from 'react'
 
-import { useWpOptionsPage } from '../../hooks/useWpOptionsPage'
+import { useStaticQuery, graphql } from 'gatsby'
 
 import Cta from '../../components/Cta/Cta'
 
 import './MenuFooter.sass'
 
 const MenuFooter = () => {
-  const { linksAttachments } = useWpOptionsPage().footer
+  const data = useStaticQuery(graphql`
+    query MenuFooter {
+      wpMenu(name: { eq: "Footer right" }) {
+        menuItems {
+          nodes {
+            path
+            label
+            target
+          }
+        }
+      }
+    }
+  `)
+
+  const menu = data.wpMenu.menuItems.nodes
 
   return (
     <nav className="menu-footer">
       <ul>
-        {linksAttachments.map((item, key) => {
-          const { footerLink, footerAttachment } = item
-
-          const linkObj = {
-            title: footerLink
-              ? footerLink.title
-              : footerAttachment
-              ? footerAttachment.title
-              : false,
-            url: footerLink
-              ? footerLink.url
-              : footerAttachment
-              ? footerAttachment.localFile.publicURL
-              : false,
-            blank: true,
-          }
-
+        {menu.map((item, key) => {
+          const { path, label, target } = item
           return (
             <li key={key}>
-              {linkObj.url && (
-                <Cta
-                  label={linkObj.title}
-                  url={linkObj.url}
-                  blank={linkObj.blank}
-                  variant="link-simple"
-                />
-              )}
+              <Cta
+                url={path}
+                blank={target}
+                label={label}
+                variant="link-simple"
+              />
             </li>
           )
         })}
-        <li>
-          <button id="ot-sdk-btn" className="ot-sdk-show-settings cta --link-simple"><span>Impostazioni dei cookie</span></button>
-        </li>
       </ul>
     </nav>
   )
 }
 
 export default MenuFooter
-
-// footerAttachment {
-//   localFile {
-//     publicURL
-//   }
-//   title
-// }
-// footerLink {
-//   target
-//   title
-//   url
-// }

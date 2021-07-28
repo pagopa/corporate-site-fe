@@ -6,11 +6,11 @@ import Logo from '../Logo/Logo'
 import Socials from '../Socials/Socials'
 import Language from '../Language/Language'
 import MenuFooter from '../MenuFooter/MenuFooter'
+import MenuService from '../MenuService/MenuService'
 
 import './Footer.sass'
 
 const Footer = ({ locale }) => {
-  // const date = new Date().getFullYear()
   const { companyData } = useWpOptionsPage()
 
   return (
@@ -37,10 +37,11 @@ const Footer = ({ locale }) => {
         </div>
         <div className="footer__bottom">
           <div className="row justify-content-between">
-            <div className="col-auto">
-              <MenuFooter />
+            <div className="col">
+              <MenuService />
             </div>
             <div className="col-auto">
+              <MenuFooter />
               <Language currentLocale={locale} />
             </div>
           </div>

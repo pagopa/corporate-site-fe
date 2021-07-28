@@ -29,7 +29,7 @@ const Hero = ({ data }) => {
     speed: 480,
     spaceBetween: 0,
     slidesPerView: 1,
-    loop: true,
+    loop: items.length > 1 ? true : false,
   }
 
   return (
@@ -97,13 +97,13 @@ const Hero = ({ data }) => {
                   prevEl: '.hero__nav.--prev',
                   nextEl: '.hero__nav.--next',
                 }}
-                pagination={{
+                pagination={items.length > 1 ? {
                   clickable: true,
                   el: '.hero__pagination',
                   bulletClass: 'bullet',
                   bulletActiveClass: 'is-current',
                   type: 'bullets',
-                }}
+                } : false}
                 controller={{
                   control: contentSwiper,
                 }}

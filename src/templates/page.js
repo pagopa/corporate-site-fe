@@ -72,6 +72,7 @@ export const pageQuery = graphql`
                     publicURL
                     childImageSharp {
                       gatsbyImageData(
+                        placeholder: DOMINANT_COLOR
                         layout: FULL_WIDTH
                         width: 520
                         height: 400
@@ -141,7 +142,9 @@ export const pageQuery = graphql`
                     extension
                     publicURL
                     childImageSharp {
-                      gatsbyImageData
+                      gatsbyImageData(
+                        width: 960
+                      )
                     }
                   }
                 }
@@ -187,7 +190,9 @@ export const pageQuery = graphql`
                       altText
                       localFile {
                         childImageSharp {
-                          gatsbyImageData
+                          gatsbyImageData(
+                            width: 640
+                          )
                         }
                       }
                     }
@@ -203,7 +208,9 @@ export const pageQuery = graphql`
                           extension
                           publicURL
                           childImageSharp {
-                            gatsbyImageData
+                            gatsbyImageData(
+                              width: 640
+                            )
                           }
                         }
                       }
@@ -232,7 +239,9 @@ export const pageQuery = graphql`
                   extension
                   publicURL
                   childImageSharp {
-                    gatsbyImageData
+                    gatsbyImageData(
+                      width: 1280
+                    )
                   }
                 }
               }
@@ -248,7 +257,9 @@ export const pageQuery = graphql`
                   extension
                   publicURL
                   childImageSharp {
-                    gatsbyImageData
+                    gatsbyImageData(
+                      width: 1280
+                    )
                   }
                 }
               }
@@ -276,7 +287,9 @@ export const pageQuery = graphql`
                     extension
                     publicURL
                     childImageSharp {
-                      gatsbyImageData
+                      gatsbyImageData(
+                        width: 140
+                      )
                     }
                   }
                 }

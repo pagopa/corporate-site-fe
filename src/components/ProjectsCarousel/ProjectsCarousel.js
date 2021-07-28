@@ -18,8 +18,8 @@ const ProjectsCarousel = ({ data }) => {
 
   const swiperCommons = {
     speed: 480,
-    spaceBetween: 60,
-    slidesPerView: 1.63,
+    spaceBetween: 32,
+    slidesPerView: 1.14,
     loop: true,
   }
 
@@ -44,6 +44,16 @@ const ProjectsCarousel = ({ data }) => {
                 speed={swiperCommons.speed}
                 spaceBetween={swiperCommons.spaceBetween}
                 slidesPerView={swiperCommons.slidesPerView}
+                breakpoints={{
+                  992: {
+                    slidesPerView: 1.2,
+                    spaceBetween: 40,
+                  },
+                  1200: {
+                    slidesPerView: 1.63,
+                    spaceBetween: 60,
+                  }
+                }}
                 navigation={{
                   prevEl: '.projects-carousel__nav.--prev',
                   nextEl: '.projects-carousel__nav.--next',
