@@ -30,7 +30,12 @@ const MenuFooter = () => {
           const { path, label, target } = item
           return (
             <li key={key}>
-              <Cta url={path} blank={target} label={label} variant="link-simple" />
+              <Cta
+                url={path}
+                blank={target}
+                label={label}
+                variant="link-simple"
+              />
             </li>
           )
         })}
