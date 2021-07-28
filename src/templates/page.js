@@ -5,6 +5,8 @@ import { graphql } from 'gatsby'
 import Layout from '../partials/Layout'
 import Block from '../components/Block/Block'
 
+import SEO from '../components/SEO'
+
 const Page = ({ data }) => {
   const { title, slug, locale, flexibleContent, nodeType, featuredImage } = data.wpPage,
         blocks = flexibleContent.body.blocks
@@ -19,6 +21,9 @@ const Page = ({ data }) => {
 
   return (
     <Layout locale={currentLocale} slug={currentSlug}>
+      
+      {/* <SEO /> */}
+
       {blocks &&
         blocks.map((block, key) => {
           return <Block data={block} key={key} type={nodeType} {...props} />

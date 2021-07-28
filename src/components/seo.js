@@ -2,20 +2,30 @@ import React from 'react'
 import { Helmet } from 'react-helmet'
 import { useStaticQuery, graphql } from 'gatsby'
 
+import { useWpOptionsPage } from '../hooks/useWpOptionsPage'
+import { useSiteMetadata } from '../hooks/useSiteMetadata'
+
 const SEO = ({ description, lang, meta, title }) => {
-  const { site } = useStaticQuery(
-    graphql`
-      query {
-        site {
-          siteMetadata {
-            title
-            description
-            author
-          }
-        }
-      }
-    `
-  )
+
+  const { defaultSeo } = useWpOptionsPage()
+  const { site } = useSiteMetadata()
+  console.log(site)
+
+  const { seoTitle, seoDescription, image } = defaultSeo
+
+  // const { site } = useStaticQuery(
+  //   graphql`
+  //     query {
+  //       site {
+  //         siteMetadata {
+  //           title
+  //           description
+  //           author
+  //         }
+  //       }
+  //     }
+  //   `
+  // )
 
   const metaDescription = description || site.siteMetadata.description
   const defaultTitle = site.siteMetadata?.title

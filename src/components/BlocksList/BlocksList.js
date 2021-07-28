@@ -20,7 +20,7 @@ const BlocksList = ({ data }) => {
             {items.length && (
               <div className="row">
                 {items.map((block, key) => {
-                  const { image, text } = block
+                  const { title, image, text } = block
 
                   const isOdd = key % 2
                   const hasOffset = template === 'staggered' && isOdd
@@ -41,6 +41,7 @@ const BlocksList = ({ data }) => {
                             />
                           </figure>
                         )}
+                        {title && <h4>{title}</h4>}
                         {text && (
                           <div className="wysiwyg">
                             {parse(text)}
