@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 
 import { graphql } from 'gatsby'
-import parse from 'html-react-parser'
 
 import { LocaleContext } from '../contexts/LocaleContext.js'
 
@@ -97,12 +96,41 @@ export const pressQuery = graphql`
       date
       title
       slug
+      featuredImage {
+        node {
+          altText
+          localFile {
+            extension
+            publicURL
+            childImageSharp {
+              gatsbyImageData(
+                width: 1280
+              )
+            }
+          }
+        }
+      }
       locale {
         id
       }
       nodeType
+
+      seo {
+        opengraphTitle
+        opengraphSiteName
+        opengraphDescription
+        opengraphImage {
+          localFile {
+            publicURL
+          }
+        }
+        opengraphType
+        title
+        twitterDescription
+        twitterTitle
+      }
     }
-    allPressReleases: allWpPressReleases {
+    allPressReleases: allWpPressReleases(sort: {fields: date, order: DESC}) {
       edges {
         node {
           date

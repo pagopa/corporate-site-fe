@@ -1,6 +1,5 @@
 import React from 'react'
 
-import Cta from '../Cta/Cta'
 import Image from '../Image/Image'
 
 const UsefulLinks = ({ data }) => {

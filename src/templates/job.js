@@ -134,6 +134,22 @@ export const jobQuery = graphql`
       locale {
         id
       }
+      
+      seo {
+        opengraphTitle
+        opengraphSiteName
+        opengraphDescription
+        opengraphImage {
+          localFile {
+            publicURL
+          }
+        }
+        opengraphType
+        title
+        twitterDescription
+        twitterTitle
+      }
+      
       jobPositionFields {
         openDate
         isNew

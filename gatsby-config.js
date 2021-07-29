@@ -44,6 +44,12 @@ module.exports = {
         policy: [{ userAgent: '*', disallow: '/' }],
       },
     },
+    {
+      resolve: `gatsby-plugin-canonical-urls`,
+      options: {
+        siteUrl: process.env.FRONTEND_BASE_URL,
+      },
+    },
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,

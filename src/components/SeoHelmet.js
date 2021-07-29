@@ -1,48 +1,38 @@
 import React from 'react'
 
 import { Helmet } from 'react-helmet'
-import { useStaticQuery, graphql } from 'gatsby'
 
 import { useWpOptionsPage } from '../hooks/useWpOptionsPage'
 import { useSiteMetadata } from '../hooks/useSiteMetadata'
 
 const SeoHelmet = ({ yoast, locale, data }) => {
-
   const { title, description, siteUrl } = useSiteMetadata()
 
-  const { defaultSeo: { seoTitle, seoDescription, image } } = useWpOptionsPage()
   const {
-    opengraphTitle,
-    opengraphDescription,
-    opengraphImage,
-    opengraphType
+    defaultSeo: {
+      seoTitle: siteTitle,
+      seoDescription: siteDescription,
+      image: siteImage,
+    },
+  } = useWpOptionsPage()
+
+  const { title: postTitle, featuredImage: postImage } = data
+
+  const {
+    opengraphTitle: yoastTitle,
+    opengraphDescription: yoastDescription,
+    opengraphImage: yoastImage,
+    opengraphType: yoastType,
   } = yoast
 
-  // opengraphTitle
-  // opengraphSiteName
-  // opengraphDescription
-  // opengraphImage {
-  //   localFile {
-  //     publicURL
-  //   }
-  // }
-  // opengraphType
-  // title
-  // twitterDescription
-  // twitterTitle
-
   const seoSettings = {
-    title: opengraphTitle || seoTitle || title,
-    description: opengraphDescription || seoDescription || description,
-    image: image?.localFile.publicURL,
+    title: yoastTitle || `${postTitle} - ${siteTitle}` || title,
+    description: yoastDescription || siteDescription || description,
+    image:
+      yoastImage?.localFile.childImageSharp.fixed.src ||
+      postImage?.node.localFile.childImageSharp.fixed.src ||
+      siteImage?.localFile.publicURL,
   }
-
-  // console.log(seoTitle)
-  // console.log(seoDescription)
-  // console.log(image?.localFile.publicURL)
-
-  // const metaDescription = description || site.siteMetadata.description
-  // const defaultTitle = site.siteMetadata?.title
 
   return (
     <Helmet
@@ -50,7 +40,6 @@ const SeoHelmet = ({ yoast, locale, data }) => {
         lang: locale,
       }}
       title={seoSettings.title}
-      //   titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
       meta={[
         {
           name: `description`,
@@ -70,7 +59,7 @@ const SeoHelmet = ({ yoast, locale, data }) => {
         },
         {
           property: `og:type`,
-          content: `website`,
+          content: yoastType || `website`,
         },
         {
           name: `twitter:card`,
@@ -90,18 +79,3 @@ const SeoHelmet = ({ yoast, locale, data }) => {
 }
 
 export default SeoHelmet
-
-// seo {
-//   opengraphTitle
-//   opengraphSiteName
-//   opengraphDescription
-//   opengraphImage {
-//     localFile {
-//       publicURL
-//     }
-//   }
-//   opengraphType
-//   title
-//   twitterDescription
-//   twitterTitle
-// }
