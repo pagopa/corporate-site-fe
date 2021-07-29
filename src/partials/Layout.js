@@ -2,6 +2,7 @@ import React from 'react'
 
 import { useSiteMetadata } from '../hooks/useSiteMetadata.js'
 import { LocaleContext } from '../contexts/LocaleContext.js'
+import { ParallaxProvider } from 'react-scroll-parallax';
 
 import '../sass/app.sass'
 import './Layout.sass'
@@ -16,10 +17,13 @@ const Layout = ({ children, locale, slug }) => {
   return (
     <LocaleContext.Provider value={locale}>
       <HeadScripts />
-      
+
       <Header siteTitle={title || `Title`} slug={slug} />
-      <main>{children}</main>
+      <ParallaxProvider>
+        <main>{children}</main>
+      </ParallaxProvider>
       <Footer locale={locale} />
+      
     </LocaleContext.Provider>
   )
 }

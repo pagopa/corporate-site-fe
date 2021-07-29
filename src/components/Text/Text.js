@@ -2,6 +2,7 @@ import React from 'react'
 
 import parse from 'html-react-parser'
 
+import BackgroundGraphics from '../BackgroundGraphics/BackgroundGraphics'
 import Cta from '../Cta/Cta'
 import './Text.sass'
 
@@ -25,21 +26,13 @@ const Text = ({ data }) => {
     columns.wide = `col-md-10 offset-md-3`
   }
 
-  // {
-  //   backgroundGraphics {
-  //     fieldGroupName
-  //     size
-  //     xposition
-  //     yposition
-  //   }
-  //   blockPosition
-  //   blockWidth
-  // }
-
   const { eyelet, title, text, link } = content
 
   return (
     <section className={`block --block-text text${iscentered ? ' --centered' : ''}`}>
+      
+      {backgroundGraphics && <BackgroundGraphics data={backgroundGraphics} />}
+
       <div className="container-fluid">
         <div className="row">
           <div className={`col-12 ${columns[blockWidth]}`}>
