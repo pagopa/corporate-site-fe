@@ -1,11 +1,27 @@
 import React from 'react'
 
 import Image from '../Image/Image'
+import BackgroundGraphics from '../BackgroundGraphics/BackgroundGraphics'
 
 import './Visual.sass'
 
 const Text = ({ data }) => {
-  const { template, caption, image } = data
+  const {
+    template,
+    caption,
+    image,
+    blockOptions: { backgroundGraphics },
+  } = data
+  // {
+  //   backgroundGraphics {
+  //     fieldGroupName
+  //     size
+  //     xposition
+  //     yposition
+  //   }
+  //   blockPosition
+  //   blockWidth
+  // }
 
   const layout = {
     wide: {
@@ -23,7 +39,11 @@ const Text = ({ data }) => {
   }
 
   return (
-    <section className={`block --block-visual visual --${layout[template].type}`}>
+    <section
+      className={`block --block-visual visual --${layout[template].type}`}
+    >
+      {backgroundGraphics && <BackgroundGraphics data={backgroundGraphics} />}
+
       <div className="container-fluid">
         <div className="row">
           <div className={`col-12 ${layout[template].columns}`}>

@@ -8,7 +8,7 @@ import Hamburger from '../Hamburger/Hamburger'
 
 import './Header.sass'
 
-const Header = ({ siteTitle, slug }) => {
+const Header = ({ slug }) => {
   
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const handleMobileMenu = () => setMobileMenuOpen(prev => !prev)
@@ -20,8 +20,8 @@ const Header = ({ siteTitle, slug }) => {
           <div className="col">
             <div className="row align-items-center justify-content-between justify-content-xl-start">
               <div className="col-auto index-over-sibling">
-                <Link to="/" title={siteTitle}>
-                  <Logo title={siteTitle} menuOpen={mobileMenuOpen} />
+                <Link to="/" title="PagoPA">
+                  <Logo title="PagoPA" menuOpen={mobileMenuOpen} />
                 </Link>
               </div>
               <div className="col-auto">
