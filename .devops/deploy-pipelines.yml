@@ -99,7 +99,7 @@ stages:
           az storage blob sync --container '$web' --account-name $(STORAGE_ACCOUNT_NAME) -s "$(Build.SourcesDirectory)/public"
     - task: AzureCLI@1
       displayName: 'Sync Storage Prod'
-      condition: eq(parameters['environment'], 'prod')
+      condition: eq(variables['ENVIRONMENT'], 'prod')
       inputs:
         azureSubscription: '$(AZURE_SUBSCRIPTION)'
         scriptLocation: inlineScript
