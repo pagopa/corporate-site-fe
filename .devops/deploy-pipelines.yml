@@ -64,7 +64,7 @@ stages:
         yarn install
       displayName: "Install dependencies"
     - script: |
-        yarn build
+        yarn clean && yarn build
       displayName: "Gatsby build"
     - script: |
         find . -type f | wc -l 
