@@ -4,24 +4,29 @@ import { graphql } from 'gatsby'
 
 import Layout from '../partials/Layout'
 import Block from '../components/Block/Block'
+import SeoHelmet from '../components/SeoHelmet'
+
 
 const ProjectPage = ({ data }) => {
-  const { title, slug, locale, flexibleContent, nodeType, featuredImage } = data.wpProject,
+  const { title, slug, locale, flexibleContent, nodeType, featuredImage, seo } = data.wpProject,
     blocks = flexibleContent.body.blocks
 
   const currentLocale = locale.id,
     currentSlug = slug
 
-  const props = {
+  const pageProps = {
     title,
     featuredImage
   }
 
   return (
     <Layout locale={currentLocale} slug={currentSlug}>
+      
+      <SeoHelmet yoast={seo} locale={currentLocale} data={pageProps} />
+
       {blocks &&
         blocks.map((block, key) => {
-          return <Block data={block} key={key} type={nodeType} {...props} />
+          return <Block data={block} key={key} type={nodeType} {...pageProps} />
         })}
     </Layout>
   )
@@ -42,6 +47,9 @@ export const projectQuery = graphql`
           altText
           localFile {
             childImageSharp {
+              fixed(fit: COVER, quality: 90, width: 1200, height: 627) {
+                src
+              }
               gatsbyImageData(
                 width: 1280
               )
@@ -49,6 +57,25 @@ export const projectQuery = graphql`
           }
         }
       }
+
+      seo {
+        opengraphTitle
+        opengraphSiteName
+        opengraphDescription
+        opengraphImage {
+          localFile {
+            publicURL
+            childImageSharp {
+              fixed(fit: COVER, quality: 90, width: 1200, height: 627) {
+                src
+              }
+            }
+          }
+        }
+        opengraphType
+        title
+      }
+
       flexibleContent {
         body {
           blocks {
@@ -250,6 +277,7 @@ export const projectQuery = graphql`
               eyelet
               title
               text
+              usePostFeaturedImage
               image {
                 altText
                 localFile {

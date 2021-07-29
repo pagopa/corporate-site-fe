@@ -77,6 +77,34 @@ export const pressReleaseQuery = graphql`
       title
       slug
       content
+      featuredImage {
+        node {
+          altText
+          localFile {
+            extension
+            publicURL
+            childImageSharp {
+              gatsbyImageData
+            }
+          }
+        }
+      }
+
+      seo {
+        opengraphTitle
+        opengraphSiteName
+        opengraphDescription
+        opengraphImage {
+          localFile {
+            publicURL
+          }
+        }
+        opengraphType
+        title
+        twitterDescription
+        twitterTitle
+      }
+      
       locale {
         id
       }

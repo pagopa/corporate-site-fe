@@ -14,7 +14,7 @@ const Page = ({ data }) => {
   const currentLocale = locale.id,
         currentSlug = slug
 
-  const props = {
+  const pageProps = {
     title,
     featuredImage
   }
@@ -22,11 +22,11 @@ const Page = ({ data }) => {
   return (
     <Layout locale={currentLocale} slug={currentSlug}>
       
-      <SeoHelmet yoast={seo} locale={currentLocale} />
+      <SeoHelmet yoast={seo} locale={currentLocale} data={pageProps} />
 
       {blocks &&
         blocks.map((block, key) => {
-          return <Block data={block} key={key} type={nodeType} {...props} />
+          return <Block data={block} key={key} type={nodeType} {...pageProps} />
         })}
     </Layout>
   )
@@ -42,6 +42,7 @@ export const pageQuery = graphql`
       }
       title
       slug
+
       featuredImage {
         node {
           altText
@@ -49,7 +50,12 @@ export const pageQuery = graphql`
             extension
             publicURL
             childImageSharp {
-              gatsbyImageData
+              fixed(fit: COVER, quality: 90, width: 1200, height: 627) {
+                src
+              }
+              gatsbyImageData(
+                width: 1280
+              )
             }
           }
         }
@@ -62,12 +68,15 @@ export const pageQuery = graphql`
         opengraphImage {
           localFile {
             publicURL
+            childImageSharp {
+              fixed(fit: COVER, quality: 90, width: 1200, height: 627) {
+                src
+              }
+            }
           }
         }
         opengraphType
         title
-        twitterDescription
-        twitterTitle
       }
 
       flexibleContent {
@@ -272,6 +281,7 @@ export const pageQuery = graphql`
               eyelet
               title
               text
+              usePostFeaturedImage
               image {
                 altText
                 localFile {

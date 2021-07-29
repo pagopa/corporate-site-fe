@@ -6,9 +6,12 @@ import Image from '../Image/Image'
 import './Intro.sass'
 
 const Intro = ({ data, featuredImage }) => {
-  const { eyelet, title, text, image } = data
+  const { eyelet, title, text, image, usePostFeaturedImage } = data
 
-  const coverImage = image ? image : featuredImage ? featuredImage.node : false
+
+
+  const coverImage = usePostFeaturedImage
+    ? featuredImage?.node : image ? image : false
 
   const ImageMarkup = () => {
     if (image) {

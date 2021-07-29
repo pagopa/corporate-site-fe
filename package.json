@@ -8,6 +8,7 @@
     "bootstrap": "^5.0.2",
     "gatsby": "^3.9",
     "gatsby-awesome-pagination": "^0.3.8",
+    "gatsby-plugin-canonical-urls": "^3.10.0",
     "gatsby-plugin-catch-links": "^3.10.0",
     "gatsby-plugin-image": "^1.10.1",
     "gatsby-plugin-manifest": "^3.10.0",
