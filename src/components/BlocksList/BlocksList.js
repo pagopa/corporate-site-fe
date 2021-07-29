@@ -2,16 +2,18 @@ import React from 'react'
 
 import parse from 'html-react-parser'
 
+import BackgroundGraphics from '../BackgroundGraphics/backgroundGraphics'
 import Image from '../Image/Image'
 import './BlocksList.sass'
 
 const BlocksList = ({ data }) => {
-  const { template, title: blockTitle, items: blocks } = data
+  const { template, title: blockTitle, items: blocks, blockOptions: { backgroundGraphics } } = data
 
   const items = [...blocks]
 
   return (
     <section className="block --block-blocks-list blocks-list">
+      {backgroundGraphics && <BackgroundGraphics data={backgroundGraphics} />}
       <div className="container-fluid">
         <div className="row">
           <div className={`col-12 col-lg-10 offset-lg-1 col-xl-9 offset-xl-2`}>

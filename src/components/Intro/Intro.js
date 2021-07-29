@@ -13,6 +13,8 @@ const Intro = ({ data, featuredImage }) => {
   const coverImage = usePostFeaturedImage
     ? featuredImage?.node : image ? image : false
 
+  console.log(image)
+
   const ImageMarkup = () => {
     if (image) {
       return (
