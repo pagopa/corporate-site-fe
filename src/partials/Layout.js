@@ -1,8 +1,9 @@
 import React from 'react'
 
+import { ParallaxProvider } from 'react-scroll-parallax';
+
 import { useSiteMetadata } from '../hooks/useSiteMetadata.js'
 import { LocaleContext } from '../contexts/LocaleContext.js'
-import { ParallaxProvider } from 'react-scroll-parallax';
 
 import '../sass/app.sass'
 import './Layout.sass'
@@ -15,16 +16,16 @@ const Layout = ({ children, locale, slug }) => {
   const { title } = useSiteMetadata()
 
   return (
-    <LocaleContext.Provider value={locale}>
-      <HeadScripts />
+    <ParallaxProvider>
+      <LocaleContext.Provider value={locale}>
+        <HeadScripts />
 
-      <Header siteTitle={title || `Title`} slug={slug} />
-      <ParallaxProvider>
-        <main>{children}</main>
-      </ParallaxProvider>
-      <Footer locale={locale} />
-      
-    </LocaleContext.Provider>
+        <Header siteTitle={title || `Title`} slug={slug} />
+          <main>{children}</main>
+        <Footer locale={locale} />
+        
+      </LocaleContext.Provider>
+    </ParallaxProvider>
   )
 }
 
