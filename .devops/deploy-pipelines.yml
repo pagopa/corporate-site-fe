@@ -25,6 +25,7 @@ variables:
     FRONTEND_PASSWORD: $(UAT_FRONTEND_PASSWORD)
     FRONTEND_BASE_URL: $(UAT_FRONTEND_BASE_URL)
     AGENT_POOL: "scorp-uat-linux"
+    ENVIRONMENT: 'uat'
   ${{ if eq(parameters['environment'], 'prod') }}:
     AZURE_SUBSCRIPTION: $(PROD_AZURE_SUBSCRIPTION)
     STORAGE_ACCOUNT_NAME: $(PROD_STORAGE_ACCOUNT_NAME)
@@ -35,6 +36,7 @@ variables:
     FRONTEND_PASSWORD: $(PROD_FRONTEND_PASSWORD)
     FRONTEND_BASE_URL: $(PROD_FRONTEND_BASE_URL)
     AGENT_POOL: "scorp-prod-linux"
+    ENVIRONMENT: 'prod'
 
 schedules:
 - cron: '0 10 * * *'
@@ -95,6 +97,14 @@ stages:
         scriptLocation: inlineScript
         inlineScript: |
           az storage blob sync --container '$web' --account-name $(STORAGE_ACCOUNT_NAME) -s "$(Build.SourcesDirectory)/public"
+    - task: AzureCLI@1
+      displayName: 'Sync Storage Prod'
+      condition: eq(parameters['environment'], 'prod')
+      inputs:
+        azureSubscription: '$(AZURE_SUBSCRIPTION)'
+        scriptLocation: inlineScript
+        inlineScript: |
+          az storage blob sync --container '$web' --account-name sitecorporatepagopait --account-key ${AZURE_STORAGE_KEY} -s "$(Build.SourcesDirectory)/public"
     - task: AzureCLI@1
       displayName: 'Purge CDN'
       inputs:
