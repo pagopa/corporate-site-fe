@@ -8,6 +8,7 @@ import { useWpOptionsPage } from '../hooks/useWpOptionsPage'
 import Cta from '../components/Cta/Cta'
 
 import Layout from '../partials/Layout'
+import SeoHelmet from '../components/SeoHelmet'
 
 const JobIntro = ({ intro, openDate, closeDate, locale }) => {
   const { eyelet, title, text } = intro
@@ -58,7 +59,7 @@ const JobIntro = ({ intro, openDate, closeDate, locale }) => {
 }
 
 const JobPage = ({ data }) => {
-  const { slug, locale, jobPositionFields } = data.wpJobPosition
+  const { title, slug, locale, jobPositionFields, featuredImage, seo } = data.wpJobPosition
 
   const { openDate, closeDate, embedId, intro, textBlocks, applicationLink } = jobPositionFields
 
@@ -74,8 +75,17 @@ const JobPage = ({ data }) => {
   const currentLocale = locale.id,
     currentSlug = slug
 
+  const pageProps = {
+    title,
+    featuredImage
+  }
+
   return (
+  
     <Layout locale={currentLocale} slug={currentSlug}>
+
+      <SeoHelmet yoast={seo} locale={currentLocale} data={pageProps} />
+
       <article className="job">
         <JobIntro intro={intro} openDate={openDate} closeDate={closeDate} locale={locale} />
 
@@ -134,6 +144,24 @@ export const jobQuery = graphql`
       locale {
         id
       }
+
+      featuredImage {
+        node {
+          altText
+          localFile {
+            extension
+            publicURL
+            childImageSharp {
+              fixed(fit: COVER, quality: 90, width: 1200, height: 627) {
+                src
+              }
+              gatsbyImageData(
+                width: 1280
+              )
+            }
+          }
+        }
+      }
       
       seo {
         opengraphTitle
@@ -142,12 +170,15 @@ export const jobQuery = graphql`
         opengraphImage {
           localFile {
             publicURL
+            childImageSharp {
+              fixed(fit: COVER, quality: 90, width: 1200, height: 627) {
+                src
+              }
+            }
           }
         }
         opengraphType
         title
-        twitterDescription
-        twitterTitle
       }
       
       jobPositionFields {

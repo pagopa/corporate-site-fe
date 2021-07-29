@@ -4,6 +4,7 @@ import { graphql } from 'gatsby'
 
 import { LocaleContext } from '../contexts/LocaleContext.js'
 
+import SeoHelmet from '../components/SeoHelmet.js'
 import Layout from '../partials/Layout'
 import Cta from '../components/Cta/Cta'
 
@@ -62,16 +63,22 @@ const AllPressReleases = ({ data }) => {
 }
 
 const PressPage = ({ data }) => {
-  const { title, slug, locale  } = data.page
-
+  const { title, slug, locale, featuredImage, seo  } = data.page
   const pressReleasesCollection = data.allPressReleases
-
 
   const currentLocale = locale.id,
     currentSlug = slug
+  
+  const pageProps = {
+    title,
+    featuredImage
+  }
 
   return (
     <Layout locale={currentLocale} slug={currentSlug}>
+
+      <SeoHelmet yoast={seo} locale={currentLocale} data={pageProps} />
+
       <section className="press-release-list">
         
         <Intro eyelet="Media" title={title} />
@@ -96,6 +103,11 @@ export const pressQuery = graphql`
       date
       title
       slug
+      locale {
+        id
+      }
+      nodeType
+
       featuredImage {
         node {
           altText
@@ -103,6 +115,9 @@ export const pressQuery = graphql`
             extension
             publicURL
             childImageSharp {
+              fixed(fit: COVER, quality: 90, width: 1200, height: 627) {
+                src
+              }
               gatsbyImageData(
                 width: 1280
               )
@@ -110,10 +125,6 @@ export const pressQuery = graphql`
           }
         }
       }
-      locale {
-        id
-      }
-      nodeType
 
       seo {
         opengraphTitle
@@ -122,13 +133,17 @@ export const pressQuery = graphql`
         opengraphImage {
           localFile {
             publicURL
+            childImageSharp {
+              fixed(fit: COVER, quality: 90, width: 1200, height: 627) {
+                src
+              }
+            }
           }
         }
         opengraphType
         title
-        twitterDescription
-        twitterTitle
       }
+
     }
     allPressReleases: allWpPressReleases(sort: {fields: date, order: DESC}) {
       edges {

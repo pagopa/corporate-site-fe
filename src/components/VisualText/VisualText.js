@@ -2,6 +2,7 @@ import React from 'react'
 
 import parse from 'html-react-parser'
 
+import BackgroundGraphics from '../BackgroundGraphics/BackgroundGraphics'
 import Cta from '../Cta/Cta'
 import Image from '../Image/Image'
 
@@ -43,6 +44,8 @@ const VisualText = ({ data }) => {
       className={`block --block-visual-text${backgroundColor ? ' --has-bg-color' : ''}`}
       style={{ backgroundColor: backgroundColor ? backgroundColor : 'transparent'}}
     >
+      {backgroundGraphics && <BackgroundGraphics data={backgroundGraphics} />}
+
       <div className="container-fluid">
         <div
           className={`row align-items-center${reverse ? ' flex-row-reverse justify-content-end' : ''}`}
@@ -56,8 +59,8 @@ const VisualText = ({ data }) => {
           <div className={`col-12 ${columns[visualSize].visual}`}>
             <div className="block__visual">
               <Image
-                image={visual.image.localFile}
-                title={visual.image.altText}
+                image={visual.image?.localFile}
+                title={visual.image?.altText}
               />
             </div>
           </div>

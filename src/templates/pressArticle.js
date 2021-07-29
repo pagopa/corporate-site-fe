@@ -4,6 +4,7 @@ import { graphql } from 'gatsby'
 
 import parse from 'html-react-parser'
 
+import SeoHelmet from '../components/SeoHelmet.js'
 import Layout from '../partials/Layout'
 import Cta from '../components/Cta/Cta'
 
@@ -25,21 +26,27 @@ const Intro = ({ eyelet, title }) => {
 }
 
 const pressArticlePage = ({ data }) => {
-  const { date, title, slug, locale, content, pressReleasesFields } =
+  const { date, title, slug, locale, content, featuredImage, seo, pressReleasesFields } =
     data.wpPressReleases
 
   const cta = pressReleasesFields.cta
 
-  console.log(cta)
-
   const currentLocale = locale.id,
     currentSlug = slug
+
+  const pageProps = {
+    title,
+    featuredImage
+  }
 
   const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' },
     theDate = new Date(date).toLocaleDateString(currentLocale, dateOptions)
 
   return (
     <Layout locale={currentLocale} slug={currentSlug}>
+
+      <SeoHelmet yoast={seo} locale={currentLocale} data={pageProps} />
+
       <article className="press-release-article">
         <Intro eyelet={pressReleasesFields.eyelet} title={title} />
         <div className="container-fluid">
@@ -77,6 +84,11 @@ export const pressReleaseQuery = graphql`
       title
       slug
       content
+      locale {
+        id
+      }
+      nodeType
+
       featuredImage {
         node {
           altText
@@ -84,7 +96,12 @@ export const pressReleaseQuery = graphql`
             extension
             publicURL
             childImageSharp {
-              gatsbyImageData
+              fixed(fit: COVER, quality: 90, width: 1200, height: 627) {
+                src
+              }
+              gatsbyImageData(
+                width: 1280
+              )
             }
           }
         }
@@ -97,18 +114,17 @@ export const pressReleaseQuery = graphql`
         opengraphImage {
           localFile {
             publicURL
+            childImageSharp {
+              fixed(fit: COVER, quality: 90, width: 1200, height: 627) {
+                src
+              }
+            }
           }
         }
         opengraphType
         title
-        twitterDescription
-        twitterTitle
       }
-      
-      locale {
-        id
-      }
-      nodeType
+
       pressReleasesFields {
         eyelet
         cta {
