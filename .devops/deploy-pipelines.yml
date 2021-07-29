@@ -15,6 +15,7 @@ parameters:
 # $(BLOB_CONTAINER_NAME)
 variables:
   AgentImage: "ubuntu-latest"
+  YARN_CACHE_FOLDER: $(Pipeline.Workspace)/.yarn
   ${{ if eq(parameters['environment'], 'uat') }}:
     AZURE_SUBSCRIPTION: $(UAT_AZURE_SUBSCRIPTION)
     STORAGE_ACCOUNT_NAME: $(UAT_STORAGE_ACCOUNT_NAME)
@@ -59,6 +60,13 @@ stages:
       inputs:
         versionSpec: "14.x"
       displayName: "Install Node.js"
+    - task: Cache@2
+      inputs:
+        key: '"yarn" | "$(Agent.OS)" | yarn.lock'
+        restoreKeys: |
+          yarn | "$(Agent.OS)"
+        path: $(YARN_CACHE_FOLDER)
+      displayName: Cache Yarn
     - script: |
         npm install -g yarn
       displayName: "Install Yarn"
