@@ -2,26 +2,18 @@ import React from 'react'
 
 import { useStaticQuery, graphql } from 'gatsby'
 
+import { useMenuFooter } from '../../hooks/useMenuFooter'
+
 import Cta from '../../components/Cta/Cta'
 
 import './MenuFooter.sass'
 
 const MenuFooter = () => {
-  const data = useStaticQuery(graphql`
-    query MenuFooter {
-      wpMenu(name: { eq: "Footer right" }) {
-        menuItems {
-          nodes {
-            path
-            label
-            target
-          }
-        }
-      }
-    }
-  `)
 
-  const menu = data.wpMenu.menuItems.nodes
+  const data = useMenuFooter()
+  
+
+  const menu = data.nodes
 
   return (
     <nav className="menu-footer">

@@ -98,7 +98,6 @@ export const projectQuery = graphql`
                     publicURL
                     childImageSharp {
                       gatsbyImageData(
-                        placeholder: DOMINANT_COLOR
                         layout: FULL_WIDTH
                         width: 520
                         height: 400

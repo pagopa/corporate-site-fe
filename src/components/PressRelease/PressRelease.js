@@ -3,6 +3,7 @@ import React, { useContext } from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 
 import { LocaleContext } from '../../contexts/LocaleContext.js'
+import { usePressReleases } from '../../hooks/usePressReleases.js'
 
 import Cta from '../../components/Cta/Cta'
 
@@ -11,25 +12,7 @@ import './PressRelease.sass'
 const LatestPress = () => {
   const locale = useContext(LocaleContext)
 
-  const data = useStaticQuery(graphql`
-    query pressReleases {
-      allWpPressReleases(limit: 2, sort: {fields: date, order: DESC}) {
-        edges {
-          node {
-            date
-            title
-            slug
-            content
-            locale {
-              id
-            }
-            nodeType
-          }
-        }
-      }
-    }
-  `),
-  { edges: pressReleases } = data.allWpPressReleases
+  const pressReleases = usePressReleases()
 
   const currentLocalePress = pressReleases.filter(j => j.node.locale.id === locale)
 

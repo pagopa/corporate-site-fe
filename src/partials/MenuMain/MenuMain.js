@@ -3,6 +3,7 @@ import { useStaticQuery, graphql, Link } from 'gatsby'
 
 import { LocaleContext } from '../../contexts/LocaleContext.js'
 import { useWpOptionsPage } from '../../hooks/useWpOptionsPage'
+import { useMenuMain } from '../../hooks/useMenuMain'
 import { menuHierarchify } from '../../helpers/menuHierarchify'
 import { convertCPTDir } from '../../helpers/convertCPTDir'
 
@@ -105,24 +106,9 @@ const MenuItemTree = ({ item, currentPath, locale }) => {
 }
 
 const MenuMain = ({ currentPath }) => {
-  const data = useStaticQuery(graphql`
-    query MenuMain {
-      wpMenu(name: { eq: "Main Menu" }) {
-        menuItems {
-          nodes {
-            id
-            parentId
-            url
-            path
-            label
-            cssClasses
-          }
-        }
-      }
-    }
-  `)
+  const data = useMenuMain()
 
-  const menu = menuHierarchify(data.wpMenu.menuItems.nodes)
+  const menu = menuHierarchify(data.nodes)
   const locale = useContext(LocaleContext)
 
   return (

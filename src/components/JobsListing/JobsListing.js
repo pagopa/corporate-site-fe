@@ -14,6 +14,7 @@ import { useStaticQuery, graphql, Link } from 'gatsby'
 
 import { LocaleContext } from '../../contexts/LocaleContext.js'
 import { useWpOptionsPage } from '../../hooks/useWpOptionsPage'
+import { useJobPositions } from '../../hooks/useJobPositions.js'
 
 import './JobsListing.sass'
 
@@ -21,30 +22,7 @@ const JobsList = () => {
   const { translations } = useWpOptionsPage()
   const locale = useContext(LocaleContext)
 
-  const data = useStaticQuery(graphql`
-      query jobs {
-        allWpJobPosition(
-          sort: { fields: jobPositionFields___openDate, order: DESC }
-        ) {
-          edges {
-            node {
-              slug
-              nodeType
-              locale {
-                id
-              }
-              jobPositionFields {
-                openDate
-                isNew
-                closeDate
-              }
-              title
-            }
-          }
-        }
-      }
-    `),
-    { edges: jobs } = data.allWpJobPosition
+  const jobs = useJobPositions()
 
   const jobTranslations = translations.find(t => t.stringKey === 'job_cpt_slug')
   const currentLocaleJobs = jobs.filter(j => j.node.locale.id === locale)
