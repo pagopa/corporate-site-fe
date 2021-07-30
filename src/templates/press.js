@@ -4,13 +4,23 @@ import { graphql } from 'gatsby'
 
 import { LocaleContext } from '../contexts/LocaleContext.js'
 
+import BackgroundGraphics from '../components/BackgroundGraphics/BackgroundGraphics'
 import SeoHelmet from '../components/SeoHelmet.js'
 import Layout from '../partials/Layout'
 import Cta from '../components/Cta/Cta'
 
 const Intro = ({ eyelet, title }) => {
   return (
-    <header className="block --block-intro intro">
+    <section className="block --block-intro intro">
+      <BackgroundGraphics data={[{
+        size: 620,
+        xposition: -13,
+        yposition: 22
+      }, {
+        size: 840,
+        xposition: 60,
+        yposition: 350
+      }]} />
       <div className="container-fluid">
         <div className="row">
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
@@ -21,7 +31,7 @@ const Intro = ({ eyelet, title }) => {
           </div>
         </div>
       </div>
-    </header>
+    </section>
   )
 }
 
