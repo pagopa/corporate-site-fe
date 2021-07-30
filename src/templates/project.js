@@ -272,6 +272,16 @@ export const projectQuery = graphql`
               }
             }
             ... on WpProject_Flexiblecontent_Body_Blocks_BlockIntro {
+              blockOptions {
+                backgroundGraphics {
+                  fieldGroupName
+                  size
+                  xposition
+                  yposition
+                }
+                blockPosition
+                blockWidth
+              }
               fieldGroupName
               eyelet
               title

@@ -2,11 +2,19 @@ import React from 'react'
 
 import parse from 'html-react-parser'
 
+import BackgroundGraphics from '../BackgroundGraphics/BackgroundGraphics'
 import Image from '../Image/Image'
 import './Intro.sass'
 
 const Intro = ({ data, featuredImage }) => {
-  const { eyelet, title, text, image, usePostFeaturedImage } = data
+  const {
+    blockOptions: { backgroundGraphics },
+    eyelet,
+    title,
+    text,
+    image,
+    usePostFeaturedImage,
+  } = data
 
   const coverImage = usePostFeaturedImage
     ? featuredImage?.node
@@ -34,6 +42,7 @@ const Intro = ({ data, featuredImage }) => {
         !coverImage && !text ? ' mb-0 --nocontent' : ''
       }`}
     >
+      {backgroundGraphics && <BackgroundGraphics data={backgroundGraphics} />}
       <div className="container-fluid">
         <div className="row">
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
