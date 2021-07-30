@@ -2,7 +2,7 @@ import React from 'react'
 
 import parse from 'html-react-parser'
 
-import BackgroundGraphics from '../BackgroundGraphics/backgroundGraphics'
+import BackgroundGraphics from '../BackgroundGraphics/BackgroundGraphics'
 import Image from '../Image/Image'
 import './BlocksList.sass'
 
