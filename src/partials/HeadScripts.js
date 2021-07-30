@@ -28,14 +28,13 @@ const HeadScripts = () => {
           function OptanonWrapper() {
             var C0002 = OnetrustActiveGroups.includes("C0002");
             if (C0002 == false) {
-              window['ga-disable-UA-162375189-1'] = true;
+              window['ga-disable-G-XNW0W43V93'] = true;
             }
           }
         `,
           },
         ]}
       />
-
 
       <Helmet
         script={[
@@ -62,18 +61,18 @@ const HeadScripts = () => {
           {
             type: 'text/javascript',
             innerHTML: `
-          window['ga-disable-UA-162375189-1'] = true;
+          window['ga-disable-G-XNW0W43V93'] = true;
           if (getCookie('OptanonConsent') && getCookie('OptanonConsent').includes("C0002:1") == true) {
-            window['ga-disable-UA-162375189-1'] = false;
+            window['ga-disable-G-XNW0W43V93'] = false;
           }
         `,
           },
         ]}
       />
 
-      {/* <Helmet script={[{
+      <Helmet script={[{
         type: 'text/javascript',
-        src: `https://www.googletagmanager.com/gtag/js?id=UA-162375189-1`,
+        src: `https://www.googletagmanager.com/gtag/js?id=G-XNW0W43V93`,
         async: true
       }]} />
       
@@ -85,12 +84,12 @@ const HeadScripts = () => {
             dataLayer.push(arguments);
           }
           gtag('js', new Date());
-          gtag('config', 'UA-162375189-1', {
+          gtag('config', 'G-XNW0W43V93', {
             'anonymize_ip': true,
             'cookie_expires': 60 * 60 * 24 * 28 * 6
           });
         `
-      }]} /> */}
+      }]} />
     </>
   )
 }
