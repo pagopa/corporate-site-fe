@@ -8,12 +8,11 @@ import './Intro.sass'
 const Intro = ({ data, featuredImage }) => {
   const { eyelet, title, text, image, usePostFeaturedImage } = data
 
-
-
   const coverImage = usePostFeaturedImage
-    ? featuredImage?.node : image ? image : false
-
-  console.log(image)
+    ? featuredImage?.node
+    : image
+    ? image
+    : false
 
   const ImageMarkup = () => {
     if (image) {
@@ -30,7 +29,7 @@ const Intro = ({ data, featuredImage }) => {
   }
 
   return (
-    <header
+    <section
       className={`block --block-intro intro${
         !coverImage && !text ? ' mb-0 --nocontent' : ''
       }`}
@@ -53,7 +52,7 @@ const Intro = ({ data, featuredImage }) => {
           </div>
         )}
       </div>
-    </header>
+    </section>
   )
 }
 

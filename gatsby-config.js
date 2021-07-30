@@ -23,7 +23,7 @@ module.exports = {
           perPage: 20, // default 100
           requestConcurrency: 2, // default 15
           previewRequestConcurrency: 2, // default 5
-        }
+        },
       },
     },
     {
@@ -43,8 +43,22 @@ module.exports = {
         sitemap: `${process.env.FRONTEND_BASE_URL}/sitemap/sitemap-index.xml`,
         policy: [
           { userAgent: '*', disallow: '/' },
-          { userAgent: 'SemrushBot-SA', allow: '/' }
+          { userAgent: 'SemrushBot-SA', allow: '/' },
         ],
+      },
+    },
+    {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        trackingIds: ['G-XNW0W43V93'],
+        gtagConfig: {
+          anonymize_ip: true,
+          cookie_expires: 60 * 60 * 24 * 28 * 6,
+        },
+        pluginConfig: {
+          head: false,
+          respectDNT: true,
+        },
       },
     },
     {
@@ -77,7 +91,7 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-transformer-inline-svg`,
     {
-      resolve: `gatsby-plugin-sitemap`
+      resolve: `gatsby-plugin-sitemap`,
     },
 
     {
@@ -92,6 +106,5 @@ module.exports = {
         icon: `${__dirname}/src/images/favicon.svg`,
       },
     },
-
   ],
 }

@@ -1,7 +1,5 @@
 import React, { useContext } from 'react'
 
-import { useStaticQuery, graphql } from 'gatsby'
-
 import { LocaleContext } from '../../contexts/LocaleContext.js'
 import { usePressReleases } from '../../hooks/usePressReleases.js'
 

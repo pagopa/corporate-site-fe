@@ -2,7 +2,8 @@ import React, { useEffect, useRef } from 'react'
 
 import { animated, useSpring } from 'react-spring'
 
-const calc = o => `translate3d(0, ${o * 0.05}px, 0)`
+import './BackgroundGraphics.sass'
+
 
 const BackgroundGraphics = ({ data }) => {
   const ref = useRef()
@@ -19,6 +20,8 @@ const BackgroundGraphics = ({ data }) => {
     return () => window.removeEventListener('scroll', handleScroll)
   })
 
+  const calc = o => `translate3d(0, ${o * 0.05}px, 0)`
+
   return (
     <>
       {data.map((el, key) => {
@@ -28,12 +31,13 @@ const BackgroundGraphics = ({ data }) => {
           <div
             key={key}
             ref={ref}
+            className="background-graphics"
             style={{
               position: `absolute`,
               display: `block`,
               top: `${yposition}%`,
               left: `${xposition}%`,
-              zIndex: -1,
+              zIndex: -1
             }}
           >
             <animated.span

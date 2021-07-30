@@ -4,7 +4,7 @@ import { useWpOptionsPage } from '../../hooks/useWpOptionsPage'
 
 import Logo from '../Logo/Logo'
 import Socials from '../Socials/Socials'
-import Language from '../Language/Language'
+// import Language from '../Language/Language'
 import MenuFooter from '../MenuFooter/MenuFooter'
 import MenuService from '../MenuService/MenuService'
 

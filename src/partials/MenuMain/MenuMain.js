@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
-import { useStaticQuery, graphql, Link } from 'gatsby'
+
+import { Link } from 'gatsby'
 
 import { LocaleContext } from '../../contexts/LocaleContext.js'
 import { useWpOptionsPage } from '../../hooks/useWpOptionsPage'

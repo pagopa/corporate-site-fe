@@ -27,7 +27,7 @@ const VisualText = ({ data }) => {
     },
     big: {
       visual: `col-md-6`,
-      content: `col-md-${backgroundColor ? 5 : 4}`
+      content: `col-md-6 col-lg-5`
     },
     full: {
       visual: `col-md-9 offset-md-1`,

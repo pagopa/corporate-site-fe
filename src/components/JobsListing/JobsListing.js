@@ -10,7 +10,7 @@ import {
   AccordionItemPanel,
 } from 'react-accessible-accordion'
 
-import { useStaticQuery, graphql, Link } from 'gatsby'
+import { Link } from 'gatsby'
 
 import { LocaleContext } from '../../contexts/LocaleContext.js'
 import { useWpOptionsPage } from '../../hooks/useWpOptionsPage'

@@ -1,7 +1,5 @@
 import React from 'react'
 
-import { useStaticQuery, graphql } from 'gatsby'
-
 import { useMenuFooter } from '../../hooks/useMenuFooter'
 
 import Cta from '../../components/Cta/Cta'
