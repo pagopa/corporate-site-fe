@@ -5,32 +5,43 @@ import { Helmet } from 'react-helmet'
 
 import { useWpOptionsPage } from '../hooks/useWpOptionsPage'
 
-
 const HeadScripts = () => {
-
   const { onetrustSnippet } = useWpOptionsPage().various
 
   return (
     <>
-      <Helmet>
-        {parse(onetrustSnippet)}
-      </Helmet>
+      <Helmet
+        meta={[
+          {
+            name: 'google-site-verification',
+            content: `An5q7qgSwgsWV4eUx8TshAXdo6br4412zGBt2f6I9LE`,
+          },
+        ]}
+      />
+      <Helmet>{parse(onetrustSnippet)}</Helmet>
 
-      <Helmet script={[{
-        type: 'text/javascript', 
-        innerHTML: `
+      <Helmet
+        script={[
+          {
+            type: 'text/javascript',
+            innerHTML: `
           function OptanonWrapper() {
             var C0002 = OnetrustActiveGroups.includes("C0002");
             if (C0002 == false) {
               window['ga-disable-UA-162375189-1'] = true;
             }
           }
-        `
-      }]} />
+        `,
+          },
+        ]}
+      />
 
-      <Helmet script={[{
-        type: 'text/javascript', 
-        innerHTML: `
+
+      <Helmet
+        script={[
+          {
+            type: 'text/javascript',
+            innerHTML: `
           function getCookie(cName) {
             const name = cName + "=";
             const cDecoded = decodeURIComponent(document.cookie); //to be careful
@@ -41,18 +52,24 @@ const HeadScripts = () => {
             })
             return res
           }
-        `
-      }]} />
+        `,
+          },
+        ]}
+      />
 
-      <Helmet script={[{
-        type: 'text/javascript', 
-        innerHTML: `
+      <Helmet
+        script={[
+          {
+            type: 'text/javascript',
+            innerHTML: `
           window['ga-disable-UA-162375189-1'] = true;
           if (getCookie('OptanonConsent') && getCookie('OptanonConsent').includes("C0002:1") == true) {
             window['ga-disable-UA-162375189-1'] = false;
           }
-        `
-      }]} />
+        `,
+          },
+        ]}
+      />
 
       {/* <Helmet script={[{
         type: 'text/javascript',
