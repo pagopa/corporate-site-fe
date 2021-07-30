@@ -415,6 +415,7 @@ export const pageQuery = graphql`
               eyelet
               title
               text
+              privacyDisclaimer
               commonFeatures {
                 featureText
                 featureTitle

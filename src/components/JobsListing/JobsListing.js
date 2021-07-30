@@ -120,7 +120,7 @@ const JobsList = () => {
 }
 
 const JobsListing = ({ data }) => {
-  const { eyelet, title, text, commonFeatures } = data
+  const { eyelet, title, text, commonFeatures, privacyDisclaimer } = data
 
   const hasCommonFeatures = commonFeatures.length
 
@@ -150,6 +150,12 @@ const JobsListing = ({ data }) => {
                     </div>
                   )
                 })}
+              </div>
+            )}
+
+            {privacyDisclaimer && (
+              <div className="jobs-listing__disclaimer">
+                <p>{parse(privacyDisclaimer)}</p>
               </div>
             )}
 
