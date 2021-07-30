@@ -53,6 +53,20 @@ module.exports = {
         siteUrl: process.env.FRONTEND_BASE_URL,
       },
     },
+    {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        trackingIds: ['G-XNW0W43V93'],
+        gtagConfig: {
+          anonymize_ip: true,
+          cookie_expires: 60 * 60 * 24 * 28 * 6,
+        },
+        pluginConfig: {
+          head: false,
+          respectDNT: true,
+        },
+      },
+    },
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,

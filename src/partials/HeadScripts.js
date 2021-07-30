@@ -54,7 +54,7 @@ const HeadScripts = () => {
         `
       }]} />
 
-      <Helmet script={[{
+      {/* <Helmet script={[{
         type: 'text/javascript',
         src: `https://www.googletagmanager.com/gtag/js?id=UA-162375189-1`,
         async: true
@@ -73,7 +73,7 @@ const HeadScripts = () => {
             'cookie_expires': 60 * 60 * 24 * 28 * 6
           });
         `
-      }]} />
+      }]} /> */}
     </>
   )
 }
