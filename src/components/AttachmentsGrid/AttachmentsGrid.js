@@ -40,12 +40,12 @@ const UsefulLinks = ({ data }) => {
                           <>
                             <div className="icon-box__icon">
                               <Image image={icon.localFile} alt="" />
-                              </div>
-                            <h4 className="--primary --medium icon-box__title">{attachment.title}</h4>
+                            </div>
+                            {attachment && <h4 className="--primary --medium icon-box__title">{attachment?.title}</h4>}
                           </>
                         )}
                       </div>
-                      <a href={attachment.localFile.publicURL} target="_blank" rel="noopener noreferrer" className="cta mt-0"><span>{label}</span></a>
+                      {attachment && <a href={attachment?.localFile.publicURL} target="_blank" rel="noopener noreferrer" className="cta mt-0"><span>{label}</span></a>}
                     </article>
                   </div>
                 )
