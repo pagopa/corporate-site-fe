@@ -41,10 +41,20 @@ module.exports = {
       options: {
         host: process.env.FRONTEND_BASE_URL,
         sitemap: `${process.env.FRONTEND_BASE_URL}/sitemap/sitemap-index.xml`,
-        policy: [
-          { userAgent: '*', disallow: '/' },
-          { userAgent: 'SemrushBot-SA', allow: '/' },
-        ],
+        env: {
+          development: {
+            policy: [{ userAgent: '*', disallow: ['/'] }]
+          },
+          staging: {
+            policy: [{ userAgent: '*', disallow: ['/'] }]
+          },
+          uat: {
+            policy: [{ userAgent: '*', disallow: ['/'] }]
+          },
+          production: {
+            policy: [{ userAgent: '*', allow: '/' }]
+          }
+        }
       },
     },
     {
