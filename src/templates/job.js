@@ -10,11 +10,15 @@ import Cta from '../components/Cta/Cta'
 import Layout from '../partials/Layout'
 import SeoHelmet from '../components/SeoHelmet'
 
-const JobIntro = ({ intro, openDate, closeDate, locale }) => {
+const JobIntro = ({ data, locale }) => {
+  const { intro, openDate, closeDate, openPositions, hiredPositions, selectedPeople } = data
   const { eyelet, title, text } = intro
 
   const startDate = new Date(openDate).toLocaleDateString(locale.id)
   const endDate = new Date(closeDate).toLocaleDateString(locale.id)
+
+  const hasPositionsData = openPositions || hiredPositions ? true : false
+  const hasSelectionData = selectedPeople ? true : false
   
   return (
     <header className="block --block-intro intro">
@@ -27,9 +31,11 @@ const JobIntro = ({ intro, openDate, closeDate, locale }) => {
             </div>
           </div>
         </div>
+
         <div className="row">
-          <div className="col-12 d-flex justify-content-center text-left">
-            <div className="job__dates">
+          <div className="col-12 d-flex flex-column align-items-center justify-content-center text-left">
+
+            <div className="job__data">
               <div>
                 <p className="--label">DATA APERTURA</p>
                 <p>{startDate}</p>
@@ -39,8 +45,32 @@ const JobIntro = ({ intro, openDate, closeDate, locale }) => {
                 <p>{endDate}</p>
               </div>
             </div>
+
+            {hasPositionsData && (
+              <div className="job__data">
+                {openPositions && <div>
+                  <p className="--label">POSIZIONI RICERCATE</p>
+                  <p>{openPositions}</p>
+                </div>}
+                {hiredPositions && <div>
+                  <p className="--label">POSIZIONI ASSUNTE</p>
+                  <p>{hiredPositions}</p>
+                </div>}
+              </div>
+            )}
+
+            {hasSelectionData && (
+              <div className="job__data --auto-w">
+                <div>
+                  <p className="--label">PERSONE SELEZIONATE</p>
+                  <p>{selectedPeople}</p>
+                </div>
+              </div>
+            )}
+
           </div>
         </div>
+
         {text && (
           <div className="row job__intro">
             <div
@@ -61,7 +91,7 @@ const JobIntro = ({ intro, openDate, closeDate, locale }) => {
 const JobPage = ({ data }) => {
   const { title, slug, locale, jobPositionFields, featuredImage, seo } = data.wpJobPosition
 
-  const { openDate, closeDate, embedId, intro, textBlocks, applicationLink } = jobPositionFields
+  const { embedId, textBlocks, applicationLink } = jobPositionFields
 
   const { jobIframe } = useWpOptionsPage().various
 
@@ -87,7 +117,7 @@ const JobPage = ({ data }) => {
       <SeoHelmet yoast={seo} locale={currentLocale} data={pageProps} />
 
       <article className="job">
-        <JobIntro intro={intro} openDate={openDate} closeDate={closeDate} locale={locale} />
+        <JobIntro data={jobPositionFields} locale={locale} />
 
         {hasTextBlocks && textBlocks.map((tb, key) => {
           const { title, description } = tb
@@ -182,9 +212,13 @@ export const jobQuery = graphql`
       }
       
       jobPositionFields {
-        openDate
         isNew
+        openDate
         closeDate
+        openPositions
+        hiredPositions
+        selectedPeople
+        
         embedId
 
         applicationLink {
