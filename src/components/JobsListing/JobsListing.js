@@ -30,7 +30,7 @@ const JobsList = () => {
   const currentLocaleJobs = jobs.filter(j => j.node.locale.id === locale)
 
   const today = Date.now()
-  const activeListing = currentLocaleJobs.filter(j => Date.parse(j.node.jobPositionFields.closeDate) >= today)
+  const activeListing = currentLocaleJobs.filter(j => !j.node.jobPositionFields.closeDate || Date.parse(j.node.jobPositionFields.closeDate) >= today)
   const pastListing = currentLocaleJobs.filter(j => Date.parse(j.node.jobPositionFields.closeDate) < today)
 
   return (
@@ -44,8 +44,8 @@ const JobsList = () => {
             title,
           } = job.node
 
-          const startDate = new Date(openDate).toLocaleDateString(locale.id)
-          const endDate = new Date(closeDate).toLocaleDateString(locale.id)
+          const startDate = openDate ? new Date(openDate).toLocaleDateString(locale.id) : null
+          const endDate = closeDate ? new Date(closeDate).toLocaleDateString(locale.id) : null
 
           const jobDir =
             locale.id === 'it'
@@ -62,7 +62,8 @@ const JobsList = () => {
                   {isNew && <span>NEW</span>}
                 </h4>
                 <p className="job-entry__timeframe">
-                  Data di apertura: {startDate} - Data di chiusura: {endDate}
+                  {startDate && `Data di apertura: ${startDate}`}
+                  {endDate && ` - Data di chiusura: ${endDate}`}
                 </p>
               </article>
             </Link>

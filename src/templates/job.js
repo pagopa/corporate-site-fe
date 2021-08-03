@@ -14,8 +14,8 @@ const JobIntro = ({ data, locale }) => {
   const { intro, openDate, closeDate, openPositions, hiredPositions, selectedPeople } = data
   const { eyelet, title, text } = intro
 
-  const startDate = new Date(openDate).toLocaleDateString(locale.id)
-  const endDate = new Date(closeDate).toLocaleDateString(locale.id)
+  const startDate = openDate ? new Date(openDate).toLocaleDateString(locale.id) : null
+  const endDate = closeDate ? new Date(closeDate).toLocaleDateString(locale.id) : null
 
   const hasPositionsData = openPositions || hiredPositions ? true : false
   const hasSelectionData = selectedPeople ? true : false
@@ -36,14 +36,14 @@ const JobIntro = ({ data, locale }) => {
           <div className="col-12 d-flex flex-column align-items-center justify-content-center text-left">
 
             <div className="job__data">
-              <div>
+              {startDate && <div>
                 <p className="--label">DATA APERTURA</p>
                 <p>{startDate}</p>
-              </div>
-              <div>
+              </div>}
+              {endDate && <div>
                 <p className="--label">DATA CHIUSURA</p>
                 <p>{endDate}</p>
-              </div>
+              </div>}
             </div>
 
             {hasPositionsData && (
