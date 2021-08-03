@@ -421,9 +421,26 @@ export const projectQuery = graphql`
               eyelet
               title
               text
+              privacyDisclaimer
               commonFeatures {
                 featureText
                 featureTitle
+              }
+              linkAttachments {
+                jobsTitle
+                jobsLinks {
+                  usefulAttachment {
+                    title
+                    localFile {
+                      publicURL
+                    }
+                  }
+                  usefulLink {
+                    target
+                    title
+                    url
+                  }
+                }
               }
             }
             ... on WpProject_Flexiblecontent_Body_Blocks_BlockPressRelease {
