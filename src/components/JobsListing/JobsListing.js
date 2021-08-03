@@ -16,6 +16,8 @@ import { LocaleContext } from '../../contexts/LocaleContext.js'
 import { useWpOptionsPage } from '../../hooks/useWpOptionsPage'
 import { useJobPositions } from '../../hooks/useJobPositions.js'
 
+import Cta from '../Cta/Cta.js'
+
 import './JobsListing.sass'
 
 const JobsList = () => {
@@ -119,8 +121,42 @@ const JobsList = () => {
   )
 }
 
+const LinksAttachments = ({ data }) => {
+
+  const { title, links } = data
+
+  return (
+    <div className="jobs-listing__links-attachment">
+      {title && <h4>{title}</h4>}
+      <ul>
+        {links && links.map(({ usefulLink, usefulAttachment }, key) => {
+          const linkObj = {
+            title: usefulLink ? usefulLink.title : usefulAttachment ? usefulAttachment.title : false,
+            url: usefulLink ? usefulLink.url : usefulAttachment ? usefulAttachment.localFile.publicURL : false,
+            blank: usefulLink ? usefulLink.target : usefulAttachment ? true : false
+          }
+
+          return (
+            <li key={key}>
+              {linkObj.url && <Cta
+                label={linkObj.title}
+                url={linkObj.url}
+                blank={linkObj.blank}
+                variant="link"
+              />}
+            </li>
+          )
+        })}
+      </ul>
+    </div>
+  )
+
+}
+
 const JobsListing = ({ data }) => {
-  const { eyelet, title, text, commonFeatures, privacyDisclaimer } = data
+  const { eyelet, title, text, commonFeatures, privacyDisclaimer, linkAttachments } = data
+
+  const { jobsTitle, jobsLinks } = linkAttachments
 
   const hasCommonFeatures = commonFeatures.length
 
@@ -158,7 +194,12 @@ const JobsListing = ({ data }) => {
                 <p>{parse(privacyDisclaimer)}</p>
               </div>
             )}
-
+            
+            {jobsLinks && <LinksAttachments data={{
+              title: jobsTitle,
+              links: jobsLinks
+            }} />}
+            
             <JobsList />
           </div>
         </div>

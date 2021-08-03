@@ -430,6 +430,22 @@ export const pageQuery = graphql`
                 featureText
                 featureTitle
               }
+              linkAttachments {
+                jobsTitle
+                jobsLinks {
+                  usefulAttachment {
+                    title
+                    localFile {
+                      publicURL
+                    }
+                  }
+                  usefulLink {
+                    target
+                    title
+                    url
+                  }
+                }
+              }
             }
             ... on WpPage_Flexiblecontent_Body_Blocks_BlockPressRelease {
               fieldGroupName
