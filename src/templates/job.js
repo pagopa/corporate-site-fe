@@ -10,12 +10,14 @@ import Cta from '../components/Cta/Cta'
 import Layout from '../partials/Layout'
 import SeoHelmet from '../components/SeoHelmet'
 
+const dateFormatOptions = { year: 'numeric', month: '2-digit', day: '2-digit' }
+
 const JobIntro = ({ data, locale }) => {
   const { intro, openDate, closeDate, openPositions, hiredPositions, selectedPeople } = data
   const { eyelet, title, text } = intro
 
-  const startDate = openDate ? new Date(openDate).toLocaleDateString(locale.id) : null
-  const endDate = closeDate ? new Date(closeDate).toLocaleDateString(locale.id) : null
+  const startDate = openDate ? new Date(openDate).toLocaleDateString(locale.id, dateFormatOptions) : null
+  const endDate = closeDate ? new Date(closeDate).toLocaleDateString(locale.id, dateFormatOptions) : null
 
   const hasPositionsData = openPositions || hiredPositions ? true : false
   const hasSelectionData = selectedPeople ? true : false

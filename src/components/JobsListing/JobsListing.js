@@ -20,6 +20,9 @@ import Cta from '../Cta/Cta.js'
 
 import './JobsListing.sass'
 
+
+const dateFormatOptions = { year: 'numeric', month: '2-digit', day: '2-digit' }
+
 const JobsList = () => {
   const { translations } = useWpOptionsPage()
   const locale = useContext(LocaleContext)
@@ -44,8 +47,8 @@ const JobsList = () => {
             title,
           } = job.node
 
-          const startDate = openDate ? new Date(openDate).toLocaleDateString(locale.id) : null
-          const endDate = closeDate ? new Date(closeDate).toLocaleDateString(locale.id) : null
+          const startDate = openDate ? new Date(openDate).toLocaleDateString(locale.id, dateFormatOptions) : null
+          const endDate = closeDate ? new Date(closeDate).toLocaleDateString(locale.id, dateFormatOptions) : null
 
           const jobDir =
             locale.id === 'it'
@@ -90,8 +93,8 @@ const JobsList = () => {
                     title,
                   } = job.node
 
-                  const startDate = new Date(openDate).toLocaleDateString(locale.id)
-                  const endDate = new Date(closeDate).toLocaleDateString(locale.id)
+                  const startDate = new Date(openDate).toLocaleDateString(locale.id, dateFormatOptions)
+                  const endDate = new Date(closeDate).toLocaleDateString(locale.id, dateFormatOptions)
 
                   const jobDir =
                     locale.id === 'it'
