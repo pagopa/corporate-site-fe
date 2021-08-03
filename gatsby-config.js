@@ -41,10 +41,9 @@ module.exports = {
       options: {
         host: process.env.FRONTEND_BASE_URL,
         sitemap: `${process.env.FRONTEND_BASE_URL}/sitemap/sitemap-index.xml`,
-        policy: [
-          { userAgent: '*', disallow: '/' },
-          { userAgent: 'SemrushBot-SA', allow: '/' },
-        ],
+        policy: process.env.FRONTEND_BASE_URL === 'https://www.pagopa.it'
+                  ? [{ userAgent: '*', allow: '/' }]
+                  : [{ userAgent: '*', disallow: '/' }]
       },
     },
     {
@@ -78,7 +77,8 @@ module.exports = {
     `gatsby-transformer-inline-svg`,
     {
       resolve: `gatsby-plugin-sitemap`,
-    }, {
+    },
+    {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `pagopa`,
