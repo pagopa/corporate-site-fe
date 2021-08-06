@@ -6,7 +6,6 @@ import Layout from '../partials/Layout'
 import SeoHelmet from '../components/SeoHelmet'
 
 const NotFoundPage = (props) => {
-  console.log()
   return (
     <Layout locale={props.location.pathname.split('/')[1]}>
       
