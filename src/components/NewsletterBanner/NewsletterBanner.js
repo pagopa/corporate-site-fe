@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
+import { Helmet } from 'react-helmet'
+import Recaptcha from 'react-recaptcha'
+
 import axios from 'axios'
 
 import './NewsletterBanner.sass'
@@ -44,10 +47,11 @@ const Checkbox = ({ label, value, checked }) => {
 }
 
 
-const newsletterSubmit = () => {
+const newsletterSubmit = (recaptchaToken) => {
+
+  console.log('test@mail.com')
   const endpoint =
-      'https://api.io.italia.it/api/payportal/v1/newsletters/io/lists/6/recipients',
-    token = '6LcBa7AaAAAAAEb8kvsHtZ_09Ctd2l0XqceFUHTe'
+      'https://api.io.italia.it/api/payportal/v1/newsletters/io/lists/6/recipients'
 
   const input = document.querySelector('.newsletter-email'),
     groups = [...document.querySelectorAll('.newsletter-group:checked')],
@@ -57,14 +61,10 @@ const newsletterSubmit = () => {
   groups.forEach(g => groupsValue.push(g.value))
 
   if (input.checkValidity()) {
-    axios(endpoint, {
-      method: 'post',
-      url: endpoint,
-      data: JSON.stringify({
-        recaptchaToken: token,
-        email: emailValue,
-        groups: groupsValue
-      })
+    axios.post(endpoint, {
+      recaptchaToken: recaptchaToken,
+      email: emailValue,
+      groups: groupsValue
     })
     .then((response) => {
       console.log(response)
@@ -76,14 +76,24 @@ const newsletterSubmit = () => {
 }
 
 const NewsletterBanner = () => {
-  useEffect(() => {
-    const submit = document.querySelector('.newslette-submit')
-    submit.addEventListener('click', newsletterSubmit)
-    return () => submit.removeEventListener('click', newsletterSubmit)
-  }, [])
+
+  let recaptchaInstance
+
+  const executeCaptcha = () => {
+    console.log(recaptchaInstance)
+    recaptchaInstance.execute()
+  }
 
   return (
-    <div>
+    <>
+      
+      <Helmet script={[{
+        type: 'text/javascript',
+        src: `https://www.google.com/recaptcha/api.js`,
+        async: true,
+        defer: true
+      }]} />
+
       <section className="block --block-newsletter-banner newsletter-banner">
         <div className="container-fluid">
           <div className="row align-items-center">
@@ -113,9 +123,20 @@ const NewsletterBanner = () => {
                   className="newsletter-email"
                   required
                 />
-                <button className="cta --white newslette-submit" type="button">
+                <button
+                  type="button"
+                  className="cta --white newslette-submit"
+                  onClick={executeCaptcha}
+                >
                   <span>Iscriviti</span>
                 </button>
+
+                <Recaptcha
+                  ref={e => recaptchaInstance = e}
+                  sitekey="6LcBa7AaAAAAAEb8kvsHtZ_09Ctd2l0XqceFUHTe"
+                  size="invisible"
+                  verifyCallback={newsletterSubmit}
+                />
                 <p>
                   Inserendo il tuo indirizzo email stai accettando la nostra
                   informativa sul trattamento dei dati personali per la
@@ -130,7 +151,7 @@ const NewsletterBanner = () => {
           </div>
         </div>
       </section>
-    </div>
+    </>
   )
 }
 
