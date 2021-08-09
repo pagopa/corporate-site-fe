@@ -9,29 +9,36 @@ import NewsletterBanner from '../components/NewsletterBanner/NewsletterBanner'
 import SeoHelmet from '../components/SeoHelmet'
 
 const Page = ({ data }) => {
-  const { title, slug, locale, flexibleContent, nodeType, featuredImage, seo } = data.wpPage,
-        blocks = flexibleContent.body.blocks
+  const {
+      title,
+      slug,
+      locale,
+      flexibleContent,
+      nodeType,
+      featuredImage,
+      seo,
+      postConfig: { bannerNewsletter },
+    } = data.wpPage,
+    blocks = flexibleContent.body.blocks
 
   const currentLocale = locale.id,
-        currentSlug = slug
+    currentSlug = slug
 
   const pageProps = {
     title,
-    featuredImage
+    featuredImage,
   }
 
   return (
     <Layout locale={currentLocale} slug={currentSlug}>
-      
       <SeoHelmet yoast={seo} locale={currentLocale} data={pageProps} />
-
-      <NewsletterBanner />
 
       {blocks &&
         blocks.map((block, key) => {
           return <Block data={block} key={key} type={nodeType} {...pageProps} />
         })}
-      
+
+      {bannerNewsletter && <NewsletterBanner />}
     </Layout>
   )
 }
@@ -47,6 +54,10 @@ export const pageQuery = graphql`
       title
       slug
 
+      postConfig {
+        bannerNewsletter
+      }
+
       featuredImage {
         node {
           altText
@@ -57,9 +68,7 @@ export const pageQuery = graphql`
               fixed(fit: COVER, quality: 90, width: 1200, height: 627) {
                 src
               }
-              gatsbyImageData(
-                width: 1280
-              )
+              gatsbyImageData(width: 1280)
             }
           }
         }
@@ -86,7 +95,6 @@ export const pageQuery = graphql`
       flexibleContent {
         body {
           blocks {
-            
             ... on WpPage_Flexiblecontent_Body_Blocks_HeroSlider {
               fieldGroupName
               items {
@@ -130,7 +138,7 @@ export const pageQuery = graphql`
                 blockPosition
                 blockWidth
               }
-              
+
               iscentered
               content {
                 eyelet
@@ -175,9 +183,7 @@ export const pageQuery = graphql`
                     extension
                     publicURL
                     childImageSharp {
-                      gatsbyImageData(
-                        width: 960
-                      )
+                      gatsbyImageData(width: 960)
                     }
                   }
                 }
@@ -223,9 +229,7 @@ export const pageQuery = graphql`
                       altText
                       localFile {
                         childImageSharp {
-                          gatsbyImageData(
-                            width: 640
-                          )
+                          gatsbyImageData(width: 640)
                         }
                       }
                     }
@@ -241,9 +245,7 @@ export const pageQuery = graphql`
                           extension
                           publicURL
                           childImageSharp {
-                            gatsbyImageData(
-                              width: 640
-                            )
+                            gatsbyImageData(width: 640)
                           }
                         }
                       }
@@ -272,9 +274,7 @@ export const pageQuery = graphql`
                   extension
                   publicURL
                   childImageSharp {
-                    gatsbyImageData(
-                      width: 1280
-                    )
+                    gatsbyImageData(width: 1280)
                   }
                 }
               }
@@ -301,9 +301,7 @@ export const pageQuery = graphql`
                   extension
                   publicURL
                   childImageSharp {
-                    gatsbyImageData(
-                      width: 1280
-                    )
+                    gatsbyImageData(width: 1280)
                   }
                 }
               }
@@ -331,9 +329,7 @@ export const pageQuery = graphql`
                     extension
                     publicURL
                     childImageSharp {
-                      gatsbyImageData(
-                        width: 140
-                      )
+                      gatsbyImageData(width: 140)
                     }
                   }
                 }
@@ -391,7 +387,7 @@ export const pageQuery = graphql`
             }
             ... on WpPage_Flexiblecontent_Body_Blocks_BlockMapBox {
               fieldGroupName
-              
+
               image {
                 localFile {
                   extension
@@ -521,7 +517,6 @@ export const pageQuery = graphql`
                 }
               }
             }
-
           }
         }
       }

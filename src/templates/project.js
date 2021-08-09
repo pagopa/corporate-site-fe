@@ -4,11 +4,21 @@ import { graphql } from 'gatsby'
 
 import Layout from '../partials/Layout'
 import Block from '../components/Block/Block'
+import NewsletterBanner from '../components/NewsletterBanner/NewsletterBanner'
+
 import SeoHelmet from '../components/SeoHelmet'
 
-
 const ProjectPage = ({ data }) => {
-  const { title, slug, locale, flexibleContent, nodeType, featuredImage, seo } = data.wpProject,
+  const {
+      title,
+      slug,
+      locale,
+      flexibleContent,
+      nodeType,
+      featuredImage,
+      seo,
+      postConfig: { bannerNewsletter },
+    } = data.wpProject,
     blocks = flexibleContent.body.blocks
 
   const currentLocale = locale.id,
@@ -16,18 +26,19 @@ const ProjectPage = ({ data }) => {
 
   const pageProps = {
     title,
-    featuredImage
+    featuredImage,
   }
 
   return (
     <Layout locale={currentLocale} slug={currentSlug}>
-      
       <SeoHelmet yoast={seo} locale={currentLocale} data={pageProps} />
 
       {blocks &&
         blocks.map((block, key) => {
           return <Block data={block} key={key} type={nodeType} {...pageProps} />
         })}
+
+      {bannerNewsletter && <NewsletterBanner />}
     </Layout>
   )
 }
@@ -42,6 +53,11 @@ export const projectQuery = graphql`
       }
       title
       slug
+
+      postConfig {
+        bannerNewsletter
+      }
+
       featuredImage {
         node {
           altText
@@ -50,9 +66,7 @@ export const projectQuery = graphql`
               fixed(fit: COVER, quality: 90, width: 1200, height: 627) {
                 src
               }
-              gatsbyImageData(
-                width: 1280
-              )
+              gatsbyImageData(width: 1280)
             }
           }
         }
@@ -122,7 +136,7 @@ export const projectQuery = graphql`
                 blockPosition
                 blockWidth
               }
-              
+
               iscentered
               content {
                 eyelet
@@ -167,9 +181,7 @@ export const projectQuery = graphql`
                     extension
                     publicURL
                     childImageSharp {
-                      gatsbyImageData(
-                        width: 960
-                      )
+                      gatsbyImageData(width: 960)
                     }
                   }
                 }
@@ -215,9 +227,7 @@ export const projectQuery = graphql`
                       altText
                       localFile {
                         childImageSharp {
-                          gatsbyImageData(
-                            width: 640
-                          )
+                          gatsbyImageData(width: 640)
                         }
                       }
                     }
@@ -233,9 +243,7 @@ export const projectQuery = graphql`
                           extension
                           publicURL
                           childImageSharp {
-                            gatsbyImageData(
-                              width: 640
-                            )
+                            gatsbyImageData(width: 640)
                           }
                         }
                       }
@@ -264,9 +272,7 @@ export const projectQuery = graphql`
                   extension
                   publicURL
                   childImageSharp {
-                    gatsbyImageData(
-                      width: 1280
-                    )
+                    gatsbyImageData(width: 1280)
                   }
                 }
               }
@@ -293,9 +299,7 @@ export const projectQuery = graphql`
                   extension
                   publicURL
                   childImageSharp {
-                    gatsbyImageData(
-                      width: 1280
-                    )
+                    gatsbyImageData(width: 1280)
                   }
                 }
               }
@@ -323,9 +327,7 @@ export const projectQuery = graphql`
                     extension
                     publicURL
                     childImageSharp {
-                      gatsbyImageData(
-                        width: 140
-                      )
+                      gatsbyImageData(width: 140)
                     }
                   }
                 }
@@ -383,7 +385,7 @@ export const projectQuery = graphql`
             }
             ... on WpProject_Flexiblecontent_Body_Blocks_BlockMapBox {
               fieldGroupName
-              
+
               image {
                 localFile {
                   extension

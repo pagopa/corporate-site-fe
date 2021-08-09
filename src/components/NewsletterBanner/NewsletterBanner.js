@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
-import { Helmet } from 'react-helmet'
 import Reaptcha from 'reaptcha'
 
 import axios from 'axios'
@@ -33,8 +32,6 @@ const newsletterGroups = [
 
 const newsletterSubmit = (recaptchaResponse) => {
 
-  console.log(recaptchaResponse)
-
   const endpoint =
       'https://api.io.italia.it/api/payportal/v1/newsletters/io/lists/6/recipients'
 
@@ -52,18 +49,17 @@ const newsletterSubmit = (recaptchaResponse) => {
       groups: groupsValue
     })
     .then((response) => {
-      console.log(response)
+      console.warn(response)
     })
     .catch((error) => {
-      console.log(error)
+      console.warn(error)
     })
   }
 }
 
-const Checkbox = ({ label, value, checked }) => {
+const Checkbox = ({ label, value, checked, classes }) => {
   return (
-    <label htmlFor={`cb-inp-${value}`}>
-      {label}
+    <div className="checkbox">
       <input
         type="checkbox"
         value={value}
@@ -71,7 +67,10 @@ const Checkbox = ({ label, value, checked }) => {
         className="newsletter-group"
         defaultChecked={checked}
       />
-    </label>
+      <label htmlFor={`cb-inp-${value}`}>
+        {label}
+      </label>
+    </div>
   )
 }
 
@@ -88,14 +87,20 @@ const NewsletterBanner = () => {
 
       <section className="block --block-newsletter-banner newsletter-banner">
         <div className="container-fluid">
-          <div className="row align-items-center">
-            <div className="col-12 col-md-5 offset-md-1 col-lg-5 offset-lg-1">
-              <h3 className="newsletter-banner__title mb-md-0">
-                Vuoi ricevere la<br />nostra Newsletter?
-              </h3>
-              <p>Segui le notizie per*:</p>
+          <div className="row">
+            <div className="col-12 col-lg-10 offset-lg-1">
+              <h3>Vuoi ricevere la<br />nostra Newsletter?</h3>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-12 col-lg-10 offset-lg-1">
+              <p className="mb-3">Segui le notizie per*:</p>
+            </div>
+          </div>
 
-              <ul>
+          <div className="row">
+            <div className="col-12 col-md-6 col-lg-5 offset-lg-1">
+              <ul className="newsletter-banner__options">
                 {newsletterGroups.map((g, key) => {
                   const { label, value, checked } = g
                   return (
@@ -105,14 +110,14 @@ const NewsletterBanner = () => {
                   )
                 })}
               </ul>
-              <p>* campo obbligatorio, con possibilità di risposta multipla</p>
+              <p className="--alternative --small"><em>* campo obbligatorio, con possibilità di risposta multipla</em></p>
             </div>
-            <div className="col-12 col-md-5 col-lg-5">
+            <div className="col-12 col-md-6 col-lg-5 d-flex flex-column justify-content-between">
               <form onSubmit={e => e.preventDefault()}>
                 <input
                   type="email"
                   placeholder="Inserisci la tua email"
-                  className="newsletter-email"
+                  className="input newsletter-email"
                   required
                 />
                 <button
@@ -129,16 +134,17 @@ const NewsletterBanner = () => {
                   size="invisible"
                   onVerify={newsletterSubmit}
                 />
-                <p>
-                  Inserendo il tuo indirizzo email stai accettando la nostra
-                  informativa sul trattamento dei dati personali per la
-                  newsletter.
-                </p>
-                <p>
-                  Form protetto tramite reCAPTCHA e Google Privacy Policy e
-                  Termini di servizio applicati.
-                </p>
               </form>
+
+              <div className="mt-5">
+
+                <p className="--alternative --small">
+                  <em>Inserendo il tuo indirizzo email stai accettando la nostra informativa sul trattamento dei dati personali per la newsletter.</em>
+                </p>
+                <p className="--alternative --small">
+                  <em>Form protetto tramite reCAPTCHA e <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a> e <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Termini di servizio</a> applicati.</em>
+                </p>
+              </div>
             </div>
           </div>
         </div>
