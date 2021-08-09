@@ -4,6 +4,7 @@ import { graphql } from 'gatsby'
 
 import Layout from '../partials/Layout'
 import Block from '../components/Block/Block'
+import NewsletterBanner from '../components/NewsletterBanner/NewsletterBanner'
 
 import SeoHelmet from '../components/SeoHelmet'
 
@@ -24,10 +25,13 @@ const Page = ({ data }) => {
       
       <SeoHelmet yoast={seo} locale={currentLocale} data={pageProps} />
 
+      <NewsletterBanner />
+
       {blocks &&
         blocks.map((block, key) => {
           return <Block data={block} key={key} type={nodeType} {...pageProps} />
         })}
+      
     </Layout>
   )
 }
