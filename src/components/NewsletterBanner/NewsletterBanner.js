@@ -57,18 +57,21 @@ const newsletterSubmit = () => {
   groups.forEach(g => groupsValue.push(g.value))
 
   if (input.checkValidity()) {
-    axios
-      .post(endpoint, {
+    axios(endpoint, {
+      method: 'post',
+      url: endpoint,
+      data: JSON.stringify({
         recaptchaToken: token,
         email: emailValue,
-        groups: groupsValue,
+        groups: groupsValue
       })
-      .then((response) => {
-        console.log(response)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    })
+    .then((response) => {
+      console.log(response)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
   }
 }
 
