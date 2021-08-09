@@ -133,6 +133,7 @@ const NewsletterBanner = () => {
                 <Reaptcha
                   ref={e => reaptchaInstance = e}
                   sitekey="6LcBa7AaAAAAAEb8kvsHtZ_09Ctd2l0XqceFUHTe"
+                  // sitekey="6LeM5-wbAAAAANd-aiim0kKNYKnIORS5efzHCTr8"
                   size="invisible"
                   onVerify={newsletterSubmit}
                 />
