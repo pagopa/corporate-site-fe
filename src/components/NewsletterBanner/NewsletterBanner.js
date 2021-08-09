@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { Helmet } from 'react-helmet'
-import Recaptcha from 'react-recaptcha'
+import Reaptcha from 'reaptcha'
 
 import axios from 'axios'
 
@@ -47,9 +47,9 @@ const Checkbox = ({ label, value, checked }) => {
 }
 
 
-const newsletterSubmit = (recaptchaToken) => {
+const newsletterSubmit = (recaptchaResponse) => {
 
-  console.log('test@mail.com')
+  console.log(recaptchaResponse)
   const endpoint =
       'https://api.io.italia.it/api/payportal/v1/newsletters/io/lists/6/recipients'
 
@@ -62,7 +62,7 @@ const newsletterSubmit = (recaptchaToken) => {
 
   if (input.checkValidity()) {
     axios.post(endpoint, {
-      recaptchaToken: recaptchaToken,
+      recaptchaToken: recaptchaResponse,
       email: emailValue,
       groups: groupsValue
     })
@@ -77,22 +77,21 @@ const newsletterSubmit = (recaptchaToken) => {
 
 const NewsletterBanner = () => {
 
-  let recaptchaInstance
+  let reaptchaInstance
 
-  const executeCaptcha = () => {
-    console.log(recaptchaInstance)
-    recaptchaInstance.execute()
+  const reaptchaVerify = () => {
+    reaptchaInstance.execute()
   }
-
+  
   return (
     <>
       
-      <Helmet script={[{
+      {/* <Helmet script={[{
         type: 'text/javascript',
-        src: `https://www.google.com/recaptcha/api.js`,
+        src: `https://www.google.com/recaptcha/api.js?render=explicit`,
         async: true,
         defer: true
-      }]} />
+      }]} /> */}
 
       <section className="block --block-newsletter-banner newsletter-banner">
         <div className="container-fluid">
@@ -126,16 +125,16 @@ const NewsletterBanner = () => {
                 <button
                   type="button"
                   className="cta --white newslette-submit"
-                  onClick={executeCaptcha}
+                  onClick={reaptchaVerify}
                 >
                   <span>Iscriviti</span>
                 </button>
 
-                <Recaptcha
-                  ref={e => recaptchaInstance = e}
+                <Reaptcha
+                  ref={e => reaptchaInstance = e}
                   sitekey="6LcBa7AaAAAAAEb8kvsHtZ_09Ctd2l0XqceFUHTe"
                   size="invisible"
-                  verifyCallback={newsletterSubmit}
+                  onVerify={newsletterSubmit}
                 />
                 <p>
                   Inserendo il tuo indirizzo email stai accettando la nostra
