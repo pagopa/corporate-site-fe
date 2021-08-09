@@ -31,25 +31,10 @@ const newsletterGroups = [
   }
 ]
 
-const Checkbox = ({ label, value, checked }) => {
-  return (
-    <label htmlFor={`cb-inp-${value}`}>
-      {label}
-      <input
-        type="checkbox"
-        value={value}
-        id={`cb-inp-${value}`}
-        className="newsletter-group"
-        defaultChecked={checked}
-      />
-    </label>
-  )
-}
-
-
 const newsletterSubmit = (recaptchaResponse) => {
 
   console.log(recaptchaResponse)
+
   const endpoint =
       'https://api.io.italia.it/api/payportal/v1/newsletters/io/lists/6/recipients'
 
@@ -75,6 +60,21 @@ const newsletterSubmit = (recaptchaResponse) => {
   }
 }
 
+const Checkbox = ({ label, value, checked }) => {
+  return (
+    <label htmlFor={`cb-inp-${value}`}>
+      {label}
+      <input
+        type="checkbox"
+        value={value}
+        id={`cb-inp-${value}`}
+        className="newsletter-group"
+        defaultChecked={checked}
+      />
+    </label>
+  )
+}
+
 const NewsletterBanner = () => {
 
   let reaptchaInstance
@@ -85,13 +85,6 @@ const NewsletterBanner = () => {
   
   return (
     <>
-      
-      {/* <Helmet script={[{
-        type: 'text/javascript',
-        src: `https://www.google.com/recaptcha/api.js?render=explicit`,
-        async: true,
-        defer: true
-      }]} /> */}
 
       <section className="block --block-newsletter-banner newsletter-banner">
         <div className="container-fluid">
@@ -133,7 +126,6 @@ const NewsletterBanner = () => {
                 <Reaptcha
                   ref={e => reaptchaInstance = e}
                   sitekey="6LcBa7AaAAAAAEb8kvsHtZ_09Ctd2l0XqceFUHTe"
-                  // sitekey="6LeM5-wbAAAAANd-aiim0kKNYKnIORS5efzHCTr8"
                   size="invisible"
                   onVerify={newsletterSubmit}
                 />

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { useWpOptionsPage } from '../../hooks/useWpOptionsPage'
 
@@ -6,8 +6,21 @@ import Cta from '../../components/Cta/Cta'
 
 import './MenuService.sass'
 
+const openOTPreferences = () => {
+  
+//   if (OneTrust) OneTrust.ToggleInfoDisplay()
+}
+
 const MenuService = () => {
   const { linksAttachments } = useWpOptionsPage().footer
+
+
+  useEffect(() => {
+    const otButton = document.querySelector('.ot-sdk-show-settings')
+
+    otButton.addEventListener('click', openOTPreferences)
+    return () => otButton.removeEventListener('click', openOTPreferences)
+  }, [])
 
   return (
     <nav className="menu-service">
