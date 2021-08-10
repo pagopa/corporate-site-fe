@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 
 import Reaptcha from 'reaptcha'
 
 import axios from 'axios'
+
+import { LocaleContext } from '../../contexts/LocaleContext.js'
+import { useSiteMetadata } from '../../hooks/useSiteMetadata'
 
 import './NewsletterBanner.sass'
 
@@ -30,33 +33,6 @@ const newsletterGroups = [
   }
 ]
 
-const newsletterSubmit = (recaptchaResponse) => {
-
-  const endpoint =
-      'https://api.io.italia.it/api/payportal/v1/newsletters/io/lists/6/recipients'
-
-  const input = document.querySelector('.newsletter-email'),
-    groups = [...document.querySelectorAll('.newsletter-group:checked')],
-    emailValue = input.value.trim(),
-    groupsValue = []
-
-  groups.forEach(g => groupsValue.push(g.value))
-
-  if (input.checkValidity()) {
-    axios.post(endpoint, {
-      recaptchaToken: recaptchaResponse,
-      email: emailValue,
-      groups: groupsValue
-    })
-    .then((response) => {
-      console.warn(response)
-    })
-    .catch((error) => {
-      console.warn(error)
-    })
-  }
-}
-
 const Checkbox = ({ label, value, checked, classes }) => {
   return (
     <div className="checkbox">
@@ -76,10 +52,52 @@ const Checkbox = ({ label, value, checked, classes }) => {
 
 const NewsletterBanner = () => {
 
+  const { siteUrl } = useSiteMetadata()
+  const locale = useContext(LocaleContext)
+
+  const [loading, setLoading] = useState(false)
+
   let reaptchaInstance
 
   const reaptchaVerify = () => {
+    setLoading(true)
     reaptchaInstance.execute()
+  }
+
+  const newsletterSubmit = (recaptchaResponse) => {
+
+    const endpoint =
+        'https://api.io.italia.it/api/payportal/v1/newsletters/io/lists/6/recipients'
+  
+    const input = document.querySelector('.newsletter-email'),
+      optionsWrap = document.querySelector('.newsletter-banner__options'),
+      groups = [...document.querySelectorAll('.newsletter-group:checked')],
+      emailValue = input.value.trim(),
+      groupsValue = []
+  
+    groups.forEach(g => groupsValue.push(g.value))
+  
+    if (input.checkValidity() && optionsWrap.querySelector('.newsletter-group:checked')) {
+      axios.post(endpoint, {
+        recaptchaToken: recaptchaResponse,
+        email: emailValue,
+        groups: groupsValue
+      })
+      .then(response => {
+        console.warn(response)
+      })
+      .catch(error => {
+        console.warn(error)
+      })
+      .then(() => {
+        setLoading(false)
+        reaptchaInstance.reset()
+      })
+    } else {
+      console.error('not valid')
+      setLoading(false)
+      reaptchaInstance.reset()
+    }
   }
   
   return (
@@ -120,26 +138,33 @@ const NewsletterBanner = () => {
                   className="input newsletter-email"
                   required
                 />
-                <button
-                  type="button"
-                  className="cta --white newslette-submit"
-                  onClick={reaptchaVerify}
-                >
-                  <span>Iscriviti</span>
-                </button>
+                <div className="d-flex align-items-center mt-3">
+                  <button
+                    type="button"
+                    className={`cta --white newslette-submit mt-0${loading ? ' is-loading' : ''}`}
+                    onClick={reaptchaVerify}
+                  >
+                    <span>Iscriviti</span>
+                    <span className="loader"><span></span><span></span><span></span><span></span></span>
+                  </button>
+                  
 
-                <Reaptcha
-                  ref={e => reaptchaInstance = e}
-                  sitekey="6LcBa7AaAAAAAEb8kvsHtZ_09Ctd2l0XqceFUHTe"
-                  size="invisible"
-                  onVerify={newsletterSubmit}
-                />
+                  <Reaptcha
+                    ref={e => reaptchaInstance = e}
+                    // sitekey="6LcBa7AaAAAAAEb8kvsHtZ_09Ctd2l0XqceFUHTe"
+                    sitekey="6LeM5-wbAAAAANd-aiim0kKNYKnIORS5efzHCTr8"
+                    size="invisible"
+                    onVerify={newsletterSubmit}
+                  />
+
+                  <p className="--small --alternative mb-0 px-4">Seleziona un'opzione e/o inserisci la mail correttamente</p>
+                </div>
               </form>
 
               <div className="mt-5">
 
                 <p className="--alternative --small">
-                  <em>Inserendo il tuo indirizzo email stai accettando la nostra informativa sul trattamento dei dati personali per la newsletter.</em>
+                  <em>Inserendo il tuo indirizzo email stai accettando la <a href={`${siteUrl}/${locale}/privacy-policy/`} target="_blank" rel="noopener noreferrer">nostra informativa sul trattamento dei dati personali</a> per la newsletter.</em>
                 </p>
                 <p className="--alternative --small">
                   <em>Form protetto tramite reCAPTCHA e <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a> e <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Termini di servizio</a> applicati.</em>
