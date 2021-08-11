@@ -121,11 +121,11 @@ const NewsletterBanner = () => {
     axios({
       method: 'post',
       url: endpoint,
-      data: {
+      data: JSON.stringify({
         recaptchaToken: recaptchaResponse,
         email: emailValue,
         groups: groupsValue
-      }
+      })
     })
     .then(response => {
       newsletterWrap.classList.add('is-success')
@@ -189,8 +189,8 @@ const NewsletterBanner = () => {
                   
                   <Reaptcha
                     ref={e => reaptchaInstance = e}
-                    // sitekey="6LcBa7AaAAAAAEb8kvsHtZ_09Ctd2l0XqceFUHTe"
-                    sitekey="6LeM5-wbAAAAANd-aiim0kKNYKnIORS5efzHCTr8"
+                    sitekey="6LcBa7AaAAAAAEb8kvsHtZ_09Ctd2l0XqceFUHTe"
+                    // sitekey="6LeM5-wbAAAAANd-aiim0kKNYKnIORS5efzHCTr8"
                     size="invisible"
                     onVerify={newsletterSubmit}
                   />
