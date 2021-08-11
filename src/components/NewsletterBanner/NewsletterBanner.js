@@ -99,7 +99,7 @@ const NewsletterBanner = () => {
   }
 
   const newsletterReset = () => {
-    console.log('reset')
+    // console.log('reset')
     reaptchaInstance?.reset()
     setLoading(() => false)
   }
@@ -135,11 +135,9 @@ const NewsletterBanner = () => {
     })
     .then(response => {
       newsletterWrap.classList.add('is-success')
-      console.log(response)
     })
     .catch(error => {
       newsletterWrap.classList.add('is-error')
-      console.log(error)
     })
     .then(() => {
       newsletterReset()
@@ -196,7 +194,6 @@ const NewsletterBanner = () => {
                   <Reaptcha
                     ref={e => reaptchaInstance = e}
                     sitekey="6LcBa7AaAAAAAEb8kvsHtZ_09Ctd2l0XqceFUHTe"
-                    // sitekey="6LeM5-wbAAAAANd-aiim0kKNYKnIORS5efzHCTr8"
                     size="invisible"
                     onVerify={newsletterSubmit}
                   />
