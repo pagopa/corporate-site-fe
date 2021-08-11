@@ -115,18 +115,23 @@ const NewsletterBanner = () => {
           groups = [...newsletterWrap.querySelectorAll('.newsletter-group:checked')],
           emailValue = input.value.trim(),
           groupsValue = []
-        
-  
+    
+          
     groups.forEach(g => groupsValue.push(g.value))
+          
+    const data = {
+      recaptchaToken: recaptchaResponse,
+      email: emailValue,
+      groups: groupsValue
+    }
+
+    newsletterWrap.classList.remove('is-success')
+    newsletterWrap.classList.remove('is-error')
 
     axios({
       method: 'post',
       url: endpoint,
-      data: {
-        recaptchaToken: recaptchaResponse,
-        email: emailValue,
-        groups: groupsValue
-      }
+      data: data
     })
     .then(response => {
       newsletterWrap.classList.add('is-success')
