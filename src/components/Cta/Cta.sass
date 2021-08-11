@@ -36,7 +36,7 @@
     transition: transform $transition-fast
     transform: translate3d(-101%, -49%, 0)
 
-  &:not(.is-loading):hover
+  &:not(.is-loading):not(:disabled):hover
     transition-delay: 0
     border-color: $c-brand
     
@@ -51,6 +51,7 @@
   &.is-loading
     background-color: $c-brand-dark !important
     min-height: 5rem
+    cursor: default
 
     .loader
       display: block
@@ -58,13 +59,17 @@
     > span:not(.loader)
       display: none
   
+  &:disabled
+    cursor: default
+    opacity: .5
+  
 
   &.--white
     background-color: #FFF
     border-color: #FFF
     color: $c-brand
     
-    &:not(.is-loading):hover
+    &:not(.is-loading):not(:disabled):hover
       border-color: $c-brand-dark
       color: #fff
 
@@ -78,7 +83,7 @@
     &::before
       background-color: #FFF
 
-    &:not(.is-loading):hover
+    &:not(.is-loading):not(:disabled):hover
       > span
         color: $c-brand
 
