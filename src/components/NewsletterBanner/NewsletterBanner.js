@@ -50,6 +50,8 @@ const Checkbox = ({ label, value, checked, classes }) => {
   )
 }
 
+let reaptchaInstance
+
 const NewsletterBanner = () => {
 
   const { siteUrl } = useSiteMetadata()
@@ -90,7 +92,6 @@ const NewsletterBanner = () => {
         'https://api.io.italia.it/api/payportal/v1/newsletters/io/lists/6/recipients'
 
     
-  let reaptchaInstance
 
   const reaptchaVerify = () => {
     reaptchaInstance.execute()
@@ -121,11 +122,11 @@ const NewsletterBanner = () => {
     axios({
       method: 'post',
       url: endpoint,
-      data: JSON.stringify({
+      data: {
         recaptchaToken: recaptchaResponse,
         email: emailValue,
         groups: groupsValue
-      })
+      }
     })
     .then(response => {
       newsletterWrap.classList.add('is-success')
