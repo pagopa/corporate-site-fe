@@ -10,7 +10,7 @@ import { convertCPTDir } from '../../helpers/convertCPTDir'
 
 import './MenuMain.sass'
 
-export const MenuItem = ({ item, disabled, locale }) => {
+const MenuItem = ({ item, disabled, locale }) => {
   const { translations } = useWpOptionsPage()
   const { label, path } = item
 
@@ -37,7 +37,7 @@ export const MenuItem = ({ item, disabled, locale }) => {
   return <TheLink />
 }
 
-const MenuItemTree = ({ item, currentPath, locale }) => {
+const MenuItemTree = ({ item, location, locale }) => {
   const [submenuOpen, setSubmenuOpen] = useState(false)
 
   const handleSubmenu = () => {
@@ -58,8 +58,11 @@ const MenuItemTree = ({ item, currentPath, locale }) => {
   }
   const slug = getSlug(path)
 
+
   // classes check
-  if (slug === currentPath) {
+
+
+  if (location.pathname.split('/').find(f => f === slug)) {
     classes.push('is-current')
   }
 
@@ -68,7 +71,7 @@ const MenuItemTree = ({ item, currentPath, locale }) => {
     childItems.forEach(i => {
       const { path } = i
       const slug = getSlug(path)
-      if (slug === currentPath) {
+      if (location.pathname.split('/').find(f => f === slug)) {
         classes.push('is-current')
       }
     })
@@ -83,7 +86,6 @@ const MenuItemTree = ({ item, currentPath, locale }) => {
     >
       <MenuItem
         item={item}
-        currentPath={currentPath}
         locale={locale}
         disabled={isDisabled}
       />
@@ -94,7 +96,6 @@ const MenuItemTree = ({ item, currentPath, locale }) => {
               <li key={key}>
                 <MenuItem
                   item={item}
-                  currentPath={currentPath}
                   locale={locale}
                 />
               </li>
@@ -106,7 +107,7 @@ const MenuItemTree = ({ item, currentPath, locale }) => {
   )
 }
 
-const MenuMain = ({ currentPath }) => {
+const MenuMain = ({ location }) => {
   const data = useMenuMain()
 
   const menu = menuHierarchify(data.nodes)
@@ -119,7 +120,7 @@ const MenuMain = ({ currentPath }) => {
           return (
             <MenuItemTree
               item={item}
-              currentPath={currentPath}
+              location={location}
               locale={locale}
               key={key}
             />

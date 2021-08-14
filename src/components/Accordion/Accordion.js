@@ -36,7 +36,7 @@ const AccordionComp = ({ data }) => {
 
   return (
     <>
-      <section className="block --block-accordion">
+      <section className="block --block-accordion block-accordion">
         <div className="container-fluid">
           <div className="row">
             <div className={`col-12 ${columns[blockWidth]}`}>
@@ -50,7 +50,7 @@ const AccordionComp = ({ data }) => {
                       <AccordionItem className="accordion-entry" key={key}>
                         <AccordionItemHeading className="accordion-entry__header">
                           <AccordionItemButton className="accordion-entry__button">
-                            <h4 className="--primary --medium">{heading}</h4>
+                            <h4 className="--primary">{heading}</h4>
                           </AccordionItemButton>
                         </AccordionItemHeading>
 

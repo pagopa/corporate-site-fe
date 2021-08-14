@@ -90,8 +90,8 @@ const JobIntro = ({ data, locale }) => {
   )
 }
 
-const JobPage = ({ data }) => {
-  const { title, slug, locale, jobPositionFields, featuredImage, seo } = data.wpJobPosition
+const JobPage = ({ location, data }) => {
+  const { title, locale, jobPositionFields, featuredImage, seo } = data.wpJobPosition
 
   const { embedId, textBlocks, applicationLink } = jobPositionFields
 
@@ -104,8 +104,7 @@ const JobPage = ({ data }) => {
     ? `${jobIframe.replace('__JOBID__', embedId)}`
     : false
 
-  const currentLocale = locale.id,
-    currentSlug = slug
+  const currentLocale = locale.id
 
   const pageProps = {
     title,
@@ -114,7 +113,7 @@ const JobPage = ({ data }) => {
 
   return (
   
-    <Layout locale={currentLocale} slug={currentSlug}>
+    <Layout locale={currentLocale} location={location}>
 
       <SeoHelmet yoast={seo} locale={currentLocale} data={pageProps} />
 
@@ -171,6 +170,7 @@ export const jobQuery = graphql`
     wpJobPosition(id: { eq: $id }) {
       id
       slug
+      link
       title
       nodeType
       locale {

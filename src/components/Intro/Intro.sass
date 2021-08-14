@@ -18,3 +18,42 @@
       top: calc(100% + 3.2rem)
       left: 50%
       margin-left: -1px
+  
+  &-menu
+    width: 100%
+    flex: 0 0 100%
+    display: flex
+    justify-content: center
+    padding-top: 1.6rem
+    margin-bottom: 6rem
+
+    ul
+      display: flex
+      flex-wrap: wrap
+      justify-content: center
+
+      li
+        font-family: $f-primary
+        font-weight: 500
+        font-size: 3.2rem
+        color: darken($c-gray-light, 8%)
+        display: flex
+
+        &:not(:last-child)
+          &::after
+            content: '/'
+            margin-left: 1rem
+            margin-right: 1rem
+            color: darken($c-gray-light, 8%)
+        
+        &.is-current
+          color: $c-brand
+
+      .cta
+        font-family: $f-primary
+        font-weight: 500
+        font-size: 3.2rem
+        color: inherit
+
+        > span
+          color: inherit

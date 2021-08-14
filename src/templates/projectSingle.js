@@ -8,7 +8,7 @@ import NewsletterBanner from '../components/NewsletterBanner/NewsletterBanner'
 
 import SeoHelmet from '../components/SeoHelmet'
 
-const ProjectPage = ({ data }) => {
+const ProjectPage = ({ location, data }) => {
   const {
       title,
       slug,
@@ -17,6 +17,7 @@ const ProjectPage = ({ data }) => {
       nodeType,
       featuredImage,
       seo,
+      link,
       postConfig: { bannerNewsletter },
     } = data.wpProject,
     blocks = flexibleContent.body.blocks
@@ -27,10 +28,11 @@ const ProjectPage = ({ data }) => {
   const pageProps = {
     title,
     featuredImage,
+    currentSlug
   }
 
   return (
-    <Layout locale={currentLocale} slug={currentSlug}>
+    <Layout locale={currentLocale} location={location}>
       <SeoHelmet yoast={seo} locale={currentLocale} data={pageProps} />
 
       {blocks &&
@@ -53,6 +55,7 @@ export const projectQuery = graphql`
       }
       title
       slug
+      link
 
       postConfig {
         bannerNewsletter

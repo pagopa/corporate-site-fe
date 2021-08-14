@@ -25,14 +25,13 @@ const Intro = ({ eyelet, title }) => {
   )
 }
 
-const pressArticlePage = ({ data }) => {
-  const { date, title, slug, locale, content, featuredImage, seo, pressReleasesFields } =
+const pressArticlePage = ({ location, data }) => {
+  const { date, title, locale, content, featuredImage, seo, pressReleasesFields } =
     data.wpPressReleases
 
   const cta = pressReleasesFields.cta
 
-  const currentLocale = locale.id,
-    currentSlug = slug
+  const currentLocale = locale.id
 
   const pageProps = {
     title,
@@ -43,7 +42,7 @@ const pressArticlePage = ({ data }) => {
     theDate = new Date(date).toLocaleDateString(currentLocale, dateOptions)
 
   return (
-    <Layout locale={currentLocale} slug={currentSlug}>
+    <Layout locale={currentLocale} location={location}>
 
       <SeoHelmet yoast={seo} locale={currentLocale} data={pageProps} />
 
@@ -83,6 +82,7 @@ export const pressReleaseQuery = graphql`
       date
       title
       slug
+      link
       content
       locale {
         id

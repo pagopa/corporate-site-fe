@@ -20,7 +20,7 @@ import ContactsList from './../ContactsList/ContactsList'
 import AttachmentsGrid from './../AttachmentsGrid/AttachmentsGrid'
 import ProjectsCarousel from './../ProjectsCarousel/ProjectsCarousel'
 
-const Block = ({ data, type, featuredImage }) => {
+const Block = ({ data, type, featuredImage, currentSlug }) => {
 
   return (
     <>
@@ -43,7 +43,7 @@ const Block = ({ data, type, featuredImage }) => {
         <Visual data={data} />
       )}
       {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockIntro` && (
-        <Intro data={data} featuredImage={featuredImage} />
+        <Intro data={data} featuredImage={featuredImage} currentSlug={currentSlug} />
       )}
       {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockList` && (
         <BlocksList data={data} />
