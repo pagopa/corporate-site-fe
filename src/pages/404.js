@@ -1,13 +1,17 @@
-import React from "react"
+import React, { useContext } from "react"
 
 import { StaticImage } from "gatsby-plugin-image"
+
+import { LocaleContext } from '../contexts/LocaleContext.js'
 
 import Layout from '../partials/Layout'
 import SeoHelmet from '../components/SeoHelmet'
 
-const NotFoundPage = (props) => {
+const NotFoundPage = ({ location, data }) => {
+  const locale = useContext(LocaleContext)
+
   return (
-    <Layout locale={props.location.pathname.split('/')[1]}>
+    <Layout locale={locale} location={location}>
       
       <section className="block --block-text text --centered">
 
