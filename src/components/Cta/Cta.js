@@ -20,8 +20,10 @@ const urlParser = data => {
 
   const projectTranslations = translations.find(t => t.stringKey === 'project_cpt_slug'),
         pressReleaseTranslations = translations.find(t => t.stringKey === 'pressrelease_cpt_slug'),
+        announcementTranslations = translations.find(t => t.stringKey === 'announcement_cpt_slug'),
         projectDir = projectTranslations[`${locale}Value`],
-        pressReleaseDir = pressReleaseTranslations[`${locale}Value`]
+        pressReleaseDir = pressReleaseTranslations[`${locale}Value`],
+        announcementDir = announcementTranslations[`${locale}Value`]
 
 
   const urlObject = isAbsolute ? new URL(url) : false
@@ -45,6 +47,9 @@ const urlParser = data => {
     }
     if (type === 'PressReleases') {
       return `/${locale}/${pressReleaseDir}/${url}/`
+    }
+    if (type === 'InnovationAnnouncement') {
+      return `/${locale}/${announcementDir}/${url}/`
     }
   }
 

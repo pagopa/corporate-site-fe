@@ -11,9 +11,9 @@ exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
   }
 }
 
-
 const _ = require('lodash')
 const path = require('path')
+const { paginate } = require('gatsby-awesome-pagination');
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions
@@ -23,6 +23,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const jobSingleTemplate = path.resolve(`./src/templates/jobSingle.js`)
   const pressSingleTemplate = path.resolve(`./src/templates/pressSingle.js`)
   const pressListTemplate = path.resolve(`./src/templates/pressList.js`)
+  const announcementSingleTemplate = path.resolve(`./src/templates/announcementSingle.js`)
+  const announcementListTemplate = path.resolve(`./src/templates/announcementList.js`)
 
   const result = await graphql(`
     {
@@ -84,6 +86,21 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         }
       }
 
+      announcementsLists: allWpPage(
+        filter: { template: { templateName: { eq: "Announcements" } } }
+      ) {
+        edges {
+          node {
+            id
+            slug
+            uri
+            locale {
+              id
+            }
+          }
+        }
+      }
+
       projectSingles: allWpProject {
         edges {
           node {
@@ -109,7 +126,19 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         }
       }
 
-      pressSingles: allWpPressReleases {
+      pressSingles: allWpPressReleases(sort: {fields: date, order: DESC}) {
+        edges {
+          node {
+            id
+            slug
+            locale {
+              id
+            }
+          }
+        }
+      }
+
+      announcementSingles: allWpInnovationAnnouncement(sort: {fields: date, order: DESC}) {
         edges {
           node {
             id
@@ -161,19 +190,48 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     }
   })
 
-  // press
+  // press list
 
   const pressListNodes = result.data.pressLists.edges
 
   _.each(pressListNodes, ({ node: page }) => {
-    createPage({
-      path: `/${page.locale.id}/${page.uri}`,
+
+    const pressSingles = result.data.pressSingles.edges
+
+    paginate({
+      createPage,
+      items: pressSingles,
+      itemsPerPage: 12,
+      pathPrefix: `/${page.locale.id}/${page.uri.replace(/\/$/, "")}`,
       component: pressListTemplate,
       context: {
         id: page.id,
         locale: page.locale.id,
-      },
+      }
     })
+
+  })
+
+  // innovation announcements list 
+
+  const announcementsListsNodes = result.data.announcementsLists.edges
+
+  _.each(announcementsListsNodes, ({ node: page }) => {
+
+    const announcementSingles = result.data.announcementSingles.edges
+
+    paginate({
+      createPage,
+      items: announcementSingles,
+      itemsPerPage: 12,
+      pathPrefix: `/${page.locale.id}/${page.uri.replace(/\/$/, "")}`,
+      component: announcementListTemplate,
+      context: {
+        id: page.id,
+        locale: page.locale.id,
+      }
+    })
+    
   })
 
 
@@ -243,6 +301,29 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     createPage({
       path: `/${page.locale.id}/${pressReleasesDir}/${page.slug}`,
       component: pressSingleTemplate,
+      context: {
+        id: page.id,
+        locale: page.locale.id,
+      },
+    })
+  })
+
+  // innovation announcements
+  
+  const announcementSingleNodes = result.data.announcementSingles.edges
+
+  const announcementTranslations = translations.find(
+    t => t.stringKey === 'announcement_cpt_slug'
+  )
+
+  _.each(announcementSingleNodes, ({ node: page }) => {
+    const announcementDir = page.locale.id === 'it'
+        ? announcementTranslations.itValue
+        : announcementTranslations.enValue
+
+    createPage({
+      path: `/${page.locale.id}/${announcementDir}/${page.slug}`,
+      component: announcementSingleTemplate,
       context: {
         id: page.id,
         locale: page.locale.id,

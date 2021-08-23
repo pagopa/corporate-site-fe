@@ -13,12 +13,12 @@ import Pagination from '../components/Pagination/Pagination'
 import Cta from '../components/Cta/Cta'
 
 
-const PressReleases = ({ data }) => {
+const Announcements = ({ data }) => {
   const locale = useContext(LocaleContext)
 
-  const { edges: allPressReleases } = data
+  const { edges: allAnnouncements } = data
 
-  const currentLocalePress = allPressReleases.filter(j => j.node.locale.id === locale)
+  const currentLocalePress = allAnnouncements.filter(j => j.node.locale.id === locale)
 
 
   return (
@@ -51,11 +51,11 @@ const PressReleases = ({ data }) => {
   
 }
 
-const PressPage = ({ location, data, pageContext }) => {
+const AnnouncementsPage = ({ location, data, pageContext }) => {
   const { title, slug, locale, featuredImage, seo, flexibleContent, nodeType, uri  } = data.page,
     blocks = flexibleContent.body.blocks
 
-  const pressReleasesCollection = data.allPressReleases
+  const announcementsCollection = data.allAnnouncements
 
   const currentLocale = locale.id,
     currentSlug = slug
@@ -81,7 +81,7 @@ const PressPage = ({ location, data, pageContext }) => {
         <div className="container-fluid">
           <div className="row">
             <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-              <PressReleases data={pressReleasesCollection} />
+              <Announcements data={announcementsCollection} />
               <Pagination context={pageContext} baseUri={uri.replace(/\/$/, "")} />
             </div>
           </div>
@@ -90,10 +90,10 @@ const PressPage = ({ location, data, pageContext }) => {
     </Layout>
   )
 }
-export default PressPage
+export default AnnouncementsPage
 
-export const pressQuery = graphql`
-  query press($id: String!, $skip: Int!, $limit: Int!) {
+export const announcementsQuery = graphql`
+  query annoucements($id: String!, $skip: Int!, $limit: Int!) {
     page: wpPage(id: { eq: $id }) {
       id
       date
@@ -573,7 +573,7 @@ export const pressQuery = graphql`
       }
 
     }
-    allPressReleases: allWpPressReleases(
+    allAnnouncements: allWpInnovationAnnouncement(
       sort: {
         fields: date, order: DESC
       },
