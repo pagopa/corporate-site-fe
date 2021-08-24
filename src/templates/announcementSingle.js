@@ -65,7 +65,8 @@ const announcementPage = ({ location, data }) => {
   const { date, title, locale, content, featuredImage, seo, announcementFields } =
     data.wpInnovationAnnouncement
 
-  const cta = announcementFields?.cta
+  const cta = announcementFields.cta
+  const links = announcementFields.links
 
   const currentLocale = locale.id
 
@@ -93,6 +94,38 @@ const announcementPage = ({ location, data }) => {
           </div>
         </div>
       </article>
+
+
+      <aside className="block --block-useful-links py-0 mb-5">
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+              <ul>
+                {links && links.map(({ usefulLink, usefulAttachment }, key) => {
+                  const linkObj = {
+                    title: usefulLink ? usefulLink.title : usefulAttachment ? usefulAttachment.title : false,
+                    url: usefulLink ? usefulLink.url : usefulAttachment ? usefulAttachment.localFile.publicURL : false,
+                    blank: usefulLink ? usefulLink.target : usefulAttachment ? true : false
+                  }
+
+                  return (
+                    <li key={key}>
+                      {linkObj.url && <Cta
+                        label={linkObj.title}
+                        url={linkObj.url}
+                        blank={linkObj.blank}
+                        variant="link"
+                      />}
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+
       <div className="press-release-bottom-cta">
         <div className="container-fluid">
           <div className="row">
@@ -167,6 +200,19 @@ export const announcementQuery = graphql`
           target
           title
           url
+        }
+        links {
+          usefulAttachment {
+            title
+            localFile {
+              publicURL
+            }
+          }
+          usefulLink {
+            target
+            title
+            url
+          }
         }
       }
     }
