@@ -32,7 +32,7 @@ const JobsList = () => {
   const jobTranslations = translations.find(t => t.stringKey === 'job_cpt_slug')
   const currentLocaleJobs = jobs.filter(j => j.node.locale.id === locale)
 
-  const today = Date.now()
+  const today = Date.now() - 60 * 60 * 24 * 1000 // removed 24 hours to include entire closing day validity of post
   const activeListing = currentLocaleJobs.filter(j => !j.node.jobPositionFields.closeDate || Date.parse(j.node.jobPositionFields.closeDate) >= today)
   const pastListing = currentLocaleJobs.filter(j => Date.parse(j.node.jobPositionFields.closeDate) < today)
 
