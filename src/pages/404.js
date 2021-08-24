@@ -7,7 +7,7 @@ import { LocaleContext } from '../contexts/LocaleContext.js'
 import Layout from '../partials/Layout'
 import SeoHelmet from '../components/SeoHelmet'
 
-const NotFoundPage = ({ location, data }) => {
+const NotFoundPage = ({ location }) => {
   const locale = useContext(LocaleContext)
 
   return (
