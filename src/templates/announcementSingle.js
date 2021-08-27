@@ -9,6 +9,7 @@ import { useMenu } from '../hooks/useMenu'
 import SeoHelmet from '../components/SeoHelmet.js'
 import Layout from '../partials/Layout'
 import Cta from '../components/Cta/Cta'
+import NewsletterBanner from '../components/NewsletterBanner/NewsletterBanner'
 
 const IntroMenu = ({ name, currentSlug }) => {
   const allMenus = useMenu()
@@ -19,9 +20,12 @@ const IntroMenu = ({ name, currentSlug }) => {
       <nav className="intro-menu">
         <ul>
           {introMenuItems.nodes.map((item, key) => {
-            const itemSlug = (item.path.match(/[^/]+/g)).slice(-1)[0]
+            const itemSlug = item.path.match(/[^/]+/g).slice(-1)[0]
             return (
-              <li key={key} className={itemSlug === currentSlug ? 'is-current' : ''}>
+              <li
+                key={key}
+                className={itemSlug === currentSlug ? 'is-current' : ''}
+              >
                 <Cta label={item.label} url={item.url} variant="link-simple" />
               </li>
             )
@@ -33,13 +37,12 @@ const IntroMenu = ({ name, currentSlug }) => {
 }
 
 const Intro = ({ eyelet, title, location }) => {
-
   const introMenu = 'Innovation'
 
-  const locationFragments = location.pathname.split('/').filter(el => el !== "")
+  const locationFragments = location.pathname.split('/').filter(el => el !== '')
 
   locationFragments.reverse()
-  
+
   const currentSlug = locationFragments[1]
 
   console.log(currentSlug)
@@ -51,7 +54,9 @@ const Intro = ({ eyelet, title, location }) => {
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
             <div className="intro__heading">
               <h4>{eyelet}</h4>
-              {introMenu && <IntroMenu name={introMenu} currentSlug={currentSlug} />}
+              {introMenu && (
+                <IntroMenu name={introMenu} currentSlug={currentSlug} />
+              )}
               <h1>{title}</h1>
             </div>
           </div>
@@ -62,8 +67,16 @@ const Intro = ({ eyelet, title, location }) => {
 }
 
 const announcementPage = ({ location, data }) => {
-  const { date, title, locale, content, featuredImage, seo, announcementFields } =
-    data.wpInnovationAnnouncement
+  const {
+    date,
+    title,
+    locale,
+    content,
+    featuredImage,
+    seo,
+    announcementFields,
+    postConfig: { bannerNewsletter }
+  } = data.wpInnovationAnnouncement
 
   const cta = announcementFields.cta
   const links = announcementFields.links
@@ -72,7 +85,7 @@ const announcementPage = ({ location, data }) => {
 
   const pageProps = {
     title,
-    featuredImage
+    featuredImage,
   }
 
   const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' },
@@ -80,11 +93,14 @@ const announcementPage = ({ location, data }) => {
 
   return (
     <Layout locale={currentLocale} location={location}>
-
       <SeoHelmet yoast={seo} locale={currentLocale} data={pageProps} />
 
       <article className="press-release-article">
-        <Intro eyelet={announcementFields.eyelet} title={title} location={location} />
+        <Intro
+          eyelet={announcementFields.eyelet}
+          title={title}
+          location={location}
+        />
         <div className="container-fluid">
           <div className="row">
             <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
@@ -95,50 +111,63 @@ const announcementPage = ({ location, data }) => {
         </div>
       </article>
 
-
       <aside className="block --block-useful-links py-0 mb-5">
         <div className="container-fluid">
           <div className="row">
             <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
               <ul>
-                {links && links.map(({ usefulLink, usefulAttachment }, key) => {
-                  const linkObj = {
-                    title: usefulLink ? usefulLink.title : usefulAttachment ? usefulAttachment.title : false,
-                    url: usefulLink ? usefulLink.url : usefulAttachment ? usefulAttachment.localFile.publicURL : false,
-                    blank: usefulLink ? usefulLink.target : usefulAttachment ? true : false
-                  }
+                {links &&
+                  links.map(({ usefulLink, usefulAttachment }, key) => {
+                    const linkObj = {
+                      title: usefulLink
+                        ? usefulLink.title
+                        : usefulAttachment
+                        ? usefulAttachment.title
+                        : false,
+                      url: usefulLink
+                        ? usefulLink.url
+                        : usefulAttachment
+                        ? usefulAttachment.localFile.publicURL
+                        : false,
+                      blank: usefulLink
+                        ? usefulLink.target
+                        : usefulAttachment
+                        ? true
+                        : false,
+                    }
 
-                  return (
-                    <li key={key}>
-                      {linkObj.url && <Cta
-                        label={linkObj.title}
-                        url={linkObj.url}
-                        blank={linkObj.blank}
-                        variant="link"
-                      />}
-                    </li>
-                  )
-                })}
+                    return (
+                      <li key={key}>
+                        {linkObj.url && (
+                          <Cta
+                            label={linkObj.title}
+                            url={linkObj.url}
+                            blank={linkObj.blank}
+                            variant="link"
+                          />
+                        )}
+                      </li>
+                    )
+                  })}
               </ul>
             </div>
           </div>
         </div>
       </aside>
 
-
       <div className="press-release-bottom-cta">
         <div className="container-fluid">
           <div className="row">
             <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-              {cta && <Cta
-                label={cta.title}
-                blank={cta.target}
-                url={cta.url}
-              />}
+              {cta && (
+                <Cta label={cta.title} blank={cta.target} url={cta.url} />
+              )}
             </div>
           </div>
         </div>
       </div>
+
+      {bannerNewsletter && <NewsletterBanner />}
     </Layout>
   )
 }
@@ -158,6 +187,10 @@ export const announcementQuery = graphql`
       }
       nodeType
 
+      postConfig {
+        bannerNewsletter
+      }
+
       featuredImage {
         node {
           altText
@@ -168,9 +201,7 @@ export const announcementQuery = graphql`
               fixed(fit: COVER, quality: 90, width: 1200, height: 627) {
                 src
               }
-              gatsbyImageData(
-                width: 1280
-              )
+              gatsbyImageData(width: 1280)
             }
           }
         }

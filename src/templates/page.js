@@ -28,7 +28,7 @@ const Page = ({ location, data }) => {
   const pageProps = {
     title,
     featuredImage,
-    currentSlug
+    currentSlug,
   }
 
   return (

@@ -238,6 +238,7 @@ export const jobQuery = graphql`
           title
         }
       }
+
     }
   }
 `
