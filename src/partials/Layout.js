@@ -8,12 +8,12 @@ import Header from './Header/Header'
 import Footer from './Footer/Footer'
 import HeadScripts from './HeadScripts'
 
-const Layout = ({ children, locale, slug }) => {
+const Layout = ({ children, locale, location }) => {
   return (
     <LocaleContext.Provider value={locale}>
       <HeadScripts />
 
-      <Header slug={slug} />
+      <Header location={location} />
         <main>{children}</main>
       <Footer locale={locale} />
       

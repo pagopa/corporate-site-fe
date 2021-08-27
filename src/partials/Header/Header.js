@@ -8,7 +8,7 @@ import Hamburger from '../Hamburger/Hamburger'
 
 import './Header.sass'
 
-const Header = ({ slug }) => {
+const Header = ({ location }) => {
   
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const handleMobileMenu = () => setMobileMenuOpen(prev => !prev)
@@ -25,7 +25,7 @@ const Header = ({ slug }) => {
                 </Link>
               </div>
               <div className="col-auto">
-                <MenuMain currentPath={slug} />
+                <MenuMain location={location} />
                 <Hamburger handler={handleMobileMenu} />
               </div>
             </div>

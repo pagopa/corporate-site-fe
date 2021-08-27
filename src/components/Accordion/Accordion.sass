@@ -2,12 +2,6 @@
 
   &-entry
     border-bottom: 1px solid $c-gray-light
-    
-    &:last-child
-      .accordion-entry
-        &__content
-          > div
-            margin-bottom: 0
 
     &__header
       position: relative
@@ -23,15 +17,18 @@
 
       &::after
         content: ''
-        width: 1.2rem
-        height: .7rem
+        width: 1.8rem
+        height: 1.1rem
         display: block
         position: absolute
         top: 4.8rem
         transform: translateY(-50%)
         transform-origin: center center
         right: 1.6rem
-        background-image: url(../../images/ui/chevron-down.svg)
+        background-image: url(../../images/ui/chevron-down-brand.svg)
+        background-repeat: no-repeat
+        background-position: center center
+        background-size: 1.8rem
         margin-left: .8rem
         transition: all $transition-micro
       

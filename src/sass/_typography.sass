@@ -69,6 +69,17 @@ p
   line-height: 1.78
   margin-bottom: 1.78em
 
+  &.--small
+    font-size: 1.2rem
+    line-height: 1.2
+    font-weight: 400
+
+    a
+      text-decoration: underline
+  
+  &.--alternative
+    font-family: $f-alternative
+
   &.--label
     color: $c-brand
     font-size: 1.4rem
@@ -115,6 +126,13 @@ a
   a
     color: $c-brand
     font-weight: 700
+
+    &[href^="#"]
+      font-weight: 500
+      text-decoration: underline
+  
+  p[style*="center"]
+    line-height: 2.2
 
   ul
     list-style: disc

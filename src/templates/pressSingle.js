@@ -7,6 +7,7 @@ import parse from 'html-react-parser'
 import SeoHelmet from '../components/SeoHelmet.js'
 import Layout from '../partials/Layout'
 import Cta from '../components/Cta/Cta'
+import NewsletterBanner from '../components/NewsletterBanner/NewsletterBanner'
 
 const Intro = ({ eyelet, title }) => {
   return (
@@ -25,26 +26,32 @@ const Intro = ({ eyelet, title }) => {
   )
 }
 
-const pressArticlePage = ({ data }) => {
-  const { date, title, slug, locale, content, featuredImage, seo, pressReleasesFields } =
-    data.wpPressReleases
+const pressArticlePage = ({ location, data }) => {
+  const {
+    date,
+    title,
+    locale,
+    content,
+    featuredImage,
+    seo,
+    pressReleasesFields,
+    postConfig: { bannerNewsletter }
+  } = data.wpPressReleases
 
   const cta = pressReleasesFields.cta
 
-  const currentLocale = locale.id,
-    currentSlug = slug
+  const currentLocale = locale.id
 
   const pageProps = {
     title,
-    featuredImage
+    featuredImage,
   }
 
   const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' },
     theDate = new Date(date).toLocaleDateString(currentLocale, dateOptions)
 
   return (
-    <Layout locale={currentLocale} slug={currentSlug}>
-
+    <Layout locale={currentLocale} location={location}>
       <SeoHelmet yoast={seo} locale={currentLocale} data={pageProps} />
 
       <article className="press-release-article">
@@ -62,15 +69,15 @@ const pressArticlePage = ({ data }) => {
         <div className="container-fluid">
           <div className="row">
             <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-              {cta && <Cta
-                label={cta.title}
-                blank={cta.target}
-                url={cta.url}
-              />}
+              {cta && (
+                <Cta label={cta.title} blank={cta.target} url={cta.url} />
+              )}
             </div>
           </div>
         </div>
       </div>
+
+      {bannerNewsletter && <NewsletterBanner />}
     </Layout>
   )
 }
@@ -83,11 +90,16 @@ export const pressReleaseQuery = graphql`
       date
       title
       slug
+      link
       content
       locale {
         id
       }
       nodeType
+
+      postConfig {
+        bannerNewsletter
+      }
 
       featuredImage {
         node {
@@ -99,9 +111,7 @@ export const pressReleaseQuery = graphql`
               fixed(fit: COVER, quality: 90, width: 1200, height: 627) {
                 src
               }
-              gatsbyImageData(
-                width: 1280
-              )
+              gatsbyImageData(width: 1280)
             }
           }
         }

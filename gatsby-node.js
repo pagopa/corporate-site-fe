@@ -11,19 +11,20 @@ exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
   }
 }
 
-
 const _ = require('lodash')
 const path = require('path')
+const { paginate } = require('gatsby-awesome-pagination');
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions
 
   const pageTemplate = path.resolve(`./src/templates/page.js`)
-  const projectTemplate = path.resolve(`./src/templates/project.js`)
-  const jobTemplate = path.resolve(`./src/templates/job.js`)
-  const brandAssetsTemplate = path.resolve(`./src/templates/brandAssets.js`)
-  const pressReleasesTemplate = path.resolve(`./src/templates/pressArticle.js`)
-  const pressTemplate = path.resolve(`./src/templates/press.js`)
+  const projectSingleTemplate = path.resolve(`./src/templates/projectSingle.js`)
+  const jobSingleTemplate = path.resolve(`./src/templates/jobSingle.js`)
+  const pressSingleTemplate = path.resolve(`./src/templates/pressSingle.js`)
+  const pressListTemplate = path.resolve(`./src/templates/pressList.js`)
+  const announcementSingleTemplate = path.resolve(`./src/templates/announcementSingle.js`)
+  const announcementListTemplate = path.resolve(`./src/templates/announcementList.js`)
 
   const result = await graphql(`
     {
@@ -39,7 +40,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         }
       }
 
-      homePages: allWpPage(
+      homepages: allWpPage(
         filter: { template: { templateName: { eq: "Homepage" } } }
       ) {
         edges {
@@ -52,7 +53,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         }
       }
 
-      defaultPages: allWpPage(
+      pages: allWpPage(
         filter: { template: { templateName: { eq: "Default" } } }
       ) {
         edges {
@@ -70,7 +71,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         }
       }
       
-      pressPages: allWpPage(
+      pressLists: allWpPage(
         filter: { template: { templateName: { eq: "Press Release" } } }
       ) {
         edges {
@@ -85,7 +86,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         }
       }
 
-      projectPages: allWpProject {
+      announcementsLists: allWpPage(
+        filter: { template: { templateName: { eq: "Announcements" } } }
+      ) {
         edges {
           node {
             id
@@ -98,7 +101,20 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         }
       }
 
-      jobPages: allWpJobPosition {
+      projectSingles: allWpProject {
+        edges {
+          node {
+            id
+            slug
+            uri
+            locale {
+              id
+            }
+          }
+        }
+      }
+
+      jobSingles: allWpJobPosition {
         edges {
           node {
             id
@@ -110,7 +126,19 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         }
       }
 
-      pressReleases: allWpPressReleases {
+      pressSingles: allWpPressReleases(sort: {fields: date, order: DESC}) {
+        edges {
+          node {
+            id
+            slug
+            locale {
+              id
+            }
+          }
+        }
+      }
+
+      announcementSingles: allWpInnovationAnnouncement(sort: {fields: date, order: DESC}) {
         edges {
           node {
             id
@@ -130,26 +158,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     return
   }
 
-  // press
-
-  const pressNodes = result.data.pressPages.edges
-
-  _.each(pressNodes, ({ node: page }) => {
-    createPage({
-      path: `/${page.locale.id}/${page.uri}`,
-      component: pressTemplate,
-      context: {
-        id: page.id,
-        locale: page.locale.id,
-      },
-    })
-  })
-
-
-
   // homepages
 
-  const homepageNodes = result.data.homePages.edges
+  const homepageNodes = result.data.homepages.edges
 
   _.each(homepageNodes, ({ node: page }) => {
     createPage({
@@ -164,9 +175,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   // pages
 
-  const defaultNodes = result.data.defaultPages.edges
+  const pageNodes = result.data.pages.edges
 
-  _.each(defaultNodes, ({ node: page }) => {
+  _.each(pageNodes, ({ node: page }) => {
     if (!page.postConfig.doNotBuild) {
       createPage({
         path: `/${page.locale.id}/${page.uri}`,
@@ -179,6 +190,50 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     }
   })
 
+  // press list
+
+  const pressListNodes = result.data.pressLists.edges
+
+  _.each(pressListNodes, ({ node: page }) => {
+
+    const pressSingles = result.data.pressSingles.edges
+
+    paginate({
+      createPage,
+      items: pressSingles,
+      itemsPerPage: 12,
+      pathPrefix: `/${page.locale.id}/${page.uri.replace(/\/$/, "")}`,
+      component: pressListTemplate,
+      context: {
+        id: page.id,
+        locale: page.locale.id,
+      }
+    })
+
+  })
+
+  // innovation announcements list 
+
+  const announcementsListsNodes = result.data.announcementsLists.edges
+
+  _.each(announcementsListsNodes, ({ node: page }) => {
+
+    const announcementSingles = result.data.announcementSingles.edges
+
+    paginate({
+      createPage,
+      items: announcementSingles,
+      itemsPerPage: 12,
+      pathPrefix: `/${page.locale.id}/${page.uri.replace(/\/$/, "")}`,
+      component: announcementListTemplate,
+      context: {
+        id: page.id,
+        locale: page.locale.id,
+      }
+    })
+    
+  })
+
 
   // cpts generation with directory slug replace
 
@@ -186,20 +241,20 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   // projects
 
-  const projectNodes = result.data.projectPages.edges
+  const projectSingleNodes = result.data.projectSingles.edges
 
   const projectTranslations = translations.find(
     t => t.stringKey === 'project_cpt_slug'
   )
 
-  _.each(projectNodes, ({ node: page }) => {
+  _.each(projectSingleNodes, ({ node: page }) => {
     const projectDir = page.locale.id === 'it'
         ? projectTranslations.itValue
         : projectTranslations.enValue
 
     createPage({
       path: `/${page.locale.id}/${projectDir}/${page.slug}`,
-      component: projectTemplate,
+      component: projectSingleTemplate,
       context: {
         id: page.id,
         locale: page.locale.id,
@@ -209,20 +264,20 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   // job positions
 
-  const jobNodes = result.data.jobPages.edges
+  const jobSingleNodes = result.data.jobSingles.edges
 
   const jobTranslations = translations.find(
     t => t.stringKey === 'job_cpt_slug'
   )
 
-  _.each(jobNodes, ({ node: page }) => {
+  _.each(jobSingleNodes, ({ node: page }) => {
     const jobDir = page.locale.id === 'it'
         ? jobTranslations.itValue
         : jobTranslations.enValue
 
     createPage({
       path: `/${page.locale.id}/${jobDir}/${page.slug}`,
-      component: jobTemplate,
+      component: jobSingleTemplate,
       context: {
         id: page.id,
         locale: page.locale.id,
@@ -232,20 +287,43 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   // press releases
 
-  const pressReleasesNodes = result.data.pressReleases.edges
+  const pressSingleNodes = result.data.pressSingles.edges
 
   const pressReleasesTranslations = translations.find(
     t => t.stringKey === 'pressrelease_cpt_slug'
   )
 
-  _.each(pressReleasesNodes, ({ node: page }) => {
+  _.each(pressSingleNodes, ({ node: page }) => {
     const pressReleasesDir = page.locale.id === 'it'
         ? pressReleasesTranslations.itValue
         : pressReleasesTranslations.enValue
 
     createPage({
       path: `/${page.locale.id}/${pressReleasesDir}/${page.slug}`,
-      component: pressReleasesTemplate,
+      component: pressSingleTemplate,
+      context: {
+        id: page.id,
+        locale: page.locale.id,
+      },
+    })
+  })
+
+  // innovation announcements
+  
+  const announcementSingleNodes = result.data.announcementSingles.edges
+
+  const announcementTranslations = translations.find(
+    t => t.stringKey === 'announcement_cpt_slug'
+  )
+
+  _.each(announcementSingleNodes, ({ node: page }) => {
+    const announcementDir = page.locale.id === 'it'
+        ? announcementTranslations.itValue
+        : announcementTranslations.enValue
+
+    createPage({
+      path: `/${page.locale.id}/${announcementDir}/${page.slug}`,
+      component: announcementSingleTemplate,
       context: {
         id: page.id,
         locale: page.locale.id,
