@@ -8,8 +8,7 @@
   display: flex
   align-items: center
   height: $header-height
-  background-color: rgba(#FFF, .8)
-  backdrop-filter: blur(1rem)
+  background-color: #FFF
   z-index: 100
 
   @media (max-width: $desktop - 1)
@@ -24,3 +23,10 @@
   @media (max-width: $mobile-xs)
     padding-left: $section-gutter-mobile
     padding-right: $section-gutter-mobile
+
+
+
+@supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none))
+  .header
+    background-color: rgba(#FFF, .75)
+    backdrop-filter: blur(1rem)
