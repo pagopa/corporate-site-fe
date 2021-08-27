@@ -56,7 +56,7 @@ const AccordionComp = ({ data }) => {
 
                         <AccordionItemPanel className="accordion-entry__content">
                           <div className="wysiwyg">
-                            {parse(content)}
+                            {content && parse(content)}
                             {attachments &&
                               attachments.map((a, key) => {
                                 const { title, localFile } = a.file
