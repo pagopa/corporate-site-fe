@@ -457,6 +457,45 @@ export const projectQuery = graphql`
                 url
               }
             }
+            ... on WpProject_Flexiblecontent_Body_Blocks_BlockMediaHighlights {
+              fieldGroupName
+              title
+              posts {
+                ... on WpPost {
+                  date
+                  title
+                  content
+                  slug
+                  nodeType
+                }
+                ... on WpEvent {
+                  title
+                  content
+                  slug
+                  nodeType
+                  eventField {
+                    eventDate
+                  }
+                }
+                ... on WpPressReleases {
+                  date
+                  title
+                  content
+                  slug
+                  nodeType
+                }
+              }
+              blockOptions {
+                blockPosition
+                blockWidth
+                backgroundGraphics {
+                  fieldGroupName
+                  size
+                  xposition
+                  yposition
+                }
+              }
+            }
             ... on WpProject_Flexiblecontent_Body_Blocks_BlockAttachmentsGrid {
               title
               entries {
