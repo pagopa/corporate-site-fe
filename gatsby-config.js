@@ -39,7 +39,7 @@ module.exports = {
         mergeScriptHashes: false,
         mergeStyleHashes: false,
         directives: {
-          "default-src": "'self' https://recaptcha.net",
+          "default-src": "'self' https://recaptcha.net *.applytojob.com",
           "script-src": "'self' 'unsafe-eval' 'unsafe-inline' *.googletagmanager.com *.gstatic.com https://recaptcha.net *.cookielaw.org",
           "style-src": "'self' 'unsafe-inline'",
           "connect-src": "'self' *.cookielaw.org localhost:*"
