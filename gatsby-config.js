@@ -39,11 +39,11 @@ module.exports = {
         mergeScriptHashes: false,
         mergeStyleHashes: false,
         directives: {
-          "default-src": "'self' https://recaptcha.net *.applytojob.com",
-          "script-src": "'self' 'unsafe-eval' 'unsafe-inline' *.googletagmanager.com *.google-analytics.com *.gstatic.com https://recaptcha.net *.cookielaw.org",
+          "frame-src": "'self' https://recaptcha.net https://pagopa.applytojob.com",
+          "script-src": "'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://www.gstatic.com https://recaptcha.net https://cdn.cookielaw.org",
           "style-src": "'self' 'unsafe-inline'",
-          "img-src": "'self' data: *.cookielaw.org",
-          "connect-src": "'self' *.cookielaw.org *.google-analytics.com"
+          "img-src": "'self' data: https://cdn.cookielaw.org",
+          "connect-src": "'self' https://api.io.italia.it https://cdn.cookielaw.org https://www.google-analytics.com"
         }
       }
     },
