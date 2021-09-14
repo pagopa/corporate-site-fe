@@ -43,7 +43,7 @@ module.exports = {
           "script-src": "'self' 'unsafe-eval' 'unsafe-inline' *.googletagmanager.com *.google-analytics.com *.gstatic.com https://recaptcha.net *.cookielaw.org",
           "style-src": "'self' 'unsafe-inline'",
           "img-src": "'self' data: *.cookielaw.org",
-          "connect-src": "'self' *.cookielaw.org localhost:*"
+          "connect-src": "'self' *.cookielaw.org *.google-analytics.com"
         }
       }
     },
