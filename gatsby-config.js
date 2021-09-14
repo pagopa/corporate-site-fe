@@ -40,8 +40,9 @@ module.exports = {
         mergeStyleHashes: false,
         directives: {
           "default-src": "'self' https://recaptcha.net *.applytojob.com",
-          "script-src": "'self' 'unsafe-eval' 'unsafe-inline' *.googletagmanager.com *.gstatic.com https://recaptcha.net *.cookielaw.org",
+          "script-src": "'self' 'unsafe-eval' 'unsafe-inline' *.googletagmanager.com *.google-analytics.com *.gstatic.com https://recaptcha.net *.cookielaw.org",
           "style-src": "'self' 'unsafe-inline'",
+          "img-src": "'self' data: *.cookielaw.org",
           "connect-src": "'self' *.cookielaw.org localhost:*"
         }
       }
