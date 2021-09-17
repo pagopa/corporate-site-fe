@@ -199,7 +199,7 @@ const NewsletterBanner = () => {
                   />
                   <div>
                     <div className="message --success">
-                      <span>Iscrizione alla newsletter avvenuta con successo!</span>
+                      <span>Richiesta inviata correttamente! A breve riceverai una email per confermare la tua iscrizione.</span>
                     </div>
                     <div className="message --error">
                       <span>Si è verificato un problema, si prega di riprovare più tardi.</span>
