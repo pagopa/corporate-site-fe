@@ -6,7 +6,7 @@ parameters:
   - name: environment
     displayName: Target Environment
     type: string
-    default: uat
+    default: prod
     values:
       - uat
       - prod
