@@ -73,6 +73,16 @@ const NewsletterBanner = () => {
   }
 
   useEffect(() => {
+
+    const locationHash = window.location.hash,
+          newsletterAnchor = document.querySelector('.newsletter-banner-anchor')
+
+    if (locationHash === '#newsletter') {
+      setTimeout(() => {
+        newsletterAnchor?.scrollIntoView({ behavior: 'smooth' })
+      }, 500)
+    }
+
     const newsletterWrap = document.querySelector('.newsletter-banner'),
           newsletterInput = newsletterWrap.querySelector('.newsletter-email'),
           newsletterOptions = [...newsletterWrap.querySelectorAll('.newsletter-group')]
@@ -146,7 +156,7 @@ const NewsletterBanner = () => {
   
   return (
     <>
-
+      <div className="newsletter-banner-anchor"></div>
       <section className="block --block-newsletter-banner newsletter-banner">
         <div className="container-fluid">
           <div className="row">
