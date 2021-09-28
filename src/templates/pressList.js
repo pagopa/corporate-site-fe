@@ -522,6 +522,25 @@ export const pressQuery = graphql`
                 url
               }
             }
+            ... on WpPage_Flexiblecontent_Body_Blocks_BlockNewsEvents {
+              fieldGroupName
+              title
+              link {
+                target
+                title
+                url
+              }
+              blockOptions {
+                blockPosition
+                blockWidth
+                backgroundGraphics {
+                  fieldGroupName
+                  size
+                  xposition
+                  yposition
+                }
+              }
+            }
             ... on WpPage_Flexiblecontent_Body_Blocks_BlockAttachmentsGrid {
               title
               entries {

@@ -457,6 +457,25 @@ export const projectQuery = graphql`
                 url
               }
             }
+            ... on WpProject_Flexiblecontent_Body_Blocks_BlockNewsEvents {
+              fieldGroupName
+              title
+              link {
+                target
+                title
+                url
+              }
+              blockOptions {
+                blockPosition
+                blockWidth
+                backgroundGraphics {
+                  fieldGroupName
+                  size
+                  xposition
+                  yposition
+                }
+              }
+            }
             ... on WpProject_Flexiblecontent_Body_Blocks_BlockMediaHighlights {
               fieldGroupName
               title

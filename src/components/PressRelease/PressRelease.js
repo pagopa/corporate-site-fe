@@ -38,7 +38,7 @@ const LatestPress = () => {
                 </div>
               </div>
 
-              <Cta url={slug} label="Leggi" type={nodeType}/>
+              <Cta url={slug} label={locale.id === 'it' ? 'Leggi' : 'Read'} type={nodeType}/>
             </article>
           </div>
         )
@@ -51,8 +51,6 @@ const PressRelease = ({ data }) => {
 
   const { title, link } = data
 
-  const { title: ctaTitle, url } = link
-
   return (
     <section className="block --block-press-release press-releases">
       <div className="container-fluid">
@@ -62,7 +60,7 @@ const PressRelease = ({ data }) => {
             <div className="row pt-5">
               <LatestPress />
             </div>
-            <Cta label={ctaTitle} url={url} variant="link" />
+            {link && <Cta label={link.title} url={link.url} variant="link" />}
           </div>
         </div>
       </div>

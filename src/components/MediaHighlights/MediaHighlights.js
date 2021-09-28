@@ -65,9 +65,12 @@ const MediaHighlights = ({ data }) => {
                         icon: iconPressReleases
                       }
                     },
+
+                    titleArray = title.split(" "),
+                    truncatedTitle = titleArray.length > 7 ? `${titleArray.splice(0, 7).join(" ")}...` : titleArray.join(" "),
                     
-                    text = content.replace(/(<([^>]+)>)/ig, ''),
-                    abstract = text.split(" ").splice(0,12).join(" ")
+                    noHtmlContent = content?.replace(/(<([^>]+)>)/ig, ''),
+                    truncatedContent = noHtmlContent?.split(" ").splice(0, 12).join(" ")
 
                   return (
                     <div className="col-12 col-md-6 col-lg-4 d-flex" key={key}>
@@ -88,11 +91,9 @@ const MediaHighlights = ({ data }) => {
                             </div>
                           </div>
 
-                          <h4 className="--primary --medium">
-                            {title}
-                          </h4>
+                          <h4 className="--primary --medium">{truncatedTitle}</h4>
 
-                          <p>{abstract}...</p>
+                          <p>{truncatedContent}...</p>
                         </div>
 
                         <Cta url={slug} label={locale === 'it' ? 'Leggi' : 'Read'} type={nodeType} />

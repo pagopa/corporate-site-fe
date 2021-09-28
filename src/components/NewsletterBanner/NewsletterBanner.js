@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react'
 
 import Reaptcha from 'reaptcha'
-
 import axios from 'axios'
+import smoothscroll from 'smoothscroll-polyfill';
 
 import { LocaleContext } from '../../contexts/LocaleContext.js'
 import { useSiteMetadata } from '../../hooks/useSiteMetadata'
