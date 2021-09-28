@@ -180,6 +180,7 @@ export const pageQuery = graphql`
               }
               visual {
                 width
+                caption
                 image {
                   altText
                   localFile {

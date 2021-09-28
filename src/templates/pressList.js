@@ -242,6 +242,7 @@ export const pressQuery = graphql`
               }
               visual {
                 width
+                caption
                 image {
                   altText
                   localFile {

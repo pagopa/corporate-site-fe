@@ -178,6 +178,7 @@ export const projectQuery = graphql`
               }
               visual {
                 width
+                caption
                 image {
                   altText
                   localFile {

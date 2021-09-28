@@ -242,6 +242,7 @@ export const announcementsQuery = graphql`
               }
               visual {
                 width
+                caption
                 image {
                   altText
                   localFile {
