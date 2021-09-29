@@ -45,14 +45,14 @@ const MediaHighlights = ({ data }) => {
                       year: 'numeric',
                       month: '2-digit',
                       day: '2-digit',
-                    },
+                    }
 
-                    theDate = new Date(eventField?.eventdate ? eventField.eventDate : date)
-                      .toLocaleDateString(locale, dateOptions),
+                  const theDate = eventField?.eventDate || date ? new Date(eventField?.eventDate ? eventField.eventDate : date).toLocaleDateString(locale, dateOptions) : false
+                      
 
-                      // .replaceAll('/', '.')
+                  console.log(date)
 
-                    typeProps = {
+                  const typeProps = {
                       Post: {
                         label: 'News',
                         icon: iconNews
@@ -65,13 +65,14 @@ const MediaHighlights = ({ data }) => {
                         label: locale === 'it' ? 'Comunicati Stampa' : 'Press Releases',
                         icon: iconPressReleases
                       }
-                    },
+                    }
 
-                    titleArray = title.split(" "),
-                    truncatedTitle = titleArray.length > 7 ? `${titleArray.splice(0, 7).join(" ")}...` : titleArray.join(" "),
+                  const titleArray = title.split(" ")
+                  const truncatedTitle = titleArray.length > 7 ? `${titleArray.splice(0, 7).join(" ")}...` : titleArray.join(" ")
                     
-                    noHtmlContent = content?.replace(/(<([^>]+)>)/ig, ''),
-                    truncatedContent = noHtmlContent?.split(" ").splice(0, 12).join(" ")
+                  const noHtmlContent = content?.replace(/(<([^>]+)>)/ig, '')
+                  const truncatedContent = noHtmlContent?.split(" ").splice(0, 12).join(" ")
+                    
 
                   return (
                     <div className="col-12 col-md-6 col-lg-4 d-flex" key={key}>
@@ -87,7 +88,7 @@ const MediaHighlights = ({ data }) => {
                                 {typeProps[nodeType].label}
                               </div>
                               <div className="col-auto">
-                                {theDate}
+                                {theDate && theDate.replaceAll('/', '.')}
                               </div>
                             </div>
                           </div>
@@ -113,43 +114,3 @@ const MediaHighlights = ({ data }) => {
 }
 
 export default MediaHighlights
-
-// ... on WpPage_Flexiblecontent_Body_Blocks_BlockMediaHighlights {
-//   fieldGroupName
-//   title
-//   posts {
-//     ... on WpPost {
-//       date
-//       title
-//       content
-//       slug
-//       nodeType
-//     }
-//     ... on WpEvent {
-//       title
-//       content
-//       slug
-//       nodeType
-//       eventField {
-//         eventDate
-//       }
-//     }
-//     ... on WpPressReleases {
-//       date
-//       title
-//       content
-//       slug
-//       nodeType
-//     }
-//   }
-//   blockOptions {
-//     blockPosition
-//     blockWidth
-//     backgroundGraphics {
-//       fieldGroupName
-//       size
-//       xposition
-//       yposition
-//     }
-//   }
-// }
