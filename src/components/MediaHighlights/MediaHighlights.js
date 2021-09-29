@@ -88,7 +88,7 @@ const MediaHighlights = ({ data }) => {
                                 {typeProps[nodeType].label}
                               </div>
                               <div className="col-auto">
-                                {theDate && theDate.replaceAll('/', '.')}
+                                {theDate && theDate.replace(/\//g, '.')}
                               </div>
                             </div>
                           </div>
