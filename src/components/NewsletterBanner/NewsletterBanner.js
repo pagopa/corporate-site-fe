@@ -78,6 +78,8 @@ const NewsletterBanner = () => {
           newsletterAnchor = document.querySelector('.newsletter-banner-anchor')
 
     if (locationHash === '#newsletter') {
+      smoothscroll.polyfill()
+
       setTimeout(() => {
         newsletterAnchor?.scrollIntoView({ behavior: 'smooth' })
       }, 500)
