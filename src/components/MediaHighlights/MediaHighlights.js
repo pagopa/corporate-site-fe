@@ -47,7 +47,7 @@ const MediaHighlights = ({ data }) => {
                       day: '2-digit',
                     },
 
-                    theDate = new Date(eventField ? eventField.eventDate : date)
+                    theDate = new Date(eventField?.eventdate ? eventField.eventDate : date)
                       .toLocaleDateString(locale, dateOptions)
                       .replaceAll('/', '.'),
 
