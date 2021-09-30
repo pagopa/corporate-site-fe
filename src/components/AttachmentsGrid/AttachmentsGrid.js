@@ -2,7 +2,7 @@ import React from 'react'
 
 import Image from '../Image/Image'
 
-const UsefulLinks = ({ data }) => {
+const AttachmentsGrid = ({ data }) => {
   const { title, entries, blockOptions } = data
 
   const { backgroundGraphics, blockPosition, blockWidth } = blockOptions
@@ -58,33 +58,4 @@ const UsefulLinks = ({ data }) => {
   )
 }
 
-export default UsefulLinks
-
-
-
-//   title
-//   entries {
-//   icon {
-//     localFile {
-//       childImageSharp {
-//         gatsbyImageData(width: 140)
-//       }
-//     }
-//   }
-//   attachment {
-//     localFile {
-//       publicURL
-//     }
-//   }
-//   label
-// }
-//   blockOptions {
-//     blockPosition
-//     blockWidth
-//     backgroundGraphics {
-//       fieldGroupName
-//       size
-//       xposition
-//       yposition
-//     }
-//   }
+export default AttachmentsGrid

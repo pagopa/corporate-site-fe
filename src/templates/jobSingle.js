@@ -13,17 +13,28 @@ import SeoHelmet from '../components/SeoHelmet'
 const dateFormatOptions = { year: 'numeric', month: '2-digit', day: '2-digit' }
 
 const JobIntro = ({ data, locale }) => {
-  const { intro, openDate, closeDate, openPositions, hiredPositions, selectedPeople } = data
+  const {
+    intro,
+    openDate,
+    closeDate,
+    openPositions,
+    hiredPositions,
+    selectedPeople,
+  } = data
   const { eyelet, title, text } = intro
 
-  const startDate = openDate ? new Date(openDate).toLocaleDateString(locale.id, dateFormatOptions) : null
-  const endDate = closeDate ? new Date(closeDate).toLocaleDateString(locale.id, dateFormatOptions) : null
+  const startDate = openDate
+    ? new Date(openDate).toLocaleDateString(locale.id, dateFormatOptions)
+    : null
+  const endDate = closeDate
+    ? new Date(closeDate).toLocaleDateString(locale.id, dateFormatOptions)
+    : null
 
   const hasPositionsData = openPositions || hiredPositions ? true : false
   const hasSelectionData = selectedPeople ? true : false
-  
+
   return (
-    <header className="block --block-intro intro">
+    <header className="block --block-intro intro --job">
       <div className="container-fluid">
         <div className="row">
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
@@ -35,53 +46,54 @@ const JobIntro = ({ data, locale }) => {
         </div>
 
         <div className="row">
-          <div className="col-12 d-flex flex-column align-items-center justify-content-center text-left">
-
-            <div className="job__data">
-              {startDate && <div>
-                <p className="--label">DATA APERTURA</p>
-                <p>{startDate}</p>
-              </div>}
-              {endDate && <div>
-                <p className="--label">DATA CHIUSURA</p>
-                <p>{endDate}</p>
-              </div>}
+          <div className="col-12 d-flex flex-column align-items-center justify-content-center">
+            <div className="intro__data justify-content-center">
+              {startDate && (
+                <div>
+                  <p className="--label">DATA APERTURA</p>
+                  <p>{startDate}</p>
+                </div>
+              )}
+              {endDate && (
+                <div>
+                  <p className="--label">DATA CHIUSURA</p>
+                  <p>{endDate}</p>
+                </div>
+              )}
             </div>
 
             {hasPositionsData && (
-              <div className="job__data">
-                {openPositions && <div>
-                  <p className="--label">POSIZIONI RICERCATE</p>
-                  <p>{openPositions}</p>
-                </div>}
-                {hiredPositions && <div>
-                  <p className="--label">POSIZIONI ASSUNTE</p>
-                  <p>{hiredPositions}</p>
-                </div>}
+              <div className="intro__data justify-content-center">
+                {openPositions && (
+                  <div>
+                    <p className="--label">POSIZIONI RICERCATE</p>
+                    <p>{openPositions}</p>
+                  </div>
+                )}
+                {hiredPositions && (
+                  <div>
+                    <p className="--label">POSIZIONI ASSUNTE</p>
+                    <p>{hiredPositions}</p>
+                  </div>
+                )}
               </div>
             )}
 
             {hasSelectionData && (
-              <div className="job__data --auto-w">
+              <div className="intro__data justify-content-center --auto-w">
                 <div>
                   <p className="--label">PERSONE SELEZIONATE</p>
                   <p>{selectedPeople}</p>
                 </div>
               </div>
             )}
-
           </div>
         </div>
 
         {text && (
           <div className="row job__intro">
-            <div
-              className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2"
-            >
-              <div
-                className="wysiwyg"
-                dangerouslySetInnerHTML={{ __html: text }}
-              />
+            <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+              <div className="wysiwyg">{parse(text)}</div>
             </div>
           </div>
         )}
@@ -91,7 +103,8 @@ const JobIntro = ({ data, locale }) => {
 }
 
 const JobPage = ({ location, data }) => {
-  const { title, locale, jobPositionFields, featuredImage, seo } = data.wpJobPosition
+  const { title, locale, jobPositionFields, featuredImage, seo } =
+    data.wpJobPosition
 
   const { embedId, textBlocks, applicationLink } = jobPositionFields
 
@@ -108,41 +121,42 @@ const JobPage = ({ location, data }) => {
 
   const pageProps = {
     title,
-    featuredImage
+    featuredImage,
   }
 
   return (
-  
     <Layout locale={currentLocale} location={location}>
-
       <SeoHelmet yoast={seo} locale={currentLocale} data={pageProps} />
 
       <article className="job">
         <JobIntro data={jobPositionFields} locale={locale} />
 
-        {hasTextBlocks && textBlocks.map((tb, key) => {
-          const { title, description } = tb
-          return (
-            <section className="job__section" key={key}>
-              <div className="container-fluid">
-                <div className="row">
-                  <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-                    <h4>{title}</h4>
-                    <div className="wysiwyg">
-                      {parse(description)}
+        {hasTextBlocks &&
+          textBlocks.map((tb, key) => {
+            const { title, description } = tb
+            return (
+              <section className="job__section" key={key}>
+                <div className="container-fluid">
+                  <div className="row">
+                    <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+                      <h4>{title}</h4>
+                      <div className="wysiwyg">{parse(description)}</div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </section>
-          )
-        })}
-        
+              </section>
+            )
+          })}
+
         {applicationLink && (
           <div className="container-fluid">
             <div className="row">
               <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-                <Cta url={applicationLink.url} label={applicationLink.title} blank={applicationLink.target} />
+                <Cta
+                  url={applicationLink.url}
+                  label={applicationLink.title}
+                  blank={applicationLink.target}
+                />
               </div>
             </div>
           </div>
@@ -153,7 +167,7 @@ const JobPage = ({ location, data }) => {
             <div className="container-fluid">
               <div className="row">
                 <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-                  <div dangerouslySetInnerHTML={{ __html: iframeCode }}/>
+                  {parse(iframeCode)}
                 </div>
               </div>
             </div>
@@ -187,14 +201,12 @@ export const jobQuery = graphql`
               fixed(fit: COVER, quality: 90, width: 1200, height: 627) {
                 src
               }
-              gatsbyImageData(
-                width: 1280
-              )
+              gatsbyImageData(width: 1280)
             }
           }
         }
       }
-      
+
       seo {
         opengraphTitle
         opengraphSiteName
@@ -212,7 +224,7 @@ export const jobQuery = graphql`
         opengraphType
         title
       }
-      
+
       jobPositionFields {
         isNew
         openDate
@@ -220,7 +232,7 @@ export const jobQuery = graphql`
         openPositions
         hiredPositions
         selectedPeople
-        
+
         embedId
 
         applicationLink {
@@ -238,7 +250,6 @@ export const jobQuery = graphql`
           title
         }
       }
-
     }
   }
 `
