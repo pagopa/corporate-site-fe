@@ -32,7 +32,7 @@ const LatestEntries = () => {
 
       {currentLocaleEvents.map((pr, key) => {
         return (
-          <div className="col-12 col-lg-5 offset-lg-1 d-flex" key={key}>
+          <div className={`col-12 col-lg-5${currentLocaleNews.length ? ' offset-lg-1' : ''} d-flex`} key={key}>
             <Post data={pr.node} />
           </div>
         )
