@@ -23,6 +23,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const jobSingleTemplate = path.resolve(`./src/templates/jobSingle.js`)
   const pressSingleTemplate = path.resolve(`./src/templates/pressSingle.js`)
   const pressListTemplate = path.resolve(`./src/templates/pressList.js`)
+  const newsSingleTemplate = path.resolve(`./src/templates/newsSingle.js`)
+  const eventSingleTemplate = path.resolve(`./src/templates/eventSingle.js`)
+  const newsEventsListTemplate = path.resolve(`./src/templates/newsEventsList.js`)
   const announcementSingleTemplate = path.resolve(`./src/templates/announcementSingle.js`)
   const announcementListTemplate = path.resolve(`./src/templates/announcementList.js`)
 
@@ -86,6 +89,21 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         }
       }
 
+      newsEventLists: allWpPage(
+        filter: { template: { templateName: { eq: "News And Events" } } }
+      ) {
+        edges {
+          node {
+            id
+            slug
+            uri
+            locale {
+              id
+            }
+          }
+        }
+      }
+
       announcementsLists: allWpPage(
         filter: { template: { templateName: { eq: "Announcements" } } }
       ) {
@@ -127,6 +145,30 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       }
 
       pressSingles: allWpPressReleases(sort: {fields: date, order: DESC}) {
+        edges {
+          node {
+            id
+            slug
+            locale {
+              id
+            }
+          }
+        }
+      }
+
+      newsSingles: allWpPost(sort: {fields: date, order: DESC}) {
+        edges {
+          node {
+            id
+            slug
+            locale {
+              id
+            }
+          }
+        }
+      }
+
+      eventsSingles: allWpEvent(sort: {fields: eventField___eventDate, order: DESC}) {
         edges {
           node {
             id
@@ -204,6 +246,39 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       itemsPerPage: 12,
       pathPrefix: `/${page.locale.id}/${page.uri.replace(/\/$/, "")}`,
       component: pressListTemplate,
+      context: {
+        id: page.id,
+        locale: page.locale.id,
+      }
+    })
+
+  })
+
+  // news / event list
+
+  const newsEventListNodes = result.data.newsEventLists.edges
+
+  _.each(newsEventListNodes, ({ node: page }) => {
+
+    const news = result.data.newsSingles.edges,
+          events = result.data.eventsSingles.edges,
+          posts = [...news, ...events]
+    
+    posts.sort((a, b) => {
+      const aDate = a.node.nodeType === 'Event' ? a.node.eventField.eventDate : a.node.date,
+            bDate = b.node.nodeType === 'Event' ? b.node.eventField.eventDate : b.node.date,
+            aTime = new Date(aDate).getTime(),
+            bTime = new Date(bDate).getTime()
+  
+      return bTime - aTime
+    })
+
+    paginate({
+      createPage,
+      items: posts,
+      itemsPerPage: 12,
+      pathPrefix: `/${page.locale.id}/${page.uri.replace(/\/$/, "")}`,
+      component: newsEventsListTemplate,
       context: {
         id: page.id,
         locale: page.locale.id,
@@ -301,6 +376,52 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     createPage({
       path: `/${page.locale.id}/${pressReleasesDir}/${page.slug}`,
       component: pressSingleTemplate,
+      context: {
+        id: page.id,
+        locale: page.locale.id,
+      },
+    })
+  })
+  
+  // news
+
+  const newsSingleNodes = result.data.newsSingles.edges
+
+  const newsTranslations = translations.find(
+    t => t.stringKey === 'newsevents_cpt_slug'
+  )
+
+  _.each(newsSingleNodes, ({ node: page }) => {
+    const newsDir = page.locale.id === 'it'
+        ? newsTranslations.itValue
+        : newsTranslations.enValue
+
+    createPage({
+      path: `/${page.locale.id}/${newsDir}/${page.slug}`,
+      component: newsSingleTemplate,
+      context: {
+        id: page.id,
+        locale: page.locale.id,
+      },
+    })
+  })
+
+  // events
+
+  const eventSingleNodes = result.data.eventsSingles.edges
+
+  const eventsTranslations = translations.find(
+    t => t.stringKey === 'newsevents_cpt_slug'
+  )
+
+  _.each(eventSingleNodes, ({ node: page }) => {
+    const eventDir = page.locale.id === 'it'
+        ? eventsTranslations.itValue
+        : eventsTranslations.enValue
+
+    createPage({
+      path: `/${page.locale.id}/${eventDir}/${page.slug}`,
+      component: eventSingleTemplate,
       context: {
         id: page.id,
         locale: page.locale.id,

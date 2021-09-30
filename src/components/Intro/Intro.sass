@@ -18,6 +18,60 @@
       top: calc(100% + 3.2rem)
       left: 50%
       margin-left: -1px
+
+  &__data
+    display: inline-flex
+    background-color: $c-gray-extralight
+    margin-bottom: 1rem
+    flex: 0
+    
+    @media (max-width: $mobile-xs - 1)
+      flex: 1
+
+    &:last-child
+      margin-bottom: 8rem
+
+    > div
+      position: relative
+      padding: 2.8rem 4rem 2.6rem
+      flex: 0 1 auto
+      
+      @media (max-width: $mobile-xs - 1)
+        padding: 2rem 2.4rem 2.2rem
+
+      p
+        margin-bottom: 0
+
+        @media (min-width: $mobile-xs)
+          white-space: nowrap
+
+      
+      &:not(:last-child)
+        &::after
+          content: ''
+          width: 1px
+          height: calc(100% - 6rem)
+          position: absolute
+          right: 0
+          top: 50%
+          transform: translateY(-50%)
+          background-color: $c-gray-light
+  
+  &.--job
+    .intro
+      &__data
+        width: 100%
+        max-width: 52rem
+  
+  &.--event
+
+    @media (max-width: $mobile - 1)
+      .intro
+        &__data
+          > div
+            &::after
+              content: none
+        
   
   &-menu
     width: 100%

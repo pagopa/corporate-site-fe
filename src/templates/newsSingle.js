@@ -5,6 +5,7 @@ import { graphql } from 'gatsby'
 import parse from 'html-react-parser'
 
 import SeoHelmet from '../components/SeoHelmet.js'
+import Image from '../components/Image/Image'
 import Layout from '../partials/Layout'
 import Cta from '../components/Cta/Cta'
 import NewsletterBanner from '../components/NewsletterBanner/NewsletterBanner'
@@ -26,19 +27,19 @@ const Intro = ({ eyelet, title }) => {
   )
 }
 
-const pressArticlePage = ({ location, data }) => {
+const newsSingle = ({ location, data }) => {
   const {
     date,
     title,
     locale,
     content,
+    newsCommonFields,
     featuredImage,
     seo,
-    pressReleasesFields,
-    postConfig: { bannerNewsletter }
-  } = data.wpPressReleases
+    postConfig: { bannerNewsletter },
+  } = data.wpPost
 
-  const cta = pressReleasesFields.cta
+  const cta = newsCommonFields.cta
 
   const currentLocale = locale.id
 
@@ -55,10 +56,23 @@ const pressArticlePage = ({ location, data }) => {
       <SeoHelmet yoast={seo} locale={currentLocale} data={pageProps} />
 
       <article className="post-article">
-        <Intro eyelet={pressReleasesFields.eyelet} title={title} />
+        <Intro eyelet={newsCommonFields.eyelet} title={title} />
 
         <div className="post-article__body">
           <div className="container-fluid">
+            {featuredImage && (
+              <figure className="post-article__visual">
+                <div className="row">
+                  <div className="col-12 col-lg-10 offset-lg-1">
+                    <Image
+                      image={featuredImage.node.localFile}
+                      title={featuredImage.node.altText}
+                    />
+                  </div>
+                </div>
+              </figure>
+            )}
+
             <div className="row">
               <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
                 <h4>{theDate}</h4>
@@ -68,6 +82,7 @@ const pressArticlePage = ({ location, data }) => {
           </div>
         </div>
       </article>
+
       <div className="post-bottom-cta">
         <div className="container-fluid">
           <div className="row">
@@ -84,40 +99,47 @@ const pressArticlePage = ({ location, data }) => {
     </Layout>
   )
 }
-export default pressArticlePage
+export default newsSingle
 
-export const pressReleaseQuery = graphql`
-  query pressRelease($id: String!) {
-    wpPressReleases(id: { eq: $id }) {
+export const newsQuery = graphql`
+  query newsSingle($id: String!) {
+    wpPost(id: { eq: $id }) {
       id
+      nodeType
+      slug
       date
       title
-      slug
-      link
       content
-      locale {
-        id
+      newsCommonFields {
+        eyelet
+        cta {
+          target
+          title
+          url
+        }
       }
-      nodeType
-
-      postConfig {
-        bannerNewsletter
-      }
-
       featuredImage {
         node {
           altText
           localFile {
-            extension
-            publicURL
             childImageSharp {
-              fixed(fit: COVER, quality: 90, width: 1200, height: 627) {
-                src
-              }
-              gatsbyImageData(width: 1280)
+              gatsbyImageData(
+                layout: FULL_WIDTH
+                aspectRatio: 1.9
+                width: 1280
+                height: 680
+                transformOptions: { cropFocus: ATTENTION }
+              )
             }
           }
         }
+      }
+      locale {
+        id
+      }
+
+      postConfig {
+        bannerNewsletter
       }
 
       seo {
@@ -136,15 +158,6 @@ export const pressReleaseQuery = graphql`
         }
         opengraphType
         title
-      }
-
-      pressReleasesFields {
-        eyelet
-        cta {
-          target
-          title
-          url
-        }
       }
     }
   }

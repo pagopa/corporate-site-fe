@@ -31,22 +31,22 @@ module.exports = {
         },
       },
     },
-    {
-      resolve: `gatsby-plugin-csp`,
-      options: {
-        disableOnDev: true,
-        reportOnly: false,
-        mergeScriptHashes: false,
-        mergeStyleHashes: false,
-        directives: {
-          "frame-src": "'self' https://recaptcha.net https://pagopa.applytojob.com",
-          "script-src": "'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://www.gstatic.com https://recaptcha.net https://cdn.cookielaw.org",
-          "style-src": "'self' 'unsafe-inline'",
-          "img-src": "'self' data: https://cdn.cookielaw.org",
-          "connect-src": "'self' https://api.io.italia.it https://cdn.cookielaw.org https://www.google-analytics.com"
-        }
-      }
-    },
+    // {
+    //   resolve: `gatsby-plugin-csp`,
+    //   options: {
+    //     disableOnDev: true,
+    //     reportOnly: false,
+    //     mergeScriptHashes: false,
+    //     mergeStyleHashes: false,
+    //     directives: {
+    //       "frame-src": "'self' https://recaptcha.net https://pagopa.applytojob.com",
+    //       "script-src": "'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://www.gstatic.com https://recaptcha.net https://cdn.cookielaw.org",
+    //       "style-src": "'self' 'unsafe-inline'",
+    //       "img-src": "'self' data: https://cdn.cookielaw.org",
+    //       "connect-src": "'self' https://api.io.italia.it https://cdn.cookielaw.org https://www.google-analytics.com"
+    //     }
+    //   }
+    // },
     {
       resolve: `gatsby-plugin-sass`,
       options: {

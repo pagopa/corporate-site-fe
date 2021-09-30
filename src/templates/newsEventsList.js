@@ -4,52 +4,44 @@ import { graphql } from 'gatsby'
 
 import { LocaleContext } from '../contexts/LocaleContext.js'
 
-import SeoHelmet from '../components/SeoHelmet.js'
 import Layout from '../partials/Layout'
-import Block from '../components/Block/Block'
 import NewsletterBanner from '../components/NewsletterBanner/NewsletterBanner'
 import Pagination from '../components/Pagination/Pagination'
+import SeoHelmet from '../components/SeoHelmet.js'
+import Block from '../components/Block/Block'
+import Post from '../components/Post/Post'
 import Cta from '../components/Cta/Cta'
 
-const Announcements = ({ data }) => {
+const NewsEvents = ({ data }) => {
   const locale = useContext(LocaleContext)
 
-  const { edges: allAnnouncements } = data
-
-  const currentLocalePress = allAnnouncements.filter(
+  const currentLocaleNewsEvents = data.filter(
     j => j.node.locale.id === locale
   )
 
+  currentLocaleNewsEvents.sort((a, b) => {
+    const aDate = a.node.nodeType === 'Event' ? a.node.eventField.eventDate : a.node.date,
+          bDate = b.node.nodeType === 'Event' ? b.node.eventField.eventDate : b.node.date,
+          aTime = new Date(aDate).getTime(),
+          bTime = new Date(bDate).getTime()
+
+    return bTime - aTime
+  })
+
   return (
     <>
-      {currentLocalePress.map((pr, key) => {
-        const { date, title, slug, content, locale, nodeType } = pr.node
-
-        const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' },
-          theDate = new Date(date).toLocaleDateString(locale.id, dateOptions)
-
-        const text = content.replace(/(<([^>]+)>)/gi, '')
-        const abstract = text.split(' ').splice(0, 36).join(' ')
-
+      {currentLocaleNewsEvents.map((pr, key) => {
         return (
-          <article className="press-release" key={key}>
-            <div>
-              <h4>{theDate}</h4>
-              <h3 className="--light">{title}</h3>
-              <div className="wysiwyg">
-                <p>{abstract}...</p>
-              </div>
-            </div>
-
-            <Cta url={slug} label="Leggi" type={nodeType} />
-          </article>
+          <div className="col-12 col-lg-6 d-flex" key={key}>
+            <Post data={pr.node} />
+          </div>
         )
       })}
     </>
   )
 }
 
-const AnnouncementsPage = ({ location, data, pageContext }) => {
+const NewsEventPage = ({ location, data, pageContext }) => {
   const {
       title,
       slug,
@@ -63,7 +55,11 @@ const AnnouncementsPage = ({ location, data, pageContext }) => {
     } = data.page,
     blocks = flexibleContent.body.blocks
 
-  const announcementsCollection = data.allAnnouncements
+  const { allNews: news, allEvents: events } = data
+
+  const allPosts = [...news.edges, ...events.edges]
+
+  const newsEventsCollection = allPosts
 
   const currentLocale = locale.id,
     currentSlug = slug
@@ -89,7 +85,11 @@ const AnnouncementsPage = ({ location, data, pageContext }) => {
         <div className="container-fluid">
           <div className="row">
             <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-              <Announcements data={announcementsCollection} />
+              
+              <div className="row">
+                <NewsEvents data={newsEventsCollection} />
+              </div>
+
               <Pagination
                 context={pageContext}
                 baseUri={uri.replace(/\/$/, '')}
@@ -103,10 +103,10 @@ const AnnouncementsPage = ({ location, data, pageContext }) => {
     </Layout>
   )
 }
-export default AnnouncementsPage
+export default NewsEventPage
 
-export const announcementsQuery = graphql`
-  query annoucements($id: String!, $skip: Int!, $limit: Int!) {
+export const newsEventQuery = graphql`
+  query newsEvent($id: String!, $skip: Int!, $limit: Int!) {
     page: wpPage(id: { eq: $id }) {
       id
       date
@@ -607,21 +607,78 @@ export const announcementsQuery = graphql`
         }
       }
     }
-    allAnnouncements: allWpInnovationAnnouncement(
+
+    allNews: allWpPost(
       sort: { fields: date, order: DESC }
       skip: $skip
       limit: $limit
     ) {
       edges {
         node {
+          nodeType
+          slug
           date
           title
-          slug
           content
+          featuredImage {
+            node {
+              altText
+              localFile {
+                childImageSharp {
+                  gatsbyImageData(
+                    layout: FULL_WIDTH
+                    aspectRatio: 1.33
+                    width: 460
+                    height: 346
+                    transformOptions: { cropFocus: ATTENTION }
+                  )
+                }
+              }
+            }
+          }
           locale {
             id
           }
+        }
+      }
+    }
+
+    allEvents: allWpEvent(
+      sort: { fields: eventField___eventDate, order: DESC }
+      skip: $skip
+      limit: $limit
+    ) {
+      edges {
+        node {
           nodeType
+          slug
+          date
+          eventField {
+            eventDate
+            eventTimeStart
+            eventTimeEnd
+          }
+          title
+          content
+          featuredImage {
+            node {
+              altText
+              localFile {
+                childImageSharp {
+                  gatsbyImageData(
+                    layout: FULL_WIDTH
+                    aspectRatio: 1.33
+                    width: 460
+                    height: 346
+                    transformOptions: { cropFocus: ATTENTION }
+                  )
+                }
+              }
+            }
+          }
+          locale {
+            id
+          }
         }
       }
     }
