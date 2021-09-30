@@ -6,6 +6,8 @@ import BackgroundGraphics from '../BackgroundGraphics/BackgroundGraphics'
 import Cta from '../Cta/Cta'
 import Image from '../Image/Image'
 
+import './VisualText.sass'
+
 const VisualText = ({ data }) => {
   const { blockOptions, reverse, backgroundColor, content, visual } = data
 
@@ -58,10 +60,17 @@ const VisualText = ({ data }) => {
           )}
           <div className={`col-12 ${columns[visualSize].visual}`}>
             <div className="block__visual">
-              <Image
-                image={visual.image?.localFile}
-                title={visual.image?.altText}
-              />
+              <figure>
+                <Image
+                  image={visual.image?.localFile}
+                  title={visual.image?.altText}
+                />
+              </figure>
+              {visual.caption && (
+                <figcaption>
+                  <p>{visual.caption}</p>
+                </figcaption>
+              )}
             </div>
           </div>
           <div className={`col-12 ${columns[visualSize].content}`}>

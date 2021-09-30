@@ -5,23 +5,13 @@ import BackgroundGraphics from '../BackgroundGraphics/BackgroundGraphics'
 
 import './Visual.sass'
 
-const Text = ({ data }) => {
+const Visual = ({ data }) => {
   const {
     template,
     caption,
     image,
     blockOptions: { backgroundGraphics },
   } = data
-  // {
-  //   backgroundGraphics {
-  //     fieldGroupName
-  //     size
-  //     xposition
-  //     yposition
-  //   }
-  //   blockPosition
-  //   blockWidth
-  // }
 
   const layout = {
     wide: {
@@ -62,4 +52,4 @@ const Text = ({ data }) => {
   )
 }
 
-export default Text
+export default Visual

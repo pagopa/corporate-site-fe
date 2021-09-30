@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react'
 
 import Reaptcha from 'reaptcha'
-
 import axios from 'axios'
+import smoothscroll from 'smoothscroll-polyfill';
 
 import { LocaleContext } from '../../contexts/LocaleContext.js'
 import { useSiteMetadata } from '../../hooks/useSiteMetadata'
@@ -73,6 +73,18 @@ const NewsletterBanner = () => {
   }
 
   useEffect(() => {
+
+    const locationHash = window.location.hash,
+          newsletterAnchor = document.querySelector('.newsletter-banner-anchor')
+
+    if (locationHash === '#newsletter') {
+      smoothscroll.polyfill()
+
+      setTimeout(() => {
+        newsletterAnchor?.scrollIntoView({ behavior: 'smooth' })
+      }, 500)
+    }
+
     const newsletterWrap = document.querySelector('.newsletter-banner'),
           newsletterInput = newsletterWrap.querySelector('.newsletter-email'),
           newsletterOptions = [...newsletterWrap.querySelectorAll('.newsletter-group')]
@@ -146,7 +158,7 @@ const NewsletterBanner = () => {
   
   return (
     <>
-
+      <div className="newsletter-banner-anchor"></div>
       <section className="block --block-newsletter-banner newsletter-banner">
         <div className="container-fluid">
           <div className="row">
@@ -199,7 +211,7 @@ const NewsletterBanner = () => {
                   />
                   <div>
                     <div className="message --success">
-                      <span>Iscrizione alla newsletter avvenuta con successo!</span>
+                      <span>Richiesta inviata correttamente! A breve riceverai una email per confermare la tua iscrizione.</span>
                     </div>
                     <div className="message --error">
                       <span>Si è verificato un problema, si prega di riprovare più tardi.</span>

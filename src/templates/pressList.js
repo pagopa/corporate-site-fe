@@ -242,6 +242,7 @@ export const pressQuery = graphql`
               }
               visual {
                 width
+                caption
                 image {
                   altText
                   localFile {
@@ -520,6 +521,25 @@ export const pressQuery = graphql`
                 target
                 title
                 url
+              }
+            }
+            ... on WpPage_Flexiblecontent_Body_Blocks_BlockNewsEvents {
+              fieldGroupName
+              title
+              link {
+                target
+                title
+                url
+              }
+              blockOptions {
+                blockPosition
+                blockWidth
+                backgroundGraphics {
+                  fieldGroupName
+                  size
+                  xposition
+                  yposition
+                }
               }
             }
             ... on WpPage_Flexiblecontent_Body_Blocks_BlockAttachmentsGrid {

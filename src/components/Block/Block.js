@@ -13,11 +13,13 @@ import CtaBanner from './../CtaBanner/CtaBanner'
 import Accordion from './../Accordion/Accordion'
 import BlocksList from './../BlocksList/BlocksList'
 import VisualText from './../VisualText/VisualText'
+import NewsEvents from './../NewsEvents/NewsEvents'
 import JobsListing from './../JobsListing/JobsListing'
 import UsefulLinks from './../UsefulLinks/UsefulLinks'
 import PressRelease from './../PressRelease/PressRelease'
 import ContactsList from './../ContactsList/ContactsList'
 import AttachmentsGrid from './../AttachmentsGrid/AttachmentsGrid'
+import MediaHighlights from './../MediaHighlights/MediaHighlights'
 import ProjectsCarousel from './../ProjectsCarousel/ProjectsCarousel'
 
 const Block = ({ data, type, featuredImage, currentSlug }) => {
@@ -68,6 +70,12 @@ const Block = ({ data, type, featuredImage, currentSlug }) => {
       )}
       {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockPressRelease` && (
         <PressRelease data={data} />
+      )}
+      {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockNewsEvents` && (
+        <NewsEvents data={data} />
+      )}
+      {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockMediaHighlights` && (
+        <MediaHighlights data={data} />
       )}
       {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockAttachmentsGrid` && (
         <AttachmentsGrid data={data} />

@@ -5,6 +5,11 @@ require('dotenv').config({
 const languages = require('./src/data/languages')
 
 module.exports = {
+  flags: {
+    DEV_WEBPACK_CACHE: false,
+    FAST_DEV: false,
+    PRESERVE_FILE_DOWNLOAD_CACHE: true,
+  },
   siteMetadata: {
     title: `PagoPA`,
     description: `PagoPA S.p.A. è una società pubblica ad alto livello specialistico, che ha la mission di diffondere i servizi pubblici digitali attraverso lo sviluppo di progetti innovativi e la gestione di infrastrutture tecnologiche strategiche per accompagnare la modernizzazione della Pubblica Amministrazione e del Paese.`,
@@ -26,6 +31,22 @@ module.exports = {
         },
       },
     },
+    // {
+    //   resolve: `gatsby-plugin-csp`,
+    //   options: {
+    //     disableOnDev: true,
+    //     reportOnly: false,
+    //     mergeScriptHashes: false,
+    //     mergeStyleHashes: false,
+    //     directives: {
+    //       "frame-src": "'self' https://recaptcha.net https://pagopa.applytojob.com",
+    //       "script-src": "'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://www.gstatic.com https://recaptcha.net https://cdn.cookielaw.org",
+    //       "style-src": "'self' 'unsafe-inline'",
+    //       "img-src": "'self' data: https://cdn.cookielaw.org",
+    //       "connect-src": "'self' https://api.io.italia.it https://cdn.cookielaw.org https://www.google-analytics.com"
+    //     }
+    //   }
+    // },
     {
       resolve: `gatsby-plugin-sass`,
       options: {

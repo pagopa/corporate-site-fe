@@ -178,6 +178,7 @@ export const projectQuery = graphql`
               }
               visual {
                 width
+                caption
                 image {
                   altText
                   localFile {
@@ -455,6 +456,64 @@ export const projectQuery = graphql`
                 target
                 title
                 url
+              }
+            }
+            ... on WpProject_Flexiblecontent_Body_Blocks_BlockNewsEvents {
+              fieldGroupName
+              title
+              link {
+                target
+                title
+                url
+              }
+              blockOptions {
+                blockPosition
+                blockWidth
+                backgroundGraphics {
+                  fieldGroupName
+                  size
+                  xposition
+                  yposition
+                }
+              }
+            }
+            ... on WpProject_Flexiblecontent_Body_Blocks_BlockMediaHighlights {
+              fieldGroupName
+              title
+              posts {
+                ... on WpPost {
+                  date
+                  title
+                  content
+                  slug
+                  nodeType
+                }
+                ... on WpEvent {
+                  title
+                  content
+                  slug
+                  nodeType
+                  eventField {
+                    eventDate
+                  }
+                }
+                ... on WpPressReleases {
+                  date
+                  title
+                  content
+                  slug
+                  nodeType
+                }
+              }
+              blockOptions {
+                blockPosition
+                blockWidth
+                backgroundGraphics {
+                  fieldGroupName
+                  size
+                  xposition
+                  yposition
+                }
               }
             }
             ... on WpProject_Flexiblecontent_Body_Blocks_BlockAttachmentsGrid {
