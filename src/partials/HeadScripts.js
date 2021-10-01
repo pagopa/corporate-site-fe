@@ -29,14 +29,15 @@ const HeadScripts = () => {
           }, {
             type: 'text/javascript',
             src: '/js/script-onetrust.js'
-          }, {
-            type: 'text/javascript',
-            src: `https://www.googletagmanager.com/gtag/js?id=G-XNW0W43V93`,
-            async: true,
-          }, {
-            type: 'text/javascript',
-            src: '/js/script-ga.js'
-          }
+          },
+          // {
+          //   type: 'text/javascript',
+          //   src: `https://www.googletagmanager.com/gtag/js?id=G-XNW0W43V93`,
+          //   async: true,
+          // }, {
+          //   type: 'text/javascript',
+          //   src: '/js/script-ga.js'
+          // }
         ]}
       
       />

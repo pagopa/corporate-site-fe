@@ -5,11 +5,6 @@ require('dotenv').config({
 const languages = require('./src/data/languages')
 
 module.exports = {
-  flags: {
-    DEV_WEBPACK_CACHE: false,
-    FAST_DEV: false,
-    PRESERVE_FILE_DOWNLOAD_CACHE: true,
-  },
   siteMetadata: {
     title: `PagoPA`,
     description: `PagoPA S.p.A. è una società pubblica ad alto livello specialistico, che ha la mission di diffondere i servizi pubblici digitali attraverso lo sviluppo di progetti innovativi e la gestione di infrastrutture tecnologiche strategiche per accompagnare la modernizzazione della Pubblica Amministrazione e del Paese.`,
@@ -31,6 +26,24 @@ module.exports = {
         },
       },
     },
+    {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        trackingIds: [
+          "G-PWV1K9F23J"
+        ],
+        gtagConfig: {
+          anonymize_ip: true,
+          cookie_expires: 60 * 60 * 24 * 28 * 6,
+        },
+        pluginConfig: {
+          head: false,
+          respectDNT: true,
+          // exclude: ["/preview/**", "/do-not-track/me/too/"],
+        },
+      },
+    },
+
     // {
     //   resolve: `gatsby-plugin-csp`,
     //   options: {
