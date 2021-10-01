@@ -30,7 +30,8 @@ module.exports = {
       resolve: `gatsby-plugin-google-gtag`,
       options: {
         trackingIds: [
-          "G-PWV1K9F23J"
+          // "G-PWV1K9F23J"
+          'G-XNW0W43V93',
         ],
         gtagConfig: {
           anonymize_ip: true,
@@ -75,9 +76,10 @@ module.exports = {
       options: {
         host: process.env.FRONTEND_BASE_URL,
         sitemap: `${process.env.FRONTEND_BASE_URL}/sitemap/sitemap-index.xml`,
-        policy: process.env.FRONTEND_BASE_URL === 'https://www.pagopa.it'
-                  ? [{ userAgent: '*', allow: '/' }]
-                  : [{ userAgent: '*', disallow: '/' }]
+        policy:
+          process.env.FRONTEND_BASE_URL === 'https://www.pagopa.it'
+            ? [{ userAgent: '*', allow: '/' }]
+            : [{ userAgent: '*', disallow: '/' }],
       },
     },
     {
