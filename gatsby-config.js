@@ -26,24 +26,25 @@ module.exports = {
         },
       },
     },
-    {
-      resolve: `gatsby-plugin-google-gtag`,
-      options: {
-        trackingIds: [
-          // "G-PWV1K9F23J"
-          'G-XNW0W43V93',
-        ],
-        gtagConfig: {
-          anonymize_ip: true,
-          cookie_expires: 60 * 60 * 24 * 28 * 6,
-        },
-        pluginConfig: {
-          head: false,
-          respectDNT: true,
-          // exclude: ["/preview/**", "/do-not-track/me/too/"],
-        },
-      },
-    },
+    
+    // {
+    //   resolve: `gatsby-plugin-google-gtag`,
+    //   options: {
+    //     trackingIds: [
+    //       // "G-PWV1K9F23J"
+    //       'G-XNW0W43V93',
+    //     ],
+    //     gtagConfig: {
+    //       anonymize_ip: true,
+    //       cookie_expires: 60 * 60 * 24 * 28 * 6,
+    //     },
+    //     pluginConfig: {
+    //       head: false,
+    //       respectDNT: true,
+    //       // exclude: ["/preview/**", "/do-not-track/me/too/"],
+    //     },
+    //   },
+    // },
 
     // {
     //   resolve: `gatsby-plugin-csp`,
