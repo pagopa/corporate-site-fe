@@ -48,9 +48,6 @@ const MediaHighlights = ({ data }) => {
                     }
 
                   const theDate = eventField?.eventDate || date ? new Date(eventField?.eventDate ? eventField.eventDate : date).toLocaleDateString(locale, dateOptions) : false
-                      
-
-                  console.log(date)
 
                   const typeProps = {
                       Post: {
