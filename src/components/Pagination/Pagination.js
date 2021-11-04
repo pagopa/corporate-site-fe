@@ -4,7 +4,7 @@ import { Link } from 'gatsby'
 import './Pagination.sass'
 
 const Pagination = ({ context, baseUri }) => {
-  const { numberOfPages, humanPageNumber, nextPagePath, previousPagePath, locale } = context
+  const { numberOfPages, humanPageNumber, locale } = context
 
   const pageUri = `/${locale}/${baseUri}`
   const isFirstPage = humanPageNumber === 1

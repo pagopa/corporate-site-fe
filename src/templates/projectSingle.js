@@ -17,7 +17,7 @@ const ProjectPage = ({ location, data }) => {
       nodeType,
       featuredImage,
       seo,
-      link,
+      // link,
       postConfig: { bannerNewsletter },
     } = data.wpProject,
     blocks = flexibleContent.body.blocks

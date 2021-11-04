@@ -5,7 +5,11 @@ import Image from '../Image/Image'
 const AttachmentsGrid = ({ data }) => {
   const { title, entries, blockOptions } = data
 
-  const { backgroundGraphics, blockPosition, blockWidth } = blockOptions
+  const { 
+    // backgroundGraphics,
+    blockPosition, 
+    blockWidth 
+  } = blockOptions
 
   const columns = {}
 
