@@ -18,78 +18,31 @@ const HeadScripts = () => {
           },
         ]}
       />
-      <Helmet>{parse(onetrustSnippet)}</Helmet>
-
-      <Helmet
-        script={[
-          {
-            type: 'text/javascript',
-            innerHTML: `
-          function OptanonWrapper() {
-            var C0002 = OnetrustActiveGroups.includes("C0002");
-            if (C0002 == false) {
-              window['ga-disable-G-XNW0W43V93'] = true;
-            }
-          }
-        `,
-          },
-        ]}
-      />
-
-      <Helmet
-        script={[
-          {
-            type: 'text/javascript',
-            innerHTML: `
-          function getCookie(cName) {
-            const name = cName + "=";
-            const cDecoded = decodeURIComponent(document.cookie); //to be careful
-            const cArr = cDecoded.split('; ');
-            let res;
-            cArr.forEach(val => {
-              if (val.indexOf(name) === 0) res = val.substring(name.length);
-            })
-            return res
-          }
-        `,
-          },
-        ]}
-      />
-
-      <Helmet
-        script={[
-          {
-            type: 'text/javascript',
-            innerHTML: `
-          window['ga-disable-G-XNW0W43V93'] = true;
-          if (getCookie('OptanonConsent') && getCookie('OptanonConsent').includes("C0002:1") == true) {
-            window['ga-disable-G-XNW0W43V93'] = false;
-          }
-        `,
-          },
-        ]}
-      />
-
-      <Helmet script={[{
-        type: 'text/javascript',
-        src: `https://www.googletagmanager.com/gtag/js?id=G-XNW0W43V93`,
-        async: true
-      }]} />
       
-      <Helmet script={[{
-        type: 'text/javascript', 
-        innerHTML: `
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){
-            dataLayer.push(arguments);
+      <Helmet
+        script={[
+          {
+            type: 'text/javascript',
+            src: 'https://cdn.cookielaw.org/scripttemplates/otSDKStub.js',
+            charset: 'UTF-8',
+            'data-domain-script': '0f8d3397-33ff-415a-aa59-4195ca2d0ce3'
+          }, {
+            type: 'text/javascript',
+            src: '/js/script-onetrust.js'
+          },
+          {
+            type: 'text/javascript',
+            src: `https://www.googletagmanager.com/gtag/js?id=G-XNW0W43V93`,
+            async: true,
+          }, {
+            type: 'text/javascript',
+            src: '/js/script-ga.js'
           }
-          gtag('js', new Date());
-          gtag('config', 'G-XNW0W43V93', {
-            'anonymize_ip': true,
-            'cookie_expires': 60 * 60 * 24 * 28 * 6
-          });
-        `
-      }]} />
+        ]}
+      
+      />
+
+
     </>
   )
 }

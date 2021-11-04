@@ -19,12 +19,15 @@ const urlParser = data => {
     // CPTs slug translations
 
   const projectTranslations = translations.find(t => t.stringKey === 'project_cpt_slug'),
-        pressReleaseTranslations = translations.find(t => t.stringKey === 'pressrelease_cpt_slug'),
-        announcementTranslations = translations.find(t => t.stringKey === 'announcement_cpt_slug'),
         projectDir = projectTranslations[`${locale}Value`],
+        pressReleaseTranslations = translations.find(t => t.stringKey === 'pressrelease_cpt_slug'),
         pressReleaseDir = pressReleaseTranslations[`${locale}Value`],
-        announcementDir = announcementTranslations[`${locale}Value`]
-
+        announcementTranslations = translations.find(t => t.stringKey === 'announcement_cpt_slug'),
+        announcementDir = announcementTranslations[`${locale}Value`],
+        newsTranslations = translations.find(t => t.stringKey === 'news_cpt_slug'),
+        newsDir = newsTranslations[`${locale}Value`],
+        eventTranslations = translations.find(t => t.stringKey === 'event_cpt_slug'),
+        eventDir = eventTranslations[`${locale}Value`]
 
   const urlObject = isAbsolute ? new URL(url) : false
 
@@ -32,11 +35,8 @@ const urlParser = data => {
     // complete url
     if (urlObject.origin === siteUrl.replace(/\/$/, "") || urlObject.origin === cmsUrl.replace(/\/$/, "")) {
       // url inside domain: get path
-      
       const cptParsedUrl = convertCPTDir(urlObject.pathname.match(/[^/]+/g), translations, locale)
-
       return cptParsedUrl
-
     } else {
       // url outside domain: get url
       return url
@@ -44,6 +44,12 @@ const urlParser = data => {
   } else {
     if (type === 'Project') {
       return `/${locale}/${projectDir}/${url}/`
+    }
+    if (type === 'Post') {
+      return `/${locale}/${newsDir}/${url}/`
+    }
+    if (type === 'Event') {
+      return `/${locale}/${eventDir}/${url}/`
     }
     if (type === 'PressReleases') {
       return `/${locale}/${pressReleaseDir}/${url}/`

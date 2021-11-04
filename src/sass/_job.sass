@@ -1,39 +1,6 @@
 .job
   margin-bottom: 15rem
 
-  &__data
-    display: flex
-    justify-content: center
-    background-color: $c-gray-extralight
-    margin-bottom: 1rem
-    max-width: 52rem
-    width: 100%
-
-    &:last-child
-      margin-bottom: 8rem
-
-    > div
-      position: relative
-      padding: 2.8rem 4rem 2.6rem
-      text-align: left
-      flex: 0 0 50%
-
-      p
-        margin-bottom: 0
-        text-align: center
-        white-space: nowrap
-      
-      &:not(:last-child)
-        &::after
-          content: ''
-          width: 1px
-          height: calc(100% - 6rem)
-          position: absolute
-          right: 0
-          top: 50%
-          transform: translateY(-50%)
-          background-color: $c-gray-light
-
   &__section
     margin-bottom: 3rem
     padding-left: $section-gutter
