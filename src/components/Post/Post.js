@@ -1,5 +1,7 @@
 import React from 'react'
 
+import parse from 'html-react-parser'
+
 import Image from '../../components/Image/Image'
 import Cta from '../../components/Cta/Cta'
 
@@ -45,7 +47,7 @@ const Post = ({ data }) => {
           </div>
           <h4 className="--primary --medium">{title}</h4>
           <div className="wysiwyg">
-            <p>{abstract}...</p>
+            <p>{parse(abstract)}...</p>
           </div>
         </div>
 
