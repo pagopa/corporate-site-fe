@@ -9,14 +9,13 @@ import Footer from './Footer/Footer'
 import HeadScripts from './HeadScripts'
 
 const Layout = ({ children, locale, location }) => {
+
   return (
     <LocaleContext.Provider value={locale}>
       <HeadScripts />
-
       <Header location={location} />
-        <main>{children}</main>
+      <main>{children}</main>
       <Footer locale={locale} />
-      
     </LocaleContext.Provider>
   )
 }
