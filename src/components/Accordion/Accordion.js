@@ -17,7 +17,11 @@ const AccordionComp = ({ data }) => {
 
   // const hasEntries = entries.length ? true : false
 
-  const { backgroundGraphics, blockPosition, blockWidth } = blockOptions
+  const { 
+    // backgroundGraphics, 
+    blockPosition, 
+    blockWidth 
+  } = blockOptions
 
   const columns = {}
 

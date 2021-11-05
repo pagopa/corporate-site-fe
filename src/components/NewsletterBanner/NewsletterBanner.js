@@ -62,7 +62,7 @@ const NewsletterBanner = () => {
 
 
   const checkValidity = (input, options) => {
-    const newsletterSubmit = document.querySelector('.newsletter-submit')
+    // const newsletterSubmit = document.querySelector('.newsletter-submit')
     if (input.checkValidity() && options.find(el => el.checked)) {
       // newsletterSubmit.removeAttribute('disabled')
       setValidity(() => true)
@@ -121,9 +121,9 @@ const NewsletterBanner = () => {
 
 
     const newsletterWrap = document.querySelector('.newsletter-banner'),
-          newsletterSubmit = newsletterWrap.querySelector('.newsletter-submit'),
+          // newsletterSubmit = newsletterWrap.querySelector('.newsletter-submit'),
           input = newsletterWrap.querySelector('.newsletter-email'),
-          optionsWrap = newsletterWrap.querySelector('.newsletter-banner__options'),
+          // optionsWrap = newsletterWrap.querySelector('.newsletter-banner__options'),
           groups = [...newsletterWrap.querySelectorAll('.newsletter-group:checked')],
           emailValue = input.value.trim(),
           groupsValue = []
