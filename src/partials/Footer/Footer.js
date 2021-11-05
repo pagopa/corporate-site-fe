@@ -22,7 +22,7 @@ const Footer = ({ locale }) => {
             <div className="col-12 col-md-2">
               <Logo version="light" />
             </div>
-            <div className="col-12 col-md-10 col-lg-8 col-xl-6">
+            <div className="col-12 col-md-10 col-lg-8">
               <MenuService />
             </div>
 

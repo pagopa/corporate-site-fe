@@ -34,8 +34,6 @@ const IndexPage = () => {
     },
   } = useWpOptionsPage()
 
-  console.log(siteTitle)
-
   useEffect(() => {
     const urlLanguage = getRedirectLanguage(defaultLanguage, languages)
     navigate(`/${urlLanguage}/`, {
