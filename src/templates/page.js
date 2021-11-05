@@ -15,7 +15,7 @@ const Page = ({ location, data }) => {
       flexibleContent,
       nodeType,
       slug,
-      link,
+      // link,
       featuredImage,
       seo,
       postConfig: { bannerNewsletter },

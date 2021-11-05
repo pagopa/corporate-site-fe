@@ -2,8 +2,15 @@
 
   ul
     position: relative
-    display: flex
-    flex-wrap: wrap
+    column-count: 3
+    column-gap: 0
+    margin-bottom: 1rem
+
+    @media (max-width: $tablet - 1)
+      column-count: 2
+
+    @media (max-width: $mobile-xs - 1)
+      column-count: 1
 
     li
       position: relative
@@ -12,9 +19,7 @@
       font-family: $f-alternative
       line-height: 1.2
       margin-bottom: 2rem
-
-      &:not(:last-child)
-        margin-right: 4rem
+      padding-right: 1.5rem
         
       a, button
         text-decoration: none
