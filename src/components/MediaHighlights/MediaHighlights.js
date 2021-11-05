@@ -45,19 +45,12 @@ const MediaHighlights = ({ data }) => {
               {posts.map(
                 ({ nodeType, date, title, content, slug, eventField }, key) => {
                   const dateOptions = {
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit',
-                  }
+                      year: 'numeric',
+                      month: '2-digit',
+                      day: '2-digit',
+                    }
 
-                  const theDate =
-                    eventField?.eventDate || date
-                      ? new Date(
-                          eventField?.eventDate ? eventField.eventDate : date
-                        ).toLocaleDateString(locale, dateOptions)
-                      : false
-
-                  console.log(date)
+                  const theDate = eventField?.eventDate || date ? new Date(eventField?.eventDate ? eventField.eventDate : date).toLocaleDateString(locale, dateOptions) : false
 
                   const typeProps = {
                     Post: {
