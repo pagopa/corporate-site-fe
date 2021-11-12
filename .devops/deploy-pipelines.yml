@@ -40,7 +40,7 @@ variables:
     ENVIRONMENT: 'prod'
 
 schedules:
-- cron: '0 10 * * *'
+- cron: '0 * * * *'
   displayName: 'Deploy every hour'
   branches:
     include:
