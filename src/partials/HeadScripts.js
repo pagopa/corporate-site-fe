@@ -1,11 +1,13 @@
 import React from 'react'
 
+import parse from 'html-react-parser'
+
 import { Helmet } from 'react-helmet'
 
-// import { useWpOptionsPage } from '../hooks/useWpOptionsPage'
+import { useWpOptionsPage } from '../hooks/useWpOptionsPage'
 
 const HeadScripts = () => {
-  // const { onetrustSnippet } = useWpOptionsPage().various
+  const { onetrustSnippet } = useWpOptionsPage().various
 
   return (
     <>
@@ -17,15 +19,20 @@ const HeadScripts = () => {
           },
         ]}
       />
+
+      <Helmet>
+        {parse(onetrustSnippet)}
+      </Helmet>
       
       <Helmet
         script={[
+          // {
+          //   type: 'text/javascript',
+          //   src: 'https://cdn.cookielaw.org/scripttemplates/otSDKStub.js',
+          //   charset: 'UTF-8',
+          //   'data-domain-script': '0f8d3397-33ff-415a-aa59-4195ca2d0ce3'
+          // },
           {
-            type: 'text/javascript',
-            src: 'https://cdn.cookielaw.org/scripttemplates/otSDKStub.js',
-            charset: 'UTF-8',
-            'data-domain-script': '0f8d3397-33ff-415a-aa59-4195ca2d0ce3'
-          }, {
             type: 'text/javascript',
             src: '/js/script-onetrust.js'
           },
