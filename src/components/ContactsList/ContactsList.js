@@ -5,7 +5,11 @@ import './ContactsList.sass'
 const ContactsList = ({ data }) => {
   const { blockOptions, title, contacts: items } = data
 
-  const { backgroundGraphics, blockPosition, blockWidth } = blockOptions
+  const { 
+    // backgroundGraphics, 
+    blockPosition, 
+    blockWidth 
+  } = blockOptions
 
   const columns = {}
 
@@ -22,10 +26,11 @@ const ContactsList = ({ data }) => {
     columns.wide = `col-md-10 offset-md-3`
   }
 
-
   return (
     <section
-      className={`block --block-contacts-list contacts-list${!title ? ' --no-title' : ''}`}
+      className={`block --block-contacts-list contacts-list${
+        !title ? ' --no-title' : ''
+      }`}
     >
       <div className="container-fluid">
         <div className="row align-items-center">

@@ -1,12 +1,11 @@
 import React from 'react'
 
-import parse from 'html-react-parser'
 import { Helmet } from 'react-helmet'
 
-import { useWpOptionsPage } from '../hooks/useWpOptionsPage'
+// import { useWpOptionsPage } from '../hooks/useWpOptionsPage'
 
 const HeadScripts = () => {
-  const { onetrustSnippet } = useWpOptionsPage().various
+  // const { onetrustSnippet } = useWpOptionsPage().various
 
   return (
     <>

@@ -1,11 +1,11 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext } from "react"
 
 import { StaticImage } from "gatsby-plugin-image"
 
 import { LocaleContext } from '../contexts/LocaleContext.js'
 
 import Layout from '../partials/Layout'
-import SeoHelmet from '../components/SeoHelmet'
+// import SeoHelmet from '../components/SeoHelmet'
 
 const NotFoundPage = ({ location }) => {
   const locale = useContext(LocaleContext)

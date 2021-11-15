@@ -10,7 +10,7 @@ import Pagination from '../components/Pagination/Pagination'
 import SeoHelmet from '../components/SeoHelmet.js'
 import Block from '../components/Block/Block'
 import Post from '../components/Post/Post'
-import Cta from '../components/Cta/Cta'
+// import Cta from '../components/Cta/Cta'
 
 const NewsEvents = ({ data }) => {
   const locale = useContext(LocaleContext)

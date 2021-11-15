@@ -19,30 +19,36 @@ const Footer = ({ locale }) => {
         <div className="footer__top">
           
           <div className="row">
-            <div className="col-12">
+            <div className="col-12 col-md-2">
               <Logo version="light" />
             </div>
-          </div>
+            <div className="col-12 col-md-10 col-lg-8 col-xl-6">
+              <MenuService />
+            </div>
 
-          <div className="row justify-content-between">
-            <div className="col-12 col-md-6">
-              <div dangerouslySetInnerHTML={{ __html: companyData }} />
-            </div>
-            <div className="col-12 col-md-auto">
-              <h5>SEGUICI SU</h5>
-              <Socials />
-            </div>
           </div>
           
         </div>
         <div className="footer__bottom">
+          {/* <div className="row justify-content-between flex-row-reverse">
+            <div className="col-12 col-md-auto">
+              <Language currentLocale={locale} />
+            </div>
+            <div className="col">
+            </div>
+          </div> */}
           <div className="row justify-content-between flex-row-reverse">
             <div className="col-12 col-md-auto">
               <MenuFooter />
-              {/* <Language currentLocale={locale} /> */}
             </div>
-            <div className="col">
-              <MenuService />
+            <div className="col-12 col-md-auto">
+              <div className="d-flex mb-4">
+                <h5 className="mb-0 me-5">SEGUICI SU:</h5>
+                <Socials />
+              </div>
+            </div>
+            <div className="col-12 col-md-6">
+              <div dangerouslySetInnerHTML={{ __html: companyData }} />
             </div>
           </div>
         </div>
