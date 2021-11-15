@@ -6,18 +6,15 @@ import Cta from '../../components/Cta/Cta'
 
 import './MenuService.sass'
 
-const openOTPreferences = () => {
-  
-//   if (OneTrust) OneTrust.ToggleInfoDisplay()
-}
 
 const MenuService = () => {
   const { linksAttachments } = useWpOptionsPage().footer
 
-
   useEffect(() => {
-    const otButton = document.querySelector('.ot-sdk-show-settings')
-
+    const openOTPreferences = () => {
+      if (window.OneTrust) window.OneTrust.ToggleInfoDisplay()
+    }
+    const otButton = document.querySelector('.ot-preferences')
     otButton.addEventListener('click', openOTPreferences)
     return () => otButton.removeEventListener('click', openOTPreferences)
   }, [])
@@ -56,7 +53,8 @@ const MenuService = () => {
           )
         })}
         <li>
-          <button id="ot-sdk-btn" className="ot-sdk-show-settings cta --link-simple"><span>Preferenze cookie</span></button>
+          <button id="ot-sdk-btn" className="cta --link-simple ot-preferences"><span>Preferenze cookie</span></button>
+          {/* ot-sdk-show-settings */}
         </li>
       </ul>
     </nav>
@@ -64,15 +62,3 @@ const MenuService = () => {
 }
 
 export default MenuService
-
-// footerAttachment {
-//   localFile {
-//     publicURL
-//   }
-//   title
-// }
-// footerLink {
-//   target
-//   title
-//   url
-// }
