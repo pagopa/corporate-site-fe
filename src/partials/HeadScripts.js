@@ -9,8 +9,6 @@ import { useWpOptionsPage } from '../hooks/useWpOptionsPage'
 const HeadScripts = () => {
   const { onetrustSnippet } = useWpOptionsPage().various
 
-  console.log(onetrustSnippet)
-
   return (
     <>
       <Helmet
