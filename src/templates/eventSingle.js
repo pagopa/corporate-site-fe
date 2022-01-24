@@ -162,6 +162,9 @@ export const newsQuery = graphql`
           altText
           localFile {
             childImageSharp {
+              fixed {
+                src
+              }
               gatsbyImageData(
                 layout: FULL_WIDTH
                 aspectRatio: 1.9
