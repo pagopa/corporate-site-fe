@@ -8,6 +8,8 @@ import NewsletterBanner from '../components/NewsletterBanner/NewsletterBanner'
 
 import SeoHelmet from '../components/SeoHelmet'
 
+import Video from '../components/Video/Video'
+
 const Page = ({ location, data }) => {
   const {
       title,
@@ -34,6 +36,8 @@ const Page = ({ location, data }) => {
   return (
     <Layout locale={currentLocale} location={location}>
       <SeoHelmet yoast={seo} locale={currentLocale} data={pageProps} />
+
+      <Video />
 
       {blocks &&
         blocks.map((block, key) => {
