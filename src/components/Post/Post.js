@@ -20,9 +20,26 @@ const Post = ({ data }) => {
   const text = content.replace(/(<([^>]+)>)/gi, '')
   const abstract = text.split(' ').splice(0, 14).join(' ')
 
-  const attrs = {}
+  const labels = {
+    post: {
+      it: 'News',
+      en: 'News'
+    },
+    event: {
+      it: 'Evento',
+      en: 'Event'
+    },
+    initiative: {
+      it: 'Iniziativa',
+      en: 'Initiative'
+    }
+  }
 
-  if (isEvent) attrs['data-label'] = locale.id === 'it' ? 'Evento' : 'Event'
+  const attrs = {
+    'data-label': labels[nodeType.toLowerCase()][locale.id]
+  }
+
+  console.log(nodeType);
 
   return (
     <>

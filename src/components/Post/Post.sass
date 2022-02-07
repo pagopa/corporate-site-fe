@@ -20,6 +20,21 @@
     position: relative
     margin-bottom: 3.2rem
 
+    &::after
+      content: attr(data-label)
+      position: absolute
+      right: -1rem
+      bottom: 1.8rem
+      background-color: $c-brand
+      color: #FFF
+      font-size: 1.6rem
+      font-family: $f-alternative
+      font-weight: 700
+      height: 4rem
+      display: inline-flex
+      align-items: center
+      padding: 0 3.2rem
+
     + .post__date
       h4
         color: $c-gray-dark
@@ -30,24 +45,6 @@
 
   .cta
     margin-top: 0
-  
-  &.--event
-    .post
-      &__image
-        &::after
-          content: attr(data-label)
-          position: absolute
-          right: -1rem
-          bottom: 1.8rem
-          background-color: $c-brand
-          color: #FFF
-          font-size: 1.6rem
-          font-family: $f-alternative
-          font-weight: 700
-          height: 4rem
-          display: inline-flex
-          align-items: center
-          padding: 0 3.2rem
 
 .post-article
   margin-bottom: 4.4rem

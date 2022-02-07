@@ -55,9 +55,9 @@ const NewsEventPage = ({ location, data, pageContext }) => {
     } = data.page,
     blocks = flexibleContent.body.blocks
 
-  const { allNews: news, allEvents: events } = data
+  const { allNews: news, allEvents: events, allInitiatives: initiatives } = data
 
-  const allPosts = [...news.edges, ...events.edges]
+  const allPosts = [...news.edges, ...events.edges, ...initiatives.edges]
 
   const newsEventsCollection = allPosts
 
@@ -609,6 +609,41 @@ export const newsEventQuery = graphql`
     }
 
     allNews: allWpPost(
+      sort: { fields: date, order: DESC }
+      skip: $skip
+      limit: $limit
+    ) {
+      edges {
+        node {
+          nodeType
+          slug
+          date
+          title
+          content
+          featuredImage {
+            node {
+              altText
+              localFile {
+                childImageSharp {
+                  gatsbyImageData(
+                    layout: FULL_WIDTH
+                    aspectRatio: 1.33
+                    width: 460
+                    height: 346
+                    transformOptions: { cropFocus: ATTENTION }
+                  )
+                }
+              }
+            }
+          }
+          locale {
+            id
+          }
+        }
+      }
+    }
+
+    allInitiatives: allWpInitiative(
       sort: { fields: date, order: DESC }
       skip: $skip
       limit: $limit
