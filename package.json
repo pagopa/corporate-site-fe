@@ -20,7 +20,7 @@
     "gatsby-plugin-sharp": "^3.10.0",
     "gatsby-plugin-sitemap": "^4.6.0",
     "gatsby-source-filesystem": "^3.10.0",
-    "gatsby-source-wordpress": "^5.10.0",
+    "gatsby-source-wordpress": "5",
     "gatsby-transformer-inline-svg": "^0.1.0",
     "gatsby-transformer-sharp": "^3.10.0",
     "html-react-parser": "^1.2.7",
