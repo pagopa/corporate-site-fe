@@ -39,7 +39,6 @@ const Post = ({ data }) => {
     'data-label': labels[nodeType.toLowerCase()][locale.id]
   }
 
-  console.log(nodeType);
 
   return (
     <>
