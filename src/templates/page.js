@@ -500,6 +500,13 @@ export const pageQuery = graphql`
                     eventDate
                   }
                 }
+                ... on WpInitiative {
+                  date
+                  title
+                  content
+                  slug
+                  nodeType
+                }
                 ... on WpPressReleases {
                   date
                   title

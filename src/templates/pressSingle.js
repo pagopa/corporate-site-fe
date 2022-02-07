@@ -62,7 +62,7 @@ const pressArticlePage = ({ location, data }) => {
             <div className="row">
               <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
                 <h4>{theDate}</h4>
-                <div className="wysiwyg">{parse(content)}</div>
+                {content && <div className="wysiwyg">{parse(content)}</div>}
               </div>
             </div>
           </div>

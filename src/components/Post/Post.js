@@ -5,6 +5,8 @@ import parse from 'html-react-parser'
 import Image from '../../components/Image/Image'
 import Cta from '../../components/Cta/Cta'
 
+import placeholder from '../../images/placeholder.gif'
+
 import './Post.sass'
 
 const Post = ({ data }) => {
@@ -17,8 +19,8 @@ const Post = ({ data }) => {
       isEvent ? data.eventField.eventDate : date
     ).toLocaleDateString(locale.id, dateOptions)
 
-  const text = content.replace(/(<([^>]+)>)/gi, '')
-  const abstract = text.split(' ').splice(0, 14).join(' ')
+  const text = content?.replace(/(<([^>]+)>)/gi, '')
+  const abstract = text?.split(' ').splice(0, 14).join(' ')
 
   const labels = {
     post: {
@@ -51,6 +53,7 @@ const Post = ({ data }) => {
                 title={featuredImage.node.altText}
               />
             )}
+            {!featuredImage && <img src={placeholder} alt="" />}
           </div>
           <div className="post__date">
             <h4>{theDate}</h4>
@@ -62,9 +65,12 @@ const Post = ({ data }) => {
             )}
           </div>
           <h4 className="--primary --medium">{title}</h4>
-          <div className="wysiwyg">
-            <p>{parse(abstract)}...</p>
-          </div>
+          {abstract && (
+            <div className="wysiwyg">
+              <p>{parse(abstract)}...</p>
+            </div>
+          )}
+          
         </div>
 
         <Cta
