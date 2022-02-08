@@ -24,7 +24,15 @@ module.exports = {
           requestConcurrency: 2, // default 15
           previewRequestConcurrency: 2, // default 5
         },
+        type: {
+          MediaItem: {
+            localFile: {
+              requestConcurrency: 20
+            }
+          }
+        }
       },
+  
     },
     
     // {
