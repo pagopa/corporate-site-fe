@@ -5,7 +5,7 @@ import parse from 'html-react-parser'
 import Image from '../../components/Image/Image'
 import Cta from '../../components/Cta/Cta'
 
-import placeholder from '../../images/placeholder.gif'
+import placeholder from '../../images/placeholder.png'
 
 import './Post.sass'
 
