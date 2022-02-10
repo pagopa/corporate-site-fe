@@ -68,6 +68,13 @@ const MediaHighlights = ({ data }) => {
                           : 'Press Releases',
                       icon: iconPressReleases,
                     },
+                    Initiative: {
+                      label:
+                        locale === 'it'
+                          ? 'Iniziative'
+                          : 'Initiatives',
+                      icon: iconPressReleases,
+                    }
                   }
 
                   const titleArray = title.split(' ')
