@@ -156,6 +156,20 @@ export const pageQuery = graphql`
                 }
                 text
                 title
+
+                video {
+                  link
+                  image {
+                    altText
+                    localFile {
+                      extension
+                      publicURL
+                      childImageSharp {
+                        gatsbyImageData(width: 960)
+                      }
+                    }
+                  }
+                }
               }
             }
             ... on WpPage_Flexiblecontent_Body_Blocks_BlockVisualText {

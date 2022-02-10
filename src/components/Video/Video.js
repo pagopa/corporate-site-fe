@@ -1,27 +1,51 @@
 import React, { useState } from 'react'
 
-import ModalVideo from 'react-modal-video'
+import ModalVideo from '../../plugins/video-modal'
 
 import Image from '../Image/Image'
 
 import './Video.sass'
 
-const Video = () => {
-  const [isVideoOpen, setIsVideoOpen] = useState(false)
+const youtubeParser = url => {
+  var regExp =
+    /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/
+  var match = url.match(regExp)
+  return match && match[7].length === 11 ? match[7] : false
+}
+
+const Video = ({ image, video }) => {
+  const [videoModalOpen, setVideoModalOpen] = useState(false)
+
+  const videoCode = video ? youtubeParser(video) : false
+
+  const ytVideoParams = {
+    youtube: {
+      color: 'white',
+      iv_load_policy: 3,
+      modestbranding: 1,
+      playsinline: null,
+      rel: 0,
+      showinfo: 0
+    },
+  }
+
   return (
     <>
-      <figure className="video" onClick={() => setIsVideoOpen(!isVideoOpen)}>
-        {/* <Image image="http://via.placeholder.com/1920x1080" /> */}
-        <img src="http://via.placeholder.com/1920x1080" alt="placeholder" />
+      <figure className="video">
+        {image && <Image image={image.localFile} title={image.altText} />}
+        {videoCode && (
+          <ModalVideo
+            channel="youtube"
+            autoplay
+            {...ytVideoParams}
+            videoId={videoCode}
+            isOpen={videoModalOpen}
+            onClose={() => setVideoModalOpen(false)}
+          />
+        )}
+        <div className="video__curtain"></div>
+        <button className="video__play" onClick={() => setVideoModalOpen(true)}>play</button>
       </figure>
-
-      <ModalVideo
-        channel="custom"
-        autoplay
-        url="https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_1920_18MG.mp4"
-        isOpen={isVideoOpen}
-        onClose={() => setIsVideoOpen(false)}
-      />
     </>
   )
 }
