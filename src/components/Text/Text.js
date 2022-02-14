@@ -42,7 +42,7 @@ const Text = ({ data }) => {
         <div className="row">
           <div className={`col-12 ${columns[blockWidth]}`}>
             <div className="row flex-row-reverse justify-content-between align-items-center">
-              <div className={`col-12${hasVideo ? ' col-lg-6 pb-5 pb-lg-0 mb-5 mb-lg-0' : ''}`}>
+              <div className={`col-12${hasVideo ? ' col-lg-5 pb-5 pb-lg-0 mb-5 mb-lg-0' : ''}`}>
                 
                 {eyelet && <h4>{eyelet}</h4>}
                 {title ? iscentered ? <h2>{parse(title)}</h2> : <h1>{parse(title)}</h1> : false}
@@ -51,7 +51,7 @@ const Text = ({ data }) => {
                     {parse(text)}
                   </div>
                 )}
-                {link && !hasVideo && (
+                {link && (
                   <Cta
                     label={link.title}
                     url={link.url}
@@ -61,15 +61,15 @@ const Text = ({ data }) => {
               </div>
               
               {hasVideo && (
-                <div className="col-12 col-lg-5 pt-5 pt-lg-0">
+                <div className="col-12 col-lg-6 pt-5 pt-lg-0">
                   <Video video={video.link} image={video.image} />
-                  {link && hasVideo && (
+                  {/* {link && hasVideo && (
                     <Cta
                       label={link.title}
                       url={link.url}
                       blank={link.target}
                     />
-                  )}
+                  )} */}
                 </div>
               )}
 
