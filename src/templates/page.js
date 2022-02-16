@@ -35,6 +35,7 @@ const Page = ({ location, data }) => {
     <Layout locale={currentLocale} location={location}>
       <SeoHelmet yoast={seo} locale={currentLocale} data={pageProps} />
 
+
       {blocks &&
         blocks.map((block, key) => {
           return <Block data={block} key={key} type={nodeType} {...pageProps} />
@@ -152,6 +153,20 @@ export const pageQuery = graphql`
                 }
                 text
                 title
+
+                video {
+                  link
+                  image {
+                    altText
+                    localFile {
+                      extension
+                      publicURL
+                      childImageSharp {
+                        gatsbyImageData(width: 960)
+                      }
+                    }
+                  }
+                }
               }
             }
             ... on WpPage_Flexiblecontent_Body_Blocks_BlockVisualText {
@@ -499,6 +514,13 @@ export const pageQuery = graphql`
                   eventField {
                     eventDate
                   }
+                }
+                ... on WpInitiative {
+                  date
+                  title
+                  content
+                  slug
+                  nodeType
                 }
                 ... on WpPressReleases {
                   date

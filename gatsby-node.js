@@ -24,6 +24,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const pressSingleTemplate = path.resolve(`./src/templates/pressSingle.js`)
   const pressListTemplate = path.resolve(`./src/templates/pressList.js`)
   const newsSingleTemplate = path.resolve(`./src/templates/newsSingle.js`)
+  const initiativeSingleTemplate = path.resolve(`./src/templates/initiativeSingle.js`)
   const eventSingleTemplate = path.resolve(`./src/templates/eventSingle.js`)
   const newsEventsListTemplate = path.resolve(`./src/templates/newsEventsList.js`)
   const announcementSingleTemplate = path.resolve(`./src/templates/announcementSingle.js`)
@@ -168,7 +169,19 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         }
       }
 
-      eventsSingles: allWpEvent(sort: {fields: eventField___eventDate, order: DESC}) {
+      initiativeSingles: allWpInitiative(sort: {fields: date, order: DESC}) {
+        edges {
+          node {
+            id
+            slug
+            locale {
+              id
+            }
+          }
+        }
+      }
+
+      eventSingles: allWpEvent(sort: {fields: eventField___eventDate, order: DESC}) {
         edges {
           node {
             id
@@ -261,7 +274,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   _.each(newsEventListNodes, ({ node: page }) => {
 
     const news = result.data.newsSingles.edges,
-          events = result.data.eventsSingles.edges,
+          events = result.data.eventSingles.edges,
           posts = [...news, ...events]
     
     posts.sort((a, b) => {
@@ -406,9 +419,32 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     })
   })
 
+  // initiatives
+
+  const initiativeSingleNodes = result.data.initiativeSingles.edges
+
+  const initiativeTranslations = translations.find(
+    t => t.stringKey === 'newsevents_cpt_slug'
+  )
+
+  _.each(initiativeSingleNodes, ({ node: page }) => {
+    const initiativeDir = page.locale.id === 'it'
+        ? initiativeTranslations.itValue
+        : initiativeTranslations.enValue
+
+    createPage({
+      path: `/${page.locale.id}/${initiativeDir}/${page.slug}`,
+      component: initiativeSingleTemplate,
+      context: {
+        id: page.id,
+        locale: page.locale.id,
+      },
+    })
+  })
+
   // events
 
-  const eventSingleNodes = result.data.eventsSingles.edges
+  const eventSingleNodes = result.data.eventSingles.edges
 
   const eventsTranslations = translations.find(
     t => t.stringKey === 'newsevents_cpt_slug'

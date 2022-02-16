@@ -27,19 +27,19 @@ const Intro = ({ eyelet, title }) => {
   )
 }
 
-const newsSingle = ({ location, data }) => {
+const initiativeSingle = ({ location, data }) => {
   const {
     date,
     title,
     locale,
     content,
-    newsCommonFields,
+    initiativeCommonFields,
     featuredImage,
     seo,
     postConfig: { bannerNewsletter },
-  } = data.wpPost
+  } = data.wpInitiative
 
-  const cta = newsCommonFields.cta
+  const cta = initiativeCommonFields.cta
 
   const currentLocale = locale.id
 
@@ -56,7 +56,7 @@ const newsSingle = ({ location, data }) => {
       <SeoHelmet yoast={seo} locale={currentLocale} data={pageProps} />
 
       <article className="post-article">
-        <Intro eyelet={newsCommonFields.eyelet} title={title} />
+        <Intro eyelet={initiativeCommonFields.eyelet} title={title} />
 
         <div className="post-article__body">
           <div className="container-fluid">
@@ -99,18 +99,18 @@ const newsSingle = ({ location, data }) => {
     </Layout>
   )
 }
-export default newsSingle
+export default initiativeSingle
 
-export const newsQuery = graphql`
-  query newsSingle($id: String!) {
-    wpPost(id: { eq: $id }) {
+export const initiativeQuery = graphql`
+  query initiativeSingle($id: String!) {
+    wpInitiative(id: { eq: $id }) {
       id
       nodeType
       slug
       date
       title
       content
-      newsCommonFields {
+      initiativeCommonFields {
         eyelet
         cta {
           target
@@ -123,9 +123,6 @@ export const newsQuery = graphql`
           altText
           localFile {
             childImageSharp {
-              fixed {
-                src
-              }
               gatsbyImageData(
                 layout: FULL_WIDTH
                 aspectRatio: 1.9
