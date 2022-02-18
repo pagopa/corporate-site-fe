@@ -28,8 +28,8 @@ const Post = ({ data }) => {
       en: 'News'
     },
     event: {
-      it: 'Evento',
-      en: 'Event'
+      it: 'Eventi',
+      en: 'Events'
     },
     initiative: {
       it: 'Iniziative',
