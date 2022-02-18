@@ -3,7 +3,7 @@ import { useStaticQuery, graphql } from 'gatsby'
 export const useNews = () => {
   const { allWpPost } = useStaticQuery(graphql`
     query news {
-      allWpPost(limit: 1, sort: {fields: date, order: DESC}) {
+      allWpPost(limit: 4, sort: {fields: date, order: DESC}) {
         edges {
           node {
             nodeType
