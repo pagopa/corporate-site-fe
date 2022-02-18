@@ -1,19 +1,14 @@
 import { useStaticQuery, graphql } from 'gatsby'
 
-export const useEvents = () => {
-  const { allWpEvent } = useStaticQuery(graphql`
-    query events {
-      allWpEvent(limit: 4, sort: {fields: eventField___eventDate, order: DESC}) {
+export const useInitiatives = () => {
+  const { allWpInitiative } = useStaticQuery(graphql`
+    query initiatives {
+      allWpInitiative(limit: 4, sort: {fields: date, order: DESC}) {
         edges {
           node {
             nodeType
             slug
             date
-            eventField {
-              eventDate
-              eventTimeStart
-              eventTimeEnd
-            }
             title
             content
             featuredImage {
@@ -41,5 +36,5 @@ export const useEvents = () => {
     }
   `)
   
-  return allWpEvent.edges
+  return allWpInitiative.edges
 }
