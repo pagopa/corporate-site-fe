@@ -134,13 +134,14 @@ const JobPage = ({ location, data }) => {
         {hasTextBlocks &&
           textBlocks.map((tb, key) => {
             const { title, description } = tb
+
             return (
               <section className="job__section" key={key}>
                 <div className="container-fluid">
                   <div className="row">
                     <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-                      <h4>{title}</h4>
-                      <div className="wysiwyg">{parse(description)}</div>
+                      {title && <h4>{title}</h4>}
+                      {description && <div className="wysiwyg">{parse(description)}</div>}
                     </div>
                   </div>
                 </div>
