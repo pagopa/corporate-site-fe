@@ -20,15 +20,15 @@ const Text = ({ data }) => {
   const columns = {}
 
   if (blockPosition === 'center') {
-    columns.standard = `col-lg-10 offset-lg-1${!hasVideo ? 'col-xl-8 offset-xl-2' : ''}`
+    columns.standard = `col-lg-10 offset-lg-1${!hasVideo ? ' col-xl-8 offset-xl-2' : ''}`
     columns.wide = `col-lg-10 offset-lg-1`
   }
   if (blockPosition === 'left') {
-    columns.standard = `col-lg-10 offset-lg-1${!hasVideo ? 'col-xl-8 offset-xl-1' : ''}`
+    columns.standard = `col-lg-10 offset-lg-1${!hasVideo ? ' col-xl-8 offset-xl-1' : ''}`
     columns.wide = `col-lg-10 offset-lg-1`
   }
   if (blockPosition === 'right') {
-    columns.standard = `col-lg-10 offset-lg-1${!hasVideo ? 'col-xl-8 offset-xl-1' : ''}`
+    columns.standard = `col-lg-10 offset-lg-1${!hasVideo ? ' col-xl-8 offset-xl-1' : ''}`
     columns.wide = `col-lg-10 offset-lg-3`
   }
 
