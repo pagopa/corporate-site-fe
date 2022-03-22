@@ -7,7 +7,7 @@ const LogoLinks = ({ data }) => {
   const { title: blockTitle, items: logos } = data
 
   return (
-    <section className="block --block-logo-links logo-links">
+    <section className={`block --block-logo-links logo-links${!blockTitle ? ' pt-0' : ''}`}>
       <div className="container-fluid">
         <div className="row">
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
@@ -20,7 +20,9 @@ const LogoLinks = ({ data }) => {
 
                   return (
                     <div
-                      className="col-12 col-sm-6 col-md-4 col-lg-3"
+                      className={`col-12 col-sm-6${
+                        logos.length > 1 ? ' col-md-4 col-lg-3' : ' col-lg-5'
+                      }`}
                       key={key}
                     >
                       <div className="logo-link">
