@@ -12,15 +12,49 @@ import {
 
 import './Accordion.sass'
 
+const AccordionItemComp = ({ data }) => {
+  const { heading, content, attachments } = data
+  return (
+    <AccordionItem className="accordion-entry">
+      <AccordionItemHeading className="accordion-entry__header">
+        <AccordionItemButton className="accordion-entry__button">
+          <h4 className="--primary">{parse(heading)}</h4>
+        </AccordionItemButton>
+      </AccordionItemHeading>
+
+      <AccordionItemPanel className="accordion-entry__content">
+        <div className="wysiwyg">
+          {content && parse(content)}
+          {attachments &&
+            attachments.map((a, key) => {
+              const { title, localFile } = a.file
+              return (
+                <a
+                  href={localFile.publicURL}
+                  className="cta --link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  key={key}
+                >
+                  <span>{title}</span>
+                </a>
+              )
+            })}
+        </div>
+      </AccordionItemPanel>
+    </AccordionItem>
+  )
+}
+
 const AccordionComp = ({ data }) => {
   const { blockOptions, title, entries } = data
 
   // const hasEntries = entries.length ? true : false
 
-  const { 
-    // backgroundGraphics, 
-    blockPosition, 
-    blockWidth 
+  const {
+    // backgroundGraphics,
+    blockPosition,
+    blockWidth,
   } = blockOptions
 
   const columns = {}
@@ -49,37 +83,7 @@ const AccordionComp = ({ data }) => {
               {entries && (
                 <Accordion allowZeroExpanded>
                   {entries.map((e, key) => {
-                    const { heading, content, attachments } = e.accordion
-                    return (
-                      <AccordionItem className="accordion-entry" key={key}>
-                        <AccordionItemHeading className="accordion-entry__header">
-                          <AccordionItemButton className="accordion-entry__button">
-                            <h4 className="--primary">{heading}</h4>
-                          </AccordionItemButton>
-                        </AccordionItemHeading>
-
-                        <AccordionItemPanel className="accordion-entry__content">
-                          <div className="wysiwyg">
-                            {content && parse(content)}
-                            {attachments &&
-                              attachments.map((a, key) => {
-                                const { title, localFile } = a.file
-                                return (
-                                  <a
-                                    href={localFile.publicURL}
-                                    className="cta --link"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    key={key}
-                                  >
-                                    <span>{title}</span>
-                                  </a>
-                                )
-                              })}
-                          </div>
-                        </AccordionItemPanel>
-                      </AccordionItem>
-                    )
+                    return <AccordionItemComp data={e.accordion} key={key} />
                   })}
                 </Accordion>
               )}
@@ -92,30 +96,3 @@ const AccordionComp = ({ data }) => {
 }
 
 export default AccordionComp
-
-// blockOptions {
-//   blockPosition
-//   blockWidth
-//   fieldGroupName
-//   backgroundGraphics {
-//     fieldGroupName
-//     size
-//     xposition
-//     yposition
-//   }
-// }
-// title
-// entries {
-//   accordion {
-//     heading
-//     content
-//     attachments {
-//       file {
-//         title
-//         localFile {
-//           publicURL
-//         }
-//       }
-//     }
-//   }
-// }

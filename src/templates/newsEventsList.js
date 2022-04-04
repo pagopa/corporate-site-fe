@@ -603,6 +603,11 @@ export const newsEventQuery = graphql`
                 }
               }
             }
+            ... on WpPage_Flexiblecontent_Body_Blocks_BlockUniversityAccordion {
+              fieldGroupName
+              pagination
+              title
+            }
           }
         }
       }
