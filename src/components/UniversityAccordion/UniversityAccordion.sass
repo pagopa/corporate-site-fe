@@ -12,17 +12,19 @@
           h4
             display: flex
             align-items: flex-start
+            justify-content: space-between
 
             &::after
               content: attr(data-status)
               position: relative
               font-size: 1.6rem
               color: $c-brand
-              margin-left: 1.2rem
+              margin-left: 2.2rem
               font-family: $f-alternative
               text-transform: uppercase
               font-weight: 700
               margin-top: 0.7rem
+              white-space: nowrap
     
     .pagination
       margin-bottom: 8rem
