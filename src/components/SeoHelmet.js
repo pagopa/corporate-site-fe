@@ -83,8 +83,22 @@ const SeoHelmet = ({ yoast, locale, data }) => {
           {`{
             "@context": "https://schema.org",
             "@type": "Organization",
-            "url": "http://www.example.com",
-            "logo": ${pagopaLogo}
+            "url": "${siteUrl}",
+            "logo": "${siteUrl}/pagopa.svg",
+            "name": "PagoPA S.p.A.",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Piazza Colonna, 370",
+              "addressLocality": "Roma",
+              "addressRegion": "RM",
+              "postalCode": "00187",
+              "addressCountry": "IT"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": 41.9015648,
+              "longitude": 12.4798447
+            }
           }`}
         </script>
       </Helmet>
