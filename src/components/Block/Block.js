@@ -21,6 +21,7 @@ import ContactsList from './../ContactsList/ContactsList'
 import AttachmentsGrid from './../AttachmentsGrid/AttachmentsGrid'
 import MediaHighlights from './../MediaHighlights/MediaHighlights'
 import ProjectsCarousel from './../ProjectsCarousel/ProjectsCarousel'
+import UniversityAccordion from './../UniversityAccordion/UniversityAccordion'
 
 const Block = ({ data, type, featuredImage, currentSlug }) => {
 
@@ -82,6 +83,9 @@ const Block = ({ data, type, featuredImage, currentSlug }) => {
       )}
       {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockAccordion` && (
         <Accordion data={data} />
+      )}
+      {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockUniversityAccordion` && (
+        <UniversityAccordion data={data} />
       )}
     </>
   )

@@ -20,6 +20,7 @@
     height: 4rem
     border: 2px solid $c-black
     font-size: 1.8rem
+    cursor: pointer
     
     &::after, &::before
       position: relative
@@ -50,15 +51,19 @@
       > span
         display: none
     
-    &:disabled
+    &:disabled, &[aria-disabled="true"]
       border: none
       cursor: not-allowed
+      color: $c-gray-dark
 
       &::after, &::before
         opacity: .3
 
   &__page
     margin: 0 .6rem
+
+    &:not(.is-current)
+      cursor: pointer
 
     > span, > a
       width: 4rem
@@ -73,3 +78,11 @@
         background-color: $c-brand
         color: #FFF
 
+  &.--reactpaginate
+
+    li
+      &:first-child
+        margin-right: 2rem
+
+      &:last-child
+        margin-left: 2rem 
