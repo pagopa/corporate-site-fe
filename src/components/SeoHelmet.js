@@ -94,11 +94,48 @@ const SeoHelmet = ({ yoast, locale, data }) => {
               "postalCode": "00187",
               "addressCountry": "IT"
             },
-            "geo": {
-              "@type": "GeoCoordinates",
-              "latitude": 41.9015648,
-              "longitude": 12.4798447
-            }
+            "department": [
+              {
+                "@type": "Organization",
+                "name": "Sede Legale",
+                "address": {
+                  "@type": "PostalAddress",
+                  "streetAddress": "Piazza Colonna 370",
+                  "addressLocality": "Roma",
+                  "addressRegion": "RM",
+                  "postalCode": "00187",
+                  "addressCountry": "IT"
+                },
+                "location": {
+                  "@type": "Place",
+                  "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 41.9015648,
+                    "longitude": 12.4798447
+                  }
+                }
+              },
+              {
+                "@type": "Organization",
+                "name": "Sede Operativa",
+                "address": {
+                  "@type": "PostalAddress",
+                  "streetAddress": "Via Sardegna 38",
+                  "addressLocality": "Roma",
+                  "addressRegion": "RM",
+                  "postalCode": "00187",
+                  "addressCountry": "IT"
+                },
+                "location": {
+                  "@type": "Place",
+                  "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 41.9095736,
+                    "longitude": 12.4914426
+                  }
+                }
+              }
+            ]
           }`}
         </script>
       </Helmet>
