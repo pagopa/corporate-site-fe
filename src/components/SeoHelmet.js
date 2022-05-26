@@ -87,12 +87,29 @@ const SeoHelmet = ({ yoast, locale, data }) => {
             "logo": "${siteUrl}/pagopa.svg"
           }`}
         </script>
+
         <script type="application/ld+json">
           {`{
             "@context": "https://schema.org",
             "@type": "Organization",
-            "url": "${siteUrl}",
             "name": "PagoPA S.p.A.",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Via Sardegna 38",
+              "addressLocality": "Roma",
+              "addressRegion": "RM",
+              "postalCode": "00187",
+              "addressCountry": "IT"
+            },
+            
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": 41.9095736,
+              "longitude": 12.4914426
+            },
+
+            "url": "${siteUrl}",
+
             "department": [
               {
                 "@type": "Organization",
@@ -111,26 +128,6 @@ const SeoHelmet = ({ yoast, locale, data }) => {
                     "@type": "GeoCoordinates",
                     "latitude": 41.9015648,
                     "longitude": 12.4798447
-                  }
-                }
-              },
-              {
-                "@type": "Organization",
-                "name": "Sede Operativa",
-                "address": {
-                  "@type": "PostalAddress",
-                  "streetAddress": "Via Sardegna 38",
-                  "addressLocality": "Roma",
-                  "addressRegion": "RM",
-                  "postalCode": "00187",
-                  "addressCountry": "IT"
-                },
-                "location": {
-                  "@type": "Place",
-                  "geo": {
-                    "@type": "GeoCoordinates",
-                    "latitude": 41.9095736,
-                    "longitude": 12.4914426
                   }
                 }
               }
