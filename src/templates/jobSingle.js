@@ -135,8 +135,11 @@ const JobPage = ({ location, data }) => {
           {`{
             "@context" : "https://schema.org/",
             "@type" : "JobPosting",
-            "title" : "${title}",
-            "description" : "${jobPositionFields.intro?.text}",
+            "title" : "${title.replace(/(<([^>]+)>)/gi, '')}",
+            "description" : "${(jobPositionFields.intro?.text).replace(
+              /(<([^>]+)>)/gi,
+              ''
+            )}",
             "datePosted" : "${jobPositionFields.openDate}",
             "validThrough" : "${jobPositionFields.closeDate}",
             "employmentType" : ["FULL_TIME", "PART_TIME", "INTERN"],
