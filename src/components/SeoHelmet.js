@@ -84,13 +84,14 @@ const SeoHelmet = ({ yoast, locale, data }) => {
             "@context": "https://schema.org",
             "@type": "Organization",
             "url": "${siteUrl}",
-            "logo": "${siteUrl}/pagopa.svg",
+            "logo": "${siteUrl}/pagopa.svg"
           }`}
         </script>
         <script type="application/ld+json">
           {`{
             "@context": "https://schema.org",
             "@type": "Organization",
+            "url": "${siteUrl}",
             "name": "PagoPA S.p.A.",
             "department": [
               {
