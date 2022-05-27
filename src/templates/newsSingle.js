@@ -9,6 +9,7 @@ import Image from '../components/Image/Image'
 import Layout from '../partials/Layout'
 import Cta from '../components/Cta/Cta'
 import NewsletterBanner from '../components/NewsletterBanner/NewsletterBanner'
+import { Helmet } from 'react-helmet'
 
 const Intro = ({ eyelet, title }) => {
   return (
@@ -48,12 +49,35 @@ const newsSingle = ({ location, data }) => {
     featuredImage,
   }
 
+  console.log();
+
   const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' },
     theDate = new Date(date).toLocaleDateString(currentLocale, dateOptions)
 
   return (
     <Layout locale={currentLocale} location={location}>
       <SeoHelmet yoast={seo} locale={currentLocale} data={pageProps} />
+
+      <Helmet>
+        <script type="application/ld+json">
+          {`{
+            "@context": "https://schema.org",
+            "@type": "NewsArticle",
+            "headline": "${title?.replace(/(<([^>]+)>)/gi, '')}",
+            "image": ${featuredImage?.node.localFile.childImageSharp.fixed.src},
+            "datePublished": "${date}",
+            "dateModified": "${date}",
+            "publisher": {
+              "@type": "Organization",
+              "name": "PagoPA S.p.A.",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.pagopa.it/pagopa.svg"
+              }
+            }
+          }`}
+        </script>
+      </Helmet>
 
       <article className="post-article">
         <Intro eyelet={newsCommonFields.eyelet} title={title} />
