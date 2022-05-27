@@ -64,7 +64,7 @@ const newsSingle = ({ location, data }) => {
             "@context": "https://schema.org",
             "@type": "NewsArticle",
             "headline": "${title?.replace(/(<([^>]+)>)/gi, '')}",
-            "image": ${featuredImage?.node.localFile.childImageSharp.fixed.src},
+            "image": "${featuredImage?.node.localFile.childImageSharp.fixed.src}",
             "datePublished": "${date}",
             "dateModified": "${date}",
             "publisher": {
