@@ -49,14 +49,6 @@ const Intro = ({ data, featuredImage, currentSlug }) => {
 
   // manage anchor list for accordion in page if present
 
-  const handleAnchorClick = (e) => {
-    e.preventDefault()
-    const anchor = e.currentTarget.href
-    console.log(anchor)
-    const target = anchor.split('#')[1]
-    window.location.hash = target
-    scrollToAccordion(target)
-  }
 
   const scrollToAccordion = (index) => {
     const accordions = [...document.querySelectorAll('.block-accordion')]
@@ -64,6 +56,13 @@ const Intro = ({ data, featuredImage, currentSlug }) => {
   }
 
   useEffect(() => {
+    const handleAnchorClick = (e) => {
+      e.preventDefault()
+      const anchor = e.currentTarget.href
+      const target = anchor.split('#')[1]
+      window.location.hash = target
+      scrollToAccordion(target)
+    }
     const anchors = document.querySelector('.accordion-anchors')?.querySelectorAll('a')
     if (anchors) smoothscroll.polyfill()
 

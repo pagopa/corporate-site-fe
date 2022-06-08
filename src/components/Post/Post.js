@@ -34,6 +34,10 @@ const Post = ({ data }) => {
     initiative: {
       it: 'Iniziative',
       en: 'Initiatives'
+    },
+    newsletter: {
+      it: 'Newsletter',
+      en: 'Newsletter'
     }
   }
 

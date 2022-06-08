@@ -23,12 +23,24 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const jobSingleTemplate = path.resolve(`./src/templates/jobSingle.js`)
   const pressSingleTemplate = path.resolve(`./src/templates/pressSingle.js`)
   const pressListTemplate = path.resolve(`./src/templates/pressList.js`)
+  const newsEventsListTemplate = path.resolve(`./src/templates/newsEventsList.js`)
   const newsSingleTemplate = path.resolve(`./src/templates/newsSingle.js`)
   const initiativeSingleTemplate = path.resolve(`./src/templates/initiativeSingle.js`)
   const eventSingleTemplate = path.resolve(`./src/templates/eventSingle.js`)
-  const newsEventsListTemplate = path.resolve(`./src/templates/newsEventsList.js`)
   const announcementSingleTemplate = path.resolve(`./src/templates/announcementSingle.js`)
   const announcementListTemplate = path.resolve(`./src/templates/announcementList.js`)
+
+  const newsletterListTemplate = path.resolve(`./src/templates/newsletterList.js`)
+  const newsletterSingleTemplate = path.resolve(`./src/templates/newsletterSingle.js`)
+
+  const baseData = `
+    id
+    slug
+    uri
+    locale {
+      id
+    }
+  `
 
   const result = await graphql(`
     {
@@ -49,9 +61,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       ) {
         edges {
           node {
-            id
-            locale {
-              id
+            ${baseData}
+            postConfig {
+              doNotBuild
             }
           }
         }
@@ -62,12 +74,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       ) {
         edges {
           node {
-            id
-            slug
-            uri
-            locale {
-              id
-            }
+            ${baseData}
             postConfig {
               doNotBuild
             }
@@ -80,11 +87,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       ) {
         edges {
           node {
-            id
-            slug
-            uri
-            locale {
-              id
+            ${baseData}
+            postConfig {
+              doNotBuild
             }
           }
         }
@@ -95,11 +100,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       ) {
         edges {
           node {
-            id
-            slug
-            uri
-            locale {
-              id
+            ${baseData}
+            postConfig {
+              doNotBuild
             }
           }
         }
@@ -110,11 +113,22 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       ) {
         edges {
           node {
-            id
-            slug
-            uri
-            locale {
-              id
+            ${baseData}
+            postConfig {
+              doNotBuild
+            }
+          }
+        }
+      }
+
+      newslettersLists: allWpPage(
+        filter: { title: { eq: "Newsletter Outer Space" } }
+      ) {
+        edges {
+          node {
+            ${baseData}
+            postConfig {
+              doNotBuild
             }
           }
         }
@@ -123,12 +137,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       projectSingles: allWpProject {
         edges {
           node {
-            id
-            slug
-            uri
-            locale {
-              id
-            }
+            ${baseData}
           }
         }
       }
@@ -136,11 +145,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       jobSingles: allWpJobPosition {
         edges {
           node {
-            id
-            slug
-            locale {
-              id
-            }
+            ${baseData}
           }
         }
       }
@@ -148,11 +153,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       pressSingles: allWpPressReleases(sort: {fields: date, order: DESC}) {
         edges {
           node {
-            id
-            slug
-            locale {
-              id
-            }
+            ${baseData}
           }
         }
       }
@@ -160,11 +161,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       newsSingles: allWpPost(sort: {fields: date, order: DESC}) {
         edges {
           node {
-            id
-            slug
-            locale {
-              id
-            }
+            ${baseData}
           }
         }
       }
@@ -172,11 +169,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       initiativeSingles: allWpInitiative(sort: {fields: date, order: DESC}) {
         edges {
           node {
-            id
-            slug
-            locale {
-              id
-            }
+            ${baseData}
           }
         }
       }
@@ -184,11 +177,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       eventSingles: allWpEvent(sort: {fields: eventField___eventDate, order: DESC}) {
         edges {
           node {
-            id
-            slug
-            locale {
-              id
-            }
+            ${baseData}
           }
         }
       }
@@ -196,11 +185,15 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       announcementSingles: allWpInnovationAnnouncement(sort: {fields: date, order: DESC}) {
         edges {
           node {
-            id
-            slug
-            locale {
-              id
-            }
+            ${baseData}
+          }
+        }
+      }
+
+      newsletterSingles: allWpNewsletter(sort: {fields: date, order: DESC}) {
+        edges {
+          node {
+            ${baseData}
           }
         }
       }
@@ -314,6 +307,29 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       itemsPerPage: 12,
       pathPrefix: `/${page.locale.id}/${page.uri.replace(/\/$/, "")}`,
       component: announcementListTemplate,
+      context: {
+        id: page.id,
+        locale: page.locale.id,
+      }
+    })
+    
+  })
+
+
+  // newsletter list 
+
+  const newslettersListsNodes = result.data.newslettersLists.edges
+
+  _.each(newslettersListsNodes, ({ node: page }) => {
+
+    const newsletterSingles = result.data.newsletterSingles.edges
+
+    paginate({
+      createPage,
+      items: newsletterSingles,
+      itemsPerPage: 12,
+      pathPrefix: `/${page.locale.id}/${page.uri.replace(/\/$/, "")}${'2'}`,
+      component: newsletterListTemplate,
       context: {
         id: page.id,
         locale: page.locale.id,
@@ -481,6 +497,30 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     createPage({
       path: `/${page.locale.id}/${announcementDir}/${page.slug}`,
       component: announcementSingleTemplate,
+      context: {
+        id: page.id,
+        locale: page.locale.id,
+      },
+    })
+  })
+
+
+  // newsletter
+
+  const newsletterSingleNodes = result.data.newsletterSingles.edges
+
+  const newsletterTranslations = translations.find(
+    t => t.stringKey === 'newsletter_cpt_slug'
+  )
+
+  _.each(newsletterSingleNodes, ({ node: page }) => {
+    const newsletterDir = page.locale.id === 'it'
+        ? newsletterTranslations.itValue
+        : newsletterTranslations.enValue
+
+    createPage({
+      path: `/${page.locale.id}/${newsletterDir}/${page.slug}`,
+      component: newsletterSingleTemplate,
       context: {
         id: page.id,
         locale: page.locale.id,
