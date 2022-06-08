@@ -13,7 +13,9 @@ import './Intro.sass'
 
 const IntroMenu = ({ name, currentSlug }) => {
   const allMenus = useMenu()
-  const introMenuItems = allMenus.filter(menu => menu.node.name === name)[0].node.menuItems
+  const introMenuItems = allMenus.filter(menu => menu.node.name === name)[0]?.node.menuItems
+
+  if (!introMenuItems) return <></>
 
   return (
     <>

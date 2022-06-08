@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { Helmet } from 'react-helmet'
 import { graphql } from 'gatsby'
 import parse from 'html-react-parser'
 
@@ -21,6 +22,7 @@ const JobIntro = ({ data, locale }) => {
     hiredPositions,
     selectedPeople,
   } = data
+
   const { eyelet, title, text } = intro
 
   const startDate = openDate
@@ -128,6 +130,37 @@ const JobPage = ({ location, data }) => {
     <Layout locale={currentLocale} location={location}>
       <SeoHelmet yoast={seo} locale={currentLocale} data={pageProps} />
 
+      <Helmet>
+        <script type="application/ld+json">
+          {`{
+            "@context" : "https://schema.org/",
+            "@type" : "JobPosting",
+            "title" : "${title?.replace(/(<([^>]+)>)/gi, '')}",
+            "description" : "${(jobPositionFields.intro?.text)?.replace(/(<([^>]+)>)/gi, '')}",
+            "datePosted" : "${jobPositionFields.openDate}",
+            "validThrough" : "${jobPositionFields.closeDate}",
+            "employmentType" : ["FULL_TIME", "PART_TIME", "INTERN"],
+            "hiringOrganization" : {
+              "@type" : "Organization",
+              "name": "PagoPA S.p.A.",
+              "sameAs" : "https://www.pagopa.it/it/",
+              "logo" : "http://www.example.com/images/logo.png"
+            },
+            "jobLocation": {
+              "@type": "Place",
+                "address": {
+                  "@type": "PostalAddress",
+                  "streetAddress": "Via Sardegna 38",
+                  "addressLocality": "Roma",
+                  "addressRegion": "RM",
+                  "postalCode": "00187",
+                  "addressCountry": "IT"
+                }
+              }
+            }`}
+        </script>
+      </Helmet>
+
       <article className="job">
         <JobIntro data={jobPositionFields} locale={locale} />
 
@@ -141,7 +174,9 @@ const JobPage = ({ location, data }) => {
                   <div className="row">
                     <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
                       {title && <h4>{title}</h4>}
-                      {description && <div className="wysiwyg">{parse(description)}</div>}
+                      {description && (
+                        <div className="wysiwyg">{parse(description)}</div>
+                      )}
                     </div>
                   </div>
                 </div>
