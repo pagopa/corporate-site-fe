@@ -31,8 +31,8 @@ const SeoHelmet = ({ yoast, locale, data }) => {
     title: yoastTitle || `${postTitle} - ${siteTitle}` || title,
     description: yoastDescription || siteDescription || description,
     image:
-      yoastImage?.localFile.childImageSharp.fixed.src ||
-      postImage?.node.localFile.childImageSharp.fixed.src ||
+      yoastImage?.localFile.childImageSharp?.fixed?.src ||
+      postImage?.node.localFile.childImageSharp?.fixed?.src ||
       siteImage?.localFile.publicURL,
   }
 
