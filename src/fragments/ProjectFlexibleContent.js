@@ -192,6 +192,7 @@ export const ProjectFlexibleContent = graphql`
             }
           }
           ... on WpProject_Flexiblecontent_Body_Blocks_BlockIntro {
+            fieldGroupName
             blockOptions {
               backgroundGraphics {
                 fieldGroupName
@@ -202,7 +203,6 @@ export const ProjectFlexibleContent = graphql`
               blockPosition
               blockWidth
             }
-            fieldGroupName
             eyelet
             title
             text
@@ -213,9 +213,17 @@ export const ProjectFlexibleContent = graphql`
                 extension
                 publicURL
                 childImageSharp {
-                  gatsbyImageData(width: 1280)
+                  gatsbyImageData(layout: CONSTRAINED)
                 }
               }
+            }
+            introMenu
+
+            eventInfos {
+              eventDate
+              eventEnd
+              eventVenue
+              fieldGroupName
             }
           }
           ... on WpProject_Flexiblecontent_Body_Blocks_BlockList {

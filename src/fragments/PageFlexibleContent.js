@@ -232,6 +232,13 @@ export const PageFlexibleContent = graphql`
               }
             }
             introMenu
+
+            eventInfos {
+              eventDate
+              eventEnd
+              eventVenue
+              fieldGroupName
+            }
           }
           ... on WpPage_Flexiblecontent_Body_Blocks_BlockList {
             fieldGroupName
