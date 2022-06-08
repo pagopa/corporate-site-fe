@@ -218,7 +218,7 @@ export const ProjectFlexibleContent = graphql`
               }
             }
             introMenu
-
+            isEventLanding
             eventInfos {
               eventDate
               eventEnd

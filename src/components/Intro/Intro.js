@@ -48,6 +48,7 @@ const Intro = ({ data, featuredImage, currentSlug }) => {
     image,
     usePostFeaturedImage,
     introMenu,
+    isEventLanding,
     eventInfos,
   } = data
 
@@ -124,7 +125,7 @@ const Intro = ({ data, featuredImage, currentSlug }) => {
           </div>
         </div>
         
-        {(eventDate || eventEnd || eventVenue) && (
+        {isEventLanding && (eventDate || eventEnd || eventVenue) && (
           <div className="row">
             <div className="col-12 d-inline-flex justify-content-center text-left">
               <div className="intro__data flex-wrap flex-md-nowrap">

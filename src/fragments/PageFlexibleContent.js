@@ -232,7 +232,7 @@ export const PageFlexibleContent = graphql`
               }
             }
             introMenu
-
+            isEventLanding
             eventInfos {
               eventDate
               eventEnd
