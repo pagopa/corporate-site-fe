@@ -131,13 +131,13 @@ const Intro = ({ data, featuredImage, currentSlug }) => {
               <div className="intro__data flex-wrap flex-md-nowrap">
                 {eventDate && (
                   <div>
-                    <p className="--label">DATA</p>
+                    <p className="--label">DATA{eventEnd && " INIZIO"}</p>
                     <p>{new Date(eventDate).toLocaleDateString('it', { year: 'numeric', month: '2-digit', day: '2-digit' })}</p>
                   </div>
                 )}
                 {eventEnd && (
                   <div>
-                    <p className="--label">DATA</p>
+                    <p className="--label">DATA FINE</p>
                     <p>{new Date(eventEnd).toLocaleDateString('it', { year: 'numeric', month: '2-digit', day: '2-digit' })}</p>
                   </div>
                 )}
