@@ -33,7 +33,7 @@ const AttachmentsGrid = ({ data }) => {
           <div className={`col-12 ${columns[blockWidth]}`}>
             {title && <h1>{title}</h1>}
             <div className="row">
-              {entries.map(({ icon, attachment, label }, key) => {
+              {entries?.map(({ icon, attachment, label }, key) => {
 
                 return (
                   <div className="col-12 col-md-6 col-lg-4 d-flex" key={key}>

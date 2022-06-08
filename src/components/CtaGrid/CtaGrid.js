@@ -12,7 +12,7 @@ const CtaGrid = ({ data }) => {
         <div className="row align-items-center">
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
             <div className="row">
-              {items.map((item, key) => {
+              {items?.map((item, key) => {
                 const { title, text, link } = item
                 return (
                   <div className="col-12 col-md-6 col-lg-4 d-flex" key={key}>
