@@ -31,8 +31,8 @@ const SeoHelmet = ({ yoast, locale, data }) => {
     title: yoastTitle || `${postTitle} - ${siteTitle}` || title,
     description: yoastDescription || siteDescription || description,
     image:
-      yoastImage?.localFile.childImageSharp.fixed.src ||
-      postImage?.node.localFile.childImageSharp.fixed.src ||
+      yoastImage?.localFile.childImageSharp?.fixed?.src ||
+      postImage?.node.localFile.childImageSharp?.fixed?.src ||
       siteImage?.localFile.publicURL,
   }
 
@@ -83,7 +83,7 @@ const SeoHelmet = ({ yoast, locale, data }) => {
           {`{
             "@context": "https://schema.org",
             "@type": "Organization",
-            "url": "https://www.pagopa.it/it",
+            "url": "https://www.pagopa.it/it/",
             "logo": "https://www.pagopa.it/pagopa.svg"
           }`}
         </script>
@@ -92,6 +92,7 @@ const SeoHelmet = ({ yoast, locale, data }) => {
           {`{
             "@context": "https://schema.org",
             "@type": "Organization",
+            "additionalType": "Technology Company",
             "name": "PagoPA S.p.A.",
             "address": {
               "@type": "PostalAddress",
@@ -101,12 +102,37 @@ const SeoHelmet = ({ yoast, locale, data }) => {
               "postalCode": "00187",
               "addressCountry": "IT"
             },
+            "department": [
+              {
+                "@type": "Organization",
+                "name": "Sede Legale",
+                "address": {
+                  "@type": "PostalAddress",
+                  "streetAddress": "Piazza Colonna 370",
+                  "addressLocality": "Roma",
+                  "addressRegion": "RM",
+                  "postalCode": "00187",
+                  "addressCountry": "IT"
+                }
+              }, {
+                "@type": "Organization",
+                "name": "Sede Operativa",
+                "address": {
+                  "@type": "PostalAddress",
+                  "streetAddress": "Via Sardegna 38",
+                  "addressLocality": "Roma",
+                  "addressRegion": "RM",
+                  "postalCode": "00187",
+                  "addressCountry": "IT"
+                }
+              }
+            ],
             "geo": {
               "@type": "GeoCoordinates",
               "latitude": 41.9095736,
               "longitude": 12.4914426
             },
-            "url": "https://www.pagopa.it/it"
+            "url": "https://www.pagopa.it/it/"
           }`}
         </script>
       </Helmet>
