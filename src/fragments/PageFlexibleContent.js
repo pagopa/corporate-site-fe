@@ -227,7 +227,7 @@ export const PageFlexibleContent = graphql`
                 extension
                 publicURL
                 childImageSharp {
-                  gatsbyImageData(width: 1280)
+                  gatsbyImageData(layout: CONSTRAINED)
                 }
               }
             }

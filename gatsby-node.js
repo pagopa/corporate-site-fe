@@ -122,7 +122,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       }
 
       newslettersLists: allWpPage(
-        filter: { template: { templateName: { eq: "Newsletter" } } }
+        filter: { template: { templateName: { eq: "Newsletters" } } }
       ) {
         edges {
           node {
@@ -328,7 +328,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       createPage,
       items: newsletterSingles,
       itemsPerPage: 12,
-      pathPrefix: `/${page.locale.id}/${page.uri.replace(/\/$/, "")}${'2'}`,
+      pathPrefix: `/${page.locale.id}/${page.uri.replace(/\/$/, "")}`,
       component: newsletterListTemplate,
       context: {
         id: page.id,
