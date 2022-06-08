@@ -27,7 +27,9 @@ const urlParser = data => {
         newsTranslations = translations.find(t => t.stringKey === 'news_cpt_slug'),
         newsDir = newsTranslations[`${locale}Value`],
         eventTranslations = translations.find(t => t.stringKey === 'event_cpt_slug'),
-        eventDir = eventTranslations[`${locale}Value`]
+        eventDir = eventTranslations[`${locale}Value`],
+        newsletterTranslations = translations.find(t => t.stringKey === 'newsletter_cpt_slug'),
+        newsletterDir = newsletterTranslations[`${locale}Value`]
 
   const urlObject = isAbsolute ? new URL(url) : false
 
@@ -57,6 +59,9 @@ const urlParser = data => {
     if (type === 'InnovationAnnouncement') {
       return `/${locale}/${announcementDir}/${url}/`
     }
+    if (type === 'Newsletter') {
+      return `/${locale}/${newsletterDir}/${url}/`
+    }
   }
 
 
@@ -74,8 +79,21 @@ const Cta = ({ label, url, blank = false, variant = false, type }) => {
 
   const params = { url, locale, type, translations, siteUrl, cmsUrl }
 
+
   const theHref = urlParser(params),
         isBlank = blank
+  
+  if (!url) {
+    return (
+      <>
+        <span
+          className={`cta${variant ? ` --${variant}` : ''}`}
+        >
+          <span>{label}</span>
+        </span>
+      </>
+    )
+  }
 
   return (
     <>

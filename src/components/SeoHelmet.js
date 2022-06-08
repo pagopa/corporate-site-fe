@@ -5,7 +5,6 @@ import { Helmet } from 'react-helmet'
 import { useWpOptionsPage } from '../hooks/useWpOptionsPage'
 import { useSiteMetadata } from '../hooks/useSiteMetadata'
 
-import pagopaLogo from '../images/pagopa.svg'
 
 const SeoHelmet = ({ yoast, locale, data }) => {
   const { title, description, siteUrl } = useSiteMetadata()
