@@ -122,7 +122,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       }
 
       newslettersLists: allWpPage(
-        filter: { title: { eq: "Newsletter Outer Space" } }
+        filter: { template: { templateName: { eq: "Newsletter" } } }
       ) {
         edges {
           node {
