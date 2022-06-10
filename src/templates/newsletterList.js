@@ -9,47 +9,29 @@ import Layout from '../partials/Layout'
 import Block from '../components/Block/Block'
 import NewsletterBanner from '../components/NewsletterBanner/NewsletterBanner'
 import Pagination from '../components/Pagination/Pagination'
-import Cta from '../components/Cta/Cta'
+import Post from '../components/Post/Post'
 
-const Announcements = ({ data }) => {
+const Newsletters = ({ data }) => {
   const locale = useContext(LocaleContext)
 
-  const { edges: allAnnouncements } = data
+  const { edges: allNewsletters } = data
 
-  const currentLocalePress = allAnnouncements.filter(
-    j => j.node.locale.id === locale
-  )
+  const currentLocale = allNewsletters.filter(j => j.node.locale.id === locale)
 
   return (
     <>
-      {currentLocalePress.map((pr, key) => {
-        const { date, title, slug, content, locale, nodeType } = pr.node
-
-        const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' },
-          theDate = new Date(date).toLocaleDateString(locale.id, dateOptions)
-
-        const text = content.replace(/(<([^>]+)>)/gi, '')
-        const abstract = text.split(' ').splice(0, 36).join(' ')
-
+      {currentLocale.map((pr, key) => {
         return (
-          <article className="press-release" key={key}>
-            <div>
-              <h4>{theDate}</h4>
-              <h3 className="--light">{title}</h3>
-              <div className="wysiwyg">
-                <p>{abstract}...</p>
-              </div>
-            </div>
-
-            <Cta url={slug} label="Leggi" type={nodeType} />
-          </article>
+          <div className="col-12 col-lg-6 d-flex" key={key}>
+            <Post data={pr.node} />
+          </div>
         )
       })}
     </>
   )
 }
 
-const AnnouncementsPage = ({ location, data, pageContext }) => {
+const NewslettersPage = ({ location, data, pageContext }) => {
   const {
       title,
       slug,
@@ -59,11 +41,11 @@ const AnnouncementsPage = ({ location, data, pageContext }) => {
       flexibleContent,
       nodeType,
       uri,
-      postConfig: { bannerNewsletter }
+      postConfig: { bannerNewsletter },
     } = data.page,
     blocks = flexibleContent.body.blocks
 
-  const announcementsCollection = data.allAnnouncements
+  const newslettersCollection = data.allNewsletters
 
   const currentLocale = locale.id,
     currentSlug = slug
@@ -80,16 +62,16 @@ const AnnouncementsPage = ({ location, data, pageContext }) => {
 
       {blocks &&
         blocks.map((block, key) => {
-          return (
-            <Block data={block} key={key} type={nodeType} {...pageProps} />
-          )
+          return <Block data={block} key={key} type={nodeType} {...pageProps} />
         })}
 
       <section className="press-release-list">
         <div className="container-fluid">
           <div className="row">
             <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-              <Announcements data={announcementsCollection} />
+              <div className="row">
+                <Newsletters data={newslettersCollection} />
+              </div>
               <Pagination
                 context={pageContext}
                 baseUri={uri.replace(/\/$/, '')}
@@ -103,35 +85,47 @@ const AnnouncementsPage = ({ location, data, pageContext }) => {
     </Layout>
   )
 }
-export default AnnouncementsPage
+export default NewslettersPage
 
-export const announcementsQuery = graphql`
-  query annoucements($id: String!, $skip: Int!, $limit: Int!) {
+export const newslettersQuery = graphql`
+  query newsletters($id: String!, $skip: Int!, $limit: Int!) {
     page: wpPage(id: { eq: $id }) {
       ...PageBaseData
-
       ...PageFeaturedImage
-
       ...PageSeo
-
       ...PageFlexibleContent
-
     }
-    allAnnouncements: allWpInnovationAnnouncement(
+    allNewsletters: allWpNewsletter(
       sort: { fields: date, order: DESC }
       skip: $skip
       limit: $limit
     ) {
       edges {
         node {
+          nodeType
+          slug
           date
           title
-          slug
           content
+          featuredImage {
+            node {
+              altText
+              localFile {
+                childImageSharp {
+                  gatsbyImageData(
+                    layout: FULL_WIDTH
+                    aspectRatio: 1.33
+                    width: 460
+                    height: 346
+                    transformOptions: { cropFocus: ATTENTION }
+                  )
+                }
+              }
+            }
+          }
           locale {
             id
           }
-          nodeType
         }
       }
     }

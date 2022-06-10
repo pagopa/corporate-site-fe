@@ -42,7 +42,7 @@ const MediaHighlights = ({ data }) => {
           <div className={`col-12 ${columns[blockWidth]}`}>
             {title && <h1>{title}</h1>}
             <div className="row">
-              {posts.map(
+              {posts?.map(
                 ({ nodeType, date, title, content, slug, eventField }, key) => {
                   const dateOptions = {
                       year: 'numeric',

@@ -63,7 +63,7 @@ const initiativeSingle = ({ location, data }) => {
             {featuredImage && (
               <figure className="post-article__visual">
                 <div className="row">
-                  <div className="col-12 col-lg-10 offset-lg-1">
+                  <div className="col-12 col-lg-10 offset-lg-1 d-flex align-items-center justify-content-center">
                     <Image
                       image={featuredImage.node.localFile}
                       title={featuredImage.node.altText}
@@ -124,11 +124,7 @@ export const initiativeQuery = graphql`
           localFile {
             childImageSharp {
               gatsbyImageData(
-                layout: FULL_WIDTH
-                aspectRatio: 1.9
-                width: 1280
-                height: 680
-                transformOptions: { cropFocus: ATTENTION }
+                layout: CONSTRAINED
               )
             }
           }

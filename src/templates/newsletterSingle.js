@@ -28,19 +28,19 @@ const Intro = ({ eyelet, title }) => {
   )
 }
 
-const newsSingle = ({ location, data }) => {
+const newsletterSingle = ({ location, data }) => {
   const {
     date,
     title,
     locale,
     content,
-    newsCommonFields,
+    newsletterCommonFields,
     featuredImage,
     seo,
     postConfig: { bannerNewsletter },
-  } = data.wpPost
+  } = data.wpNewsletter
 
-  const cta = newsCommonFields.cta
+  const cta = newsletterCommonFields.cta
 
   const currentLocale = locale.id
 
@@ -48,8 +48,6 @@ const newsSingle = ({ location, data }) => {
     title,
     featuredImage,
   }
-
-  console.log();
 
   const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' },
     theDate = new Date(date).toLocaleDateString(currentLocale, dateOptions)
@@ -80,7 +78,7 @@ const newsSingle = ({ location, data }) => {
       </Helmet>
 
       <article className="post-article">
-        <Intro eyelet={newsCommonFields.eyelet} title={title} />
+        <Intro eyelet={newsletterCommonFields.eyelet} title={title} />
 
         <div className="post-article__body">
           <div className="container-fluid">
@@ -123,18 +121,18 @@ const newsSingle = ({ location, data }) => {
     </Layout>
   )
 }
-export default newsSingle
+export default newsletterSingle
 
 export const newsQuery = graphql`
-  query newsSingle($id: String!) {
-    wpPost(id: { eq: $id }) {
+  query newsletterSingle($id: String!) {
+    wpNewsletter(id: { eq: $id }) {
       id
       nodeType
       slug
       date
       title
       content
-      newsCommonFields {
+      newsletterCommonFields {
         eyelet
         cta {
           target

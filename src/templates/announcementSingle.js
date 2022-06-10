@@ -45,8 +45,6 @@ const Intro = ({ eyelet, title, location }) => {
 
   const currentSlug = locationFragments[1]
 
-  console.log(currentSlug)
-
   return (
     <header className="block --block-intro intro">
       <div className="container-fluid">
@@ -201,7 +199,9 @@ export const announcementQuery = graphql`
               fixed(fit: COVER, quality: 90, width: 1200, height: 627) {
                 src
               }
-              gatsbyImageData(width: 1280)
+              gatsbyImageData(
+                layout: CONSTRAINED
+              )
             }
           }
         }

@@ -5,7 +5,6 @@ import { Helmet } from 'react-helmet'
 import { useWpOptionsPage } from '../hooks/useWpOptionsPage'
 import { useSiteMetadata } from '../hooks/useSiteMetadata'
 
-import pagopaLogo from '../images/pagopa.svg'
 
 const SeoHelmet = ({ yoast, locale, data }) => {
   const { title, description, siteUrl } = useSiteMetadata()
@@ -31,8 +30,8 @@ const SeoHelmet = ({ yoast, locale, data }) => {
     title: yoastTitle || `${postTitle} - ${siteTitle}` || title,
     description: yoastDescription || siteDescription || description,
     image:
-      yoastImage?.localFile.childImageSharp.fixed.src ||
-      postImage?.node.localFile.childImageSharp.fixed.src ||
+      yoastImage?.localFile.childImageSharp?.fixed?.src ||
+      postImage?.node.localFile.childImageSharp?.fixed?.src ||
       siteImage?.localFile.publicURL,
   }
 
