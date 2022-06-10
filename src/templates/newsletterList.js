@@ -21,14 +21,6 @@ const Newsletters = ({ data }) => {
   return (
     <>
       {currentLocale.map((pr, key) => {
-        const { date, title, slug, content, locale, nodeType } = pr.node
-
-        const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' },
-          theDate = new Date(date).toLocaleDateString(locale.id, dateOptions)
-
-        const text = content.replace(/(<([^>]+)>)/gi, '')
-        const abstract = text.split(' ').splice(0, 36).join(' ')
-
         return (
           <div className="col-12 col-lg-6 d-flex" key={key}>
             <Post data={pr.node} />

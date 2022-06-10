@@ -237,7 +237,9 @@ export const jobQuery = graphql`
               fixed(fit: COVER, quality: 90, width: 1200, height: 627) {
                 src
               }
-              gatsbyImageData(width: 1280)
+              gatsbyImageData(
+                layout: CONSTRAINED
+              )
             }
           }
         }

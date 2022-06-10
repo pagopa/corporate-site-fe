@@ -95,7 +95,7 @@ const Intro = ({ data, featuredImage, currentSlug }) => {
     if (image) {
       return (
         <div className="row">
-          <div className="col-12 col-md-10 offset-md-1">
+          <div className="col-12 col-lg-10 offset-lg-1 d-flex align-items-center justify-content-center">
             <Image image={coverImage.localFile} title={coverImage.altText} />
           </div>
         </div>
