@@ -443,6 +443,13 @@ export const PageFlexibleContent = graphql`
                 slug
                 nodeType
               }
+              ... on WpNewsletter {
+                date
+                title
+                content
+                slug
+                nodeType
+              }
             }
             blockOptions {
               blockPosition
