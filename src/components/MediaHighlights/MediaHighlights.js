@@ -14,6 +14,8 @@ const MediaHighlights = ({ data }) => {
 
   const { title, posts, blockOptions } = data
 
+  console.log(data.posts);
+
   const { 
     // backgroundGraphics,
     blockPosition, 
@@ -73,6 +75,13 @@ const MediaHighlights = ({ data }) => {
                         locale === 'it'
                           ? 'Iniziative'
                           : 'Initiatives',
+                      icon: iconPressReleases,
+                    },
+                    Newsletter: {
+                      label:
+                        locale === 'it'
+                          ? 'Newsletters'
+                          : 'Newsletters',
                       icon: iconPressReleases,
                     }
                   }
