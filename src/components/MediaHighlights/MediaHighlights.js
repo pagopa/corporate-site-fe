@@ -7,6 +7,7 @@ import './MediaHighlights.sass'
 
 import iconNews from '../../images/icon-news.svg'
 import iconEvents from '../../images/icon-events.svg'
+import iconNewsletters from '../../images/icon-newsletters.svg'
 import iconPressReleases from '../../images/icon-pressreleases.svg'
 
 const MediaHighlights = ({ data }) => {
@@ -14,12 +15,10 @@ const MediaHighlights = ({ data }) => {
 
   const { title, posts, blockOptions } = data
 
-  console.log(data.posts);
-
-  const { 
+  const {
     // backgroundGraphics,
-    blockPosition, 
-    blockWidth 
+    blockPosition,
+    blockWidth,
   } = blockOptions
 
   const columns = {}
@@ -47,12 +46,17 @@ const MediaHighlights = ({ data }) => {
               {posts?.map(
                 ({ nodeType, date, title, content, slug, eventField }, key) => {
                   const dateOptions = {
-                      year: 'numeric',
-                      month: '2-digit',
-                      day: '2-digit',
-                    }
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                  }
 
-                  const theDate = eventField?.eventDate || date ? new Date(eventField?.eventDate ? eventField.eventDate : date).toLocaleDateString(locale, dateOptions) : false
+                  const theDate =
+                    eventField?.eventDate || date
+                      ? new Date(
+                          eventField?.eventDate ? eventField.eventDate : date
+                        ).toLocaleDateString(locale, dateOptions)
+                      : false
 
                   const typeProps = {
                     Post: {
@@ -71,19 +75,13 @@ const MediaHighlights = ({ data }) => {
                       icon: iconPressReleases,
                     },
                     Initiative: {
-                      label:
-                        locale === 'it'
-                          ? 'Iniziative'
-                          : 'Initiatives',
+                      label: locale === 'it' ? 'Iniziative' : 'Initiatives',
                       icon: iconPressReleases,
                     },
                     Newsletter: {
-                      label:
-                        locale === 'it'
-                          ? 'Newsletters'
-                          : 'Newsletters',
-                      icon: iconPressReleases,
-                    }
+                      label: locale === 'it' ? 'Newsletters' : 'Newsletters',
+                      icon: iconNewsletters,
+                    },
                   }
 
                   const titleArray = title.split(' ')
