@@ -13,7 +13,7 @@ exports.onCreateWebpackConfig = ({ actions }) => {
 
 const _ = require('lodash')
 const path = require('path')
-const { paginate } = require('gatsby-awesome-pagination');
+const { paginate } = require('gatsby-awesome-pagination')
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions
@@ -23,15 +23,27 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const jobSingleTemplate = path.resolve(`./src/templates/jobSingle.js`)
   const pressSingleTemplate = path.resolve(`./src/templates/pressSingle.js`)
   const pressListTemplate = path.resolve(`./src/templates/pressList.js`)
-  const newsEventsListTemplate = path.resolve(`./src/templates/newsEventsList.js`)
+  const newsEventsListTemplate = path.resolve(
+    `./src/templates/newsEventsList.js`
+  )
   const newsSingleTemplate = path.resolve(`./src/templates/newsSingle.js`)
-  const initiativeSingleTemplate = path.resolve(`./src/templates/initiativeSingle.js`)
+  const initiativeSingleTemplate = path.resolve(
+    `./src/templates/initiativeSingle.js`
+  )
   const eventSingleTemplate = path.resolve(`./src/templates/eventSingle.js`)
-  const announcementSingleTemplate = path.resolve(`./src/templates/announcementSingle.js`)
-  const announcementListTemplate = path.resolve(`./src/templates/announcementList.js`)
+  const announcementSingleTemplate = path.resolve(
+    `./src/templates/announcementSingle.js`
+  )
+  const announcementListTemplate = path.resolve(
+    `./src/templates/announcementList.js`
+  )
 
-  const newsletterListTemplate = path.resolve(`./src/templates/newsletterList.js`)
-  const newsletterSingleTemplate = path.resolve(`./src/templates/newsletterSingle.js`)
+  const newsletterListTemplate = path.resolve(
+    `./src/templates/newsletterList.js`
+  )
+  const newsletterSingleTemplate = path.resolve(
+    `./src/templates/newsletterSingle.js`
+  )
 
   const baseData = `
     id
@@ -243,21 +255,19 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const pressListNodes = result.data.pressLists.edges
 
   _.each(pressListNodes, ({ node: page }) => {
-
     const pressSingles = result.data.pressSingles.edges
 
     paginate({
       createPage,
       items: pressSingles,
       itemsPerPage: 12,
-      pathPrefix: `/${page.locale.id}/${page.uri.replace(/\/$/, "")}`,
+      pathPrefix: `/${page.locale.id}/${page.uri.replace(/\/$/, '')}`,
       component: pressListTemplate,
       context: {
         id: page.id,
         locale: page.locale.id,
-      }
+      },
     })
-
   })
 
   // news / event list
@@ -265,17 +275,22 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const newsEventListNodes = result.data.newsEventLists.edges
 
   _.each(newsEventListNodes, ({ node: page }) => {
-
     const news = result.data.newsSingles.edges,
-          events = result.data.eventSingles.edges,
-          posts = [...news, ...events]
-    
+      events = result.data.eventSingles.edges,
+      posts = [...news, ...events]
+
     posts.sort((a, b) => {
-      const aDate = a.node.nodeType === 'Event' ? a.node.eventField.eventDate : a.node.date,
-            bDate = b.node.nodeType === 'Event' ? b.node.eventField.eventDate : b.node.date,
-            aTime = new Date(aDate).getTime(),
-            bTime = new Date(bDate).getTime()
-  
+      const aDate =
+          a.node.nodeType === 'Event'
+            ? a.node.eventField.eventDate
+            : a.node.date,
+        bDate =
+          b.node.nodeType === 'Event'
+            ? b.node.eventField.eventDate
+            : b.node.date,
+        aTime = new Date(aDate).getTime(),
+        bTime = new Date(bDate).getTime()
+
       return bTime - aTime
     })
 
@@ -283,61 +298,54 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       createPage,
       items: posts,
       itemsPerPage: 12,
-      pathPrefix: `/${page.locale.id}/${page.uri.replace(/\/$/, "")}`,
+      pathPrefix: `/${page.locale.id}/${page.uri.replace(/\/$/, '')}`,
       component: newsEventsListTemplate,
       context: {
         id: page.id,
         locale: page.locale.id,
-      }
+      },
     })
-
   })
 
-  // innovation announcements list 
+  // innovation announcements list
 
   const announcementsListsNodes = result.data.announcementsLists.edges
 
   _.each(announcementsListsNodes, ({ node: page }) => {
-
     const announcementSingles = result.data.announcementSingles.edges
 
     paginate({
       createPage,
       items: announcementSingles,
       itemsPerPage: 12,
-      pathPrefix: `/${page.locale.id}/${page.uri.replace(/\/$/, "")}`,
+      pathPrefix: `/${page.locale.id}/${page.uri.replace(/\/$/, '')}`,
       component: announcementListTemplate,
       context: {
         id: page.id,
         locale: page.locale.id,
-      }
+      },
     })
-    
   })
 
-
-  // newsletter list 
+  // newsletter list
 
   const newslettersListsNodes = result.data.newslettersLists.edges
 
   _.each(newslettersListsNodes, ({ node: page }) => {
-
     const newsletterSingles = result.data.newsletterSingles.edges
 
     paginate({
       createPage,
       items: newsletterSingles,
-      itemsPerPage: 12,
-      pathPrefix: `/${page.locale.id}/${page.uri.replace(/\/$/, "")}`,
+      itemsPerPage: 2,
+      pathPrefix: `/${page.locale.id}/${page.uri.replace(/\/$/, '')}`,
       component: newsletterListTemplate,
       context: {
         id: page.id,
         locale: page.locale.id,
-      }
+      },
     })
-    
   })
-
 
   // cpts generation with directory slug replace
 
@@ -352,7 +360,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   )
 
   _.each(projectSingleNodes, ({ node: page }) => {
-    const projectDir = page.locale.id === 'it'
+    const projectDir =
+      page.locale.id === 'it'
         ? projectTranslations.itValue
         : projectTranslations.enValue
 
@@ -370,12 +379,11 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   const jobSingleNodes = result.data.jobSingles.edges
 
-  const jobTranslations = translations.find(
-    t => t.stringKey === 'job_cpt_slug'
-  )
+  const jobTranslations = translations.find(t => t.stringKey === 'job_cpt_slug')
 
   _.each(jobSingleNodes, ({ node: page }) => {
-    const jobDir = page.locale.id === 'it'
+    const jobDir =
+      page.locale.id === 'it'
         ? jobTranslations.itValue
         : jobTranslations.enValue
 
@@ -398,7 +406,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   )
 
   _.each(pressSingleNodes, ({ node: page }) => {
-    const pressReleasesDir = page.locale.id === 'it'
+    const pressReleasesDir =
+      page.locale.id === 'it'
         ? pressReleasesTranslations.itValue
         : pressReleasesTranslations.enValue
 
@@ -411,7 +420,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       },
     })
   })
-  
+
   // news
 
   const newsSingleNodes = result.data.newsSingles.edges
@@ -421,7 +430,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   )
 
   _.each(newsSingleNodes, ({ node: page }) => {
-    const newsDir = page.locale.id === 'it'
+    const newsDir =
+      page.locale.id === 'it'
         ? newsTranslations.itValue
         : newsTranslations.enValue
 
@@ -444,7 +454,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   )
 
   _.each(initiativeSingleNodes, ({ node: page }) => {
-    const initiativeDir = page.locale.id === 'it'
+    const initiativeDir =
+      page.locale.id === 'it'
         ? initiativeTranslations.itValue
         : initiativeTranslations.enValue
 
@@ -467,7 +478,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   )
 
   _.each(eventSingleNodes, ({ node: page }) => {
-    const eventDir = page.locale.id === 'it'
+    const eventDir =
+      page.locale.id === 'it'
         ? eventsTranslations.itValue
         : eventsTranslations.enValue
 
@@ -482,7 +494,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   })
 
   // innovation announcements
-  
+
   const announcementSingleNodes = result.data.announcementSingles.edges
 
   const announcementTranslations = translations.find(
@@ -490,7 +502,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   )
 
   _.each(announcementSingleNodes, ({ node: page }) => {
-    const announcementDir = page.locale.id === 'it'
+    const announcementDir =
+      page.locale.id === 'it'
         ? announcementTranslations.itValue
         : announcementTranslations.enValue
 
@@ -504,7 +517,6 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     })
   })
 
-
   // newsletter
 
   const newsletterSingleNodes = result.data.newsletterSingles.edges
@@ -514,7 +526,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   )
 
   _.each(newsletterSingleNodes, ({ node: page }) => {
-    const newsletterDir = page.locale.id === 'it'
+    const newsletterDir =
+      page.locale.id === 'it'
         ? newsletterTranslations.itValue
         : newsletterTranslations.enValue
 
@@ -527,7 +540,4 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       },
     })
   })
-
 }
-
-
