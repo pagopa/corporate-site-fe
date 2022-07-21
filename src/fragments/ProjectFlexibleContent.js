@@ -1,7 +1,6 @@
 import { graphql } from 'gatsby'
 
 export const ProjectFlexibleContent = graphql`
-  
   fragment ProjectFlexibleContent on WpProject {
     flexibleContent {
       body {
@@ -252,6 +251,11 @@ export const ProjectFlexibleContent = graphql`
                     gatsbyImageData(width: 140)
                   }
                 }
+              }
+              link {
+                target
+                title
+                url
               }
             }
           }

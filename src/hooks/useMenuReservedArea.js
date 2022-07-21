@@ -18,5 +18,5 @@ export const useMenuReservedArea = () => {
     }
   `)
 
-  return wpMenu.menuItems
+  return wpMenu?.menuItems
 }
