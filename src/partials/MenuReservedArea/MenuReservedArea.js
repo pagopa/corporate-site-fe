@@ -112,6 +112,7 @@ const MenuReservedArea = ({ location }) => {
       </nav>
     )
   }
+  return <></>
 }
 
 export default MenuReservedArea
