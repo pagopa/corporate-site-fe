@@ -92,7 +92,7 @@ const MenuReservedArea = ({ location }) => {
   const data = useMenuReservedArea()
   const locale = useContext(LocaleContext)
 
-  if (data.nodes.length) {
+  if (data?.nodes.length) {
     const menu = menuHierarchify(data.nodes)
 
     return (
