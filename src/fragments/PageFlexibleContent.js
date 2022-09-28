@@ -73,15 +73,6 @@ export const PageFlexibleContent = graphql`
                   }
                 }
               }
-
-              additionalCta {
-                text
-                link {
-                  target
-                  title
-                  url
-                }
-              }
             }
           }
           ... on WpPage_Flexiblecontent_Body_Blocks_BlockVisualText {
