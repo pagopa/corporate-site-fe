@@ -83,7 +83,7 @@ const Text = ({ data }) => {
                     className={additionalCta ? 'me-5' : ''}
                   />
                 )}
-                {additionalCta && (
+                {additionalCta && additionalCta.link && (
                   <div className="py-4 d-inline-block">
                     <span className="me-4">{additionalCta.text}</span>
                     {additionalCta.link && (
