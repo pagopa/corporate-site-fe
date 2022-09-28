@@ -12,6 +12,7 @@
     .menu-main
       &__item
         padding-left: 0
+        padding-right: 0
 
         > ul
           min-width: 0
@@ -23,20 +24,21 @@
             font-weight: 500
             white-space: nowrap
 
+        &.w-sub
+          &::after
+            content: none
+
   @media (min-width: $tablet)
 
     &__item
       position: relative
       padding: 0 1.6rem
       font-family: $f-alternative
-      font-weight: 700
+      font-weight: 500
       text-transform: uppercase
       font-size: 1.4rem
       line-height: 1.25
-      color: $c-black
-
-      > a, > span
-        letter-spacing: .75px
+      color: $c-gray
 
       a
         text-decoration: none
@@ -115,7 +117,6 @@
         padding-top: 1.6rem
         backface-visibility: hidden
         transition: all $transition-micro $tf
-        filter: drop-shadow(0 1rem 12px rgba($c-black, .3))
 
         li
           position: relative
@@ -202,6 +203,7 @@
       margin-right: 0
       margin-bottom: 2rem
       padding-right: 5.4rem
+      letter-spacing: .75px
 
       &.highlight
         a, span
