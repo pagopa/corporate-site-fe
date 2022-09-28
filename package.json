@@ -6,6 +6,7 @@
   "author": "yva",
   "dependencies": {
     "bootstrap": "^5.2.0",
+    "classnames": "^2.3.2",
     "gatsby": "^3.9",
     "gatsby-awesome-pagination": "^0.3.8",
     "gatsby-plugin-canonical-urls": "^3.10.0",

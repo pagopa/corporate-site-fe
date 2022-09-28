@@ -59,6 +59,29 @@ export const ProjectFlexibleContent = graphql`
               }
               text
               title
+
+              video {
+                link
+                image {
+                  altText
+                  localFile {
+                    extension
+                    publicURL
+                    childImageSharp {
+                      gatsbyImageData(width: 960)
+                    }
+                  }
+                }
+              }
+
+              additionalCta {
+                text
+                link {
+                  target
+                  title
+                  url
+                }
+              }
             }
           }
           ... on WpProject_Flexiblecontent_Body_Blocks_BlockVisualText {
