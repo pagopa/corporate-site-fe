@@ -58,7 +58,9 @@ const MenuItemTree = ({ item, location, locale }) => {
   }
   const slug = getSlug(path)
 
+
   // classes check
+
 
   if (location.pathname.split('/').find(f => f === slug)) {
     classes.push('is-current')
@@ -82,14 +84,20 @@ const MenuItemTree = ({ item, location, locale }) => {
       }`}
       onClick={handleSubmenu}
     >
-      <MenuItem item={item} locale={locale} disabled={isDisabled} />
+      <MenuItem
+        item={item}
+        locale={locale}
+        disabled={isDisabled}
+      />
       {hasChilds && (
         <ul>
           {childItems.map((item, key) => {
-            const { cssClasses } = item
             return (
-              <li key={key} className={cssClasses.join(' ')}>
-                <MenuItem item={item} locale={locale} />
+              <li key={key}>
+                <MenuItem
+                  item={item}
+                  locale={locale}
+                />
               </li>
             )
           })}
