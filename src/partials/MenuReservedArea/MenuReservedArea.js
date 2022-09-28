@@ -67,7 +67,7 @@ const MenuItemTree = ({ item, location, locale }) => {
 
   return (
     <li
-      className={`menu-reserved__item ${classes.join(' ')}${
+      className={`menu-main__item ${classes.join(' ')}${
         hasChilds ? (submenuOpen ? ' is-sub-open' : '') : ''
       }`}
       onClick={handleSubmenu}
@@ -96,7 +96,7 @@ const MenuReservedArea = ({ location }) => {
     const menu = menuHierarchify(data.nodes)
 
     return (
-      <nav className="menu-reserved">
+      <nav className="menu-main --simple">
         <ul>
           {menu.map((item, key) => {
             return (

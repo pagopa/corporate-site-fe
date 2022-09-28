@@ -1,13 +1,27 @@
-
-.menu-main, .menu-reserved
+.menu-main
   z-index: 1
+
+  &:not(.--simple)
+    margin-left: -1.6rem
 
   ul
     position: relative
     display: flex
 
-  .menu-reserved
-    display: none
+  &.--simple
+    .menu-main
+      &__item
+        padding-left: 0
+
+        > ul
+          min-width: 0
+
+          li
+            font-family: $f-alternative
+            font-size: 1.4rem
+            text-transform: uppercase
+            font-weight: 500
+            white-space: nowrap
 
   @media (min-width: $tablet)
 
@@ -151,6 +165,26 @@
               border-right: 1.2rem solid transparent
 
   @media (max-width: $tablet - 1)
+    opacity: 0
+    visibility: hidden
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    height: 100vh
+    max-height: 100vh
+    // height: -webkit-fill-available
+    // min-height: -webkit-fill-available
+    overflow: hidden
+    overflow-y: auto
+    -webkit-overflow-scrolling: touch
+    background-color: $c-brand
+    margin-left: 0
+    transition: all $transition-micro
+    padding: $header-height-mobile 4rem
+
+    @media (max-width: $mobile-xs)
+      padding: $header-height-mobile 2.4rem calc(#{$header-height-mobile} + 2rem)
 
     ul
       flex-wrap: wrap
@@ -170,30 +204,27 @@
       padding-right: 5.4rem
 
       &.highlight
-        font-family: $f-alternative
-        font-size: 1.6rem
-        text-transform: uppercase
-        font-weight: 700
-        line-height: 1.25
-        color: $c-brand
-        padding-right: 0
-
         a, span
+          font-family: $f-alternative
           background-color: #FFF
+          color: $c-brand
           position: relative
           display: inline-flex
           overflow: hidden
           align-items: center
           justify-content: center
-          min-width: 16rem
+          text-transform: uppercase
+          font-size: 1.6rem
+          font-weight: 700
+          line-height: 1.25
           padding: 1.4rem 2.4rem
           margin-top: 2.2rem
+          text-align: center
+          min-width: 16rem
 
-      &:not(.highlight).is-current
-
+      &.is-current
         > span, > a
           text-decoration: underline
-          text-underline-offset: .1em
 
       span
         cursor: default
@@ -246,97 +277,6 @@
             max-height: 55rem
             margin-bottom: 2rem
             opacity: 1
-
-.menu-main
-  margin-left: -1.6rem
-
-  @media (max-width: $tablet - 1)
-    display: flex
-    flex-direction: column
-    opacity: 0
-    visibility: hidden
-    position: fixed
-    top: 0
-    left: 0
-    width: 100%
-    height: 100vh
-    max-height: 100vh
-    // height: -webkit-fill-available
-    // min-height: -webkit-fill-available
-    overflow: hidden
-    overflow-y: auto
-    -webkit-overflow-scrolling: touch
-    background-color: $c-brand
-    margin-left: 0
-    transition: all $transition-micro
-    padding: $header-height-mobile 4rem 0
-
-    .menu-reserved
-      display: block !important
-
-  @media (max-width: $mobile-xs)
-    padding: $header-height-mobile 2.4rem 0
-
-.menu-reserved
-  @media (min-width: $tablet)
-    &__item
-      padding-left: 0
-
-      > ul
-        min-width: 0
-
-        li
-          font-family: $f-alternative
-          font-size: 1.4rem
-          text-transform: uppercase
-          font-weight: 500
-          white-space: nowrap
-
-  @media (max-width: $tablet - 1)
-    position: relative
-    background-color: #FFF
-    margin-left: -4rem
-    margin-right: -4rem
-    margin-top: 2rem
-    padding: 4rem 4rem $header-height-mobile
-    flex: 1
-
-    .menu-reserved
-      &__item
-        &.highlight
-          padding-right: 5.4rem
-          font-family: $f-primary
-          position: relative
-          font-size: 3.6rem
-          text-transform: none
-          font-weight: 400
-          width: 100%
-          display: block
-          text-align: right
-          margin-right: 0
-          margin-bottom: 2rem
-
-        a, span
-          position: relative
-          padding: 0
-          display: block
-          text-align: right
-          background-color: transparent
-          min-width: 0
-          padding: 0
-          margin-top: 0
-
-        > ul
-          color: $c-black
-
-        &.w-sub
-          &::after
-            background-image: url(../../images/ui/chevron-down-black.svg)
-
-  @media (max-width: $mobile-xs)
-    padding: 4rem 2.4rem calc(#{$header-height-mobile} + 2rem)
-    margin-left: -2.4rem
-    margin-right: -2.4rem
 
 .menu-is-open
   .menu-main
