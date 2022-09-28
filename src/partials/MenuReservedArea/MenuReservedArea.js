@@ -90,28 +90,26 @@ const MenuItemTree = ({ item, location, locale }) => {
 
 const MenuReservedArea = ({ location }) => {
   const data = useMenuReservedArea()
+
+  const menu = menuHierarchify(data.nodes)
   const locale = useContext(LocaleContext)
 
-  if (data.nodes) {
-    const menu = menuHierarchify(data.nodes)
-
-    return (
-      <nav className="menu-main --simple">
-        <ul>
-          {menu.map((item, key) => {
-            return (
-              <MenuItemTree
-                item={item}
-                location={location}
-                locale={locale}
-                key={key}
-              />
-            )
-          })}
-        </ul>
-      </nav>
-    )
-  }
+  return (
+    <nav className="menu-main --simple">
+      <ul>
+        {menu.map((item, key) => {
+          return (
+            <MenuItemTree
+              item={item}
+              location={location}
+              locale={locale}
+              key={key}
+            />
+          )
+        })}
+      </ul>
+    </nav>
+  )
 }
 
 export default MenuReservedArea
