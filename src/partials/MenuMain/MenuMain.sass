@@ -1,51 +1,28 @@
 .menu-main
+  margin-left: 1rem
   z-index: 1
-
-  &:not(.--simple)
-    margin-left: -1.6rem
-
+  
   ul
     position: relative
     display: flex
-
-  &.--simple
-    .menu-main
-      &__item
-        padding-left: 0
-        padding-right: 0
-
-        > ul
-          min-width: 0
-
-          li
-            font-family: $f-alternative
-            font-size: 1.4rem
-            text-transform: uppercase
-            font-weight: 500
-            white-space: nowrap
-
-        &.w-sub
-          &::after
-            content: none
-
-  @media (min-width: $tablet)
+  
+  @media (min-width: $desktop)
 
     &__item
       position: relative
       padding: 0 1.6rem
       font-family: $f-alternative
-      font-weight: 500
+      font-weight: 700
       text-transform: uppercase
-      font-size: 1.4rem
+      font-size: 1.6rem
       line-height: 1.25
-      color: $c-gray
 
       a
         text-decoration: none
-
+      
       span
         cursor: default
-
+      
       &.is-current
         &::before
           content: ''
@@ -58,7 +35,7 @@
           display: block
           background-color: $c-brand
           border-radius: 50%
-
+      
       &.highlight
         color: $c-brand
 
@@ -67,6 +44,7 @@
 
         &:not(:last-child)
           margin-right: 1.6rem
+        
 
         &.is-sub-open, &:hover
           > ul
@@ -85,26 +63,9 @@
           transform: translateY(-50%)
           transform-origin: center center
           right: 0
-          background-image: url('data:image/svg+xml,%3Csvg width="11" height="7" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="m1 1 4.486 4.5705L10.0564 1" stroke="%23595959" stroke-width="1.5"/%3E%3C/svg%3E')
-          background-repeat: no-repeat
+          background-image: url(../../images/ui/chevron-down.svg)
           margin-left: .8rem
-
-        &:first-child:not(:last-child)
-          &.is-sub-open, &:hover
-            > ul
-              transform: translate3d(0, 0, 0) scale(1)
-
-      &:first-child:not(:last-child)
-        > ul
-          left: 0
-          transform: translate3d(0, 5%, 0) scale(1.02)
-
-          li
-            &:first-child
-              &::before
-                left: 17%
-                margin-left: -1.2rem
-
+    
       > ul
         position: absolute
         top: 100%
@@ -114,7 +75,7 @@
         opacity: 0
         visibility: hidden
         display: block
-        padding-top: 1.6rem
+        padding-top: 3rem
         backface-visibility: hidden
         transition: all $transition-micro $tf
 
@@ -144,7 +105,7 @@
           a
             display: block
             padding: 1.4rem 0 1.3rem
-
+          
           &:first-child
             &::before
               content: ''
@@ -157,8 +118,8 @@
               border-bottom: 1.6rem solid $c-brand
               border-left: 1.2rem solid transparent
               border-right: 1.2rem solid transparent
-
-  @media (max-width: $tablet - 1)
+  
+  @media (max-width: $desktop - 1)
     opacity: 0
     visibility: hidden
     position: fixed
@@ -179,7 +140,7 @@
 
     @media (max-width: $mobile-xs)
       padding: $header-height-mobile 2.4rem calc(#{$header-height-mobile} + 2rem)
-
+    
     ul
       flex-wrap: wrap
 
@@ -196,7 +157,7 @@
       margin-right: 0
       margin-bottom: 2rem
       padding-right: 5.4rem
-
+      
       &.highlight
         a, span
           font-family: $f-alternative
@@ -243,7 +204,7 @@
 
           &:first-child
             margin-top: 1rem
-
+      
       &.w-sub
         &::after
           content: ''
