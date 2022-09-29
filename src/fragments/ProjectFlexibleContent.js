@@ -107,6 +107,14 @@ export const ProjectFlexibleContent = graphql`
                 url
                 target
               }
+              additionalCta {
+                text
+                link {
+                  target
+                  title
+                  url
+                }
+              }
             }
             visual {
               width
