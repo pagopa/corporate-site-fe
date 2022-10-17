@@ -1,5 +1,9 @@
 @import 'reset'
-@import 'bootstrap-custom'
+
+$container-max-widths: (sm: 540px, md: 720px, lg: 960px, xl: 1140px, xxl: 1170px)
+$grid-gutter-width: 3.2rem
+
+@import 'bootstrap-grid'
 
 @import 'vars'
 
@@ -16,6 +20,9 @@
 @import 'icon-box'
 
 // helpers
+
+.container-fluid
+  max-width: 1408px
 
 .index-over-sibling
   position: relative

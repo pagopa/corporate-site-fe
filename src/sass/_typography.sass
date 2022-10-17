@@ -15,7 +15,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4
 
   &.--medium
     font-weight: 500
-    
+
   &.--bold
     font-weight: 700
 
@@ -36,10 +36,9 @@ h2, .h2
 h3, .h3
   font-size: 3.2rem
   margin-bottom: 4rem
-  
+
   @media (max-width: $tablet - 1)
     font-size: 2.8rem
-
 
 h4, .h4
   font-size: 2.4rem
@@ -76,7 +75,7 @@ p
 
     a
       text-decoration: underline
-  
+
   &.--alternative
     font-family: $f-alternative
 
@@ -101,7 +100,7 @@ a
     // font-size: 1.4rem
     // line-height: 1.57
     margin-bottom: 0
-  
+
 .mail-link
   position: relative
   color: $c-brand
@@ -130,19 +129,21 @@ a
     &[href^="#"]
       font-weight: 500
       text-decoration: underline
-  
+
   p[style*="center"]
-    line-height: 2.2
+      line-height: 2.2
 
   ul
     list-style: disc
     padding-left: 3.2rem
     line-height: 1.78
-    margin-bottom: 1.78em
+
+    &:not(:last-child)
+      margin-bottom: 1.78em
 
     li
       margin-bottom: .89em
-      
+
       > ul
         list-style: none
         padding-left: 1.6rem
@@ -184,10 +185,10 @@ a
       line-height: inherit
       font-family: $f-alternative
       margin-top: 2.4rem
-    
+
     p
       font-size: inherit
-  
+
   mark
     background-color: $c-brand-light
     font-style: normal
@@ -197,7 +198,7 @@ a
     font-size: 2.4rem
     line-height: 1.83
     box-decoration-break: clone
-  
+
   hr
     display: block
     margin-top: 4rem
@@ -205,10 +206,9 @@ a
     border: none
     height: 1px
     background-color: $c-gray-light
-    
+
     + h4
       margin-top: 0 !important
-
 
 .text-left
   text-align: left

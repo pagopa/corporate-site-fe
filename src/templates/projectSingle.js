@@ -10,6 +10,7 @@ import SeoHelmet from '../components/SeoHelmet'
 
 const ProjectPage = ({ location, data }) => {
   const {
+      id,
       title,
       slug,
       locale,
@@ -28,7 +29,7 @@ const ProjectPage = ({ location, data }) => {
   const pageProps = {
     title,
     featuredImage,
-    currentSlug
+    currentSlug,
   }
 
   return (
@@ -37,7 +38,15 @@ const ProjectPage = ({ location, data }) => {
 
       {blocks &&
         blocks.map((block, key) => {
-          return <Block data={block} key={key} type={nodeType} {...pageProps} />
+          return (
+            <Block
+              data={block}
+              key={key}
+              type={nodeType}
+              pageID={id}
+              {...pageProps}
+            />
+          )
         })}
 
       {bannerNewsletter && <NewsletterBanner />}
@@ -56,7 +65,6 @@ export const projectQuery = graphql`
       ...ProjectSeo
 
       ...ProjectFlexibleContent
-      
     }
   }
 `

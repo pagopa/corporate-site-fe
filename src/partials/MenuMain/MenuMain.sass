@@ -1,12 +1,15 @@
-.menu-main
-  margin-left: 1rem
+
+.menu-main, .menu-reserved
   z-index: 1
-  
+
   ul
     position: relative
     display: flex
-  
-  @media (min-width: $desktop)
+
+  .menu-reserved
+    display: none
+
+  @media (min-width: $tablet)
 
     &__item
       position: relative
@@ -14,15 +17,19 @@
       font-family: $f-alternative
       font-weight: 700
       text-transform: uppercase
-      font-size: 1.6rem
+      font-size: 1.4rem
       line-height: 1.25
+      color: $c-black
+
+      > a, > span
+        letter-spacing: .75px
 
       a
         text-decoration: none
-      
+
       span
         cursor: default
-      
+
       &.is-current
         &::before
           content: ''
@@ -35,7 +42,7 @@
           display: block
           background-color: $c-brand
           border-radius: 50%
-      
+
       &.highlight
         color: $c-brand
 
@@ -44,7 +51,6 @@
 
         &:not(:last-child)
           margin-right: 1.6rem
-        
 
         &.is-sub-open, &:hover
           > ul
@@ -63,9 +69,26 @@
           transform: translateY(-50%)
           transform-origin: center center
           right: 0
-          background-image: url(../../images/ui/chevron-down.svg)
+          background-image: url('data:image/svg+xml,%3Csvg width="11" height="7" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="m1 1 4.486 4.5705L10.0564 1" stroke="%23595959" stroke-width="1.5"/%3E%3C/svg%3E')
+          background-repeat: no-repeat
           margin-left: .8rem
-    
+
+        &:first-child:not(:last-child)
+          &.is-sub-open, &:hover
+            > ul
+              transform: translate3d(0, 0, 0) scale(1)
+
+      &:first-child:not(:last-child)
+        > ul
+          left: 0
+          transform: translate3d(0, 5%, 0) scale(1.02)
+
+          li
+            &:first-child
+              &::before
+                left: 17%
+                margin-left: -1.2rem
+
       > ul
         position: absolute
         top: 100%
@@ -75,9 +98,10 @@
         opacity: 0
         visibility: hidden
         display: block
-        padding-top: 3rem
+        padding-top: 1.6rem
         backface-visibility: hidden
         transition: all $transition-micro $tf
+        filter: drop-shadow(0 1rem 12px rgba($c-black, .3))
 
         li
           position: relative
@@ -92,6 +116,13 @@
           padding: 0 1.6rem
           text-transform: none
 
+          &.alternative
+            background-color: $c-brand-extralight
+            color: $c-brand
+            font-weight: 500
+            padding-bottom: 0 !important
+            margin-top: -1px
+
           &:first-child
             padding-top: 1.2rem
 
@@ -104,8 +135,8 @@
 
           a
             display: block
-            padding: 1.4rem 0 1.3rem
-          
+            padding: 1.7rem 0 1.6rem
+
           &:first-child
             &::before
               content: ''
@@ -118,29 +149,9 @@
               border-bottom: 1.6rem solid $c-brand
               border-left: 1.2rem solid transparent
               border-right: 1.2rem solid transparent
-  
-  @media (max-width: $desktop - 1)
-    opacity: 0
-    visibility: hidden
-    position: fixed
-    top: 0
-    left: 0
-    width: 100%
-    height: 100vh
-    max-height: 100vh
-    // height: -webkit-fill-available
-    // min-height: -webkit-fill-available
-    overflow: hidden
-    overflow-y: auto
-    -webkit-overflow-scrolling: touch
-    background-color: $c-brand
-    margin-left: 0
-    transition: all $transition-micro
-    padding: $header-height-mobile 4rem
 
-    @media (max-width: $mobile-xs)
-      padding: $header-height-mobile 2.4rem calc(#{$header-height-mobile} + 2rem)
-    
+  @media (max-width: $tablet - 1)
+
     ul
       flex-wrap: wrap
 
@@ -157,29 +168,32 @@
       margin-right: 0
       margin-bottom: 2rem
       padding-right: 5.4rem
-      
+
       &.highlight
+        font-family: $f-alternative
+        font-size: 1.6rem
+        text-transform: uppercase
+        font-weight: 700
+        line-height: 1.25
+        color: $c-brand
+        padding-right: 0
+
         a, span
-          font-family: $f-alternative
           background-color: #FFF
-          color: $c-brand
           position: relative
           display: inline-flex
           overflow: hidden
           align-items: center
           justify-content: center
-          text-transform: uppercase
-          font-size: 1.6rem
-          font-weight: 700
-          line-height: 1.25
+          min-width: 16rem
           padding: 1.4rem 2.4rem
           margin-top: 2.2rem
-          text-align: center
-          min-width: 16rem
 
-      &.is-current
+      &:not(.highlight).is-current
+
         > span, > a
           text-decoration: underline
+          text-underline-offset: .1em
 
       span
         cursor: default
@@ -201,10 +215,11 @@
           padding: 1.2rem 0
           font-size: 2rem
           font-weight: 500
+          letter-spacing: 0
 
           &:first-child
             margin-top: 1rem
-      
+
       &.w-sub
         &::after
           content: ''
@@ -231,6 +246,97 @@
             max-height: 55rem
             margin-bottom: 2rem
             opacity: 1
+
+.menu-main
+  margin-left: -1.6rem
+
+  @media (max-width: $tablet - 1)
+    display: flex
+    flex-direction: column
+    opacity: 0
+    visibility: hidden
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    height: 100vh
+    max-height: 100vh
+    // height: -webkit-fill-available
+    // min-height: -webkit-fill-available
+    overflow: hidden
+    overflow-y: auto
+    -webkit-overflow-scrolling: touch
+    background-color: $c-brand
+    margin-left: 0
+    transition: all $transition-micro
+    padding: $header-height-mobile 4rem 0
+
+    .menu-reserved
+      display: block !important
+
+  @media (max-width: $mobile-xs)
+    padding: $header-height-mobile 2.4rem 0
+
+.menu-reserved
+  @media (min-width: $tablet)
+    &__item
+      padding-left: 0
+
+      > ul
+        min-width: 0
+
+        li
+          font-family: $f-alternative
+          font-size: 1.4rem
+          text-transform: uppercase
+          font-weight: 500
+          white-space: nowrap
+
+  @media (max-width: $tablet - 1)
+    position: relative
+    background-color: #FFF
+    margin-left: -4rem
+    margin-right: -4rem
+    margin-top: 2rem
+    padding: 4rem 4rem $header-height-mobile
+    flex: 1
+
+    .menu-reserved
+      &__item
+        &.highlight
+          padding-right: 5.4rem
+          font-family: $f-primary
+          position: relative
+          font-size: 3.6rem
+          text-transform: none
+          font-weight: 400
+          width: 100%
+          display: block
+          text-align: right
+          margin-right: 0
+          margin-bottom: 2rem
+
+        a, span
+          position: relative
+          padding: 0
+          display: block
+          text-align: right
+          background-color: transparent
+          min-width: 0
+          padding: 0
+          margin-top: 0
+
+        > ul
+          color: $c-black
+
+        &.w-sub
+          &::after
+            background-image: url(../../images/ui/chevron-down-black.svg)
+
+  @media (max-width: $mobile-xs)
+    padding: 4rem 2.4rem calc(#{$header-height-mobile} + 2rem)
+    margin-left: -2.4rem
+    margin-right: -2.4rem
 
 .menu-is-open
   .menu-main
