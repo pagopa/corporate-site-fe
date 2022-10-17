@@ -4,13 +4,11 @@ import { Link } from 'gatsby'
 
 import { LocaleContext } from '../../contexts/LocaleContext.js'
 import { useWpOptionsPage } from '../../hooks/useWpOptionsPage'
-import { useMenuMain } from '../../hooks/useMenuMain'
+import { useMenuReservedArea } from '../../hooks/useMenuReservedArea'
 import { menuHierarchify } from '../../helpers/menuHierarchify'
 import { convertCPTDir } from '../../helpers/convertCPTDir'
 
-import MenuReservedArea from '../MenuReservedArea/MenuReservedArea.js'
-
-import './MenuMain.sass'
+import '../MenuMain/MenuMain.sass'
 
 const MenuItem = ({ item, disabled, locale }) => {
   const { translations } = useWpOptionsPage()
@@ -58,28 +56,18 @@ const MenuItemTree = ({ item, location, locale }) => {
     const pathFragments = path.match(/[^/]+/g)
     return pathFragments.slice(-1)[0]
   }
-  const slug = getSlug(path)
-
-  // classes check
-
-  if (location.pathname.split('/').find(f => f === slug)) {
-    classes.push('is-current')
-  }
 
   if (hasChilds) {
     classes.push('w-sub')
     childItems.forEach(i => {
       const { path } = i
       const slug = getSlug(path)
-      if (location.pathname.split('/').find(f => f === slug)) {
-        classes.push('is-current')
-      }
     })
   }
 
   return (
     <li
-      className={`menu-main__item ${classes.join(' ')}${
+      className={`menu-reserved__item ${classes.join(' ')}${
         hasChilds ? (submenuOpen ? ' is-sub-open' : '') : ''
       }`}
       onClick={handleSubmenu}
@@ -88,9 +76,8 @@ const MenuItemTree = ({ item, location, locale }) => {
       {hasChilds && (
         <ul>
           {childItems.map((item, key) => {
-            const { cssClasses } = item
             return (
-              <li key={key} className={cssClasses.join(' ')}>
+              <li key={key}>
                 <MenuItem item={item} locale={locale} />
               </li>
             )
@@ -101,29 +88,31 @@ const MenuItemTree = ({ item, location, locale }) => {
   )
 }
 
-const MenuMain = ({ location }) => {
-  const data = useMenuMain()
-
-  const menu = menuHierarchify(data.nodes)
+const MenuReservedArea = ({ location }) => {
+  const data = useMenuReservedArea()
   const locale = useContext(LocaleContext)
 
-  return (
-    <nav className="menu-main">
-      <ul>
-        {menu.map((item, key) => {
-          return (
-            <MenuItemTree
-              item={item}
-              location={location}
-              locale={locale}
-              key={key}
-            />
-          )
-        })}
-      </ul>
-      <MenuReservedArea location={location} />
-    </nav>
-  )
+  if (data?.nodes.length) {
+    const menu = menuHierarchify(data.nodes)
+
+    return (
+      <nav className="menu-reserved">
+        <ul>
+          {menu.map((item, key) => {
+            return (
+              <MenuItemTree
+                item={item}
+                location={location}
+                locale={locale}
+                key={key}
+              />
+            )
+          })}
+        </ul>
+      </nav>
+    )
+  }
+  return <></>
 }
 
-export default MenuMain
+export default MenuReservedArea

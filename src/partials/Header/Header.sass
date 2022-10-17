@@ -5,26 +5,28 @@
   padding-left: $section-gutter
   padding-right: $section-gutter
   width: 100%
-  display: flex
-  align-items: center
   height: $header-height
   background-color: #FFF
   z-index: 100
+  padding-top: 1.8rem
 
-  @media (max-width: $desktop - 1)
+  &__top
+    display: flex
+    justify-content: space-between
+    margin-bottom: 1.8rem
+
+  @media (max-width: $tablet - 1)
     height: $header-height-mobile
-    
+
     .socials
       display: none
-    
+
     .hamburger
       display: block
-  
+
   @media (max-width: $mobile-xs)
     padding-left: $section-gutter-mobile
     padding-right: $section-gutter-mobile
-
-
 
 @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none))
   .header

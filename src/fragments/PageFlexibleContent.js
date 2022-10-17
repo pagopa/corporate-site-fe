@@ -1,7 +1,6 @@
 import { graphql } from 'gatsby'
 
 export const PageFlexibleContent = graphql`
-  
   fragment PageFlexibleContent on WpPage {
     flexibleContent {
       body {
@@ -74,6 +73,15 @@ export const PageFlexibleContent = graphql`
                   }
                 }
               }
+
+              additionalCta {
+                text
+                link {
+                  target
+                  title
+                  url
+                }
+              }
             }
           }
           ... on WpPage_Flexiblecontent_Body_Blocks_BlockVisualText {
@@ -98,6 +106,14 @@ export const PageFlexibleContent = graphql`
                 title
                 url
                 target
+              }
+              additionalCta {
+                text
+                link {
+                  target
+                  title
+                  url
+                }
               }
             }
             visual {
@@ -266,6 +282,11 @@ export const PageFlexibleContent = graphql`
                     gatsbyImageData(width: 140)
                   }
                 }
+              }
+              link {
+                target
+                title
+                url
               }
             }
           }
