@@ -24,88 +24,67 @@ import ProjectsCarousel from './../ProjectsCarousel/ProjectsCarousel'
 import UniversityAccordion from './../UniversityAccordion/UniversityAccordion'
 
 const Block = ({ data, type, featuredImage, currentSlug }) => {
+
   return (
     <>
-      {data.fieldGroupName ===
-        `${type}_Flexiblecontent_Body_Blocks_HeroSlider` && (
+      {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_HeroSlider` && (
         <Hero data={data} />
       )}
-      {data.fieldGroupName ===
-        `${type}_Flexiblecontent_Body_Blocks_BlockText` && <Text data={data} />}
-      {data.fieldGroupName ===
-        `${type}_Flexiblecontent_Body_Blocks_BlockVisualText` && (
+      {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockText` && (
+        <Text data={data} />
+      )}
+      {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockVisualText` && (
         <VisualText data={data} />
       )}
-      {data.fieldGroupName ===
-        `${type}_Flexiblecontent_Body_Blocks_UsefulLinks` && (
+      {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_UsefulLinks` && (
         <UsefulLinks data={data} />
       )}
-      {data.fieldGroupName ===
-        `${type}_Flexiblecontent_Body_Blocks_ProjectCarousel` && (
+      {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_ProjectCarousel` && (
         <ProjectsCarousel data={data} />
       )}
-      {data.fieldGroupName ===
-        `${type}_Flexiblecontent_Body_Blocks_BlockVisual` && (
+      {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockVisual` && (
         <Visual data={data} />
       )}
-      {data.fieldGroupName ===
-        `${type}_Flexiblecontent_Body_Blocks_BlockIntro` && (
-        <Intro
-          data={data}
-          featuredImage={featuredImage}
-          currentSlug={currentSlug}
-        />
+      {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockIntro` && (
+        <Intro data={data} featuredImage={featuredImage} currentSlug={currentSlug} />
       )}
-      {data.fieldGroupName ===
-        `${type}_Flexiblecontent_Body_Blocks_BlockList` && (
+      {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockList` && (
         <BlocksList data={data} />
       )}
-      {data.fieldGroupName ===
-        `${type}_Flexiblecontent_Body_Blocks_BlockBannerCta` && (
+      {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockBannerCta` && (
         <CtaBanner data={data} />
       )}
-      {data.fieldGroupName ===
-        `${type}_Flexiblecontent_Body_Blocks_BlockCtaGrid` && (
+      {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockCtaGrid` && (
         <CtaGrid data={data} />
       )}
-      {data.fieldGroupName ===
-        `${type}_Flexiblecontent_Body_Blocks_BlockContactsList` && (
+      {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockContactsList` && (
         <ContactsList data={data} />
       )}
-      {data.fieldGroupName ===
-        `${type}_Flexiblecontent_Body_Blocks_BlockMapBox` && (
+      {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockMapBox` && (
         <MapBox data={data} />
       )}
-      {data.fieldGroupName ===
-        `${type}_Flexiblecontent_Body_Blocks_BlockLogoLinks` && (
+      {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockLogoLinks` && (
         <LogoLinks data={data} />
       )}
-      {data.fieldGroupName ===
-        `${type}_Flexiblecontent_Body_Blocks_BlockJobsListing` && (
+      {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockJobsListing` && (
         <JobsListing data={data} />
       )}
-      {data.fieldGroupName ===
-        `${type}_Flexiblecontent_Body_Blocks_BlockPressRelease` && (
+      {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockPressRelease` && (
         <PressRelease data={data} />
       )}
-      {data.fieldGroupName ===
-        `${type}_Flexiblecontent_Body_Blocks_BlockNewsEvents` && (
+      {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockNewsEvents` && (
         <NewsEvents data={data} />
       )}
-      {data.fieldGroupName ===
-        `${type}_Flexiblecontent_Body_Blocks_BlockMediaHighlights` && (
+      {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockMediaHighlights` && (
         <MediaHighlights data={data} />
       )}
-      {data.fieldGroupName ===
-        `${type}_Flexiblecontent_Body_Blocks_BlockAttachmentsGrid` && (
+      {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockAttachmentsGrid` && (
         <AttachmentsGrid data={data} />
       )}
-      {data.fieldGroupName ===
-        `${type}_Flexiblecontent_Body_Blocks_BlockAccordion` && (
+      {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockAccordion` && (
         <Accordion data={data} />
       )}
-      {data.fieldGroupName ===
-        `${type}_Flexiblecontent_Body_Blocks_BlockUniversityAccordion` && (
+      {data.fieldGroupName === `${type}_Flexiblecontent_Body_Blocks_BlockUniversityAccordion` && (
         <UniversityAccordion data={data} />
       )}
     </>

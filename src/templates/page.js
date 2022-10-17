@@ -9,7 +9,6 @@ import SeoHelmet from '../components/SeoHelmet'
 
 const Page = ({ location, data }) => {
   const {
-      id,
       title,
       locale,
       flexibleContent,
@@ -35,17 +34,10 @@ const Page = ({ location, data }) => {
     <Layout locale={currentLocale} location={location}>
       <SeoHelmet yoast={seo} locale={currentLocale} data={pageProps} />
 
+
       {blocks &&
         blocks.map((block, key) => {
-          return (
-            <Block
-              data={block}
-              key={key}
-              type={nodeType}
-              pageID={id}
-              {...pageProps}
-            />
-          )
+          return <Block data={block} key={key} type={nodeType} {...pageProps} />
         })}
 
       {bannerNewsletter && <NewsletterBanner />}
@@ -57,6 +49,7 @@ export default Page
 export const pageQuery = graphql`
   query page($id: String!) {
     wpPage(id: { eq: $id }) {
+      
       ...PageBaseData
 
       ...PageFeaturedImage

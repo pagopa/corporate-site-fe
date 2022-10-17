@@ -4,17 +4,10 @@ import parse from 'html-react-parser'
 
 import BackgroundGraphics from '../BackgroundGraphics/BackgroundGraphics'
 import Image from '../Image/Image'
-import Cta from '../Cta/Cta'
-
 import './BlocksList.sass'
 
 const BlocksList = ({ data }) => {
-  const {
-    template,
-    title: blockTitle,
-    items: blocks,
-    blockOptions: { backgroundGraphics },
-  } = data
+  const { template, title: blockTitle, items: blocks, blockOptions: { backgroundGraphics } } = data
 
   const items = [...blocks]
 
@@ -29,7 +22,7 @@ const BlocksList = ({ data }) => {
             {items.length && (
               <div className="row">
                 {items.map((block, key) => {
-                  const { title, image, text, link } = block
+                  const { title, image, text } = block
 
                   const isOdd = key % 2
                   const hasOffset = template === 'staggered' && isOdd
@@ -51,13 +44,10 @@ const BlocksList = ({ data }) => {
                           </figure>
                         )}
                         {title && <h4>{title}</h4>}
-                        {text && <div className="wysiwyg">{parse(text)}</div>}
-                        {link && (
-                          <Cta
-                            label={link.title}
-                            url={link.url}
-                            blank={link.target}
-                          />
+                        {text && (
+                          <div className="wysiwyg">
+                            {parse(text)}
+                            </div>
                         )}
                       </div>
                     </div>
