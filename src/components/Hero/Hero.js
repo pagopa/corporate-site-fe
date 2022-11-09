@@ -36,21 +36,29 @@ const Hero = ({ data }) => {
     <section className="block --hero hero">
       <div className="hero__background" />
       <div className="container-fluid">
-        <button
-          className="hero__nav --prev"
-          title="prev"
-          aria-labelledby="prev"
-        />
-        <button
-          className="hero__nav --next"
-          title="next"
-          aria-labelledby="next"
-        />
-
         <div className="row d-flex align-items-center">
           <div className="col-12 col-lg-6 offset-lg-1">
             <div className="hero__content">
-              <Swiper
+              {items.length && (
+                <>
+                  <article>
+                    <h1>{parse(items[0].content.title)}</h1>
+                    <div className="wysiwyg">
+                      {parse(items[0].content.text)}
+                    </div>
+                    {items[0].content.link && (
+                      <Cta
+                        label={items[0].content.link.title}
+                        url={items[0].content.link.url}
+                        blank={items[0].content.link.target}
+                        variant="white"
+                      />
+                    )}
+                  </article>
+                </>
+              )}
+
+              {/* <Swiper
                 speed={swiperCommons.speed}
                 spaceBetween={swiperCommons.spaceBetween}
                 slidesPerView={swiperCommons.slidesPerView}
@@ -81,11 +89,21 @@ const Hero = ({ data }) => {
                     </SwiperSlide>
                   )
                 })}
-              </Swiper>
+              </Swiper> */}
             </div>
           </div>
           <div className="col-12 col-lg-5">
             <div className="hero__image">
+              <button
+                className="hero__nav --prev"
+                title="prev"
+                aria-labelledby="prev"
+              />
+              <button
+                className="hero__nav --next"
+                title="next"
+                aria-labelledby="next"
+              />
               <div className="hero__pagination"></div>
               <Swiper
                 speed={swiperCommons.speed}
@@ -97,13 +115,17 @@ const Hero = ({ data }) => {
                   prevEl: '.hero__nav.--prev',
                   nextEl: '.hero__nav.--next',
                 }}
-                pagination={items.length > 1 ? {
-                  clickable: true,
-                  el: '.hero__pagination',
-                  bulletClass: 'bullet',
-                  bulletActiveClass: 'is-current',
-                  type: 'bullets',
-                } : false}
+                pagination={
+                  items.length > 1
+                    ? {
+                        clickable: true,
+                        el: '.hero__pagination',
+                        bulletClass: 'bullet',
+                        bulletActiveClass: 'is-current',
+                        type: 'bullets',
+                      }
+                    : false
+                }
                 controller={{
                   control: contentSwiper,
                 }}
