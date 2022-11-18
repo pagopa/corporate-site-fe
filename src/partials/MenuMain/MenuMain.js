@@ -2,15 +2,15 @@ import React, { useContext, useState } from 'react'
 
 import { Link } from 'gatsby'
 
-import { LocaleContext } from '../../contexts/LocaleContext.js'
-import { useWpOptionsPage } from '../../hooks/useWpOptionsPage'
-import { useMenuMain } from '../../hooks/useMenuMain'
-import { menuHierarchify } from '../../helpers/menuHierarchify'
-import { convertCPTDir } from '../../helpers/convertCPTDir'
+import { LocaleContext } from 'contexts/LocaleContext.js'
+import { useWpOptionsPage } from 'hooks/useWpOptionsPage'
+import { useMenuMain } from 'hooks/useMenuMain'
+import { menuHierarchify } from 'helpers/menuHierarchify'
+import { convertCPTDir } from 'helpers/convertCPTDir'
 
-import MenuReservedArea from '../MenuReservedArea/MenuReservedArea.js'
+import MenuReservedArea from 'partials/MenuReservedArea/MenuReservedArea.js'
 
-import './MenuMain.sass'
+import 'partials/MenuMain/MenuMain.sass'
 
 const MenuItem = ({ item, disabled, locale }) => {
   const { translations } = useWpOptionsPage()

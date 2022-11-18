@@ -1,14 +1,14 @@
 import React, { useContext } from 'react'
-import { LocaleContext } from '../../contexts/LocaleContext.js'
+import { LocaleContext } from 'contexts/LocaleContext.js'
 
-import Cta from '../../components/Cta/Cta.js'
+import Cta from 'components/Cta/Cta.js'
 
 import './MediaHighlights.sass'
 
-import iconNews from '../../images/icon-news.svg'
-import iconEvents from '../../images/icon-events.svg'
-import iconNewsletters from '../../images/icon-newsletters.svg'
-import iconPressReleases from '../../images/icon-pressreleases.svg'
+import iconNews from 'images/icon-news.svg'
+import iconEvents from 'images/icon-events.svg'
+import iconNewsletters from 'images/icon-newsletters.svg'
+import iconPressReleases from 'images/icon-pressreleases.svg'
 
 const MediaHighlights = ({ data }) => {
   const locale = useContext(LocaleContext)

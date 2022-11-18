@@ -2,9 +2,8 @@ import React from 'react'
 
 import { Helmet } from 'react-helmet'
 
-import { useWpOptionsPage } from '../hooks/useWpOptionsPage'
-import { useSiteMetadata } from '../hooks/useSiteMetadata'
-
+import { useWpOptionsPage } from 'hooks/useWpOptionsPage'
+import { useSiteMetadata } from 'hooks/useSiteMetadata'
 
 const SeoHelmet = ({ yoast, locale, data }) => {
   const { title, description, siteUrl } = useSiteMetadata()

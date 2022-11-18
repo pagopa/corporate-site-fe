@@ -13,8 +13,8 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/swiper.min.css'
 import 'swiper/components/effect-fade/effect-fade.min.css'
 
-import Cta from '../Cta/Cta'
-import Image from '../Image/Image'
+import Cta from 'components/Cta/Cta'
+import Image from 'components/Image/Image'
 
 import './Hero.sass'
 

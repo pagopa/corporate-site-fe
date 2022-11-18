@@ -4,12 +4,12 @@ import { Helmet } from 'react-helmet'
 import { graphql } from 'gatsby'
 import parse from 'html-react-parser'
 
-import { useWpOptionsPage } from '../hooks/useWpOptionsPage'
+import { useWpOptionsPage } from 'hooks/useWpOptionsPage'
 
-import Cta from '../components/Cta/Cta'
+import Cta from 'components/Cta/Cta'
 
-import Layout from '../partials/Layout'
-import SeoHelmet from '../components/SeoHelmet'
+import Layout from 'partials/Layout'
+import SeoHelmet from 'components/SeoHelmet'
 
 const dateFormatOptions = { year: 'numeric', month: '2-digit', day: '2-digit' }
 
@@ -136,7 +136,10 @@ const JobPage = ({ location, data }) => {
             "@context" : "https://schema.org/",
             "@type" : "JobPosting",
             "title" : "${title?.replace(/(<([^>]+)>)/gi, '')}",
-            "description" : "${(jobPositionFields.intro?.text)?.replace(/(<([^>]+)>)/gi, '')}",
+            "description" : "${jobPositionFields.intro?.text?.replace(
+              /(<([^>]+)>)/gi,
+              ''
+            )}",
             "datePosted" : "${jobPositionFields.openDate}",
             "validThrough" : "${jobPositionFields.closeDate}",
             "employmentType" : ["FULL_TIME", "PART_TIME", "INTERN"],
@@ -237,9 +240,7 @@ export const jobQuery = graphql`
               fixed(fit: COVER, quality: 90, width: 1200, height: 627) {
                 src
               }
-              gatsbyImageData(
-                layout: CONSTRAINED
-              )
+              gatsbyImageData(layout: CONSTRAINED)
             }
           }
         }

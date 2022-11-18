@@ -2,9 +2,9 @@ import React from 'react'
 
 import parse from 'html-react-parser'
 
-import BackgroundGraphics from '../BackgroundGraphics/BackgroundGraphics'
-import Image from '../Image/Image'
-import Cta from '../Cta/Cta'
+import BackgroundGraphics from 'components/BackgroundGraphics/BackgroundGraphics'
+import Image from 'components/Image/Image'
+import Cta from 'components/Cta/Cta'
 
 import './BlocksList.sass'
 

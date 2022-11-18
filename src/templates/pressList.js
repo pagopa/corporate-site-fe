@@ -2,14 +2,14 @@ import React, { useContext } from 'react'
 
 import { graphql } from 'gatsby'
 
-import { LocaleContext } from '../contexts/LocaleContext.js'
+import { LocaleContext } from 'contexts/LocaleContext.js'
 
-import SeoHelmet from '../components/SeoHelmet.js'
-import Layout from '../partials/Layout'
-import Block from '../components/Block/Block'
-import NewsletterBanner from '../components/NewsletterBanner/NewsletterBanner'
-import Pagination from '../components/Pagination/Pagination'
-import Cta from '../components/Cta/Cta'
+import SeoHelmet from 'components/SeoHelmet.js'
+import Layout from 'partials/Layout'
+import Block from 'components/Block/Block'
+import NewsletterBanner from 'components/NewsletterBanner/NewsletterBanner'
+import Pagination from 'components/Pagination/Pagination'
+import Cta from 'components/Cta/Cta'
 
 const PressReleases = ({ data }) => {
   const locale = useContext(LocaleContext)
@@ -59,7 +59,7 @@ const PressPage = ({ location, data, pageContext }) => {
       flexibleContent,
       nodeType,
       uri,
-      postConfig: { bannerNewsletter }
+      postConfig: { bannerNewsletter },
     } = data.page,
     blocks = flexibleContent.body.blocks
 
@@ -80,9 +80,7 @@ const PressPage = ({ location, data, pageContext }) => {
 
       {blocks &&
         blocks.map((block, key) => {
-          return (
-            <Block data={block} key={key} type={nodeType} {...pageProps} />
-          )
+          return <Block data={block} key={key} type={nodeType} {...pageProps} />
         })}
 
       <section className="press-release-list">
@@ -115,7 +113,6 @@ export const pressQuery = graphql`
       ...PageSeo
 
       ...PageFlexibleContent
-
     }
     allPressReleases: allWpPressReleases(
       sort: { fields: date, order: DESC }

@@ -1,14 +1,14 @@
 import React, { useContext } from 'react'
 
-import { LocaleContext } from '../../contexts/LocaleContext.js'
+import { LocaleContext } from 'contexts/LocaleContext.js'
 
-import { useInitiatives } from '../../hooks/useInitiatives.js'
-import { useEvents } from '../../hooks/useEvents.js'
-import { useNews } from '../../hooks/useNews.js'
+import { useInitiatives } from 'hooks/useInitiatives.js'
+import { useEvents } from 'hooks/useEvents.js'
+import { useNews } from 'hooks/useNews.js'
 
-import BackgroundGraphics from '../BackgroundGraphics/BackgroundGraphics'
-import Post from '../../components/Post/Post'
-import Cta from '../../components/Cta/Cta'
+import BackgroundGraphics from 'components/BackgroundGraphics/BackgroundGraphics'
+import Post from 'components/Post/Post'
+import Cta from 'components/Cta/Cta'
 
 import './NewsEvents.sass'
 
@@ -36,15 +36,17 @@ const LatestEntries = () => {
     const bDate = new Date(b.node.date).getTime()
     return bDate - aDate
   }
-  
-  collection.sort(sortComparing)
 
+  collection.sort(sortComparing)
 
   return (
     <>
-      {collection.slice(0,2).map((post, key) => {
+      {collection.slice(0, 2).map((post, key) => {
         return (
-          <div className={`col-12 col-lg-5 d-flex${key ? ' offset-lg-1' : ''}`} key={key}>
+          <div
+            className={`col-12 col-lg-5 d-flex${key ? ' offset-lg-1' : ''}`}
+            key={key}
+          >
             <Post data={post.node} />
           </div>
         )

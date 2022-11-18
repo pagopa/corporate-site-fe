@@ -7,8 +7,8 @@ import SwiperCore, { Navigation } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/swiper.min.css'
 
-import Cta from '../Cta/Cta'
-import Image from '../Image/Image'
+import Cta from 'components/Cta/Cta'
+import Image from 'components/Image/Image'
 import './ProjectsCarousel.sass'
 
 SwiperCore.use([Navigation])
@@ -29,9 +29,17 @@ const ProjectsCarousel = ({ data }) => {
         <div className="row">
           <div className="col-12 col-md-10 offset-md-1 d-flex align-items-center justify-content-center">
             <header className="projects-carousel__header">
-              <button className="projects-carousel__nav --prev" title="prev" aria-labelledby="prev" />
+              <button
+                className="projects-carousel__nav --prev"
+                title="prev"
+                aria-labelledby="prev"
+              />
               <h2>{data.title}</h2>
-              <button className="projects-carousel__nav --next" title="next" aria-labelledby="next" />
+              <button
+                className="projects-carousel__nav --next"
+                title="next"
+                aria-labelledby="next"
+              />
             </header>
           </div>
         </div>
@@ -52,14 +60,16 @@ const ProjectsCarousel = ({ data }) => {
                   1200: {
                     slidesPerView: 1.63,
                     spaceBetween: 60,
-                  }
+                  },
                 }}
                 navigation={{
                   prevEl: '.projects-carousel__nav.--prev',
                   nextEl: '.projects-carousel__nav.--next',
                 }}
               >
-                {items.map(({
+                {items.map(
+                  (
+                    {
                       projectCustomFields,
                       title,
                       slug,
@@ -90,7 +100,9 @@ const ProjectsCarousel = ({ data }) => {
                               <figure>
                                 <Image
                                   image={image.localFile}
-                                  title={image.altText ? image.altText : 'image'}
+                                  title={
+                                    image.altText ? image.altText : 'image'
+                                  }
                                 />
                               </figure>
                             )}
@@ -98,9 +110,7 @@ const ProjectsCarousel = ({ data }) => {
                           <div>
                             {projectPostAbstract && (
                               <div className="wysiwyg">
-                                <p>
-                                  {parse(projectPostAbstract)}
-                                </p>
+                                <p>{parse(projectPostAbstract)}</p>
                               </div>
                             )}
                             <Cta

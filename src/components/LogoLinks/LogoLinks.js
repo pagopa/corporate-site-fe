@@ -1,13 +1,17 @@
 import React from 'react'
 
-import Image from '../Image/Image'
+import Image from 'components/Image/Image'
 import './LogoLinks.sass'
 
 const LogoLinks = ({ data }) => {
   const { title: blockTitle, items: logos } = data
 
   return (
-    <section className={`block --block-logo-links logo-links${!blockTitle ? ' pt-0' : ''}`}>
+    <section
+      className={`block --block-logo-links logo-links${
+        !blockTitle ? ' pt-0' : ''
+      }`}
+    >
       <div className="container-fluid">
         <div className="row">
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">

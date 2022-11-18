@@ -2,9 +2,9 @@ import React from 'react'
 
 import parse from 'html-react-parser'
 
-import BackgroundGraphics from '../BackgroundGraphics/BackgroundGraphics'
-import Video from '../Video/Video'
-import Cta from '../Cta/Cta'
+import BackgroundGraphics from 'components/BackgroundGraphics/BackgroundGraphics'
+import Video from 'components/Video/Video'
+import Cta from 'components/Cta/Cta'
 
 import './Text.sass'
 

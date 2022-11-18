@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Link } from 'gatsby'
 
-import { useSiteMetadata } from '../../hooks/useSiteMetadata'
+import { useSiteMetadata } from 'hooks/useSiteMetadata'
 
 const Language = ({ currentLocale }) => {
   const { languages } = useSiteMetadata()

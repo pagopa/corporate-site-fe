@@ -1,15 +1,13 @@
 import React from 'react'
-
 import { graphql } from 'gatsby'
-
+import { Helmet } from 'react-helmet'
 import parse from 'html-react-parser'
 
-import SeoHelmet from '../components/SeoHelmet.js'
-import Image from '../components/Image/Image'
-import Layout from '../partials/Layout'
-import Cta from '../components/Cta/Cta'
-import NewsletterBanner from '../components/NewsletterBanner/NewsletterBanner'
-import { Helmet } from 'react-helmet'
+import SeoHelmet from 'components/SeoHelmet.js'
+import Image from 'components/Image/Image'
+import Layout from 'partials/Layout'
+import Cta from 'components/Cta/Cta'
+import NewsletterBanner from 'components/NewsletterBanner/NewsletterBanner'
 
 const Intro = ({ eyelet, title }) => {
   return (
@@ -62,7 +60,9 @@ const newsletterSingle = ({ location, data }) => {
             "@context": "https://schema.org",
             "@type": "NewsArticle",
             "headline": "${title?.replace(/(<([^>]+)>)/gi, '')}",
-            "image": "${featuredImage?.node.localFile.childImageSharp.fixed.src}",
+            "image": "${
+              featuredImage?.node.localFile.childImageSharp.fixed.src
+            }",
             "datePublished": "${date}",
             "dateModified": "${date}",
             "publisher": {
@@ -148,9 +148,7 @@ export const newsQuery = graphql`
               fixed {
                 src
               }
-              gatsbyImageData(
-                layout: CONSTRAINED
-              )
+              gatsbyImageData(layout: CONSTRAINED)
             }
           }
         }

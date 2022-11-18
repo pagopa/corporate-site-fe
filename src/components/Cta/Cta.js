@@ -4,10 +4,10 @@ import { Link } from 'gatsby'
 
 import classNames from 'classnames'
 
-import { LocaleContext } from '../../contexts/LocaleContext.js'
-import { useSiteMetadata } from '../../hooks/useSiteMetadata'
-import { useWpOptionsPage } from '../../hooks/useWpOptionsPage'
-import { convertCPTDir } from '../../helpers/convertCPTDir'
+import { LocaleContext } from 'contexts/LocaleContext.js'
+import { useSiteMetadata } from 'hooks/useSiteMetadata'
+import { useWpOptionsPage } from 'hooks/useWpOptionsPage'
+import { convertCPTDir } from 'helpers/convertCPTDir'
 
 import './Cta.sass'
 

@@ -2,28 +2,28 @@ import React, { useContext } from 'react'
 
 import { graphql } from 'gatsby'
 
-import { LocaleContext } from '../contexts/LocaleContext.js'
+import { LocaleContext } from 'contexts/LocaleContext.js'
 
-import Layout from '../partials/Layout'
-import NewsletterBanner from '../components/NewsletterBanner/NewsletterBanner'
-import Pagination from '../components/Pagination/Pagination'
-import SeoHelmet from '../components/SeoHelmet.js'
-import Block from '../components/Block/Block'
-import Post from '../components/Post/Post'
-// import Cta from '../components/Cta/Cta'
+import Layout from 'partials/Layout'
+import NewsletterBanner from 'components/NewsletterBanner/NewsletterBanner'
+import Pagination from 'components/Pagination/Pagination'
+import SeoHelmet from 'components/SeoHelmet.js'
+import Block from 'components/Block/Block'
+import Post from 'components/Post/Post'
+// import Cta from 'components/Cta/Cta'
 
 const NewsEvents = ({ data }) => {
   const locale = useContext(LocaleContext)
 
-  const currentLocaleNewsEvents = data.filter(
-    j => j.node.locale.id === locale
-  )
+  const currentLocaleNewsEvents = data.filter(j => j.node.locale.id === locale)
 
   currentLocaleNewsEvents.sort((a, b) => {
-    const aDate = a.node.nodeType === 'Event' ? a.node.eventField.eventDate : a.node.date,
-          bDate = b.node.nodeType === 'Event' ? b.node.eventField.eventDate : b.node.date,
-          aTime = new Date(aDate).getTime(),
-          bTime = new Date(bDate).getTime()
+    const aDate =
+        a.node.nodeType === 'Event' ? a.node.eventField.eventDate : a.node.date,
+      bDate =
+        b.node.nodeType === 'Event' ? b.node.eventField.eventDate : b.node.date,
+      aTime = new Date(aDate).getTime(),
+      bTime = new Date(bDate).getTime()
 
     return bTime - aTime
   })
@@ -51,7 +51,7 @@ const NewsEventPage = ({ location, data, pageContext }) => {
       flexibleContent,
       nodeType,
       uri,
-      postConfig: { bannerNewsletter }
+      postConfig: { bannerNewsletter },
     } = data.page,
     blocks = flexibleContent.body.blocks
 
@@ -76,16 +76,13 @@ const NewsEventPage = ({ location, data, pageContext }) => {
 
       {blocks &&
         blocks.map((block, key) => {
-          return (
-            <Block data={block} key={key} type={nodeType} {...pageProps} />
-          )
+          return <Block data={block} key={key} type={nodeType} {...pageProps} />
         })}
 
       <section className="press-release-list">
         <div className="container-fluid">
           <div className="row">
             <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-              
               <div className="row">
                 <NewsEvents data={newsEventsCollection} />
               </div>
@@ -115,7 +112,6 @@ export const newsEventQuery = graphql`
       ...PageSeo
 
       ...PageFlexibleContent
-
     }
 
     allNews: allWpPost(

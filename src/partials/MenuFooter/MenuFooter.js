@@ -1,15 +1,13 @@
 import React from 'react'
 
-import { useMenuFooter } from '../../hooks/useMenuFooter'
+import { useMenuFooter } from 'hooks/useMenuFooter'
 
-import Cta from '../../components/Cta/Cta'
+import Cta from 'components/Cta/Cta'
 
-import './MenuFooter.sass'
+import 'partials/MenuFooter/MenuFooter.sass'
 
 const MenuFooter = () => {
-
   const data = useMenuFooter()
-  
 
   const menu = data.nodes
 

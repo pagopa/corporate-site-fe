@@ -1,14 +1,14 @@
 import React from 'react'
 
-import { useWpOptionsPage } from '../../hooks/useWpOptionsPage'
+import { useWpOptionsPage } from 'hooks/useWpOptionsPage'
 
-import Logo from '../Logo/Logo'
-import Socials from '../Socials/Socials'
-// import Language from '../Language/Language'
-import MenuFooter from '../MenuFooter/MenuFooter'
-import MenuService from '../MenuService/MenuService'
+import Logo from 'partials/Logo/Logo'
+import Socials from 'partials/Socials/Socials'
+// import Language from 'partials/Language/Language'
+import MenuFooter from 'partials/MenuFooter/MenuFooter'
+import MenuService from 'partials/MenuService/MenuService'
 
-import './Footer.sass'
+import 'partials/Footer/Footer.sass'
 
 const Footer = ({ locale }) => {
   const { companyData } = useWpOptionsPage()
@@ -17,7 +17,6 @@ const Footer = ({ locale }) => {
     <footer className="footer">
       <div className="container-fluid">
         <div className="footer__top">
-          
           <div className="row">
             <div className="col-12 col-md-2">
               <Logo version="light" />
@@ -25,9 +24,7 @@ const Footer = ({ locale }) => {
             <div className="col-12 col-md-10 col-lg-8">
               <MenuService />
             </div>
-
           </div>
-          
         </div>
         <div className="footer__bottom">
           {/* <div className="row justify-content-between flex-row-reverse">

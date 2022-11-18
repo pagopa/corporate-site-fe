@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { Link } from 'gatsby'
 
-import MenuMain from '../MenuMain/MenuMain'
-import MenuReservedArea from '../MenuReservedArea/MenuReservedArea'
-import Socials from '../Socials/Socials'
-import Logo from '../Logo/Logo'
-import Hamburger from '../Hamburger/Hamburger'
+import MenuMain from 'partials/MenuMain/MenuMain'
+import MenuReservedArea from 'partials/MenuReservedArea/MenuReservedArea'
+import Socials from 'partials/Socials/Socials'
+import Logo from 'partials/Logo/Logo'
+import Hamburger from 'partials/Hamburger/Hamburger'
 
-import './Header.sass'
+import 'partials/Header/Header.sass'
 
 const Header = ({ location }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)

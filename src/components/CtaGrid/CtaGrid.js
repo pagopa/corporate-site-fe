@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Cta from '../Cta/Cta'
+import Cta from 'components/Cta/Cta'
 import './CtaGrid.sass'
 
 const CtaGrid = ({ data }) => {

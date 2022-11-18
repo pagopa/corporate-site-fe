@@ -2,11 +2,11 @@ import React from 'react'
 
 import { graphql } from 'gatsby'
 
-import Layout from '../partials/Layout'
-import Block from '../components/Block/Block'
-import NewsletterBanner from '../components/NewsletterBanner/NewsletterBanner'
+import Layout from 'partials/Layout'
+import Block from 'components/Block/Block'
+import NewsletterBanner from 'components/NewsletterBanner/NewsletterBanner'
 
-import SeoHelmet from '../components/SeoHelmet'
+import SeoHelmet from 'components/SeoHelmet'
 
 const ProjectPage = ({ location, data }) => {
   const {

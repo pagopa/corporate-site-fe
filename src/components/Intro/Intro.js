@@ -3,11 +3,11 @@ import React, { useEffect } from 'react'
 import parse from 'html-react-parser'
 import smoothscroll from 'smoothscroll-polyfill'
 
-import { useMenu } from '../../hooks/useMenu'
+import { useMenu } from 'hooks/useMenu'
 
-import BackgroundGraphics from '../BackgroundGraphics/BackgroundGraphics'
-import Image from '../Image/Image'
-import Cta from '../Cta/Cta'
+import BackgroundGraphics from 'components/BackgroundGraphics/BackgroundGraphics'
+import Image from 'components/Image/Image'
+import Cta from 'components/Cta/Cta'
 
 import './Intro.sass'
 
@@ -124,21 +124,33 @@ const Intro = ({ data, featuredImage, currentSlug }) => {
             </div>
           </div>
         </div>
-        
+
         {isEventLanding && (eventDate || eventEnd || eventVenue) && (
           <div className="row">
             <div className="col-12 d-inline-flex justify-content-center text-left">
               <div className="intro__data flex-wrap flex-md-nowrap">
                 {eventDate && (
                   <div>
-                    <p className="--label">DATA{eventEnd && " INIZIO"}</p>
-                    <p>{new Date(eventDate).toLocaleDateString('it', { year: 'numeric', month: '2-digit', day: '2-digit' })}</p>
+                    <p className="--label">DATA{eventEnd && ' INIZIO'}</p>
+                    <p>
+                      {new Date(eventDate).toLocaleDateString('it', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                      })}
+                    </p>
                   </div>
                 )}
                 {eventEnd && (
                   <div>
                     <p className="--label">DATA FINE</p>
-                    <p>{new Date(eventEnd).toLocaleDateString('it', { year: 'numeric', month: '2-digit', day: '2-digit' })}</p>
+                    <p>
+                      {new Date(eventEnd).toLocaleDateString('it', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                      })}
+                    </p>
                   </div>
                 )}
                 {eventVenue && (

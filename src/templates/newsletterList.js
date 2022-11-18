@@ -2,14 +2,14 @@ import React, { useContext } from 'react'
 
 import { graphql } from 'gatsby'
 
-import { LocaleContext } from '../contexts/LocaleContext.js'
+import { LocaleContext } from 'contexts/LocaleContext.js'
 
-import SeoHelmet from '../components/SeoHelmet.js'
-import Layout from '../partials/Layout'
-import Block from '../components/Block/Block'
-import NewsletterBanner from '../components/NewsletterBanner/NewsletterBanner'
-import Pagination from '../components/Pagination/Pagination'
-import Post from '../components/Post/Post'
+import SeoHelmet from 'components/SeoHelmet.js'
+import Layout from 'partials/Layout'
+import Block from 'components/Block/Block'
+import NewsletterBanner from 'components/NewsletterBanner/NewsletterBanner'
+import Pagination from 'components/Pagination/Pagination'
+import Post from 'components/Post/Post'
 
 const Newsletters = ({ data }) => {
   const locale = useContext(LocaleContext)

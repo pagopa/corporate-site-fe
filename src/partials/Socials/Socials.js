@@ -1,8 +1,9 @@
 import React from 'react'
-
-import { useWpOptionsPage } from '../../hooks/useWpOptionsPage'
 import { ReactSVG } from 'react-svg'
-import './Socials.sass'
+
+import { useWpOptionsPage } from 'hooks/useWpOptionsPage'
+
+import 'partials/Socials/Socials.sass'
 
 const Socials = ({ header }) => {
   const { socials } = useWpOptionsPage()

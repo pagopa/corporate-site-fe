@@ -1,14 +1,14 @@
 import React from 'react'
 
-import Image from '../Image/Image'
+import Image from 'components/Image/Image'
 
 const AttachmentsGrid = ({ data }) => {
   const { title, entries, blockOptions } = data
 
-  const { 
+  const {
     // backgroundGraphics,
-    blockPosition, 
-    blockWidth 
+    blockPosition,
+    blockWidth,
   } = blockOptions
 
   const columns = {}
@@ -34,22 +34,33 @@ const AttachmentsGrid = ({ data }) => {
             {title && <h1>{title}</h1>}
             <div className="row">
               {entries?.map(({ icon, attachment, label }, key) => {
-
                 return (
                   <div className="col-12 col-md-6 col-lg-4 d-flex" key={key}>
                     <article className="icon-box">
                       <div>
-                        
                         {icon && (
                           <>
                             <div className="icon-box__icon">
                               <Image image={icon.localFile} alt="" />
                             </div>
-                            {attachment && <h4 className="--primary --medium icon-box__title">{attachment?.title}</h4>}
+                            {attachment && (
+                              <h4 className="--primary --medium icon-box__title">
+                                {attachment?.title}
+                              </h4>
+                            )}
                           </>
                         )}
                       </div>
-                      {attachment && <a href={attachment?.localFile.publicURL} target="_blank" rel="noopener noreferrer" className="cta mt-0"><span>{label}</span></a>}
+                      {attachment && (
+                        <a
+                          href={attachment?.localFile.publicURL}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="cta mt-0"
+                        >
+                          <span>{label}</span>
+                        </a>
+                      )}
                     </article>
                   </div>
                 )

@@ -2,10 +2,10 @@ import React from 'react'
 
 import parse from 'html-react-parser'
 
-import Image from '../../components/Image/Image'
-import Cta from '../../components/Cta/Cta'
+import Image from 'components/Image/Image'
+import Cta from 'components/Cta/Cta'
 
-import placeholder from '../../images/placeholder.png'
+import placeholder from 'images/placeholder.png'
 
 import './Post.sass'
 
@@ -25,26 +25,25 @@ const Post = ({ data }) => {
   const labels = {
     post: {
       it: 'News',
-      en: 'News'
+      en: 'News',
     },
     event: {
       it: 'Eventi',
-      en: 'Events'
+      en: 'Events',
     },
     initiative: {
       it: 'Iniziative',
-      en: 'Initiatives'
+      en: 'Initiatives',
     },
     newsletter: {
       it: 'Newsletter',
-      en: 'Newsletter'
-    }
+      en: 'Newsletter',
+    },
   }
 
   const attrs = {
-    'data-label': labels[nodeType.toLowerCase()][locale.id]
+    'data-label': labels[nodeType.toLowerCase()][locale.id],
   }
-
 
   return (
     <>
@@ -64,7 +63,9 @@ const Post = ({ data }) => {
             {data.eventField?.eventTimeStart && (
               <h4>
                 ore: {data.eventField.eventTimeStart}
-                {data.eventField?.eventTimeStart ? ` - ${data.eventField?.eventTimeEnd}`: ``}
+                {data.eventField?.eventTimeStart
+                  ? ` - ${data.eventField?.eventTimeEnd}`
+                  : ``}
               </h4>
             )}
           </div>
@@ -74,7 +75,6 @@ const Post = ({ data }) => {
               <p>{parse(abstract)}...</p>
             </div>
           )}
-          
         </div>
 
         <Cta
