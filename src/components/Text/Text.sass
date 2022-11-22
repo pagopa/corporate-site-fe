@@ -1,12 +1,32 @@
 .text
+  &.--reveal-mode
+    margin-bottom: 10rem
+
+    .wysiwyg
+      *
+        font-size: 4.2rem
+
+        @media (max-width: $tablet - 1)
+          font-size: 3.2rem
+
+      p
+        margin-bottom: .5em
 
   &.--centered
     text-align: center
 
     .wysiwyg
       text-align: center
-  
+
   &.--has-video
+
+    &:not(.--only-video)
+      .video
+        margin-bottom: 18rem
+
+        @media(max-width: $tablet - 1)
+          margin-bottom: 8rem
+
     @media (min-width: $tablet)
       text-align: left
 

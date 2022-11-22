@@ -20,7 +20,9 @@ const HeadScripts = () => {
         ]}
       />
 
-      <Helmet>{parse(onetrustSnippet)}</Helmet>
+      {process.env.NODE_ENV !== 'development' && (
+        <Helmet>{parse(onetrustSnippet)}</Helmet>
+      )}
 
       <Helmet
         script={[

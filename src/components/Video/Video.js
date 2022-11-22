@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import YouTube from 'react-youtube'
 
-import Modal from 'react-modal'
+import { gsap } from 'gsap'
+import ScrollTrigger from 'gsap/ScrollTrigger'
 
 import Image from 'components/Image/Image'
-
 import 'components/Video/Video.sass'
 
-Modal.setAppElement('#___gatsby')
+// Modal.setAppElement('#___gatsby')
 
 const youtubeParser = url => {
   var regExp =
@@ -17,80 +17,98 @@ const youtubeParser = url => {
 }
 
 const Video = ({ image, video }) => {
-  const [videoModalOpen, setVideoModalOpen] = useState(false)
+  const [videoActive, setVideoActive] = useState(false)
+  const [videoPlayed, setVideoPlayed] = useState(false)
+  const [videoInstance, setVideoInstance] = useState(null)
 
   const videoCode = video ? youtubeParser(video) : false
 
-  const ytVideoParams =
-    'rel=0&showinfo=1&autoplay=1&cc_load_policy=1&color=white&iv_load_policy=3&modestbranding=1&showinfo=0'
+  const handlePlay = (muted, alreadyPlayed) => {
+    if (!alreadyPlayed && videoInstance) {
+      if (muted) {
+        videoInstance.mute()
+      } else {
+        videoInstance.unMute()
+      }
+      setVideoActive(true)
+      videoInstance.playVideo()
+    }
+  }
+
+  const handleStop = () => {
+    setVideoActive(false)
+    videoInstance.pauseVideo()
+  }
+
+  const videoRef = useRef()
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger)
+
+    let ctx
+
+    if (videoInstance !== null) {
+      ctx = gsap.context(() => {
+        ScrollTrigger.create({
+          trigger: videoRef.current,
+          start: 'top 60%',
+          end: 'bottom 40%',
+          onEnter: () => {
+            handlePlay(true, videoPlayed)
+            setVideoPlayed(true)
+          },
+          onEnterBack: () => {
+            handlePlay(true, videoPlayed)
+            setVideoPlayed(true)
+          },
+          onLeave: () => handleStop(),
+          onLeaveBack: () => handleStop(),
+        })
+      }, videoRef)
+    }
+
+    return () => ctx?.revert()
+  }, [videoInstance, videoPlayed])
 
   return (
     <>
-      <figure className="video">
-        {image && <Image image={image.localFile} title={image.altText} />}
-        {videoCode && videoModalOpen && (
+      <figure className="video" ref={videoRef}>
+        {videoCode && (
+          <YouTube
+            videoId={videoCode}
+            id={`video-${videoCode}`}
+            className="video__frame"
+            opts={{
+              playerVars: {
+                autoplay: 0,
+                rel: 0,
+                cc_load_policy: 1,
+                color: 'white',
+                iv_load_policy: 3,
+                modestbranding: 1,
+                showinfo: 0,
+              },
+            }}
+            onReady={event => setVideoInstance(event.target)}
+            onEnd={() => setVideoActive(false)}
+          />
+        )}
+
+        {!videoActive && (
           <>
-            <Modal
-              isOpen={videoModalOpen}
-              onRequestClose={() => setVideoModalOpen(false)}
-              shouldCloseOnEsc={true}
+            {image && <Image image={image.localFile} title={image.altText} />}
+            <div className="video__curtain"></div>
+            <button
+              className="video__play"
+              onClick={() => {
+                handlePlay(false, false)
+                setVideoPlayed(true)
+              }}
             >
-              <button
-                className="close"
-                onClick={() => setVideoModalOpen(false)}
-              >
-                close
-              </button>
-              <div className="video-wrapper">
-                <YouTube
-                  videoId={videoCode}
-                  // id={string}
-                  // className={string}
-                  // iframeClassName={string}
-                  // style={object}
-                  // title={string}
-                  // loading={string}
-                  opts={{
-                    playerVars: {
-                      // https://developers.google.com/youtube/player_parameters
-                      autoplay: 0,
-                      rel: 0,
-                      showinfo: 1,
-                      cc_load_policy: 1,
-                      color: 'white',
-                      iv_load_policy: 3,
-                      modestbranding: 1,
-                      showinfo: 0,
-                    },
-                  }}
-                  // onReady={func}
-                  // onPlay={func}
-                  // onPause={func}
-                  // onEnd={func}
-                  // onError={func}
-                  // onStateChange={func}
-                  // onPlaybackRateChange={func}
-                  // onPlaybackQualityChange={func}
-                />
-                {/* <iframe
-                  width="100%"
-                  height="100%"
-                  src={`//www.youtube-nocookie.com/embed/${videoCode}?${ytVideoParams}&vq=hd1080`}
-                  frameBorder="0"
-                  allow={
-                    'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
-                  }
-                  allowFullScreen={true}
-                  tabIndex="-1"
-                /> */}
-              </div>
-            </Modal>
+              play
+            </button>
           </>
         )}
-        <div className="video__curtain"></div>
-        <button className="video__play" onClick={() => setVideoModalOpen(true)}>
-          play
-        </button>
       </figure>
     </>
   )
