@@ -5,6 +5,7 @@ import parse from 'html-react-parser'
 
 import BackgroundGraphics from 'components/BackgroundGraphics/BackgroundGraphics'
 import Video from 'components/Video/Video'
+import RevealText from 'components/Text/RevealText'
 import Cta from 'components/Cta/Cta'
 
 import './Text.sass'
@@ -83,7 +84,7 @@ const Text = ({ data }) => {
                 {text && revealMode && (
                   <div className="row">
                     <div className="col-12 col-md-10 offset-md-1">
-                      <div className="wysiwyg">{parse(text)}</div>
+                      <RevealText text={parse(text)} />
                     </div>
                   </div>
                 )}
