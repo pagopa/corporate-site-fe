@@ -26,12 +26,14 @@ const RevealText = ({ text }) => {
                 backgroundColor: '#caf2f5',
                 color: '#171717',
                 duration: 0.48,
+                stagger: 0.36,
               })
             } else {
               gsap.to('mark', {
                 backgroundColor: 'transparent',
                 color: 'transparent',
                 duration: 0.48,
+                stagger: 0.36,
               })
             }
           },
