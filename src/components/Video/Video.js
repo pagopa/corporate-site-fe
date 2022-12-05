@@ -17,30 +17,26 @@ const youtubeParser = url => {
 }
 
 const Video = ({ image, video }) => {
+  const [isPlaying, setIsPlaying] = useState(false)
   const [videoActive, setVideoActive] = useState(false)
-  const [videoPlayed, setVideoPlayed] = useState(false)
+  const [videoPreview, setVideoPreview] = useState(true)
   const [videoInstance, setVideoInstance] = useState(null)
 
   const videoCode = video ? youtubeParser(video) : false
 
-  const handlePlay = (muted, alreadyPlayed) => {
-    if (!alreadyPlayed && videoInstance) {
-      if (muted) {
-        videoInstance.mute()
-      } else {
-        videoInstance.unMute()
-      }
-      setVideoActive(true)
+  const videoRef = useRef()
+
+  const handlePlay = () => {
+    if (videoInstance) {
       videoInstance.playVideo()
     }
   }
 
   const handleStop = () => {
-    setVideoActive(false)
-    videoInstance.pauseVideo()
+    if (videoInstance) {
+      videoInstance.pauseVideo()
+    }
   }
-
-  const videoRef = useRef()
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
@@ -54,21 +50,39 @@ const Video = ({ image, video }) => {
           start: 'top 60%',
           end: 'bottom 40%',
           onEnter: () => {
-            handlePlay(true, videoPlayed)
-            setVideoPlayed(true)
+            if (videoPreview) handlePlay()
           },
           onEnterBack: () => {
-            handlePlay(true, videoPlayed)
-            setVideoPlayed(true)
+            if (videoPreview) handlePlay()
           },
-          onLeave: () => handleStop(),
-          onLeaveBack: () => handleStop(),
+          onLeave: () => {
+            handleStop()
+          },
+          onLeaveBack: () => {
+            handleStop()
+          },
         })
       }, videoRef)
     }
 
+    // videoRef.current.addEventListener('click', () => {
+    //   setVideoPlayed(true)
+    //   console.log('oaijsdoiajsdoijasodijo')
+    // })
+
+    // if (!videoActive) {
+    //   videoRef.current.addEventListener('mouseenter', () =>
+    //     handlePlay(true, videoPlayed)
+    //   )
+    //   videoRef.current.addEventListener('mouseleave', () => handleStop())
+    // }
+
+    console.log('preview', videoPreview)
+    console.log('playing', isPlaying)
+    console.log('active', videoActive)
+
     return () => ctx?.revert()
-  }, [videoInstance, videoPlayed])
+  }, [videoInstance, videoPreview])
 
   return (
     <>
@@ -87,22 +101,31 @@ const Video = ({ image, video }) => {
                 iv_load_policy: 3,
                 modestbranding: 1,
                 showinfo: 0,
+                mute: 1,
               },
             }}
             onReady={event => setVideoInstance(event.target)}
+            onStateChange={e => setIsPlaying(e.data === 1 ? true : false)}
             onEnd={() => setVideoActive(false)}
           />
         )}
 
-        {!videoActive && (
+        {videoPreview && !isPlaying && !videoActive && (
           <>
             {image && <Image image={image.localFile} title={image.altText} />}
+          </>
+        )}
+
+        {videoPreview && !videoActive && (
+          <>
             <div className="video__curtain"></div>
             <button
               className="video__play"
               onClick={() => {
-                handlePlay(false, false)
-                setVideoPlayed(true)
+                handlePlay()
+                setVideoPreview(false)
+                setVideoActive(true)
+                videoInstance.unMute()
               }}
             >
               play
