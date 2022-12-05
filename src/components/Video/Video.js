@@ -7,8 +7,6 @@ import ScrollTrigger from 'gsap/ScrollTrigger'
 import Image from 'components/Image/Image'
 import 'components/Video/Video.sass'
 
-// Modal.setAppElement('#___gatsby')
-
 const youtubeParser = url => {
   var regExp =
     /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/
@@ -64,22 +62,6 @@ const Video = ({ image, video }) => {
         })
       }, videoRef)
     }
-
-    // videoRef.current.addEventListener('click', () => {
-    //   setVideoPlayed(true)
-    //   console.log('oaijsdoiajsdoijasodijo')
-    // })
-
-    // if (!videoActive) {
-    //   videoRef.current.addEventListener('mouseenter', () =>
-    //     handlePlay(true, videoPlayed)
-    //   )
-    //   videoRef.current.addEventListener('mouseleave', () => handleStop())
-    // }
-
-    console.log('preview', videoPreview)
-    console.log('playing', isPlaying)
-    console.log('active', videoActive)
 
     return () => ctx?.revert()
   }, [videoInstance, videoPreview])
