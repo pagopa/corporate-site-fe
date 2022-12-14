@@ -61,13 +61,13 @@ stages:
       inputs:
         versionSpec: "14.x"
       displayName: "Install Node.js"
-    - task: Cache@2
-      inputs:
-        key: '"yarn" | "$(Agent.OS)" | yarn.lock'
-        restoreKeys: |
-          yarn | "$(Agent.OS)"
-        path: $(YARN_CACHE_FOLDER)
-      displayName: Cache Yarn
+    # - task: Cache@2
+    #   inputs:
+    #     key: '"yarn" | "$(Agent.OS)" | yarn.lock'
+    #     restoreKeys: |
+    #       yarn | "$(Agent.OS)"
+    #     path: $(YARN_CACHE_FOLDER)
+    #   displayName: Cache Yarn
     - script: |
         npm install -g yarn
       displayName: "Install Yarn"
@@ -107,20 +107,27 @@ stages:
         inlineScript: |
           az storage blob sync --container '$web' --account-name $(STORAGE_ACCOUNT_NAME) -s "$(Build.SourcesDirectory)/public"
     - task: AzureCLI@1
-      displayName: 'Sync Storage Prod'
-      condition: eq(variables['ENVIRONMENT'], 'prod')
-      inputs:
-        azureSubscription: '$(AZURE_SUBSCRIPTION)'
-        scriptLocation: inlineScript
-        inlineScript: |
-          az storage blob sync --container '$web' --account-name sitecorporatepagopait --account-key $(AZURE_STORAGE_KEY) -s "$(Build.SourcesDirectory)/public"
-    - task: AzureCLI@1
       displayName: 'Purge CDN'
       inputs:
         azureSubscription: '$(AZURE_SUBSCRIPTION)'
         scriptLocation: inlineScript
         inlineScript: |
           az cdn endpoint purge -g $(RESOURCE_GROUP_NAME) -n $(ENDPOINT_NAME) --profile-name $(PROFILE_CDN_NAME) --content-paths "/*" --no-wait
-
-
-
+    - task: AzureCLI@1
+      displayName: 'Sync Storage Prod'
+      condition: eq(variables['ENVIRONMENT'], 'prod')
+      inputs:
+        azureSubscription: '$(AZURE_SUBSCRIPTION)'
+        scriptLocation: inlineScript
+        inlineScript: |
+          az account set -s "ORG"
+          az storage blob sync --container '$web' --account-name sitecorporatepagopait -s "$(Build.SourcesDirectory)/public"
+    - task: AzureCLI@1
+      displayName: 'Purge CDN Prod'
+      condition: eq(variables['ENVIRONMENT'], 'prod')
+      inputs:
+        azureSubscription: '$(AZURE_SUBSCRIPTION)'
+        scriptLocation: inlineScript
+        inlineScript: |
+          az account set -s "ORG"
+          az cdn endpoint purge -g static-websites -n wwwpagopait --profile-name staticwebsites --content-paths "/*" --no-wait

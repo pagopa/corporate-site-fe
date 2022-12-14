@@ -20,7 +20,7 @@ module.exports = {
       options: {
         url: `${process.env.BACKEND_BASE_URL}/wp/index.php?graphql`,
         schema: {
-          timeout: 90000,
+          timeout: 120000,
           perPage: 20, // default 100
           requestConcurrency: 2, // default 15
           previewRequestConcurrency: 2, // default 5
