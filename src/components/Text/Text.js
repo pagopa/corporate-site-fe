@@ -83,7 +83,14 @@ const Text = ({ data }) => {
 
                 {text && revealMode && (
                   <div className="row">
-                    <div className="col-12 col-md-10 offset-md-1">
+                    <div
+                      className={classNames([
+                        'col-12',
+                        {
+                          'col-md-10 offset-md-1': blockWidth !== 'wide',
+                        },
+                      ])}
+                    >
                       <RevealText text={parse(text)} />
                     </div>
                   </div>
