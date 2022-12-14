@@ -4,11 +4,11 @@ import { graphql } from 'gatsby'
 
 import parse from 'html-react-parser'
 
-import SeoHelmet from '../components/SeoHelmet.js'
-import Image from '../components/Image/Image'
-import Layout from '../partials/Layout'
-import Cta from '../components/Cta/Cta'
-import NewsletterBanner from '../components/NewsletterBanner/NewsletterBanner'
+import SeoHelmet from 'components/SeoHelmet.js'
+import Image from 'components/Image/Image'
+import Layout from 'partials/Layout'
+import Cta from 'components/Cta/Cta'
+import NewsletterBanner from 'components/NewsletterBanner/NewsletterBanner'
 
 const Intro = ({ eyelet, title, data, locale }) => {
   return (
@@ -28,7 +28,13 @@ const Intro = ({ eyelet, title, data, locale }) => {
               {data.eventDate && (
                 <div>
                   <p className="--label">DATA</p>
-                  <p>{new Date(data.eventDate).toLocaleDateString(locale, { year: 'numeric', month: '2-digit', day: '2-digit' })}</p>
+                  <p>
+                    {new Date(data.eventDate).toLocaleDateString(locale, {
+                      year: 'numeric',
+                      month: '2-digit',
+                      day: '2-digit',
+                    })}
+                  </p>
                 </div>
               )}
               {data.eventTimeStart && (
@@ -165,9 +171,7 @@ export const newsQuery = graphql`
               fixed {
                 src
               }
-              gatsbyImageData(
-                layout: CONSTRAINED
-              )
+              gatsbyImageData(layout: CONSTRAINED)
             }
           }
         }

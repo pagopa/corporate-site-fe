@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 
-import { LocaleContext } from '../../contexts/LocaleContext.js'
-import { usePressReleases } from '../../hooks/usePressReleases.js'
+import { LocaleContext } from 'contexts/LocaleContext.js'
+import { usePressReleases } from 'hooks/usePressReleases.js'
 
-import Cta from '../../components/Cta/Cta'
+import Cta from 'components/Cta/Cta'
 
 import './PressRelease.sass'
 
@@ -12,21 +12,22 @@ const LatestPress = () => {
 
   const pressReleases = usePressReleases()
 
-  const currentLocalePress = pressReleases.filter(j => j.node.locale.id === locale)
+  const currentLocalePress = pressReleases.filter(
+    j => j.node.locale.id === locale
+  )
 
   return (
     <>
       {currentLocalePress.map((pr, key) => {
         const { date, title, slug, content, locale, nodeType } = pr.node
 
-
         const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' },
-              theDate = new Date(date).toLocaleDateString(locale.id, dateOptions)
+          theDate = new Date(date).toLocaleDateString(locale.id, dateOptions)
 
-        const text = content.replace(/(<([^>]+)>)/ig, '')
+        const text = content.replace(/(<([^>]+)>)/gi, '')
 
-        const abstract = text.split(" ").splice(0,24).join(" ")
-        
+        const abstract = text.split(' ').splice(0, 24).join(' ')
+
         return (
           <div className="col-12 col-lg-6 d-flex" key={key}>
             <article className="press-release">
@@ -38,7 +39,11 @@ const LatestPress = () => {
                 </div>
               </div>
 
-              <Cta url={slug} label={locale.id === 'it' ? 'Leggi' : 'Read'} type={nodeType}/>
+              <Cta
+                url={slug}
+                label={locale.id === 'it' ? 'Leggi' : 'Read'}
+                type={nodeType}
+              />
             </article>
           </div>
         )
@@ -48,7 +53,6 @@ const LatestPress = () => {
 }
 
 const PressRelease = ({ data }) => {
-
   const { title, link } = data
 
   return (

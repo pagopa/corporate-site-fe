@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react'
 
-import { useWpOptionsPage } from '../../hooks/useWpOptionsPage'
+import { useWpOptionsPage } from 'hooks/useWpOptionsPage'
 
-import Cta from '../../components/Cta/Cta'
+import Cta from 'components/Cta/Cta'
 
-import './MenuService.sass'
-
+import 'partials/MenuService/MenuService.sass'
 
 const MenuService = () => {
   const { linksAttachments } = useWpOptionsPage().footer
@@ -53,7 +52,9 @@ const MenuService = () => {
           )
         })}
         <li>
-          <button id="ot-sdk-btn" className="cta --link-simple ot-preferences"><span>Preferenze cookie</span></button>
+          <button id="ot-sdk-btn" className="cta --link-simple ot-preferences">
+            <span>Preferenze cookie</span>
+          </button>
           {/* ot-sdk-show-settings */}
         </li>
       </ul>

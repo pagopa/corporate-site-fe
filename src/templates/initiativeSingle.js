@@ -4,11 +4,11 @@ import { graphql } from 'gatsby'
 
 import parse from 'html-react-parser'
 
-import SeoHelmet from '../components/SeoHelmet.js'
-import Image from '../components/Image/Image'
-import Layout from '../partials/Layout'
-import Cta from '../components/Cta/Cta'
-import NewsletterBanner from '../components/NewsletterBanner/NewsletterBanner'
+import SeoHelmet from 'components/SeoHelmet.js'
+import Image from 'components/Image/Image'
+import Layout from 'partials/Layout'
+import Cta from 'components/Cta/Cta'
+import NewsletterBanner from 'components/NewsletterBanner/NewsletterBanner'
 
 const Intro = ({ eyelet, title }) => {
   return (
@@ -123,9 +123,7 @@ export const initiativeQuery = graphql`
           altText
           localFile {
             childImageSharp {
-              gatsbyImageData(
-                layout: CONSTRAINED
-              )
+              gatsbyImageData(layout: CONSTRAINED)
             }
           }
         }

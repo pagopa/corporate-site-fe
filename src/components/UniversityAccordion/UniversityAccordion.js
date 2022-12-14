@@ -4,7 +4,7 @@ import ReactPaginate from 'react-paginate'
 
 import parse from 'html-react-parser'
 
-import { useUniversityCollaborations } from '../../hooks/useUniversityCollaborations'
+import { useUniversityCollaborations } from 'hooks/useUniversityCollaborations'
 
 import {
   Accordion,
@@ -14,9 +14,9 @@ import {
   AccordionItemPanel,
 } from 'react-accessible-accordion'
 
-import '../Pagination/Pagination.sass'
-import '../Accordion/Accordion.sass'
-import './UniversityAccordion.sass'
+import 'components/Pagination/Pagination.sass'
+import 'components/Accordion/Accordion.sass'
+import 'components/UniversityAccordion/UniversityAccordion.sass'
 
 const AccordionItemComp = ({ data }) => {
   const { title, content, collaborationFields } = data
@@ -26,14 +26,17 @@ const AccordionItemComp = ({ data }) => {
       <AccordionItemHeading className="accordion-entry__header">
         <AccordionItemButton className="accordion-entry__button">
           <h3>{parse(title)}</h3>
-          <h4 className="--primary" data-status={isActive ? "in corso" : "conclusa"}>{collaborationType}</h4>
+          <h4
+            className="--primary"
+            data-status={isActive ? 'in corso' : 'conclusa'}
+          >
+            {collaborationType}
+          </h4>
         </AccordionItemButton>
       </AccordionItemHeading>
 
       <AccordionItemPanel className="accordion-entry__content">
-        <div className="wysiwyg">
-          {content && parse(content)}
-        </div>
+        <div className="wysiwyg">{content && parse(content)}</div>
       </AccordionItemPanel>
     </AccordionItem>
   )
@@ -85,12 +88,10 @@ const PaginatedEntriesList = ({ entries, itemsPerPage = 4 }) => {
             previousLabel="Precedente"
             pageClassName="pagination__page"
             pageLinkClassName="page-link"
-
             previousClassName=""
             previousLinkClassName="pagination__nav --prev"
             nextClassName=""
             nextLinkClassName="pagination__nav --next"
-
             breakLabel="..."
             breakClassName="page-item"
             breakLinkClassName="page-link"
@@ -107,12 +108,11 @@ const PaginatedEntriesList = ({ entries, itemsPerPage = 4 }) => {
 const UniAccordionComp = ({ data }) => {
   const { title, pagination } = data
 
-
-  const collaborations  = useUniversityCollaborations()
+  const collaborations = useUniversityCollaborations()
 
   const orderedEntries = [
     ...collaborations.filter(i => i.node.collaborationFields.isActive),
-    ...collaborations.filter(i => !i.node.collaborationFields.isActive)
+    ...collaborations.filter(i => !i.node.collaborationFields.isActive),
   ]
 
   return (

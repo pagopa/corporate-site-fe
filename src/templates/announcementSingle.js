@@ -4,16 +4,17 @@ import { graphql } from 'gatsby'
 
 import parse from 'html-react-parser'
 
-import { useMenu } from '../hooks/useMenu'
+import { useMenu } from 'hooks/useMenu'
 
-import SeoHelmet from '../components/SeoHelmet.js'
-import Layout from '../partials/Layout'
-import Cta from '../components/Cta/Cta'
-import NewsletterBanner from '../components/NewsletterBanner/NewsletterBanner'
+import SeoHelmet from 'components/SeoHelmet.js'
+import Layout from 'partials/Layout'
+import Cta from 'components/Cta/Cta'
+import NewsletterBanner from 'components/NewsletterBanner/NewsletterBanner'
 
 const IntroMenu = ({ name, currentSlug }) => {
   const allMenus = useMenu()
-  const introMenuItems = allMenus.filter(menu => menu.node.name === name)[0].node.menuItems
+  const introMenuItems = allMenus.filter(menu => menu.node.name === name)[0]
+    .node.menuItems
 
   return (
     <>
@@ -73,7 +74,7 @@ const announcementPage = ({ location, data }) => {
     featuredImage,
     seo,
     announcementFields,
-    postConfig: { bannerNewsletter }
+    postConfig: { bannerNewsletter },
   } = data.wpInnovationAnnouncement
 
   const cta = announcementFields.cta
@@ -199,9 +200,7 @@ export const announcementQuery = graphql`
               fixed(fit: COVER, quality: 90, width: 1200, height: 627) {
                 src
               }
-              gatsbyImageData(
-                layout: CONSTRAINED
-              )
+              gatsbyImageData(layout: CONSTRAINED)
             }
           }
         }

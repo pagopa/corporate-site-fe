@@ -48,7 +48,7 @@ export const PageFlexibleContent = graphql`
               blockPosition
               blockWidth
             }
-
+            revealMode
             iscentered
             content {
               eyelet

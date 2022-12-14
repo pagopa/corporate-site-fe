@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react'
-
 import { navigate } from 'gatsby'
 
 import { Helmet } from 'react-helmet'
 
-import { useWpOptionsPage } from '../hooks/useWpOptionsPage'
-import { useSiteMetadata } from '../hooks/useSiteMetadata'
+import { useWpOptionsPage } from 'hooks/useWpOptionsPage'
+import { useSiteMetadata } from 'hooks/useSiteMetadata'
 
 const getRedirectLanguage = (defaultLanguage, languages) => {
   let targetLanguage = defaultLanguage

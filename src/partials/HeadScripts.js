@@ -4,7 +4,7 @@ import parse from 'html-react-parser'
 
 import { Helmet } from 'react-helmet'
 
-import { useWpOptionsPage } from '../hooks/useWpOptionsPage'
+import { useWpOptionsPage } from 'hooks/useWpOptionsPage'
 
 const HeadScripts = () => {
   const { onetrustSnippet } = useWpOptionsPage().various
@@ -20,10 +20,10 @@ const HeadScripts = () => {
         ]}
       />
 
-      <Helmet>
-        {parse(onetrustSnippet)}
-      </Helmet>
-      
+      {process.env.NODE_ENV !== 'development' && (
+        <Helmet>{parse(onetrustSnippet)}</Helmet>
+      )}
+
       <Helmet
         script={[
           // {
@@ -34,21 +34,19 @@ const HeadScripts = () => {
           // },
           {
             type: 'text/javascript',
-            src: '/js/script-onetrust.js'
+            src: '/js/script-onetrust.js',
           },
           {
             type: 'text/javascript',
             src: `https://www.googletagmanager.com/gtag/js?id=G-XNW0W43V93`,
             async: true,
-          }, {
+          },
+          {
             type: 'text/javascript',
-            src: '/js/script-ga.js'
-          }
+            src: '/js/script-ga.js',
+          },
         ]}
-      
       />
-
-
     </>
   )
 }

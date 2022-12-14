@@ -2,11 +2,11 @@ import React from 'react'
 
 import parse from 'html-react-parser'
 
-import BackgroundGraphics from '../BackgroundGraphics/BackgroundGraphics'
-import Cta from '../Cta/Cta'
-import Image from '../Image/Image'
+import BackgroundGraphics from 'components/BackgroundGraphics/BackgroundGraphics'
+import Cta from 'components/Cta/Cta'
+import Image from 'components/Image/Image'
 
-import './VisualText.sass'
+import 'components/VisualText/VisualText.sass'
 
 const VisualText = ({ data }) => {
   const { blockOptions, reverse, backgroundColor, content, visual } = data

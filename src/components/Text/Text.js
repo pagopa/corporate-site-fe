@@ -1,28 +1,19 @@
 import React from 'react'
 
+import classNames from 'classnames'
 import parse from 'html-react-parser'
 
-import BackgroundGraphics from '../BackgroundGraphics/BackgroundGraphics'
-import Video from '../Video/Video'
-import Cta from '../Cta/Cta'
+import BackgroundGraphics from 'components/BackgroundGraphics/BackgroundGraphics'
+import Video from 'components/Video/Video'
+import RevealText from 'components/Text/RevealText'
+import Cta from 'components/Cta/Cta'
 
 import './Text.sass'
 
 const Text = ({ data }) => {
-  const { blockOptions, iscentered, content } = data
-
+  const { blockOptions, iscentered, revealMode, content } = data
   const { backgroundGraphics, blockPosition, blockWidth } = blockOptions
-
   const { eyelet, title, text, link, video, additionalCta } = content
-
-  // additionalCta {
-  //   text
-  //   link {
-  //     target
-  //     title
-  //     url
-  //   }
-  // }
 
   const hasVideo = video?.link ? true : false
 
@@ -49,20 +40,35 @@ const Text = ({ data }) => {
 
   return (
     <section
-      className={`block --block-text text${hasVideo ? ' --has-video' : ''}${
-        iscentered ? ' --centered' : ''
-      }`}
+      className={classNames([
+        'block --block-text text',
+        {
+          '--centered': iscentered,
+          '--reveal-mode': revealMode,
+          '--has-video': hasVideo,
+          '--only-video': !(eyelet || title || text),
+        },
+      ])}
     >
       {backgroundGraphics && <BackgroundGraphics data={backgroundGraphics} />}
 
       <div className="container-fluid">
         <div className="row">
-          <div className={`col-12 ${columns[blockWidth]}`}>
-            <div className="row flex-row-reverse justify-content-between align-items-center">
+          <div className={classNames([`col-12 ${columns[blockWidth]}`])}>
+            <div className="row justify-content-between align-items-center">
+              {hasVideo && (
+                <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 pt-5 pt-lg-0">
+                  <Video video={video.link} image={video.image} />
+                </div>
+              )}
+
               <div
-                className={`col-12${
-                  hasVideo ? ' col-lg-5 pb-5 pb-lg-0 mb-5 mb-lg-0' : ''
-                }`}
+                className={classNames([
+                  'col-12',
+                  {
+                    'pb-5 pb-lg-0 mb-5 mb-lg-0': hasVideo,
+                  },
+                ])}
               >
                 {eyelet && <h4>{eyelet}</h4>}
                 {title ? (
@@ -74,7 +80,19 @@ const Text = ({ data }) => {
                 ) : (
                   false
                 )}
-                {text && <div className="wysiwyg">{parse(text)}</div>}
+
+                {text && revealMode && (
+                  <div className="row">
+                    <div className="col-12 col-md-10 offset-md-1">
+                      <RevealText text={parse(text)} />
+                    </div>
+                  </div>
+                )}
+
+                {text && !revealMode && (
+                  <div className="wysiwyg">{parse(text)}</div>
+                )}
+
                 {link && (
                   <Cta
                     label={link.title}
@@ -83,6 +101,7 @@ const Text = ({ data }) => {
                     className={additionalCta ? 'me-5' : ''}
                   />
                 )}
+
                 {additionalCta && additionalCta.link && (
                   <div className="py-4 d-inline-block">
                     <span className="me-4">{additionalCta.text}</span>
@@ -97,19 +116,6 @@ const Text = ({ data }) => {
                   </div>
                 )}
               </div>
-
-              {hasVideo && (
-                <div className="col-12 col-lg-6 pt-5 pt-lg-0">
-                  <Video video={video.link} image={video.image} />
-                  {/* {link && hasVideo && (
-                    <Cta
-                      label={link.title}
-                      url={link.url}
-                      blank={link.target}
-                    />
-                  )} */}
-                </div>
-              )}
             </div>
           </div>
         </div>

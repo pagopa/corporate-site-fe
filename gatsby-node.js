@@ -2,6 +2,9 @@ const FilterWarningsPlugin = require('webpack-filter-warnings-plugin')
 
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
+    resolve: {
+      modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+    },
     plugins: [
       new FilterWarningsPlugin({
         exclude:

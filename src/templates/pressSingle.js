@@ -4,10 +4,10 @@ import { graphql } from 'gatsby'
 
 import parse from 'html-react-parser'
 
-import SeoHelmet from '../components/SeoHelmet.js'
-import Layout from '../partials/Layout'
-import Cta from '../components/Cta/Cta'
-import NewsletterBanner from '../components/NewsletterBanner/NewsletterBanner'
+import SeoHelmet from 'components/SeoHelmet.js'
+import Layout from 'partials/Layout'
+import Cta from 'components/Cta/Cta'
+import NewsletterBanner from 'components/NewsletterBanner/NewsletterBanner'
 
 const Intro = ({ eyelet, title }) => {
   return (
@@ -35,7 +35,7 @@ const pressArticlePage = ({ location, data }) => {
     featuredImage,
     seo,
     pressReleasesFields,
-    postConfig: { bannerNewsletter }
+    postConfig: { bannerNewsletter },
   } = data.wpPressReleases
 
   const cta = pressReleasesFields.cta
@@ -114,9 +114,7 @@ export const pressReleaseQuery = graphql`
               fixed(fit: COVER, quality: 90, width: 1200, height: 627) {
                 src
               }
-              gatsbyImageData(
-                layout: CONSTRAINED
-              )
+              gatsbyImageData(layout: CONSTRAINED)
             }
           }
         }

@@ -1,9 +1,9 @@
 import React from 'react'
 
-import Image from '../Image/Image'
-import BackgroundGraphics from '../BackgroundGraphics/BackgroundGraphics'
+import Image from 'components/Image/Image'
+import BackgroundGraphics from 'components/BackgroundGraphics/BackgroundGraphics'
 
-import './Visual.sass'
+import 'components/Visual/Visual.sass'
 
 const Visual = ({ data }) => {
   const {
