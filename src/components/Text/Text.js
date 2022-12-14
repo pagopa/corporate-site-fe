@@ -20,21 +20,15 @@ const Text = ({ data }) => {
   const columns = {}
 
   if (blockPosition === 'center') {
-    columns.standard = `col-lg-10 offset-lg-1${
-      !hasVideo ? ` col-xl-8 offset-xl-2` : ''
-    }`
+    columns.standard = `col-lg-10 offset-lg-1 col-xl-8 offset-xl-2`
     columns.wide = `col-lg-10 offset-lg-1`
   }
   if (blockPosition === 'left') {
-    columns.standard = `col-lg-10 offset-lg-1${
-      !hasVideo ? ` col-xl-8 offset-xl-1` : ''
-    }`
+    columns.standard = `col-lg-10 offset-lg-1 col-xl-8 offset-xl-1`
     columns.wide = `col-lg-10 offset-lg-1`
   }
   if (blockPosition === 'right') {
-    columns.standard = `col-lg-10 offset-lg-1${
-      !hasVideo ? ` col-xl-8 offset-xl-1` : ''
-    }`
+    columns.standard = `col-lg-10 offset-lg-1 col-xl-8 offset-xl-1`
     columns.wide = `col-lg-10 offset-lg-3`
   }
 
@@ -55,7 +49,7 @@ const Text = ({ data }) => {
       <div className="container-fluid">
         <div className="row">
           <div className={classNames([`col-12 ${columns[blockWidth]}`])}>
-            <div className="row justify-content-between align-items-center">
+            <div className="row">
               {hasVideo && (
                 <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 pt-5 pt-lg-0">
                   <Video video={video.link} image={video.image} />
@@ -87,7 +81,8 @@ const Text = ({ data }) => {
                       className={classNames([
                         'col-12',
                         {
-                          'col-md-10 offset-md-1': blockWidth !== 'wide',
+                          'col-md-10 offset-md-1':
+                            blockWidth !== 'wide' || hasVideo,
                         },
                       ])}
                     >
