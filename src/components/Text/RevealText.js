@@ -12,6 +12,8 @@ const RevealText = ({ text }) => {
     gsap.set(revealRef.current, { backgroundPosition: '100% 50%' })
 
     const ctx = gsap.context(() => {
+      const marks = [...revealRef.current.querySelectorAll('mark')]
+
       gsap.to(revealRef.current, {
         backgroundPosition: '0% 50%',
         ease: 'none',
@@ -22,14 +24,14 @@ const RevealText = ({ text }) => {
           scrub: 0.24,
           onUpdate: ({ progress }) => {
             if (progress > 0.5) {
-              gsap.to('mark', {
+              gsap.to(marks, {
                 backgroundColor: '#caf2f5',
                 color: '#171717',
                 duration: 0.48,
                 stagger: 0.36,
               })
             } else {
-              gsap.to('mark', {
+              gsap.to(marks, {
                 backgroundColor: 'transparent',
                 color: 'transparent',
                 duration: 0.48,
