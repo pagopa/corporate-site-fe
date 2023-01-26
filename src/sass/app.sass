@@ -1,0 +1,143 @@
+@import 'reset'
+
+$container-max-widths: (sm: 540px, md: 720px, lg: 960px, xl: 1140px, xxl: 1170px)
+$grid-gutter-width: 3.2rem
+
+@import 'bootstrap-grid'
+
+@import 'vars'
+
+@import 'general'
+@import 'fonts'
+
+@import 'typography'
+
+@import 'checkbox'
+@import 'input'
+@import 'loader'
+
+@import 'job'
+@import 'icon-box'
+
+// helpers
+
+.container-fluid
+  max-width: 1408px
+
+.index-over-sibling
+  position: relative
+  z-index: 10
+
+.intro
+  text-align: center
+
+  &__heading
+    position: relative
+    margin-bottom: 13.4rem
+
+    h4
+      margin-bottom: 3.4rem
+
+    &::after
+      content: ''
+      width: 3px
+      height: 7rem
+      background-color: $c-brand
+      position: absolute
+      display: block
+      top: calc(100% + 3.2rem)
+      left: 50%
+      margin-left: -1px
+
+  &__data
+    display: inline-flex
+    background-color: $c-gray-extralight
+    margin-bottom: 1rem
+    flex: 0
+
+    @media (max-width: $mobile-xs - 1)
+      flex: 1
+
+    &:last-child
+      margin-bottom: 8rem
+
+    > div
+      position: relative
+      padding: 2.8rem 4rem 2.6rem
+      flex: 0 1 auto
+
+      @media (max-width: $mobile-xs - 1)
+        padding: 2rem 2.4rem 2.2rem
+
+      p
+        margin-bottom: 0
+
+        @media (min-width: $mobile-xs)
+          white-space: nowrap
+
+
+      &:not(:last-child)
+        &::after
+          content: ''
+          width: 1px
+          height: calc(100% - 6rem)
+          position: absolute
+          right: 0
+          top: 50%
+          transform: translateY(-50%)
+          background-color: $c-gray-light
+
+  &.--job
+    .intro
+      &__data
+        width: 100%
+        max-width: 52rem
+
+  &.--event
+
+    @media (max-width: $mobile - 1)
+      .intro
+        &__data
+          > div
+            &::after
+              content: none
+
+
+  &-menu
+    width: 100%
+    flex: 0 0 100%
+    display: flex
+    justify-content: center
+    padding-top: 1.6rem
+    margin-bottom: 6rem
+
+    ul
+      display: flex
+      flex-wrap: wrap
+      justify-content: center
+
+      li
+        font-family: $f-primary
+        font-weight: 500
+        font-size: 3.2rem
+        color: darken($c-gray-light, 8%)
+        display: flex
+
+        &:not(:last-child)
+          &::after
+            content: '/'
+            margin-left: 1rem
+            margin-right: 1rem
+            color: darken($c-gray-light, 8%)
+
+        &.is-current
+          color: $c-brand
+
+      .cta
+        font-family: $f-primary
+        font-weight: 500
+        font-size: 3.2rem
+        color: inherit
+
+        > span
+          color: inherit
