@@ -1,0 +1,45 @@
+.hamburger
+  position: relative
+  display: block
+  border: none
+  width: 3.2rem
+  height: 3.2rem
+  padding: 0 .5rem
+  z-index: 10
+
+  @media (min-width: $desktop)
+    display: none
+
+  span
+    position: relative
+    display: block
+    background-color: $c-brand
+    height: 2px
+    width: 22px
+    border-radius: 2px
+    top: 0
+    transform-origin: 50% 50%
+    transition: transform $transition-micro, background-color $transition-micro, width $transition-micro, top $transition-micro $tf, opacity $transition-micro
+
+    &:not(:last-child)
+      margin-bottom: 6px
+
+
+.menu-is-open
+  .hamburger
+    span
+      background-color: #FFF
+
+      &:nth-child(1)
+        transform: rotate(135deg)
+        top: 8px
+        transition: transform $transition-micro $tf, background-color $transition-micro, width $transition-micro .12s, top $transition-micro 0s
+
+      &:nth-child(2)
+        transform: scale(.7)
+        opacity: 0
+
+      &:nth-child(3)
+        top: -8px
+        transform: rotate(-135deg)
+        transition: transform $transition-micro $tf, background-color $transition-micro, width $transition-micro .12s, top $transition-micro 0s

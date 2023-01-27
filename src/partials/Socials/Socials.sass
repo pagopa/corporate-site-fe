@@ -1,0 +1,22 @@
+.socials
+  display: flex
+  align-items: center
+
+  @media (min-width: $mobile)
+    justify-content: flex-end
+
+  li
+    svg
+      max-width: 1.6rem
+
+    &:not(:first-child)
+      margin-left: 2rem
+
+    svg
+      display: block
+
+  &.--in-header
+    li
+      svg
+        path
+          fill: $c-black

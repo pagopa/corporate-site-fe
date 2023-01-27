@@ -1,0 +1,34 @@
+.header
+  position: fixed
+  top: 0
+  left: 0
+  padding-left: $section-gutter
+  padding-right: $section-gutter
+  width: 100%
+  height: $header-height
+  background-color: #FFF
+  z-index: 100
+  padding-top: 1.8rem
+
+  &__top
+    display: flex
+    justify-content: space-between
+    margin-bottom: 1.8rem
+
+  @media (max-width: $tablet - 1)
+    height: $header-height-mobile
+
+    .socials
+      display: none
+
+    .hamburger
+      display: block
+
+  @media (max-width: $mobile-xs)
+    padding-left: $section-gutter-mobile
+    padding-right: $section-gutter-mobile
+
+@supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none))
+  .header
+    background-color: rgba(#FFF, .75)
+    backdrop-filter: blur(1rem)
