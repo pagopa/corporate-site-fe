@@ -1,4 +1,4 @@
-### Type definitions saved at 2023-01-26T09:15:28.654Z ###
+### Type definitions saved at 2023-01-27T16:45:35.676Z ###
 
 enum RemoteFileFit {
   COVER
@@ -775,7 +775,39 @@ type STRAPI__COMPONENT_SHARED_BLOCK_INTROBody {
   data: STRAPI__COMPONENT_SHARED_BLOCK_INTRO_BODY_TEXTNODE @link(by: "id", from: "data___NODE")
 }
 
-type STRAPI_JOBPOSITION implements Node @dontInfer {
+type STRAPI_JOBPOSITION implements Node @derivedTypes @dontInfer {
+  title: String
+  isNew: Boolean
+  openDate: Date @dateformat
+  closeDate: Date @dateformat
+  openPositions: String
+  hiredPositions: String
+  selectedPeople: String
+  embedIdentifier: String
+  applicationLink: String
+  slug: String
+  createdAt: Date @dateformat
+  updatedAt: Date @dateformat
+  publishedAt: Date @dateformat
+  url_path_id: String
+  locale: String
+  localizations: STRAPI_JOBPOSITIONLocalizations
+  url_path: String
+  featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
+  blocks: [STRAPI__COMPONENT_SHARED_BLOCK_INTRO] @link(by: "id", from: "blocks___NODE")
+  strapi_id: Int
+}
+
+type STRAPI_JOBPOSITIONLocalizations @derivedTypes {
+  data: [STRAPI_JOBPOSITIONLocalizationsData]
+}
+
+type STRAPI_JOBPOSITIONLocalizationsData @derivedTypes {
+  id: Int
+  attributes: STRAPI_JOBPOSITIONLocalizationsDataAttributes
+}
+
+type STRAPI_JOBPOSITIONLocalizationsDataAttributes {
   title: String
   isNew: Boolean
   openDate: Date @dateformat
@@ -792,7 +824,4 @@ type STRAPI_JOBPOSITION implements Node @dontInfer {
   url_path_id: String
   locale: String
   url_path: String
-  featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
-  blocks: [STRAPI__COMPONENT_SHARED_BLOCK_INTRO] @link(by: "id", from: "blocks___NODE")
-  strapi_id: Int
 }
