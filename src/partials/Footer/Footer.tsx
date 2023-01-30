@@ -1,10 +1,8 @@
 import React from 'react';
 
-// import { useWpOptionsPage } from 'hooks/useWpOptionsPage';
-
 import { Logo } from '../Logo/Logo';
 import { Socials } from '../Socials/Socials';
-// import Language from '../Language/Language'
+import { useTranslation } from 'gatsby-plugin-react-i18next';
 import { MenuFooter } from '../MenuFooter/MenuFooter';
 import { MenuService } from '../MenuService/MenuService';
 
@@ -12,19 +10,30 @@ import './Footer.sass';
 import { graphql, useStaticQuery } from 'gatsby';
 
 export const Footer = () => {
-  // const { companyData } = useWpOptionsPage()
+  const {
+    i18n: { language },
+  } = useTranslation();
 
-  // const { allDataJson } = useStaticQuery(graphql`
-  //   query {
-  //     allFooterJson(filter: { locale: { eq: "it" } }) {
-  //       nodes {
-  //         data
-  //       }
-  //     }
-  //   }
-  // `);
+  const {
+    allFooterJson: { nodes: footerNodes },
+  }: Queries.footerDataQuery = useStaticQuery(graphql`
+    fragment Footer on FooterJson {
+      company
+      locale
+    }
+    query FooterData {
+      allFooterJson {
+        nodes {
+          ...Footer
+        }
+      }
+    }
+  `);
 
-  // console.debug(allDataJson);
+  const localeData = footerNodes?.find(
+    (node: Queries.FooterFragment) => node.locale === language
+  );
+
   return (
     <footer className="footer">
       <div className="container-fluid">
@@ -56,7 +65,7 @@ export const Footer = () => {
                 <Socials />
               </div>
             </div>
-            <div className="col-12 col-md-6">{'lollo'}</div>
+            <div className="col-12 col-md-6">{localeData?.company}</div>
           </div>
         </div>
       </div>

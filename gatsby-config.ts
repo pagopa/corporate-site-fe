@@ -28,6 +28,14 @@ const config: GatsbyConfig = {
     `gatsby-transformer-remark`,
     `gatsby-transformer-json`,
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `data`,
+        path: `${__dirname}/src/data`,
+        ignore: [`**/\.*`], // ignore dotfiles
+      },
+    },
+    {
       resolve: 'gatsby-source-strapi',
       options: {
         apiURL: process.env.STRAPI_API_URL || 'http://localhost:1337',

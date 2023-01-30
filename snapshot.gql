@@ -1,4 +1,4 @@
-### Type definitions saved at 2023-01-27T16:45:35.676Z ###
+### Type definitions saved at 2023-01-30T11:05:26.836Z ###
 
 enum RemoteFileFit {
   COVER
@@ -824,4 +824,9 @@ type STRAPI_JOBPOSITIONLocalizationsDataAttributes {
   url_path_id: String
   locale: String
   url_path: String
+}
+
+type FooterJson implements Node @childOf(types: ["File"]) @dontInfer {
+  data: String
+  locale: String
 }

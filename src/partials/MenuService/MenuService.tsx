@@ -1,12 +1,40 @@
+import { graphql, useStaticQuery } from 'gatsby';
 import React, { useEffect } from 'react';
+import { useTranslation } from 'gatsby-plugin-react-i18next';
 
 import { Cta } from '../Cta/';
 
 import './MenuService.sass';
 
 export const MenuService = () => {
-  const linksAttachments: any[] = [];
+  const {
+    i18n: { language },
+  } = useTranslation();
+  const {
+    allFooterJson: { nodes: menuNodes },
+  }: Queries.footerDataQuery = useStaticQuery(graphql`
+    fragment UsefulLink on FooterJsonUsefulLinks {
+      label
+      url
+    }
+    fragment Menu on FooterJson {
+      locale
+      usefulLinks {
+        ...UsefulLink
+      }
+    }
+    query menuData {
+      allFooterJson {
+        nodes {
+          ...Menu
+        }
+      }
+    }
+  `);
 
+  const { usefulLinks } = menuNodes.find(
+    (node: Queries.MenuFragment) => node.locale === language
+  );
   useEffect(() => {
     const openOTPreferences = () => {
       // @ts-ignore
@@ -20,30 +48,16 @@ export const MenuService = () => {
   return (
     <nav className="menu-service">
       <ul>
-        {linksAttachments?.map((item, key) => {
-          const { footerLink, footerAttachment } = item;
-
-          const linkObj = {
-            title: footerLink
-              ? footerLink.title
-              : footerAttachment
-              ? footerAttachment.title
-              : false,
-            url: footerLink
-              ? footerLink.url
-              : footerAttachment
-              ? footerAttachment.localFile.publicURL
-              : false,
-            blank: true,
-          };
+        {usefulLinks?.map((item: Queries.UsefulLinkFragment) => {
+          const { label, url } = item;
 
           return (
-            <li key={key}>
-              {linkObj.url && (
+            <li key={url}>
+              {url && (
                 <Cta
-                  label={linkObj.title}
-                  url={linkObj.url}
-                  blank={linkObj.blank}
+                  label={label || ''}
+                  url={url || ''}
+                  blank
                   variant="link-simple"
                   href="#"
                 />
