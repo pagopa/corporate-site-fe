@@ -1,4 +1,4 @@
-### Type definitions saved at 2023-01-30T11:05:26.836Z ###
+### Type definitions saved at 2023-01-31T10:05:44.127Z ###
 
 enum RemoteFileFit {
   COVER
@@ -689,6 +689,17 @@ type MarkdownRemarkFrontmatter {
   title: String
 }
 
+type SocialsJson implements Node @derivedTypes @childOf(types: ["File"]) @dontInfer {
+  locale: String
+  links: [SocialsJsonLinks]
+}
+
+type SocialsJsonLinks {
+  image: String
+  label: String
+  url: String
+}
+
 type STRAPI__MEDIA implements Node @derivedTypes @dontInfer {
   name: String
   alternativeText: String
@@ -826,7 +837,13 @@ type STRAPI_JOBPOSITIONLocalizationsDataAttributes {
   url_path: String
 }
 
-type FooterJson implements Node @childOf(types: ["File"]) @dontInfer {
-  data: String
+type FooterJson implements Node @derivedTypes @childOf(types: ["File"]) @dontInfer {
+  company: String
   locale: String
+  usefulLinks: [FooterJsonUsefulLinks]
+}
+
+type FooterJsonUsefulLinks {
+  label: String
+  url: String
 }

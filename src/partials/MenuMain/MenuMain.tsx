@@ -6,7 +6,7 @@ import { MenuReservedArea } from '../MenuReservedArea';
 
 import './MenuMain.sass';
 
-const MenuItem = ({ item, disabled, locale }: any) => {
+const MenuItem = ({ item, disabled }: any) => {
   const { label, path } = item;
 
   const newUrl = '#/';

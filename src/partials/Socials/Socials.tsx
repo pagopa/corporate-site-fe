@@ -1,3 +1,5 @@
+import { graphql, useStaticQuery } from 'gatsby';
+import {useTranslation} from 'gatsby-plugin-react-i18next';
 import React from 'react';
 import { ReactSVG } from 'react-svg';
 
@@ -6,25 +8,44 @@ import './Socials.sass';
 export const Socials = ({ header }: any) => {
   const collection: any[] = [];
 
-  // socials.forEach(item => {
-  //   if (header) {
-  //     item.onheader && collection.push(item)
-  // })
+  const {
+    i18n: { language },
+  } = useTranslation();
+
+  const {
+    allSocialsJson: { nodes },
+  } = useStaticQuery(graphql`
+    query {
+      allSocialsJson {
+        nodes {
+          locale
+          links {
+            image
+            label
+            url
+          }
+        }
+      }
+    }
+  `);
+
+  const { links } = nodes.find((node: any) => node.locale === language);
+  console.debug(links);
 
   return (
     <>
       <ul className={`socials${header ? ' --in-header' : ''}`}>
-        {collection.map((social, key) => {
+        {links.map((social: any) => {
           return (
-            <li key={key}>
+            <li key={social.url}>
               <a
-                href={social.link.url}
+                href={social.url}
                 target="_blank"
-                title={social.link.title}
+                title={social.label}
                 rel="noreferrer noopener"
               >
                 <ReactSVG
-                  src={social.image.localFile.publicURL}
+                  src={social.image}
                   wrapper="span"
                 />
               </a>

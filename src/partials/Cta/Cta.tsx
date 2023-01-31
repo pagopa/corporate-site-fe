@@ -5,36 +5,19 @@ import classNames from 'classnames';
 import './Cta.sass';
 type CtaProps = {
   label: string;
-  url: string;
   blank?: boolean;
   variant?: string;
   className?: string;
-  href: string;
+  href?: string;
 };
 
 export const Cta = ({
   label,
-  url,
   blank = false,
   variant,
   className,
-  href,
+  href = '\#',
 }: CtaProps) => {
-  if (!url) {
-    return (
-      <>
-        <span
-          className={classNames(
-            'cta',
-            variant ? ` --${variant}` : '',
-            className
-          )}
-        >
-          <span>{label}</span>
-        </span>
-      </>
-    );
-  }
 
   return (
     <>

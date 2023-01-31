@@ -15,23 +15,23 @@ export const Footer = () => {
   } = useTranslation();
 
   const {
-    allFooterJson: { nodes: footerNodes },
-  }: Queries.footerDataQuery = useStaticQuery(graphql`
-    fragment Footer on FooterJson {
+    allFooterLeftJson: { nodes: footerNodes },
+  }: Queries.FooterDataQuery = useStaticQuery(graphql`
+    fragment FooterLeft on FooterLeftJson {
       company
       locale
     }
     query FooterData {
-      allFooterJson {
+      allFooterLeftJson {
         nodes {
-          ...Footer
+          ...FooterLeft
         }
       }
     }
   `);
 
   const localeData = footerNodes?.find(
-    (node: Queries.FooterFragment) => node.locale === language
+    (node: Queries.FooterLeftFragment) => node.locale === language
   );
 
   return (

@@ -36,6 +36,14 @@ const config: GatsbyConfig = {
       },
     },
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `svg`,
+        path: `${__dirname}/src/images`,
+        ignore: [`**/\.*`], // ignore dotfiles
+      },
+    },
+    {
       resolve: 'gatsby-source-strapi',
       options: {
         apiURL: process.env.STRAPI_API_URL || 'http://localhost:1337',
@@ -75,7 +83,6 @@ const config: GatsbyConfig = {
       resolve: 'gatsby-plugin-react-i18next',
       options: {
         languages: ['it', 'en'],
-        defaultLanguage: 'it',
         fallbackLanguage: 'en',
         generateDefaultLanguagePage: true,
         i18nextOptions: {
