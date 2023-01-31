@@ -1,0 +1,14 @@
+[
+  {
+    "locale": "it",
+    "usefulLinks": [
+      { "url": "https://www.pagopa.it/it/contatti/", "label": "CONTATTI" }
+    ]
+  },
+  {
+    "locale": "en",
+    "usefulLinks": [
+      { "url": "https://www.pagopa.it/en/contatti/", "label": "CONTACTS" }
+    ]
+  }
+]

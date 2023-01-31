@@ -1,0 +1,36 @@
+[
+  {
+    "company": "PagoPA S.p.A. – società per azioni con socio unico – capitale sociale di euro 1,000,000 interamente versato – sede legale in Roma, Piazza Colonna 370, CAP 00187 – n. di iscrizione a Registro Imprese di Roma, CF e P.IVA 15376371009",
+    "usefulLinks": [
+      { "label": "Privacy Policy", "url": "https://www.pagopa.it/it/privacy-policy/" },
+      { "label": "Privacy Policy Assistenza", "url": "https://www.pagopa.it/it/privacy-policy-assistenza/" },
+      { "label": "Dichiarazione di accessibilità", "url": "https://form.agid.gov.it/view/eca3487c-f3cb-40be-a590-212eafc70058/" },
+      { "label": "Società trasparente", "url": "https://pagopa.portaleamministrazionetrasparente.it/" },
+      { "label": "Certificazioni", "url": "https://www.pagopa.it/static/307f84e95cb44e962922833037b8ef2d/Certificazione-ISO-27001.pdf" },
+      { "label": "Diritto alla protezione dei dati personali", "url": "https://privacyportal-de.onetrust.com/webform/77f17844-04c3-4969-a11d-462ee77acbe1/9ab6533d-be4a-482e-929a-0d8d2ab29df8" },
+      { "label": "Responsible Disclosure Policy", "url": "https://www.pagopa.it/it/responsible-disclosure-policy/" },
+      { "label": "Termini e Condizioni di utilizzo del sito", "url": "https://www.pagopa.it/it/termini-e-condizioni-di-utilizzo-del-sito/" },
+      { "label": "Sicurezza delle informazioni", "url": "https://www.pagopa.it/static/781646994f1f8ddad2d95af3aaedac3d/Sicurezza-delle-informazioni_PagoPA-S.p.A..pdf" },
+      { "label": "Portale Acquisti", "url": "https://app.albofornitori.it/alboeproc/albo_pagopa" },
+      { "label": "Modello 231", "url": "https://pagopa.portaleamministrazionetrasparente.it/pagina746_altri-contenuti.html" }
+    ],
+    "locale": "it"
+  },
+  {
+    "company": "PagoPA S.p.A. – joint-stock company with sole shareholder – fully paid-up share capital of 1,000,000 euros – registered office in Rome, Piazza Colonna 370, postal code 00187 – no. registration in the Company Register of Rome, Fiscal Code and VAT number 15376371009",
+    "locale": "en",
+    "usefulLinks": [
+      { "label": "Privacy Policy", "url": "https://www.pagopa.it/it/privacy-policy/" },
+      { "label": "Privacy Policy Assistance", "url": "https://www.pagopa.it/it/privacy-policy-assistenza/" },
+      { "label": "Accesibility", "url": "https://form.agid.gov.it/view/eca3487c-f3cb-40be-a590-212eafc70058/" },
+      { "label": "Società trasparente", "url": "https://pagopa.portaleamministrazionetrasparente.it/" },
+      { "label": "Certifications", "url": "https://www.pagopa.it/static/307f84e95cb44e962922833037b8ef2d/Certificazione-ISO-27001.pdf" },
+      { "label": "Diritto alla protezione dei dati personali", "url": "https://privacyportal-de.onetrust.com/webform/77f17844-04c3-4969-a11d-462ee77acbe1/9ab6533d-be4a-482e-929a-0d8d2ab29df8" },
+      { "label": "Responsible Disclosure Policy", "url": "https://www.pagopa.it/it/responsible-disclosure-policy/" },
+      { "label": "Termini e Condizioni di utilizzo del sito", "url": "https://www.pagopa.it/it/termini-e-condizioni-di-utilizzo-del-sito/" },
+      { "label": "Information Security", "url": "https://www.pagopa.it/static/781646994f1f8ddad2d95af3aaedac3d/Sicurezza-delle-informazioni_PagoPA-S.p.A..pdf" },
+      { "label": "Portale Acquisti", "url": "https://app.albofornitori.it/alboeproc/albo_pagopa" },
+      { "label": "Modello 231", "url": "https://pagopa.portaleamministrazionetrasparente.it/pagina746_altri-contenuti.html" }
+    ]
+  }
+]

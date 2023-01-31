@@ -1,0 +1,52 @@
+[
+  {
+    "locale": "it",
+    "links": [
+      {
+        "image": "/socials/linkedin.svg",
+        "label": "linkedin",
+        "url": "https://www.linkedin.com/company/pagopa?original_referer="
+      },
+      {
+        "image": "/socials/twitter.svg",
+        "label": "twitter",
+        "url": "https://twitter.com/pagopa"
+      },
+      {
+        "image": "/socials/instagram.svg",
+        "label": "instagram",
+        "url": "https://www.instagram.com/pagopaspa/"
+      },
+      {
+        "image": "/socials/youtube.svg",
+        "label": "youtube",
+        "url": "https://www.youtube.com/channel/UCFBGOEJUPQ6t3xtZFc_UIEQ"
+      }
+    ]
+  },
+  {
+    "locale": "en",
+    "links": [
+      {
+        "image": "/socials/linkedin.svg",
+        "label": "linkedin",
+        "url": "https://www.linkedin.com/company/pagopa?original_referer="
+      },
+      {
+        "image": "/socials/twitter.svg",
+        "label": "twitter",
+        "url": "https://twitter.com/pagopa"
+      },
+      {
+        "image": "/socials/instagram.svg",
+        "label": "instagram",
+        "url": "https://www.instagram.com/pagopaspa/"
+      },
+      {
+        "image": "/socials/youtube.svg",
+        "label": "youtube",
+        "url": "https://www.youtube.com/channel/UCFBGOEJUPQ6t3xtZFc_UIEQ"
+      }
+    ]
+  }
+]
