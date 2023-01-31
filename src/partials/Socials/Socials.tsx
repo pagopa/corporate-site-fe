@@ -1,58 +1,52 @@
-import { graphql, useStaticQuery } from 'gatsby';
-import {useTranslation} from 'gatsby-plugin-react-i18next';
+import { graphql } from 'gatsby';
 import React from 'react';
 import { ReactSVG } from 'react-svg';
+import { useLocalizedQuery } from '../../hooks/useLocalizedQuery';
 
 import './Socials.sass';
 
 export const Socials = ({ header }: any) => {
-  const collection: any[] = [];
 
-  const {
-    i18n: { language },
-  } = useTranslation();
-
-  const {
-    allSocialsJson: { nodes },
-  } = useStaticQuery(graphql`
-    query {
-      allSocialsJson {
-        nodes {
-          locale
-          links {
-            image
-            label
-            url
+  const { localeData: socialsData } = useLocalizedQuery<
+    Queries.SocialsFragment,
+    Queries.SocialsDataQuery
+  >({
+    query: graphql`
+      fragment Socials on SocialsJson {
+        locale
+        links {
+          image
+          label
+          url
+        }
+      }
+      query SocialsData {
+        allSocialsJson {
+          nodes {
+            ...Socials
           }
         }
       }
-    }
-  `);
+    `,
+    type: 'allSocialsJson',
+  });
 
-  const { links } = nodes.find((node: any) => node.locale === language);
-  console.debug(links);
-
-  return (
-    <>
-      <ul className={`socials${header ? ' --in-header' : ''}`}>
-        {links.map((social: any) => {
-          return (
-            <li key={social.url}>
-              <a
-                href={social.url}
-                target="_blank"
-                title={social.label}
-                rel="noreferrer noopener"
-              >
-                <ReactSVG
-                  src={social.image}
-                  wrapper="span"
-                />
-              </a>
-            </li>
-          );
-        })}
-      </ul>
-    </>
-  );
+  return socialsData?.links ? (
+    <ul className={`socials${header ? ' --in-header' : ''}`}>
+      {socialsData?.links.map((social: any) => {
+        return (
+          <li key={social.url}>
+            <a
+              href={social.url}
+              target="_blank"
+              title={social.label}
+              rel="noreferrer noopener"
+            >
+              <ReactSVG src={social.image} wrapper="span" />
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  ) : null;
 };

@@ -1,39 +1,37 @@
-import { graphql, useStaticQuery } from 'gatsby';
-import { useTranslation } from 'gatsby-plugin-react-i18next';
+import { graphql } from 'gatsby';
 import React from 'react';
+import { useLocalizedQuery } from '../../hooks/useLocalizedQuery';
 
 import { Cta } from '../Cta';
 
 import './MenuFooter.sass';
 
 export const MenuFooter = () => {
-  const {
-    i18n: { language },
-  } = useTranslation();
-
-  const {
-    allFooterRightJson: { nodes: footerRightNodes },
-  }: Queries.RightMenuDataQuery = useStaticQuery(graphql`
-    fragment RightUsefulLink on FooterRightJsonUsefulLinks {
-      label
-      url
-    }
-    fragment RightMenu on FooterRightJson {
-      locale
-      usefulLinks {
-        ...RightUsefulLink
+  const { localeData: menu } = useLocalizedQuery<
+    Queries.RightMenuFragment,
+    Queries.RightMenuDataQuery
+  >({
+    type: 'allFooterRightJson',
+    query: graphql`
+      fragment RightUsefulLink on FooterRightJsonUsefulLinks {
+        label
+        url
       }
-    }
-    query RightMenuData {
-      allFooterRightJson {
-        nodes {
-          ...RightMenu
+      fragment RightMenu on FooterRightJson {
+        locale
+        usefulLinks {
+          ...RightUsefulLink
         }
       }
-    }
-  `);
-
-  const menu = footerRightNodes.find(node => node.locale === language);
+      query RightMenuData {
+        allFooterRightJson {
+          nodes {
+            ...RightMenu
+          }
+        }
+      }
+    `,
+  });
 
   return (
     <nav className="menu-footer">

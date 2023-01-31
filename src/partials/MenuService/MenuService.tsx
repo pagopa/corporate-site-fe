@@ -1,39 +1,37 @@
-import { graphql, useStaticQuery } from 'gatsby';
+import { graphql } from 'gatsby';
 import React from 'react';
-import { useTranslation } from 'gatsby-plugin-react-i18next';
 
 import { Cta } from '../Cta/';
 
 import './MenuService.sass';
+import { useLocalizedQuery } from '../../hooks/useLocalizedQuery';
 
 export const MenuService = () => {
-  const {
-    i18n: { language },
-  } = useTranslation();
-
-  const {
-    allFooterLeftJson: { nodes: menuNodes },
-  }: Queries.LeftMenuDataQuery = useStaticQuery(graphql`
-    fragment LeftUsefulLink on FooterLeftJsonUsefulLinks {
-      label
-      url
-    }
-    fragment LeftMenu on FooterLeftJson {
-      locale
-      usefulLinks {
-        ...LeftUsefulLink
+  const { localeData: menuData } = useLocalizedQuery<
+    Queries.LeftMenuFragment,
+    Queries.LeftMenuDataQuery
+  >({
+    type: 'allFooterLeftJson',
+    query: graphql`
+      fragment LeftUsefulLink on FooterLeftJsonUsefulLinks {
+        label
+        url
       }
-    }
-      query LeftMenuData {
-      allFooterLeftJson {
-        nodes {
-          ...LeftMenu
+      fragment LeftMenu on FooterLeftJson {
+        locale
+        usefulLinks {
+          ...LeftUsefulLink
         }
       }
-    }
-  `);
-
-  const menuData = menuNodes.find(node => node.locale === language);
+      query LeftMenuData {
+        allFooterLeftJson {
+          nodes {
+            ...LeftMenu
+          }
+        }
+      }
+    `,
+  });
 
   return (
     <nav className="menu-service">
