@@ -24,10 +24,9 @@ export const Footer = () => {
     }
   `);
 
-  const { localeData } = useLocalizedQuery<
-    Queries.FooterLeftFragment,
-    Queries.FooterDataQuery
-  >({
+  const {
+    localeNodes: [localeData],
+  } = useLocalizedQuery<Queries.FooterLeftFragment, Queries.FooterDataQuery>({
     type: 'allFooterLeftJson',
     query,
   });
