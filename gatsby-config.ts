@@ -10,7 +10,7 @@ const config: GatsbyConfig = {
     metaSocial: {
       socialNetwork: `twitter`,
       title: `https://www.twitterdomain.tld`,
-        description: `author`,
+      description: `author`,
       image: `/site-icon.png`,
     },
     keywords: `random-stuff`,
@@ -62,13 +62,15 @@ const config: GatsbyConfig = {
       },
     },
     {
-      resolve: 'gatsby-source-strapi-plugin-navigation-v2',
+      resolve: 'gatsby-source-strapi-plugin-navigation_local',
       options: {
         apiURL: process.env.STRAPI_API_URL || 'http://localhost:1337',
-        navigationIdsOrSlugs: {
-          en: "api/navigation/render/6",
-          it: "api/navigation/render/7"
-        },
+        navigation: [
+          { key: 'MainMenu', id: 6, locale: 'en' },
+          { key: 'MainMenu', id: 7, locale: 'it' },
+          { key: 'ReservedMenu', id: 8, locale: 'it' },
+          { key: 'ReservedMenu', id: 9, locale: 'en' },
+        ],
         type: 'TREE', // optional
         token: process.env.STRAPI_TOKEN, // optional
       },

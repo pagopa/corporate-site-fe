@@ -1,0 +1,33 @@
+{
+  "name": "gatsby-source-strapi-plugin-navigation",
+  "version": "1.2.7",
+  "description": "Gatsby source plugin to fetch and expose the Navigations as graphQL nodes in gatsby from strapi using the strapi-plugin-navigation API.",
+  "homepage": "https://github.com/EAdeveloper/gatsby-source-strapi-plugin-navigation#readme",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:EAdeveloper/gatsby-source-strapi-plugin-navigation.git"
+  },
+  "author": {
+    "name": "Edward Almanzar",
+    "email": "edward@menteware.com",
+    "url": "https://meneteware.com"
+  },
+  "keywords": [
+    "gatsby",
+    "strapi",
+    "navigation",
+    "gatsby-plugin",
+    "gatsby-source",
+    "strapi-plugin",
+    "strapi-plugin-navigation"
+  ],
+  "dependencies": {
+    "isomorphic-unfetch": "^3.1.0"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "gatsby": "^2.29.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  }
+}

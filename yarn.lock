@@ -5435,13 +5435,6 @@ gatsby-source-filesystem@^5.5.0:
     valid-url "^1.0.9"
     xstate "^4.34.0"
 
-gatsby-source-strapi-plugin-navigation-v2@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/gatsby-source-strapi-plugin-navigation-v2/-/gatsby-source-strapi-plugin-navigation-v2-1.0.2.tgz#390684c66518a27ab6c6e91c5622ccedc7699243"
-  integrity sha512-4eiSyfHhNDKA3nz4241thKACyue26bESikuOINoq7R/RBH37Wp1l0RXrJhNMKW7D45ynbBI05x4LcEA9YP57FQ==
-  dependencies:
-    node-fetch "^2.6.7"
-
 gatsby-source-strapi@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/gatsby-source-strapi/-/gatsby-source-strapi-3.0.4.tgz#6c697adab3d845be351df72eb5cc2160b9ea1ef6"
