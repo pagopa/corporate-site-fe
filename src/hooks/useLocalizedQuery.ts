@@ -10,16 +10,14 @@ export const useLocalizedQuery = <
   query,
   type,
 }: {
-  query: StaticQueryDocument;
+  query: QueryType;
   type: keyof QueryType;
 }) => {
   const {
     i18n: { language },
   } = useTranslation();
 
-  const queryResult: QueryType = useStaticQuery(query);
-
-  const localeData: QueryResult | undefined = queryResult[type].nodes?.find(
+  const localeData: QueryResult | undefined = query[type].nodes?.find(
     node => node.locale === language
   );
 
