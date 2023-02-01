@@ -51,13 +51,13 @@ const MenuItemTree = ({ item, locale }: any) => {
       }`}
       onClick={handleSubmenu}
     >
-      <MenuItem item={item} locale={locale} disabled={isDisabled} />
+      <MenuItem item={item} disabled={isDisabled} />
       {hasChilds && (
         <ul>
           {childItems.map((item: any, key: any) => {
             return (
               <li key={key}>
-                <MenuItem item={item} locale={locale} />
+                <MenuItem item={item} />
               </li>
             );
           })}
@@ -68,6 +68,7 @@ const MenuItemTree = ({ item, locale }: any) => {
 };
 
 export const MenuReservedArea = () => {
+
   if (true) {
     const menu: any[] = [];
 

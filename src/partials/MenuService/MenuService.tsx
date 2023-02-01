@@ -35,8 +35,6 @@ export const MenuService = () => {
     query,
   });
 
-  console.debug(menuData);
-
   return (
     <nav className="menu-service">
       <ul>

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Link } from 'gatsby';
+import { graphql, Link, useStaticQuery } from 'gatsby';
 
-import { MenuMain } from '../MenuMain';
-import { MenuReservedArea } from '../MenuReservedArea';
+import { MenuMain } from './MenuMain';
+import { MenuReservedArea } from './MenuReservedArea';
 import { Socials } from '../Socials';
 import { Logo } from '../Logo';
 import { Hamburger } from '../Hamburger';
@@ -28,7 +28,7 @@ export const Header = () => {
             </div>
 
             <div className="col-auto d-none d-lg-block">
-              <MenuReservedArea location={location} />
+              <MenuReservedArea />
             </div>
           </div>
         </div>
