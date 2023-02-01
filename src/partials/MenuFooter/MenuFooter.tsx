@@ -1,4 +1,4 @@
-import { graphql } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
 import { useLocalizedQuery } from '../../hooks/useLocalizedQuery';
 
@@ -7,30 +7,32 @@ import { Cta } from '../Cta';
 import './MenuFooter.sass';
 
 export const MenuFooter = () => {
+  const queryResult = useStaticQuery(graphql`
+    fragment RightUsefulLink on FooterRightJsonUsefulLinks {
+      label
+      url
+    }
+    fragment RightMenu on FooterRightJson {
+      locale
+      usefulLinks {
+        ...RightUsefulLink
+      }
+    }
+    query RightMenuData {
+      allFooterRightJson {
+        nodes {
+          ...RightMenu
+        }
+      }
+    }
+  `);
+
   const { localeData: menu } = useLocalizedQuery<
     Queries.RightMenuFragment,
     Queries.RightMenuDataQuery
   >({
     type: 'allFooterRightJson',
-    query: graphql`
-      fragment RightUsefulLink on FooterRightJsonUsefulLinks {
-        label
-        url
-      }
-      fragment RightMenu on FooterRightJson {
-        locale
-        usefulLinks {
-          ...RightUsefulLink
-        }
-      }
-      query RightMenuData {
-        allFooterRightJson {
-          nodes {
-            ...RightMenu
-          }
-        }
-      }
-    `,
+    query: queryResult,
   });
 
   return (

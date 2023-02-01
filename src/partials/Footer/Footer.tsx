@@ -6,29 +6,30 @@ import { MenuFooter } from '../MenuFooter/MenuFooter';
 import { MenuService } from '../MenuService/MenuService';
 
 import './Footer.sass';
-import { graphql } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 import { useLocalizedQuery } from '../../hooks/useLocalizedQuery';
 
 export const Footer = () => {
+  const query = useStaticQuery(graphql`
+    fragment FooterLeft on FooterLeftJson {
+      company
+      locale
+    }
+    query FooterData {
+      allFooterLeftJson {
+        nodes {
+          ...FooterLeft
+        }
+      }
+    }
+  `);
 
   const { localeData } = useLocalizedQuery<
     Queries.FooterLeftFragment,
     Queries.FooterDataQuery
   >({
     type: 'allFooterLeftJson',
-    query: graphql`
-      fragment FooterLeft on FooterLeftJson {
-        company
-        locale
-      }
-      query FooterData {
-        allFooterLeftJson {
-          nodes {
-            ...FooterLeft
-          }
-        }
-      }
-    `,
+    query,
   });
 
   return (
