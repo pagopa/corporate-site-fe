@@ -1,4 +1,4 @@
-### Type definitions saved at 2023-02-01T10:29:54.976Z ###
+### Type definitions saved at 2023-02-01T14:39:10.977Z ###
 
 enum RemoteFileFit {
   COVER
@@ -690,6 +690,8 @@ type MarkdownRemarkFrontmatter {
 }
 
 type StrapiNavigation implements Node @derivedTypes @dontInfer {
+  key: String
+  locale: String
   title: String
   menuAttached: Boolean
   order: Int
@@ -699,7 +701,6 @@ type StrapiNavigation implements Node @derivedTypes @dontInfer {
   slug: String
   external: Boolean
   items: [StrapiNavigationItems]
-  key: String
   highlight: Boolean
 }
 
