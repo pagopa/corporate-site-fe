@@ -6,9 +6,9 @@ import { Logo } from '../Logo';
 import { Socials } from '../Socials';
 
 import './Header.sass';
-import { useTranslation } from 'gatsby-plugin-react-i18next';
-import { Menu } from './Menu';
 import { useLocalizedQuery } from '../../hooks/useLocalizedQuery';
+import { Menu } from '../../components/Menu';
+import classNames from 'classnames';
 
 enum MENU {
   RESERVED_MENU = 'ReservedMenu',
@@ -45,7 +45,7 @@ export const Header = () => {
   const mainMenu = menuNodes?.filter(node => node?.key === MENU.MAIN_MENU);
 
   return (
-    <header className={`header${mobileMenuOpen ? ' menu-is-open' : ''}`}>
+    <header className={classNames('header', mobileMenuOpen && 'menu-is-open')}>
       <div className="header__top">
         <div className="container-fluid">
           <div className="row align-items-center justify-content-between">

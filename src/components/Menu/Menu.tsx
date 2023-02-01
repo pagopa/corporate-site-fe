@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { MenuNavigation } from '../MenuNavigation';
+import { MenuNavigation } from './MenuNavigation';
 
-import '../Menu.sass';
+import './Menu.sass';
 
 export const Menu = ({ menu }: { menu: any }) => {
   return (
