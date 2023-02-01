@@ -28,6 +28,7 @@
 		"gatsby-plugin-sharp": "^5.4.0",
 		"gatsby-source-filesystem": "^5.5.0",
 		"gatsby-source-strapi": "^3.0.4",
+		"gatsby-source-strapi-plugin-navigation-v2": "^1.0.2",
 		"gatsby-transformer-inline-svg": "^1.2.0",
 		"gatsby-transformer-json": "^5.5.0",
 		"gatsby-transformer-remark": "^6.5.0",
