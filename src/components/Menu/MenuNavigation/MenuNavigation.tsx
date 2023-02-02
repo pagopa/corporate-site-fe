@@ -1,31 +1,16 @@
 import classNames from 'classnames';
-import { graphql } from 'gatsby';
 import React, { useState } from 'react';
 
 import { MenuItem } from '../MenuItem';
 
 import '../Menu.sass';
 
-export const mainNavigationItemFragment = graphql`
-  fragment MainNavigationItem on StrapiNavigation {
-    external
-    highlight
-    id
-    key
-    slug
-    title
-    uiRouterKey
-    locale
-    items {
-      ...NavigationItem
-    }
-  }
-`;
-
 export const MenuNavigation = ({
   item,
+  className
 }: {
   item: Queries.MainNavigationItemFragment;
+  className: string
 }) => {
   const [submenuOpen, setSubmenuOpen] = useState(false);
 
@@ -41,14 +26,14 @@ export const MenuNavigation = ({
 
   return (
     <li
-      className={classNames(
-        'menu-main__item',
-        hasChilds && 'w-sub',
-        hasChilds && submenuOpen && 'is-sub-open',
-        highlight && 'highlight',
-        false && 'is-current'
-      )}
       onClick={handleSubmenu}
+      className={classNames(
+        className,
+        hasChilds && 'w-sub',
+        highlight && 'highlight',
+        false && 'is-current',
+        hasChilds && submenuOpen && 'is-sub-open',
+      )}
     >
       <MenuItem item={item} disabled={hasChilds} />
       {hasChilds && (

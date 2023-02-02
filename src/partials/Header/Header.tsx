@@ -1,14 +1,12 @@
+import classNames from 'classnames';
 import { graphql, Link, useStaticQuery } from 'gatsby';
 import React, { useState } from 'react';
-
+import { Menu } from '../../components/Menu';
+import { useLocalizedQuery } from '../../hooks/useLocalizedQuery';
 import { Hamburger } from '../Hamburger';
 import { Logo } from '../Logo';
 import { Socials } from '../Socials';
-
 import './Header.sass';
-import { useLocalizedQuery } from '../../hooks/useLocalizedQuery';
-import { Menu } from '../../components/Menu';
-import classNames from 'classnames';
 
 enum MENU {
   RESERVED_MENU = 'ReservedMenu',
@@ -28,8 +26,6 @@ export const Header = () => {
       }
     }
   `);
-
-  console.debug(query);
 
   const { localeNodes: menuNodes } = useLocalizedQuery<
     Queries.MainNavigationItemFragment,
@@ -59,7 +55,7 @@ export const Header = () => {
             </div>
 
             <div className="col-auto d-none d-lg-block">
-              <Menu menu={reservedMenu} />
+              <Menu reserved={reservedMenu} />
             </div>
           </div>
         </div>
@@ -69,7 +65,7 @@ export const Header = () => {
         <div className="container-fluid">
           <div className="row align-items-center justify-content-between">
             <div className="col-auto">
-              <Menu menu={mainMenu} />
+              <Menu main={mainMenu} reserved={reservedMenu} />
             </div>
 
             <div className="col-auto d-none d-lg-block">

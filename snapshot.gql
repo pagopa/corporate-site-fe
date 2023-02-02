@@ -1,4 +1,4 @@
-### Type definitions saved at 2023-02-01T14:39:10.977Z ###
+### Type definitions saved at 2023-02-02T11:12:00.485Z ###
 
 enum RemoteFileFit {
   COVER
@@ -714,6 +714,7 @@ type StrapiNavigationItems {
   uiRouterKey: String
   slug: String
   external: Boolean
+  highlight: Boolean
 }
 
 type SocialsJson implements Node @derivedTypes @childOf(types: ["File"]) @dontInfer {
