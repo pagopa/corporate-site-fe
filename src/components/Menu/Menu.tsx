@@ -30,11 +30,21 @@ export const Menu = ({
   reserved?: Queries.MainNavigationItemFragment[];
 }) => {
 
+  const sortMenuByOrder = (
+    menu: Queries.MainNavigationItemFragment[] | undefined
+  ) =>
+    menu?.sort((item, nextItem) =>
+      item?.order && nextItem?.order ? item.order - nextItem.order : 0
+    );
+
+  const sortedMain = sortMenuByOrder(main);
+  const sortedReserved = sortMenuByOrder(reserved);
+
   return (
     <div className="menu-header">
       <nav className="menu-main">
         <ul>
-          {main?.map((item: Queries.MainNavigationItemFragment) => {
+          {sortedMain?.map((item: Queries.MainNavigationItemFragment) => {
             return (
               <MenuNavigation
                 className="main-navigation"
@@ -47,7 +57,7 @@ export const Menu = ({
       </nav>
       <nav className="menu-reserved">
         <ul>
-          {reserved?.map((item: Queries.MainNavigationItemFragment) => {
+          {sortedReserved?.map((item: Queries.MainNavigationItemFragment) => {
             return (
               <MenuNavigation
                 className="reserved-navigation"
