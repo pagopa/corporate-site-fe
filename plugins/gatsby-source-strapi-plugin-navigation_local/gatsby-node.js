@@ -37,10 +37,7 @@ exports.sourceNodes = async (
   navigationItemsArr.map((navigationItems, index) =>
     navigationItems.map(item => {
 
-      const keys = {};
-      Object.entries(navigation[index]).forEach(
-        ([key, value]) => (keys[key] = value)
-      );
+      const keys = { ...navigation[index] };
 
       const node = {
         ...keys,
@@ -54,7 +51,6 @@ exports.sourceNodes = async (
           contentDigest: createContentDigest(item),
         },
       };
-
 
       createNode(node);
     })
