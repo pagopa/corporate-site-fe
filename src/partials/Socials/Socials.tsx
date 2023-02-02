@@ -24,10 +24,9 @@ export const Socials = ({ header }: any) => {
     }
   `);
 
-  const { localeData: socialsData } = useLocalizedQuery<
-    Queries.SocialsFragment,
-    Queries.SocialsDataQuery
-  >({
+  const {
+    localeNodes: [socialsData],
+  } = useLocalizedQuery<Queries.SocialsFragment, Queries.SocialsDataQuery>({
     query,
     type: 'allSocialsJson',
   });

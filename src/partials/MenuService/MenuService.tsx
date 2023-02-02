@@ -27,15 +27,12 @@ export const MenuService = () => {
     }
   `);
 
-  const { localeData: menuData } = useLocalizedQuery<
-    Queries.LeftMenuFragment,
-    Queries.LeftMenuDataQuery
-  >({
+  const {
+    localeNodes: [menuData],
+  } = useLocalizedQuery<Queries.LeftMenuFragment, Queries.LeftMenuDataQuery>({
     type: 'allFooterLeftJson',
     query,
   });
-
-  console.debug(menuData);
 
   return (
     <nav className="menu-service">

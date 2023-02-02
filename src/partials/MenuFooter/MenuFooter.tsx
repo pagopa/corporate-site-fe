@@ -27,10 +27,9 @@ export const MenuFooter = () => {
     }
   `);
 
-  const { localeData: menu } = useLocalizedQuery<
-    Queries.RightMenuFragment,
-    Queries.RightMenuDataQuery
-  >({
+  const {
+    localeNodes: [menu],
+  } = useLocalizedQuery<Queries.RightMenuFragment, Queries.RightMenuDataQuery>({
     type: 'allFooterRightJson',
     query: queryResult,
   });

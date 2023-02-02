@@ -1,4 +1,3 @@
-import { StaticQueryDocument, useStaticQuery } from 'gatsby';
 import { useTranslation } from 'gatsby-plugin-react-i18next/dist';
 
 type LocalizedNode = { readonly locale: string | null };
@@ -17,9 +16,9 @@ export const useLocalizedQuery = <
     i18n: { language },
   } = useTranslation();
 
-  const localeData: QueryResult | undefined = query[type].nodes?.find(
+  const localeNodes: QueryResult[] | undefined = query[type].nodes?.filter(
     node => node.locale === language
   );
 
-  return { localeData };
+  return { localeNodes };
 };

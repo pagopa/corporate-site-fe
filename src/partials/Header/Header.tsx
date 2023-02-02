@@ -1,20 +1,47 @@
+import classNames from 'classnames';
+import { graphql, Link, useStaticQuery } from 'gatsby';
 import React, { useState } from 'react';
-import { Link } from 'gatsby';
-
-import { MenuMain } from '../MenuMain';
-import { MenuReservedArea } from '../MenuReservedArea';
-import { Socials } from '../Socials';
-import { Logo } from '../Logo';
+import { Menu } from '../../components/Menu';
+import { useLocalizedQuery } from '../../hooks/useLocalizedQuery';
 import { Hamburger } from '../Hamburger';
-
+import { Logo } from '../Logo';
+import { Socials } from '../Socials';
 import './Header.sass';
+
+enum MENU {
+  RESERVED_MENU = 'ReservedMenu',
+  MAIN_MENU = 'MainMenu',
+}
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const handleMobileMenu = () => setMobileMenuOpen(prev => !prev);
 
+  const query: Queries.MainNavigationQuery = useStaticQuery(graphql`
+    query MainNavigation {
+      allStrapiNavigation {
+        nodes {
+          ...MainNavigationItem
+        }
+      }
+    }
+  `);
+
+  const { localeNodes: menuNodes } = useLocalizedQuery<
+    Queries.MainNavigationItemFragment,
+    Queries.MainNavigationQuery
+  >({
+    query,
+    type: 'allStrapiNavigation',
+  });
+
+  const reservedMenu = menuNodes?.filter(
+    node => node?.key === MENU.RESERVED_MENU
+  );
+  const mainMenu = menuNodes?.filter(node => node?.key === MENU.MAIN_MENU);
+
   return (
-    <header className={`header${mobileMenuOpen ? ' menu-is-open' : ''}`}>
+    <header className={classNames('header', mobileMenuOpen && 'menu-is-open')}>
       <div className="header__top">
         <div className="container-fluid">
           <div className="row align-items-center justify-content-between">
@@ -28,7 +55,7 @@ export const Header = () => {
             </div>
 
             <div className="col-auto d-none d-lg-block">
-              <MenuReservedArea location={location} />
+              <Menu reserved={reservedMenu} />
             </div>
           </div>
         </div>
@@ -38,7 +65,7 @@ export const Header = () => {
         <div className="container-fluid">
           <div className="row align-items-center justify-content-between">
             <div className="col-auto">
-              <MenuMain />
+              <Menu main={mainMenu} reserved={reservedMenu} />
             </div>
 
             <div className="col-auto d-none d-lg-block">
