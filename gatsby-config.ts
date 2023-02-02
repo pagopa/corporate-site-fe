@@ -62,6 +62,20 @@ const config: GatsbyConfig = {
       },
     },
     {
+      resolve: 'gatsby-source-strapi-plugin-navigation_local',
+      options: {
+        apiURL: process.env.STRAPI_API_URL || 'http://localhost:1337',
+        navigation: [
+          { key: 'MainMenu', id: 6, locale: 'en' },
+          { key: 'MainMenu', id: 7, locale: 'it' },
+          { key: 'ReservedMenu', id: 8, locale: 'it' },
+          { key: 'ReservedMenu', id: 9, locale: 'en' },
+        ],
+        type: 'TREE', // optional
+        token: process.env.STRAPI_TOKEN, // optional
+      },
+    },
+    {
       resolve: `gatsby-plugin-sass`,
       options: {
         additionalData: `@import "${__dirname}/src/sass/vars"`,

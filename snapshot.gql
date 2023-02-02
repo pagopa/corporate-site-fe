@@ -1,4 +1,4 @@
-### Type definitions saved at 2023-02-01T09:02:31.218Z ###
+### Type definitions saved at 2023-02-02T11:43:20.052Z ###
 
 enum RemoteFileFit {
   COVER
@@ -687,6 +687,34 @@ type MarkdownRemark implements Node @childOf(mimeTypes: ["text/markdown", "text/
 
 type MarkdownRemarkFrontmatter {
   title: String
+}
+
+type StrapiNavigation implements Node @derivedTypes @dontInfer {
+  key: String
+  locale: String
+  title: String
+  menuAttached: Boolean
+  order: Int
+  path: String
+  type: String
+  uiRouterKey: String
+  slug: String
+  external: Boolean
+  items: [StrapiNavigationItems]
+  highlight: Boolean
+}
+
+type StrapiNavigationItems {
+  id: Int
+  title: String
+  menuAttached: Boolean
+  order: Int
+  path: String
+  type: String
+  uiRouterKey: String
+  slug: String
+  external: Boolean
+  highlight: Boolean
 }
 
 type SocialsJson implements Node @derivedTypes @childOf(types: ["File"]) @dontInfer {
