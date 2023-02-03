@@ -8,6 +8,7 @@ export const navigationItemFragment = graphql`
     slug
     title
     uiRouterKey
+    path
   }
 `;
 
@@ -18,7 +19,7 @@ export const MenuItem = ({
   item: Queries.NavigationItemFragment | Queries.MainNavigationItemFragment;
   disabled?: boolean;
 }) => {
-  const { title, slug, external, uiRouterKey } = item;
+  const { title, external, path } = item;
 
   const TheLink = () => {
     if (disabled) {
@@ -26,12 +27,12 @@ export const MenuItem = ({
     } else {
       if (external) {
         return (
-          <a href={slug || '#'} target="_blank" rel="noopener noreferrer">
+          <a href={path || '#'} target="_blank" rel="noopener noreferrer">
             {title}
           </a>
         );
       } else {
-        return <Link to={uiRouterKey || '#'}>{title}</Link>;
+        return <Link to={path || '#'}>{title}</Link>;
       }
     }
   };
