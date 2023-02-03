@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql, PageProps } from 'gatsby';
-import { JobPage } from '../components/Jobposition/JobPage';
-import { Layout } from '../partials/Layout';
+import { JobPage } from '../../components/Jobposition/JobPage';
+import { Layout } from '../../partials/Layout';
 
 export const query = graphql`
   query StrapiJobposition($id: String) {
