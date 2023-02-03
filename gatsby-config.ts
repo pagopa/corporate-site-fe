@@ -66,6 +66,14 @@ const config: GatsbyConfig = {
               },
             },
           },
+          {
+            singularName: 'event',
+            pluginOptions: {
+              i18n: {
+                locale: 'all',
+              },
+            },
+          },
         ],
       },
     },

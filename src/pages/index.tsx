@@ -4,13 +4,10 @@ import { Layout } from '../partials/Layout';
 
 const IndexPage = () => (
   <Layout>
-    <div className="p-4">
-      <div className="col">
-        <Link to="jobpositions">Jobpositions</Link>
-      </div>
-      <div className="col">
-        <Link to="media/comunicati-stampa">comunicati stampa</Link>
-      </div>
+    <div className="p-4" style={{ display: 'flex', flexDirection: 'column' }}>
+      <Link to="jobpositions">Jobpositions</Link>
+      <Link to="media/comunicati-stampa">comunicati stampa</Link>
+      <Link to="media/news-ed-eventi">news ed eventi</Link>
     </div>
   </Layout>
 );

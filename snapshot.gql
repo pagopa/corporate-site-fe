@@ -1,4 +1,4 @@
-### Type definitions saved at 2023-02-03T10:49:26.874Z ###
+### Type definitions saved at 2023-02-06T08:10:05.464Z ###
 
 enum RemoteFileFit {
   COVER
@@ -679,7 +679,7 @@ type MarkdownWordCount {
   words: Int
 }
 
-type MarkdownRemark implements Node @childOf(mimeTypes: ["text/markdown", "text/x-markdown"], types: ["STRAPI__COMPONENT_SHARED_BLOCK_INTRO_BODY_TEXTNODE", "STRAPI_PRESS_RELEASE_BODY_TEXTNODE"]) @derivedTypes @dontInfer {
+type MarkdownRemark implements Node @childOf(mimeTypes: ["text/markdown", "text/x-markdown"], types: ["STRAPI__COMPONENT_SHARED_BLOCK_INTRO_BODY_TEXTNODE", "STRAPI_PRESS_RELEASE_BODY_TEXTNODE", "STRAPI_EVENT_BODY_TEXTNODE"]) @derivedTypes @dontInfer {
   frontmatter: MarkdownRemarkFrontmatter
   excerpt: String
   rawMarkdownBody: String
@@ -886,6 +886,34 @@ type STRAPI_JOBPOSITIONLocalizationsDataAttributes {
   url_path_id: String
   locale: String
   url_path: String
+}
+
+type STRAPI_EVENT_BODY_TEXTNODE implements Node @dontInfer {
+  body: String
+}
+
+type STRAPI_EVENT implements Node @derivedTypes @dontInfer {
+  title: String
+  eyelet: String
+  body: STRAPI_EVENTBody
+  startDate: Date @dateformat
+  endDate: Date @dateformat
+  startTime: String
+  endTime: String
+  slug: String
+  createdAt: Date @dateformat
+  updatedAt: Date @dateformat
+  publishedAt: Date @dateformat
+  url_path_id: String
+  locale: String
+  eventVenue: String
+  url_path: String
+  featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
+  strapi_id: Int
+}
+
+type STRAPI_EVENTBody {
+  data: STRAPI_EVENT_BODY_TEXTNODE @link(by: "id", from: "data___NODE")
 }
 
 type FooterRightJson implements Node @derivedTypes @childOf(types: ["File"]) @dontInfer {
