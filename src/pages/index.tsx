@@ -9,7 +9,7 @@ const IndexPage = () => (
         <Link to="jobpositions">Jobpositions</Link>
       </div>
       <div className="col">
-        <Link to="comunicati-stampa">comunicati stampa</Link>
+        <Link to="media/comunicati-stampa">comunicati stampa</Link>
       </div>
     </div>
   </Layout>
