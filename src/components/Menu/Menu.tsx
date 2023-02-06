@@ -16,6 +16,7 @@ export const mainNavigationItemFragment = graphql`
     title
     uiRouterKey
     locale
+    path
     items {
       ...NavigationItem
     }

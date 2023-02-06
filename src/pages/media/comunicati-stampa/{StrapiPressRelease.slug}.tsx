@@ -1,6 +1,6 @@
 import { graphql, PageProps } from 'gatsby';
+import { useTranslation } from 'gatsby-plugin-react-i18next/dist';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { SharedBlockBody } from '../../../components/SharedBlockBody';
 import { Layout } from '../../../partials/Layout';
 
