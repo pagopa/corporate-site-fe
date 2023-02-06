@@ -12,15 +12,15 @@ export const SharedBlockBodyFragment = graphql`
 	}
 `;
 
-export const SharedBlock = ({
-	data: { body },
+export const SharedBlockBody = ({
+	data: { data },
 }: {
-	data: Queries.SharedBlockFragment;
+	data: Queries.SharedBlockBodyFragment;
 }) => (
 	<div
 		className="wysiwyg"
 		dangerouslySetInnerHTML={{
-			__html: body?.data?.childMarkdownRemark?.html as string,
+			__html: data?.childMarkdownRemark?.html as string,
 		}}
 	/>
 );

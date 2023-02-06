@@ -58,6 +58,14 @@ const config: GatsbyConfig = {
               },
             },
           },
+          {
+            singularName: 'press-release',
+            pluginOptions: {
+              i18n: {
+                locale: 'all',
+              },
+            },
+          },
         ],
       },
     },

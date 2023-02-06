@@ -141,3 +141,249 @@ $grid-gutter-width: 3.2rem
 
         > span
           color: inherit
+
+.post-article
+  margin-bottom: 15rem
+
+  &__body
+    padding-left: $section-gutter
+    padding-right: $section-gutter
+
+    @media (max-width: $mobile-xs)
+      padding-left: $section-gutter-mobile
+      padding-right: $section-gutter-mobile
+
+  &__visual
+    margin-bottom: 10rem
+
+  .intro
+    margin-bottom: 0
+
+.block
+  position: relative
+  display: block
+  padding-top: 8rem
+  margin-bottom: 8rem
+  padding-left: $section-gutter
+  padding-right: $section-gutter
+
+  @media (max-width: $tablet - 1)
+    padding-top: 4rem
+    margin-bottom: 4rem
+
+  @media (max-width: $mobile-xs)
+    padding-left: $section-gutter-mobile
+    padding-right: $section-gutter-mobile
+
+  &__content
+    padding: 4rem 2.7rem
+
+    @media (max-width: $tablet - 1)
+      padding: 4rem 0 0
+
+
+
+  &.--has-bg-color
+    padding-top: 6rem
+    padding-bottom: 6rem
+    margin-top: 8rem
+    margin-bottom: 0
+
+  &.--hero
+    padding-top: 0
+
+  // &.--block-press-release
+
+  &.--block-media-highlights
+    margin-bottom: 4rem
+
+  &.--block-text
+    margin-bottom: 4.8rem
+
+    @media (max-width: $tablet - 1)
+      margin-bottom: 4rem
+
+    &:not(.--centered)
+      + .--block-text, + .--block-visual-text
+        padding-top: 4rem
+
+      + .--block-useful-links
+        padding-top: 0
+
+      + .--block-jobs-listing
+        padding-top: 3rem
+
+  &.--block-visual-text
+    &:not(.--has-bg-color)
+      + .--block-visual-text
+        padding-top: 2rem
+
+  &.--block-accordion
+    + .--block-accordion
+      padding-top: 4rem
+
+  &.--block-intro
+    padding-top: 7rem
+
+    &.--nocontent
+      + .--block-text
+        padding-top: 1rem
+
+      + .--block-accordion
+        padding-top: 0
+
+      + .--block-map-box
+        padding-top: 0
+
+    +
+      .--block-universityaccordion
+        padding-top: 2rem
+
+
+  &.--block-cta-banner
+    margin-top: 11rem
+    margin-bottom: 0
+
+  &.--block-newsletter-banner
+    margin-bottom: 0
+    padding-top: 6rem
+    padding-bottom: 6rem
+
+  &.--block-attachments-grid, &.--media-highlights
+    margin-bottom: 4rem
+
+  &.--block-useful-links
+    ul
+      li
+        &:not(:last-child)
+          margin-bottom: 1.4rem
+
+    + .--block-useful-links
+      padding-top: 0
+
+  &.--block-project-carousel
+    padding-top: 10rem
+    padding-bottom: 10rem
+    margin-top: 14rem
+
+    @media (max-width: $tablet)
+      padding-top: 8rem
+      padding-bottom: 8rem
+      margin-top: 10rem
+
+    @media (max-width: $mobile-xs)
+      margin-top: 8rem
+
+.intro
+  text-align: center
+
+  &__heading
+    position: relative
+    margin-bottom: 13.4rem
+
+    h4
+      margin-bottom: 3.4rem
+
+    &::after
+      content: ''
+      width: 3px
+      height: 7rem
+      background-color: $c-brand
+      position: absolute
+      display: block
+      top: calc(100% + 3.2rem)
+      left: 50%
+      margin-left: -1px
+
+  &__data
+    display: inline-flex
+    background-color: $c-gray-extralight
+    margin-bottom: 1rem
+    flex: 0
+
+    @media (max-width: $mobile-xs - 1)
+      flex: 1
+
+    &:last-child
+      margin-bottom: 8rem
+
+    > div
+      position: relative
+      padding: 2.8rem 4rem 2.6rem
+      flex: 0 1 auto
+
+      @media (max-width: $mobile-xs - 1)
+        padding: 2rem 2.4rem 2.2rem
+
+      p
+        margin-bottom: 0
+
+        @media (min-width: $mobile-xs)
+          white-space: nowrap
+
+
+      &:not(:last-child)
+        &::after
+          content: ''
+          width: 1px
+          height: calc(100% - 6rem)
+          position: absolute
+          right: 0
+          top: 50%
+          transform: translateY(-50%)
+          background-color: $c-gray-light
+
+  &.--job
+    .intro
+      &__data
+        width: 100%
+        max-width: 52rem
+
+  &.--event
+
+    @media (max-width: $mobile - 1)
+      .intro
+        &__data
+          > div
+            &::after
+              content: none
+
+
+  &-menu
+    width: 100%
+    flex: 0 0 100%
+    display: flex
+    justify-content: center
+    padding-top: 1.6rem
+    margin-bottom: 6rem
+
+    ul
+      display: flex
+      flex-wrap: wrap
+      justify-content: center
+
+      li
+        font-family: $f-primary
+        font-weight: 500
+        font-size: 3.2rem
+        color: darken($c-gray-light, 8%)
+        display: flex
+
+        &:not(:last-child)
+          &::after
+            content: '/'
+            margin-left: 1rem
+            margin-right: 1rem
+            color: darken($c-gray-light, 8%)
+
+        &.is-current
+          color: $c-brand
+
+      .cta
+        font-family: $f-primary
+        font-weight: 500
+        font-size: 3.2rem
+        color: inherit
+
+        > span
+          color: inherit
