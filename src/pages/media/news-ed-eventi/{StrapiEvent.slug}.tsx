@@ -9,6 +9,7 @@ import {
   IGatsbyImageData,
   ImageDataLike,
 } from 'gatsby-plugin-image';
+import {NewsletterBanner} from '../../../components/NewsletterBanner';
 
 export const query = graphql`
   fragment EventIntro on STRAPI_EVENT {
@@ -187,6 +188,8 @@ export default function Component({
             </div>
           </div>
         </article>
+
+        {true && <NewsletterBanner />}
       </Layout>
     );
   }
