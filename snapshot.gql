@@ -1,4 +1,4 @@
-### Type definitions saved at 2023-02-07T09:34:33.257Z ###
+### Type definitions saved at 2023-02-07T10:27:14.035Z ###
 
 enum RemoteFileFit {
   COVER
@@ -679,7 +679,7 @@ type MarkdownWordCount {
   words: Int
 }
 
-type MarkdownRemark implements Node @childOf(mimeTypes: ["text/markdown", "text/x-markdown"], types: ["STRAPI__COMPONENT_SHARED_BLOCK_INTRO_BODY_TEXTNODE", "STRAPI_PRESS_RELEASE_BODY_TEXTNODE", "STRAPI_EVENT_BODY_TEXTNODE"]) @derivedTypes @dontInfer {
+type MarkdownRemark implements Node @childOf(mimeTypes: ["text/markdown", "text/x-markdown"], types: ["STRAPI__COMPONENT_SHARED_BLOCK_INTRO_BODY_TEXTNODE", "STRAPI_PRESS_RELEASE_BODY_TEXTNODE", "STRAPI_POST_BODY_TEXTNODE", "STRAPI_EVENT_BODY_TEXTNODE"]) @derivedTypes @dontInfer {
   frontmatter: MarkdownRemarkFrontmatter
   excerpt: String
   rawMarkdownBody: String
@@ -835,6 +835,30 @@ type STRAPI_PRESS_RELEASE implements Node @derivedTypes @dontInfer {
 
 type STRAPI_PRESS_RELEASEBody {
   data: STRAPI_PRESS_RELEASE_BODY_TEXTNODE @link(by: "id", from: "data___NODE")
+}
+
+type STRAPI_POST_BODY_TEXTNODE implements Node @dontInfer {
+  body: String
+}
+
+type STRAPI_POST implements Node @derivedTypes @dontInfer {
+  title: String
+  eyelet: String
+  body: STRAPI_POSTBody
+  bannerNewsletter: Boolean
+  slug: String
+  createdAt: Date @dateformat
+  updatedAt: Date @dateformat
+  publishedAt: Date @dateformat
+  url_path_id: String
+  locale: String
+  url_path: String
+  featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
+  strapi_id: Int
+}
+
+type STRAPI_POSTBody {
+  data: STRAPI_POST_BODY_TEXTNODE @link(by: "id", from: "data___NODE")
 }
 
 type STRAPI_JOBPOSITION implements Node @derivedTypes @dontInfer {

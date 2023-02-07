@@ -20,17 +20,34 @@ export const query = graphql`
         }
       }
     }
+    allStrapiPost(filter: { locale: { eq: $language } }) {
+      edges {
+        node {
+          id
+          slug
+          eyelet
+          title
+          url_path
+          body {
+            data {
+              body
+            }
+          }
+        }
+      }
+    }
   }
 `;
 
-const NewsEdEventi = ({
-  data,
-}: {
-  data: Queries.AllStrapiEventQuery;
-}) => (
+const NewsEdEventi = ({ data }: { data: Queries.AllStrapiEventQuery }) => (
   <Layout>
     <ul>
       {data.allStrapiEvent.edges.map(({ node: event }) => (
+        <Link key={event?.id} to={event?.slug || '/#'}>
+          <div className="p-4">{event.title}</div>
+        </Link>
+      ))}
+      {data.allStrapiPost.edges.map(({ node: event }) => (
         <Link key={event?.id} to={event?.slug || '/#'}>
           <div className="p-4">{event.title}</div>
         </Link>
