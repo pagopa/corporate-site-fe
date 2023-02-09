@@ -25,8 +25,13 @@ const config: GatsbyConfig = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-image`,
-    `gatsby-transformer-remark`,
     `gatsby-transformer-json`,
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [`gatsby-plugin-remark_local`],
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -76,6 +81,14 @@ const config: GatsbyConfig = {
           },
           {
             singularName: 'post',
+            pluginOptions: {
+              i18n: {
+                locale: 'all',
+              },
+            },
+          },
+          {
+            singularName: 'newsletter',
             pluginOptions: {
               i18n: {
                 locale: 'all',
