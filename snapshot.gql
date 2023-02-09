@@ -1,4 +1,4 @@
-### Type definitions saved at 2023-02-07T10:27:14.035Z ###
+### Type definitions saved at 2023-02-09T07:13:18.124Z ###
 
 enum RemoteFileFit {
   COVER
@@ -679,7 +679,7 @@ type MarkdownWordCount {
   words: Int
 }
 
-type MarkdownRemark implements Node @childOf(mimeTypes: ["text/markdown", "text/x-markdown"], types: ["STRAPI__COMPONENT_SHARED_BLOCK_INTRO_BODY_TEXTNODE", "STRAPI_PRESS_RELEASE_BODY_TEXTNODE", "STRAPI_POST_BODY_TEXTNODE", "STRAPI_EVENT_BODY_TEXTNODE"]) @derivedTypes @dontInfer {
+type MarkdownRemark implements Node @childOf(mimeTypes: ["text/markdown", "text/x-markdown"], types: ["STRAPI__COMPONENT_SHARED_BLOCK_INTRO_BODY_TEXTNODE", "STRAPI_PRESS_RELEASE_BODY_TEXTNODE", "STRAPI_POST_BODY_TEXTNODE", "STRAPI_NEWSLETTER_BODY_TEXTNODE", "STRAPI_EVENT_BODY_TEXTNODE"]) @derivedTypes @dontInfer {
   frontmatter: MarkdownRemarkFrontmatter
   excerpt: String
   rawMarkdownBody: String
@@ -859,6 +859,55 @@ type STRAPI_POST implements Node @derivedTypes @dontInfer {
 
 type STRAPI_POSTBody {
   data: STRAPI_POST_BODY_TEXTNODE @link(by: "id", from: "data___NODE")
+}
+
+type STRAPI_NEWSLETTER_BODY_TEXTNODE implements Node @dontInfer {
+  body: String
+}
+
+type STRAPI_NEWSLETTER implements Node @derivedTypes @dontInfer {
+  title: String
+  eyelet: String
+  bannerNewsletter: Boolean
+  body: STRAPI_NEWSLETTERBody
+  slug: String
+  createdAt: Date @dateformat
+  updatedAt: Date @dateformat
+  publishedAt: Date @dateformat
+  url_path_id: String
+  locale: String
+  url_path: String
+  featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
+  strapi_id: Int
+}
+
+type STRAPI_NEWSLETTERBody @derivedTypes {
+  medias: [STRAPI_NEWSLETTERBodyMedias]
+  data: STRAPI_NEWSLETTER_BODY_TEXTNODE @link(by: "id", from: "data___NODE")
+}
+
+type STRAPI_NEWSLETTERBodyMedias @derivedTypes {
+  alternativeText: String
+  url: String
+  src: String
+  localFile: File @link(by: "id", from: "localFile___NODE")
+  file: STRAPI_NEWSLETTERBodyMediasFile
+}
+
+type STRAPI_NEWSLETTERBodyMediasFile {
+  id: Int
+  name: String
+  alternativeText: String
+  width: Int
+  height: Int
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  createdAt: Date @dateformat
+  updatedAt: Date @dateformat
 }
 
 type STRAPI_JOBPOSITION implements Node @derivedTypes @dontInfer {
