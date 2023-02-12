@@ -54,7 +54,7 @@ const config: GatsbyConfig = {
         apiURL: process.env.STRAPI_API_URL || 'http://localhost:1337',
         accessToken: process.env.STRAPI_TOKEN,
         queryLimit: 1000,
-        singleTypes: [
+        collectionTypes: [
           {
             singularName: 'jobposition',
             pluginOptions: {
@@ -89,6 +89,17 @@ const config: GatsbyConfig = {
           },
           {
             singularName: 'newsletter',
+            pluginOptions: {
+              i18n: {
+                locale: 'all',
+              },
+            },
+          },
+          {
+            singularName: 'project',
+            queryParams: {
+              populate: 'deep',
+            },
             pluginOptions: {
               i18n: {
                 locale: 'all',
