@@ -5,7 +5,7 @@ export const SharedBlockIntro = ({
   title,
 }: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_INTRO_Fragment) => {
   return (
-    <header className="block --block-intro intro">
+    <section className="block --block-intro intro mb-0 --nocontent">
       <div className="container-fluid">
         <div className="row">
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
@@ -16,7 +16,7 @@ export const SharedBlockIntro = ({
           </div>
         </div>
       </div>
-    </header>
+    </section>
   );
 };
 

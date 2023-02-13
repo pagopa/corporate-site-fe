@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import {
   GatsbyImage,
   getImage,
@@ -9,85 +10,84 @@ import { SharedBlockBody } from '../SharedBlockBody';
 
 import './SharedBlockVisualText.sass';
 
+type VisualSize = 'Small' | 'Half' | 'Big' | 'Full';
+
 export const SharedBlockVisualText = ({
   eyelet,
   title,
   body,
   image,
-  additionalCta,
   caption,
-  ...block
-}: any) => {
-  const { reverse, backgroundColor, visual } = block || {};
+  visualWidth,
+}: Queries.STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT) => {
+  const visualSize = (visualWidth as VisualSize) || 'Half';
 
-  const visualSize: 'small' | 'half' | 'big' | 'full' = visual?.width;
-
-  const columns = {
-    small: {
-      visual: `col-md-${reverse ? 5 : 4} offset-md-1`,
-      content: `col-md-${reverse ? 4 : 5} offset-md-1`,
+  const columns: Record<VisualSize, { visual: string; content: string }> = {
+    Small: {
+      visual: `col-md-4 offset-md-1`,
+      content: `col-md-5 offset-md-1`,
     },
-    half: {
-      visual: `col-md-5${reverse ? '' : ' offset-md-1'}`,
-      content: `col-md-5${reverse ? ' offset-md-1' : ''}`,
+    Half: {
+      visual: `col-md-5 offset-md-1`,
+      content: `col-md-5`,
     },
-    big: {
+    Big: {
       visual: `col-md-6`,
       content: `col-md-6 col-lg-5`,
     },
-    full: {
-      visual: `col-md-9 offset-md-1`,
+    Full: {
+      visual: `col-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2`,
       content: `col-md-5 offset-md-5`,
     },
   };
 
-  const fullWidthLayout = visualSize === 'full';
+  const fullWidthLayout = visualSize === 'Full';
 
   return (
     <section
-      className={`block --block-visual-text${
-        backgroundColor ? ' --has-bg-color' : ''
-      }`}
-      style={{
-        backgroundColor: backgroundColor ? backgroundColor : 'transparent',
-      }}
+      className={`block --block-visual-text`}
+      style={{ backgroundColor: 'transparent' }}
     >
       {/* {backgroundGraphics && <BackgroundGraphics data={backgroundGraphics} />} */}
-
       <div className="container-fluid">
-        <div
-          className={`row align-items-center${
-            reverse ? ' flex-row-reverse justify-content-end' : ''
-          }`}
-        >
+        <div className={`row align-items-center`}>
           {fullWidthLayout && (
-            <div className="col-12 col-md-10 offset-md-1">
+            <div className={classNames('col-9', columns['Full'].visual)}>
               {eyelet && <h4>{eyelet}</h4>}
               {title && <h1>{title}</h1>}
             </div>
           )}
-          <div className={`col-12 ${columns['half']?.visual}`}>
-            <div className="block__visual">
-              <figure>
-                <GatsbyImage
-                  image={
-                    getImage(
-                      image.localFile as ImageDataLike
-                    ) as IGatsbyImageData
-                  }
-                  alt={image.alternativeText || 'featuredImage'}
-                  title={image.alternativeText}
-                />
-              </figure>
-              {caption && (
-                <figcaption>
-                  <p>{caption}</p>
-                </figcaption>
-              )}
-            </div>
+          <div className={`col-12 ${columns[visualSize]?.visual}`}>
+            {image?.localFile?.childImageSharp?.gatsbyImageData && (
+              <div className="block__visual">
+                <figure>
+                  <GatsbyImage
+                    image={
+                      getImage(
+                        image.localFile as ImageDataLike
+                      ) as IGatsbyImageData
+                    }
+                    alt={image.alternativeText || 'featuredImage'}
+                    title={image.alternativeText || ''}
+                  />
+                </figure>
+                {caption && (
+                  <figcaption>
+                    <p>{caption}</p>
+                  </figcaption>
+                )}
+              </div>
+            )}
           </div>
-          <div className={`col-12 ${columns['half']?.content}`}>
-            <div className="block__content">
+          <div
+            className={classNames(
+              'col-12',
+              fullWidthLayout
+                ? columns[visualSize].visual
+                : columns[visualSize].content
+            )}
+          >
+            <div className={`block__${fullWidthLayout ? 'visual' : 'content'}`}>
               {!fullWidthLayout && eyelet && <h4>{eyelet}</h4>}
               {!fullWidthLayout && title && <h1>{title}</h1>}
               <SharedBlockBody data={body} />

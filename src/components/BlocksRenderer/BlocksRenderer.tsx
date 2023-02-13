@@ -1,6 +1,7 @@
 import { graphql } from 'gatsby';
 import * as React from 'react';
 import { SharedBlockAttachmentList } from '../SharedBlockAttachmentList';
+import { SharedBlockContentsList } from '../SharedBlockContentsList/SharedBlockContentsList';
 import { SharedBlockIntro } from '../SharedBlockIntro/SharedBlockIntro';
 import { SharedBlockVisualText } from '../SharedBlockVisualText';
 
@@ -10,6 +11,7 @@ const componentsMap: {
   STRAPI__COMPONENT_SHARED_BLOCK_INTRO: SharedBlockIntro,
   STRAPI__COMPONENT_SHARED_BLOCK_LIST_ATTACHMENTS: SharedBlockAttachmentList,
   STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT: SharedBlockVisualText,
+  STRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LIST: SharedBlockContentsList,
 };
 
 const Block = ({ block }: { block: Queries.BlocksFragment }) => {
@@ -44,11 +46,16 @@ export const query = graphql`
       linksAttachments {
         id
         link
+        attachment {
+          url
+        }
       }
     }
     ... on STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT {
       title
       caption
+      visualWidth
+      eyelet
       body {
         data {
           childMarkdownRemark {
@@ -62,6 +69,29 @@ export const query = graphql`
         localFile {
           childImageSharp {
             gatsbyImageData(layout: CONSTRAINED)
+          }
+        }
+      }
+    }
+    ... on STRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LIST {
+      title
+      template
+      contentsItems {
+        title
+        body {
+          data {
+            childMarkdownRemark {
+              html
+            }
+          }
+        }
+        image {
+          url
+          alternativeText
+          localFile {
+            childImageSharp {
+              gatsbyImageData(layout: CONSTRAINED)
+            }
           }
         }
       }
