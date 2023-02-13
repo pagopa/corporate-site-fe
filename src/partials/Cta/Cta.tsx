@@ -16,32 +16,23 @@ export const Cta = ({
   blank = false,
   variant,
   className,
-  href = '\#',
+  href = '#',
 }: CtaProps) => {
-
   return (
     <>
       {blank && href ? (
         <a
-          href={href}
           target="_blank"
-          className={classNames(
-            'cta',
-            variant ? ` --${variant}` : '',
-            className
-          )}
           rel="noopene noreferrer"
+          href={href}
+          className={classNames('cta', variant && `--${variant}`, className)}
         >
           <span>{label}</span>
         </a>
       ) : (
         <Link
           to={href}
-          className={classNames(
-            'cta',
-            variant ? ` --${variant}` : '',
-            className
-          )}
+          className={classNames('cta', variant && `--${variant}`, className)}
         >
           <span>{label}</span>
         </Link>

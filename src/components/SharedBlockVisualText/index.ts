@@ -1,0 +1,1 @@
+export { SharedBlockVisualText } from './SharedBlockVisualText';
