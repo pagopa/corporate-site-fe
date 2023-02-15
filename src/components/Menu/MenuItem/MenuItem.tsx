@@ -1,5 +1,7 @@
-import React from "react";
-import {graphql, Link} from "gatsby";
+import React from 'react';
+import { graphql, Link } from 'gatsby';
+
+import '../Menu.sass';
 
 export const navigationItemFragment = graphql`
   fragment NavigationItem on StrapiNavigationItems {
@@ -21,21 +23,15 @@ export const MenuItem = ({
 }) => {
   const { title, external, path } = item;
 
-  const TheLink = () => {
-    if (disabled) {
-      return <span>{title}</span>;
-    } else {
-      if (external) {
-        return (
-          <a href={path || '#'} target="_blank" rel="noopener noreferrer">
-            {title}
-          </a>
-        );
-      } else {
-        return <Link to={path || '#'}>{title}</Link>;
-      }
-    }
-  };
-
-  return <TheLink />;
+  if (disabled) {
+    return <span>{title}</span>;
+  } else if (external) {
+    return (
+      <a href={path || '#'} target="_blank" rel="noopener noreferrer">
+        {title}
+      </a>
+    );
+  } else {
+    return <Link activeClassName='is-current' to={path || '#'}>{title}</Link>;
+  }
 };

@@ -1,18 +1,18 @@
 import classNames from 'classnames';
 import React, { useState } from 'react';
-
 import { MenuItem } from '../MenuItem';
-
 import '../Menu.sass';
+import { useLocation } from '@reach/router';
 
 export const MenuNavigation = ({
   item,
-  className
+  className,
 }: {
   item: Queries.MainNavigationItemFragment;
-  className: string
+  className: string;
 }) => {
   const [submenuOpen, setSubmenuOpen] = useState(false);
+  const { pathname } = useLocation();
 
   const handleSubmenu = () => {
     if (window.innerWidth < 1200) {
@@ -21,22 +21,22 @@ export const MenuNavigation = ({
   };
 
   const { items, highlight } = item;
-
-  const hasChilds = !!items?.length;
+  const isCurrent = pathname.split('/').includes(item.uiRouterKey as string);
+  const hasChildren = !!items?.length;
 
   return (
     <li
       onClick={handleSubmenu}
       className={classNames(
         className,
-        hasChilds && 'w-sub',
+        hasChildren && 'w-sub',
         highlight && 'highlight',
-        false && 'is-current',
-        hasChilds && submenuOpen && 'is-sub-open',
+        isCurrent && 'is-current',
+        hasChildren && submenuOpen && 'is-sub-open'
       )}
     >
-      <MenuItem item={item} disabled={hasChilds} />
-      {hasChilds && (
+      <MenuItem item={item} disabled={hasChildren} />
+      {hasChildren && (
         <ul>
           {items?.map(item => {
             return (

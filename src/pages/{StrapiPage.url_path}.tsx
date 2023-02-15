@@ -20,7 +20,6 @@ export default function Component({
 }: PageProps<Queries.StrapiPageQuery>) {
   const { title, slug, blocks } = strapiPage || {};
 
-  console.debug(blocks);
   if (title && slug) {
     return (
       <Layout>
