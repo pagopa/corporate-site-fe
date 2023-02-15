@@ -1,6 +1,6 @@
 import { graphql } from 'gatsby';
 import * as React from 'react';
-import {SharedBlockAttachmentGrid} from '../SharedBlock/SharedBlockAttachmentGrid';
+import { SharedBlockAttachmentGrid } from '../SharedBlock/SharedBlockAttachmentGrid';
 import { SharedBlockAttachmentList } from '../SharedBlock/SharedBlockAttachmentList';
 import { SharedBlockContentsList } from '../SharedBlock/SharedBlockContentsList/SharedBlockContentsList';
 import { SharedBlockIntro } from '../SharedBlock/SharedBlockIntro/SharedBlockIntro';
@@ -14,7 +14,7 @@ const componentsMap: {
   STRAPI__COMPONENT_SHARED_BLOCK_LIST_ATTACHMENTS: SharedBlockAttachmentList,
   STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT: SharedBlockVisualText,
   STRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LIST: SharedBlockContentsList,
-  STRAPI__COMPONENT_SHARED_BLOCK_ATTACHMENTS_GRID: SharedBlockAttachmentGrid
+  STRAPI__COMPONENT_SHARED_BLOCK_ATTACHMENTS_GRID: SharedBlockAttachmentGrid,
 };
 
 const Block = ({ block }: { block: Queries.BlocksFragment }) => {
@@ -45,11 +45,15 @@ export const query = graphql`
       }
     }
   }
-  fragment Blocks on SHARED_BLOCKS {
+  fragment Blocks on SHARED_BLOCKS_UNION {
     __typename
     ... on STRAPI__COMPONENT_SHARED_BLOCK_INTRO {
       title
       eyelet
+      introMenu {
+        link
+        title
+      }
       image {
         ...Image
       }

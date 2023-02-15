@@ -12,7 +12,6 @@ export const SharedBlockFragment = graphql`
   fragment SharedBlock on STRAPI__COMPONENT_SHARED_BLOCK_INTRO {
     eyelet
     id
-    introMenu
     isEventLanding
     strapi_id
     title
