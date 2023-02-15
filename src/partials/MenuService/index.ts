@@ -1,1 +1,1 @@
-export { MenuService } from './MenuService';
+export * from './MenuService';

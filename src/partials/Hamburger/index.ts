@@ -1,1 +1,1 @@
-export { Hamburger } from './Hamburger';
+export * from './Hamburger';
