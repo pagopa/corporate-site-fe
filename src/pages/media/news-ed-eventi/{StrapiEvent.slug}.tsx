@@ -1,7 +1,6 @@
 import React from 'react';
 import { graphql, PageProps } from 'gatsby';
 import { Layout } from '../../../partials/Layout';
-import { SharedBlockBody } from '../../../components/SharedBlockBody';
 import { useTranslation } from 'gatsby-plugin-react-i18next/dist';
 import {
   GatsbyImage,
@@ -10,6 +9,7 @@ import {
   ImageDataLike,
 } from 'gatsby-plugin-image';
 import {NewsletterBanner} from '../../../components/NewsletterBanner';
+import {SharedBlockBody} from '../../../components/SharedBlock/SharedBlockBody';
 
 export const query = graphql`
   fragment EventIntro on STRAPI_EVENT {

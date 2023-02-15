@@ -1,6 +1,6 @@
 import { graphql } from 'gatsby';
 import React from 'react';
-import { SharedBlockBody } from '../../SharedBlockBody';
+import {SharedBlockBody} from '../../SharedBlock/SharedBlockBody';
 
 const dateFormatOptions: Intl.DateTimeFormatOptions = {
   year: 'numeric',

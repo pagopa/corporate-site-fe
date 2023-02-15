@@ -1,6 +1,6 @@
 import { graphql } from 'gatsby';
 import React from 'react';
-import { SharedBlockBody } from '../../SharedBlockBody';
+import {SharedBlockBody} from '../../SharedBlock/SharedBlockBody';
 import { JobIntro } from '../JobIntro';
 
 const iframeURL = 'https://pagopa.applytojob.com/apply/__JOBID__';

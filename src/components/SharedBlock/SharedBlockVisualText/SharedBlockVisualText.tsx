@@ -1,11 +1,6 @@
 import classNames from 'classnames';
-import {
-  GatsbyImage,
-  getImage,
-  IGatsbyImageData,
-  ImageDataLike,
-} from 'gatsby-plugin-image';
 import React from 'react';
+import { Image } from '../../Image';
 import { SharedBlockBody } from '../SharedBlockBody';
 
 import './SharedBlockVisualText.sass';
@@ -19,7 +14,7 @@ export const SharedBlockVisualText = ({
   image,
   caption,
   visualWidth,
-}: Queries.STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT) => {
+}: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT_Fragment) => {
   const visualSize = (visualWidth as VisualSize) || 'Half';
 
   const columns: Record<VisualSize, { visual: string; content: string }> = {
@@ -60,21 +55,11 @@ export const SharedBlockVisualText = ({
           <div className={`col-12 ${columns[visualSize]?.visual}`}>
             {image?.localFile?.childImageSharp?.gatsbyImageData && (
               <div className="block__visual">
-                <figure>
-                  <GatsbyImage
-                    image={
-                      getImage(
-                        image.localFile as ImageDataLike
-                      ) as IGatsbyImageData
-                    }
-                    alt={image.alternativeText || 'featuredImage'}
-                    title={image.alternativeText || ''}
+                {image && (
+                  <Image
+                    data={image as Queries.STRAPI__MEDIA}
+                    caption={caption}
                   />
-                </figure>
-                {caption && (
-                  <figcaption>
-                    <p>{caption}</p>
-                  </figcaption>
                 )}
               </div>
             )}
@@ -90,27 +75,11 @@ export const SharedBlockVisualText = ({
             <div className={`block__${fullWidthLayout ? 'visual' : 'content'}`}>
               {!fullWidthLayout && eyelet && <h4>{eyelet}</h4>}
               {!fullWidthLayout && title && <h1>{title}</h1>}
-              <SharedBlockBody data={body} />
-              {/* {link && ( */}
-              {/*   <Cta */}
-              {/*     label={link.title} */}
-              {/*     href={link.url} */}
-              {/*     blank={link.target} */}
-              {/*     className={additionalCta && additionalCta.link ? 'me-5' : ''} */}
-              {/*   /> */}
-              {/* )} */}
-              {/* {additionalCta && additionalCta.link && ( */}
-              {/*   <div className="py-4 d-inline-block"> */}
-              {/*     <span className="me-4">{additionalCta.text}</span> */}
-              {/*     {additionalCta.link && ( */}
-              {/*       <Cta */}
-              {/*         label={additionalCta.link.title} */}
-              {/*         url={additionalCta.link.url} */}
-              {/*         variant="link" */}
-              {/*       /> */}
-              {/*     )} */}
-              {/*   </div> */}
-              {/* )} */}
+              {body && (
+                <SharedBlockBody
+                  data={body as Queries.SharedBlockBodyFragment}
+                />
+              )}
             </div>
           </div>
         </div>
