@@ -18,13 +18,13 @@ const IntroMenu = ({ menu }: IntroMenuProps) => {
     <nav className="intro-menu">
       <ul>
         {menu.map((item, key) => {
-          const { link, title } = item || {};
-          if (link && title) {
+          const { link, title, linkLabel } = item || {};
+          if (link && (linkLabel || title)) {
             const isCurrent = pathname.split('/').includes(link);
             return (
               <li key={key} className={classNames(isCurrent && 'is-current')}>
                 <Cta
-                  label={title}
+                  label={linkLabel || title}
                   href={isCurrent ? '#' : link}
                   variant="link-simple"
                 />
