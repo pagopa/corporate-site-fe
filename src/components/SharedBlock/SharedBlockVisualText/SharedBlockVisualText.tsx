@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
+import { Cta } from '../../../partials/Cta';
 import { Image } from '../../Image';
 import { SharedBlockBody } from '../SharedBlockBody';
 
@@ -14,6 +15,8 @@ export const SharedBlockVisualText = ({
   image,
   caption,
   visualWidth,
+  ctaLink,
+  ctaText,
 }: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT_Fragment) => {
   const visualSize = (visualWidth as VisualSize) || 'Half';
 
@@ -78,6 +81,12 @@ export const SharedBlockVisualText = ({
               {body && (
                 <SharedBlockBody
                   data={body as Queries.SharedBlockBodyFragment}
+                />
+              )}
+              {ctaLink && ctaText && (
+                <Cta
+                  label={ctaText}
+                  href={`${process.env.API_URL}/${ctaLink}`}
                 />
               )}
             </div>

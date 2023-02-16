@@ -92,6 +92,8 @@ export const query = graphql`
       caption
       visualWidth
       eyelet
+      ctaLink
+      ctaText
       body {
         data {
           childMarkdownRemark {
