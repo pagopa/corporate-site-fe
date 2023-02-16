@@ -40,6 +40,7 @@
 		"react-dom": "^18.2.0",
 		"react-helmet": "^6.1.0",
 		"react-i18next": "^12.1.4",
+		"react-spring": "^9.6.1",
 		"react-svg": "^16.0.0",
 		"reaptcha": "^1.12.1",
 		"sass": "^1.57.1",

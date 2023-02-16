@@ -1,6 +1,7 @@
-import type { ReactElement } from "react";
-import React from "react";
-import { Image } from "../../Image";
+import type { ReactElement } from 'react';
+import React from 'react';
+import { BackgroundGraphics } from '../../BackgroundGraphics';
+import { Image } from '../../Image';
 
 type Template = 'Wide' | 'Left' | 'Right';
 
@@ -29,7 +30,7 @@ export const SharedBlockVisual = ({
         layout[template as Template].type
       }`}
     >
-      {/* {backgroundGraphics && <BackgroundGraphics data={backgroundGraphics} />} */}
+      {true && <BackgroundGraphics data={[]} />}
 
       <div className="container-fluid">
         <div className="row">
