@@ -52,6 +52,13 @@ export const query = graphql`
     ... on STRAPI__COMPONENT_SHARED_BLOCK_INTRO {
       title
       eyelet
+      body {
+        data {
+          childMarkdownRemark {
+            html
+          }
+        }
+      }
       introMenu {
         link
         title

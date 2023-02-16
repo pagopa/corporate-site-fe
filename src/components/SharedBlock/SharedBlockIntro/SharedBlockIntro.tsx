@@ -3,6 +3,7 @@ import { Cta } from '../../../partials/Cta';
 import { Image } from '../../Image';
 import { useLocation } from '@reach/router';
 import classNames from 'classnames';
+import {SharedBlockBody} from '../SharedBlockBody';
 
 type IntroMenuProps = {
   menu: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_INTRO_Fragment['introMenu'];
@@ -41,19 +42,22 @@ export const SharedBlockIntro = ({
   title,
   image,
   introMenu,
+  body
 }: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_INTRO_Fragment) => {
   return (
     <section className="block --block-intro intro mb-0 --nocontent">
       <div className="container-fluid">
-        <div className="row justify-content-center">
-          <div className="col-12 col-md-10 col-lg-9">
-            <div className="intro__heading">
-              <h4>{eyelet}</h4>
-              {introMenu && <IntroMenu menu={introMenu} />}
-              <h1>{title}</h1>
+        {(title || eyelet) && (
+          <div className="row justify-content-center">
+            <div className="col-12 col-md-10 col-lg-9">
+              <div className="intro__heading">
+                <h4>{eyelet}</h4>
+                {introMenu && <IntroMenu menu={introMenu} />}
+                <h1>{title}</h1>
+              </div>
             </div>
           </div>
-        </div>
+        )}
         {image && image?.localFile && (
           <div className="row">
             <div className="col-12 col-lg-10 offset-lg-1 d-flex align-items-center justify-content-center">
@@ -62,6 +66,13 @@ export const SharedBlockIntro = ({
           </div>
         )}
       </div>
+      {body && (
+        <div className={`row${image ? ' mt-5' : ''}`}>
+          <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+            <SharedBlockBody data={body as Queries.SharedBlockBodyFragment}/>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
