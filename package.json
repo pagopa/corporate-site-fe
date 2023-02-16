@@ -33,6 +33,7 @@
 		"gatsby-transformer-json": "^5.5.0",
 		"gatsby-transformer-remark": "^6.5.0",
 		"gatsby-transformer-sharp": "^5.4.0",
+		"gsap": "^3.11.4",
 		"i18next": "^22.4.9",
 		"is-whitespace-character": "^2.0.1",
 		"react": "^18.2.0",

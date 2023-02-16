@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { useRef } from 'react';
+import { useRevealTextAnimation } from '../../../hooks';
 import { Cta } from '../../../partials/Cta';
 import { Image } from '../../Image';
 import { SharedBlockBody } from '../SharedBlockBody';
@@ -18,8 +19,13 @@ export const SharedBlockVisualText = ({
   reverseOrder,
   ctaLink,
   ctaText,
+  reveal
 }: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT_Fragment) => {
   const visualSize = (visualWidth as VisualSize) || 'Half';
+
+  const elementRef = useRef(null);
+
+  useRevealTextAnimation({ elementRef });
 
   const columns: Record<VisualSize, { visual: string; content: string }> = {
     Small: {
@@ -86,6 +92,8 @@ export const SharedBlockVisualText = ({
               {!fullWidthLayout && title && <h1>{title}</h1>}
               {body && (
                 <SharedBlockBody
+                  forwardRef={elementRef}
+                  className={classNames(reveal && "--reveal-mode")}
                   data={body as Queries.SharedBlockBodyFragment}
                 />
               )}

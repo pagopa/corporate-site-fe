@@ -101,6 +101,7 @@ export const query = graphql`
       reverseOrder
       ctaLink
       ctaText
+      reveal
       body {
         data {
           childMarkdownRemark {
