@@ -3,6 +3,7 @@ import * as React from 'react';
 import { SharedBlockAttachmentGrid } from '../SharedBlock/SharedBlockAttachmentGrid';
 import { SharedBlockAttachmentList } from '../SharedBlock/SharedBlockAttachmentList';
 import { SharedBlockContentsList } from '../SharedBlock/SharedBlockContentsList/SharedBlockContentsList';
+import { SharedBlockCtaGrid } from '../SharedBlock/SharedBlockCtaGrid';
 import { SharedBlockIntro } from '../SharedBlock/SharedBlockIntro/SharedBlockIntro';
 import { SharedBlockVisualText } from '../SharedBlock/SharedBlockVisualText';
 
@@ -15,6 +16,7 @@ const componentsMap: {
   STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT: SharedBlockVisualText,
   STRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LIST: SharedBlockContentsList,
   STRAPI__COMPONENT_SHARED_BLOCK_ATTACHMENTS_GRID: SharedBlockAttachmentGrid,
+  STRAPI__COMPONENT_SHARED_BLOCK_CTA_GRID: SharedBlockCtaGrid,
 };
 
 const Block = ({ block }: { block: Queries.BlocksFragment }) => {
@@ -114,6 +116,19 @@ export const query = graphql`
       blockConf {
         BlockWidth
         BlockPosition
+      }
+    }
+    ... on STRAPI__COMPONENT_SHARED_BLOCK_CTA_GRID {
+      id
+      ctaGridItems {
+        body {
+          data {
+            body
+          }
+        }
+        title
+        link
+        linkLabel
       }
     }
   }
