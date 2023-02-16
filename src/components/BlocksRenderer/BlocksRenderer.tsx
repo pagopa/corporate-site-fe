@@ -6,6 +6,7 @@ import { SharedBlockContentsList } from '../SharedBlock/SharedBlockContentsList/
 import { SharedBlockCtaBanner } from '../SharedBlock/SharedBlockCtaBanner/SharedBlockCtaBanner';
 import { SharedBlockCtaGrid } from '../SharedBlock/SharedBlockCtaGrid';
 import { SharedBlockIntro } from '../SharedBlock/SharedBlockIntro/SharedBlockIntro';
+import {SharedBlockLogoLinks} from '../SharedBlock/SharedBlockLogoLinks';
 import { SharedBlockProjectsCarousel } from '../SharedBlock/SharedBlockProjectsCarousel';
 import { SharedBlockVisual } from '../SharedBlock/SharedBlockVisual';
 import { SharedBlockVisualText } from '../SharedBlock/SharedBlockVisualText';
@@ -23,6 +24,7 @@ const componentsMap: {
   STRAPI__COMPONENT_SHARED_BLOCK_VISUAL: SharedBlockVisual,
   STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT: SharedBlockVisualText,
   STRAPI__COMPONENT_SHARED_BLOCK_PROJECTS_CAROUSEL: SharedBlockProjectsCarousel,
+  STRAPI__COMPONENT_SHARED_BLOCK_LOGO_LINKS: SharedBlockLogoLinks
 };
 
 const Block = ({ block }: { block: Queries.BlocksFragment }) => {
@@ -174,6 +176,16 @@ export const query = graphql`
         }
         carouselAbstract
         carouselCtaLabel
+      }
+    }
+    ... on STRAPI__COMPONENT_SHARED_BLOCK_LOGO_LINKS {
+      id
+      title
+      logoLinks {
+        link
+        attachment {
+          ...Image
+        }
       }
     }
   }
