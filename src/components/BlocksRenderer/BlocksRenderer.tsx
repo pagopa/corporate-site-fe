@@ -3,9 +3,10 @@ import * as React from 'react';
 import { SharedBlockAttachmentGrid } from '../SharedBlock/SharedBlockAttachmentGrid';
 import { SharedBlockAttachmentList } from '../SharedBlock/SharedBlockAttachmentList';
 import { SharedBlockContentsList } from '../SharedBlock/SharedBlockContentsList/SharedBlockContentsList';
-import {SharedBlockCtaBanner} from '../SharedBlock/SharedBlockCtaBanner/SharedBlockCtaBanner';
+import { SharedBlockCtaBanner } from '../SharedBlock/SharedBlockCtaBanner/SharedBlockCtaBanner';
 import { SharedBlockCtaGrid } from '../SharedBlock/SharedBlockCtaGrid';
 import { SharedBlockIntro } from '../SharedBlock/SharedBlockIntro/SharedBlockIntro';
+import { SharedBlockProjectsCarousel } from '../SharedBlock/SharedBlockProjectsCarousel';
 import { SharedBlockVisual } from '../SharedBlock/SharedBlockVisual';
 import { SharedBlockVisualText } from '../SharedBlock/SharedBlockVisualText';
 
@@ -21,6 +22,7 @@ const componentsMap: {
   STRAPI__COMPONENT_SHARED_BLOCK_LIST_ATTACHMENTS: SharedBlockAttachmentList,
   STRAPI__COMPONENT_SHARED_BLOCK_VISUAL: SharedBlockVisual,
   STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT: SharedBlockVisualText,
+  STRAPI__COMPONENT_SHARED_BLOCK_PROJECTS_CAROUSEL: SharedBlockProjectsCarousel,
 };
 
 const Block = ({ block }: { block: Queries.BlocksFragment }) => {
@@ -157,6 +159,22 @@ export const query = graphql`
       title
       link
       linkLabel
+    }
+    ... on STRAPI__COMPONENT_SHARED_BLOCK_PROJECTS_CAROUSEL {
+      id
+      title
+      projects {
+        carouselTitle
+        url_path
+        carouselImage {
+          ...Image
+        }
+        featuredImage {
+          ...Image
+        }
+        carouselAbstract
+        carouselCtaLabel
+      }
     }
   }
 `;
