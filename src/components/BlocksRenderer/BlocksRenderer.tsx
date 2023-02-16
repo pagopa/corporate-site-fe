@@ -5,6 +5,7 @@ import { SharedBlockAttachmentList } from '../SharedBlock/SharedBlockAttachmentL
 import { SharedBlockContentsList } from '../SharedBlock/SharedBlockContentsList/SharedBlockContentsList';
 import { SharedBlockCtaGrid } from '../SharedBlock/SharedBlockCtaGrid';
 import { SharedBlockIntro } from '../SharedBlock/SharedBlockIntro/SharedBlockIntro';
+import { SharedBlockVisual } from '../SharedBlock/SharedBlockVisual';
 import { SharedBlockVisualText } from '../SharedBlock/SharedBlockVisualText';
 
 // This object is used to map Strapi component names to React components
@@ -17,6 +18,7 @@ const componentsMap: {
   STRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LIST: SharedBlockContentsList,
   STRAPI__COMPONENT_SHARED_BLOCK_ATTACHMENTS_GRID: SharedBlockAttachmentGrid,
   STRAPI__COMPONENT_SHARED_BLOCK_CTA_GRID: SharedBlockCtaGrid,
+  STRAPI__COMPONENT_SHARED_BLOCK_VISUAL: SharedBlockVisual,
 };
 
 const Block = ({ block }: { block: Queries.BlocksFragment }) => {
@@ -76,6 +78,12 @@ export const query = graphql`
         attachment {
           url
         }
+      }
+    }
+    ... on STRAPI__COMPONENT_SHARED_BLOCK_VISUAL {
+      template
+      image {
+        ...Image
       }
     }
     ... on STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT {
