@@ -94,6 +94,7 @@ export const query = graphql`
       caption
       visualWidth
       eyelet
+      reverseOrder
       ctaLink
       ctaText
       body {

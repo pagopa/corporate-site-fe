@@ -15,6 +15,7 @@ export const SharedBlockVisualText = ({
   image,
   caption,
   visualWidth,
+  reverseOrder,
   ctaLink,
   ctaText,
 }: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT_Fragment) => {
@@ -22,12 +23,12 @@ export const SharedBlockVisualText = ({
 
   const columns: Record<VisualSize, { visual: string; content: string }> = {
     Small: {
-      visual: `col-md-4 offset-md-1`,
-      content: `col-md-5 offset-md-1`,
+      visual: `col-md-${reverseOrder ? 5 : 4} offset-md-1`,
+      content: `col-md-${reverseOrder ? 4 : 5} offset-md-1`,
     },
     Half: {
-      visual: `col-md-5 offset-md-1`,
-      content: `col-md-5`,
+      visual: `col-md-5${reverseOrder ? '' : ' offset-md-1'}`,
+      content: `col-md-5${reverseOrder ? ' offset-md-1' : ''}`,
     },
     Big: {
       visual: `col-md-6`,
@@ -48,7 +49,12 @@ export const SharedBlockVisualText = ({
     >
       {/* {backgroundGraphics && <BackgroundGraphics data={backgroundGraphics} />} */}
       <div className="container-fluid">
-        <div className={`row align-items-center`}>
+        <div
+          className={classNames(
+            `row align-items-center`,
+            reverseOrder && 'flex-row-reverse justify-content-end'
+          )}
+        >
           {fullWidthLayout && (
             <div className={classNames('col-9', columns['Full'].visual)}>
               {eyelet && <h4>{eyelet}</h4>}
