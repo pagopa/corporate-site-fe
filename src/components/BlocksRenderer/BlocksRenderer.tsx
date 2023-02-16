@@ -3,6 +3,7 @@ import * as React from 'react';
 import { SharedBlockAttachmentGrid } from '../SharedBlock/SharedBlockAttachmentGrid';
 import { SharedBlockAttachmentList } from '../SharedBlock/SharedBlockAttachmentList';
 import { SharedBlockContentsList } from '../SharedBlock/SharedBlockContentsList/SharedBlockContentsList';
+import {SharedBlockCtaBanner} from '../SharedBlock/SharedBlockCtaBanner/SharedBlockCtaBanner';
 import { SharedBlockCtaGrid } from '../SharedBlock/SharedBlockCtaGrid';
 import { SharedBlockIntro } from '../SharedBlock/SharedBlockIntro/SharedBlockIntro';
 import { SharedBlockVisual } from '../SharedBlock/SharedBlockVisual';
@@ -12,13 +13,14 @@ import { SharedBlockVisualText } from '../SharedBlock/SharedBlockVisualText';
 const componentsMap: {
   [key: string]: (props: any) => JSX.Element;
 } = {
+  STRAPI__COMPONENT_SHARED_BLOCK_ATTACHMENTS_GRID: SharedBlockAttachmentGrid,
+  STRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LIST: SharedBlockContentsList,
+  STRAPI__COMPONENT_SHARED_BLOCK_CTA_BANNER: SharedBlockCtaBanner,
+  STRAPI__COMPONENT_SHARED_BLOCK_CTA_GRID: SharedBlockCtaGrid,
   STRAPI__COMPONENT_SHARED_BLOCK_INTRO: SharedBlockIntro,
   STRAPI__COMPONENT_SHARED_BLOCK_LIST_ATTACHMENTS: SharedBlockAttachmentList,
-  STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT: SharedBlockVisualText,
-  STRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LIST: SharedBlockContentsList,
-  STRAPI__COMPONENT_SHARED_BLOCK_ATTACHMENTS_GRID: SharedBlockAttachmentGrid,
-  STRAPI__COMPONENT_SHARED_BLOCK_CTA_GRID: SharedBlockCtaGrid,
   STRAPI__COMPONENT_SHARED_BLOCK_VISUAL: SharedBlockVisual,
+  STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT: SharedBlockVisualText,
 };
 
 const Block = ({ block }: { block: Queries.BlocksFragment }) => {
@@ -148,6 +150,12 @@ export const query = graphql`
         link
         linkLabel
       }
+    }
+    ... on STRAPI__COMPONENT_SHARED_BLOCK_CTA_BANNER {
+      id
+      title
+      link
+      linkLabel
     }
   }
 `;
