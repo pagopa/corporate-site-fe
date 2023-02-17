@@ -1,47 +1,83 @@
 import { graphql } from 'gatsby';
 import * as React from 'react';
-import { SharedBlockAttachmentList } from '../SharedBlockAttachmentList';
-import { SharedBlockContentsList } from '../SharedBlockContentsList/SharedBlockContentsList';
-import { SharedBlockIntro } from '../SharedBlockIntro/SharedBlockIntro';
-import { SharedBlockVisualText } from '../SharedBlockVisualText';
+import { SharedBlockAttachmentGrid } from '../SharedBlock/SharedBlockAttachmentGrid';
+import { SharedBlockAttachmentList } from '../SharedBlock/SharedBlockAttachmentList';
+import { SharedBlockContentsList } from '../SharedBlock/SharedBlockContentsList/SharedBlockContentsList';
+import { SharedBlockCtaBanner } from '../SharedBlock/SharedBlockCtaBanner/SharedBlockCtaBanner';
+import { SharedBlockCtaGrid } from '../SharedBlock/SharedBlockCtaGrid';
+import { SharedBlockIntro } from '../SharedBlock/SharedBlockIntro/SharedBlockIntro';
+import {SharedBlockLogoLinks} from '../SharedBlock/SharedBlockLogoLinks';
+import { SharedBlockProjectsCarousel } from '../SharedBlock/SharedBlockProjectsCarousel';
+import { SharedBlockVisual } from '../SharedBlock/SharedBlockVisual';
+import { SharedBlockVisualText } from '../SharedBlock/SharedBlockVisualText';
 
+// This object is used to map Strapi component names to React components
 const componentsMap: {
   [key: string]: (props: any) => JSX.Element;
 } = {
+  STRAPI__COMPONENT_SHARED_BLOCK_ATTACHMENTS_GRID: SharedBlockAttachmentGrid,
+  STRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LIST: SharedBlockContentsList,
+  STRAPI__COMPONENT_SHARED_BLOCK_CTA_BANNER: SharedBlockCtaBanner,
+  STRAPI__COMPONENT_SHARED_BLOCK_CTA_GRID: SharedBlockCtaGrid,
   STRAPI__COMPONENT_SHARED_BLOCK_INTRO: SharedBlockIntro,
   STRAPI__COMPONENT_SHARED_BLOCK_LIST_ATTACHMENTS: SharedBlockAttachmentList,
+  STRAPI__COMPONENT_SHARED_BLOCK_VISUAL: SharedBlockVisual,
   STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT: SharedBlockVisualText,
-  STRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LIST: SharedBlockContentsList,
+  STRAPI__COMPONENT_SHARED_BLOCK_PROJECTS_CAROUSEL: SharedBlockProjectsCarousel,
+  STRAPI__COMPONENT_SHARED_BLOCK_LOGO_LINKS: SharedBlockLogoLinks
 };
 
 const Block = ({ block }: { block: Queries.BlocksFragment }) => {
   const Component = componentsMap[block.__typename];
-
   return !!Component ? <Component {...block} /> : null;
 };
 
+// This function renders a list of blocks
 export const BlocksRenderer = ({
   blocks,
 }: {
   blocks: ReadonlyArray<Queries.BlocksFragment>;
-}) => {
-  return (
-    <>
-      {blocks.map((block, index) => (
-        <Block key={index} block={block} />
-      ))}
-    </>
-  );
-};
+}) => (
+  <>
+    {blocks.map((block, index) => (
+      <Block key={index} block={block} />
+    ))}
+  </>
+);
 
 export const query = graphql`
-  fragment Blocks on STRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LISTSTRAPI__COMPONENT_SHARED_BLOCK_INTROSTRAPI__COMPONENT_SHARED_BLOCK_LIST_ATTACHMENTSSTRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXTUnion {
+  fragment Image on STRAPI__MEDIA {
+    url
+    alternativeText
+    localFile {
+      childImageSharp {
+        gatsbyImageData(layout: CONSTRAINED)
+      }
+    }
+  }
+  fragment Blocks on SHARED_BLOCKS_UNION {
     __typename
     ... on STRAPI__COMPONENT_SHARED_BLOCK_INTRO {
       title
       eyelet
+      body {
+        data {
+          childMarkdownRemark {
+            html
+          }
+        }
+      }
+      introMenu {
+        link
+        linkLabel
+        title
+      }
+      image {
+        ...Image
+      }
     }
     ... on STRAPI__COMPONENT_SHARED_BLOCK_LIST_ATTACHMENTS {
+      title
       id
       linksAttachments {
         id
@@ -51,11 +87,21 @@ export const query = graphql`
         }
       }
     }
+    ... on STRAPI__COMPONENT_SHARED_BLOCK_VISUAL {
+      template
+      image {
+        ...Image
+      }
+    }
     ... on STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT {
       title
       caption
       visualWidth
       eyelet
+      reverseOrder
+      ctaLink
+      ctaText
+      reveal
       body {
         data {
           childMarkdownRemark {
@@ -64,13 +110,7 @@ export const query = graphql`
         }
       }
       image {
-        url
-        alternativeText
-        localFile {
-          childImageSharp {
-            gatsbyImageData(layout: CONSTRAINED)
-          }
-        }
+        ...Image
       }
     }
     ... on STRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LIST {
@@ -86,13 +126,66 @@ export const query = graphql`
           }
         }
         image {
+          ...Image
+        }
+      }
+    }
+    ... on STRAPI__COMPONENT_SHARED_BLOCK_ATTACHMENTS_GRID {
+      id
+      title
+      attachmentsGridItems {
+        buttonLabel
+        attachment {
           url
-          alternativeText
-          localFile {
-            childImageSharp {
-              gatsbyImageData(layout: CONSTRAINED)
-            }
+        }
+      }
+      blockConf {
+        BlockWidth
+        BlockPosition
+      }
+    }
+    ... on STRAPI__COMPONENT_SHARED_BLOCK_CTA_GRID {
+      id
+      ctaGridItems {
+        body {
+          data {
+            body
           }
+        }
+        title
+        link
+        linkLabel
+      }
+    }
+    ... on STRAPI__COMPONENT_SHARED_BLOCK_CTA_BANNER {
+      id
+      title
+      link
+      linkLabel
+    }
+    ... on STRAPI__COMPONENT_SHARED_BLOCK_PROJECTS_CAROUSEL {
+      id
+      title
+      projects {
+        carouselTitle
+        url_path
+        carouselImage {
+          ...Image
+        }
+        featuredImage {
+          ...Image
+        }
+        carouselAbstract
+        carouselCtaLabel
+      }
+    }
+    ... on STRAPI__COMPONENT_SHARED_BLOCK_LOGO_LINKS {
+      id
+      title
+      logoLinks {
+        link
+        attachment {
+          ...Image
         }
       }
     }

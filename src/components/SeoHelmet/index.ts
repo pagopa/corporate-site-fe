@@ -1,1 +1,1 @@
-export { SeoHelmet } from './SeoHelmet';
+export * from './SeoHelmet';

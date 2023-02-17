@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { graphql, Link } from 'gatsby';
-import { JobEntry } from '../components/Jobposition/JobEntry';
-import { Layout } from '../partials/Layout';
+import { Layout } from '../../partials/Layout';
+import { JobEntry } from '../../components/Jobposition/JobEntry';
 
 export const query = graphql`
   query AllJobs($language: String!) {

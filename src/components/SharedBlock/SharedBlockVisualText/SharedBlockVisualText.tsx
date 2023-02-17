@@ -1,11 +1,8 @@
 import classNames from 'classnames';
-import {
-  GatsbyImage,
-  getImage,
-  IGatsbyImageData,
-  ImageDataLike,
-} from 'gatsby-plugin-image';
-import React from 'react';
+import React, { useRef } from 'react';
+import { useRevealTextAnimation } from '../../../hooks';
+import { Cta } from '../../../partials/Cta';
+import { Image } from '../../Image';
 import { SharedBlockBody } from '../SharedBlockBody';
 
 import './SharedBlockVisualText.sass';
@@ -19,17 +16,25 @@ export const SharedBlockVisualText = ({
   image,
   caption,
   visualWidth,
-}: Queries.STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT) => {
+  reverseOrder,
+  ctaLink,
+  ctaText,
+  reveal
+}: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT_Fragment) => {
   const visualSize = (visualWidth as VisualSize) || 'Half';
+
+  const elementRef = useRef(null);
+
+  useRevealTextAnimation({ elementRef });
 
   const columns: Record<VisualSize, { visual: string; content: string }> = {
     Small: {
-      visual: `col-md-4 offset-md-1`,
-      content: `col-md-5 offset-md-1`,
+      visual: `col-md-${reverseOrder ? 5 : 4} offset-md-1`,
+      content: `col-md-${reverseOrder ? 4 : 5} offset-md-1`,
     },
     Half: {
-      visual: `col-md-5 offset-md-1`,
-      content: `col-md-5`,
+      visual: `col-md-5${reverseOrder ? '' : ' offset-md-1'}`,
+      content: `col-md-5${reverseOrder ? ' offset-md-1' : ''}`,
     },
     Big: {
       visual: `col-md-6`,
@@ -50,7 +55,12 @@ export const SharedBlockVisualText = ({
     >
       {/* {backgroundGraphics && <BackgroundGraphics data={backgroundGraphics} />} */}
       <div className="container-fluid">
-        <div className={`row align-items-center`}>
+        <div
+          className={classNames(
+            `row align-items-center`,
+            reverseOrder && 'flex-row-reverse justify-content-end'
+          )}
+        >
           {fullWidthLayout && (
             <div className={classNames('col-9', columns['Full'].visual)}>
               {eyelet && <h4>{eyelet}</h4>}
@@ -60,21 +70,11 @@ export const SharedBlockVisualText = ({
           <div className={`col-12 ${columns[visualSize]?.visual}`}>
             {image?.localFile?.childImageSharp?.gatsbyImageData && (
               <div className="block__visual">
-                <figure>
-                  <GatsbyImage
-                    image={
-                      getImage(
-                        image.localFile as ImageDataLike
-                      ) as IGatsbyImageData
-                    }
-                    alt={image.alternativeText || 'featuredImage'}
-                    title={image.alternativeText || ''}
+                {image && (
+                  <Image
+                    data={image as Queries.STRAPI__MEDIA}
+                    caption={caption}
                   />
-                </figure>
-                {caption && (
-                  <figcaption>
-                    <p>{caption}</p>
-                  </figcaption>
                 )}
               </div>
             )}
@@ -90,27 +90,19 @@ export const SharedBlockVisualText = ({
             <div className={`block__${fullWidthLayout ? 'visual' : 'content'}`}>
               {!fullWidthLayout && eyelet && <h4>{eyelet}</h4>}
               {!fullWidthLayout && title && <h1>{title}</h1>}
-              <SharedBlockBody data={body} />
-              {/* {link && ( */}
-              {/*   <Cta */}
-              {/*     label={link.title} */}
-              {/*     href={link.url} */}
-              {/*     blank={link.target} */}
-              {/*     className={additionalCta && additionalCta.link ? 'me-5' : ''} */}
-              {/*   /> */}
-              {/* )} */}
-              {/* {additionalCta && additionalCta.link && ( */}
-              {/*   <div className="py-4 d-inline-block"> */}
-              {/*     <span className="me-4">{additionalCta.text}</span> */}
-              {/*     {additionalCta.link && ( */}
-              {/*       <Cta */}
-              {/*         label={additionalCta.link.title} */}
-              {/*         url={additionalCta.link.url} */}
-              {/*         variant="link" */}
-              {/*       /> */}
-              {/*     )} */}
-              {/*   </div> */}
-              {/* )} */}
+              {body && (
+                <SharedBlockBody
+                  forwardRef={elementRef}
+                  className={classNames(reveal && "--reveal-mode")}
+                  data={body as Queries.SharedBlockBodyFragment}
+                />
+              )}
+              {ctaLink && ctaText && (
+                <Cta
+                  label={ctaText}
+                  href={`${process.env.API_URL}/${ctaLink}`}
+                />
+              )}
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@ import {GatsbyImage, getImage, IGatsbyImageData, ImageDataLike} from 'gatsby-plu
 import { useTranslation } from 'gatsby-plugin-react-i18next/dist';
 import React from 'react';
 import { NewsletterBanner } from '../../../components/NewsletterBanner';
-import { SharedBlockBody } from '../../../components/SharedBlockBody';
+import {SharedBlockBody} from '../../../components/SharedBlock/SharedBlockBody';
 import { Layout } from '../../../partials/Layout';
 
 export const query = graphql`

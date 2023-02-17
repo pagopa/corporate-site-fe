@@ -1,1 +1,1 @@
-export { JobEntry } from './JobEntry';
+export * from './JobEntry';

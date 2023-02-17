@@ -1,6 +1,6 @@
 import { graphql } from 'gatsby';
 import React from 'react';
-import { SharedBlockBody } from '../../SharedBlockBody';
+import {SharedBlockBody} from '../../SharedBlock/SharedBlockBody';
 
 const dateFormatOptions: Intl.DateTimeFormatOptions = {
   year: 'numeric',
@@ -12,7 +12,6 @@ export const SharedBlockFragment = graphql`
   fragment SharedBlock on STRAPI__COMPONENT_SHARED_BLOCK_INTRO {
     eyelet
     id
-    introMenu
     isEventLanding
     strapi_id
     title

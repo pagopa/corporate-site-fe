@@ -1,1 +1,1 @@
-export { NewsletterBanner } from './NewsletterBanner';
+export * from './NewsletterBanner';

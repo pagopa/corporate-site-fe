@@ -1,1 +1,1 @@
-export { Cta } from './Cta';
+export * from './Cta';

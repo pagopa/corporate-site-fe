@@ -106,6 +106,17 @@ const config: GatsbyConfig = {
               },
             },
           },
+          {
+            singularName: 'page',
+            queryParams: {
+              populate: 'deep',
+            },
+            pluginOptions: {
+              i18n: {
+                locale: 'all',
+              },
+            },
+          },
         ],
       },
     },

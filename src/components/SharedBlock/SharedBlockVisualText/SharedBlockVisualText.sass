@@ -1,0 +1,27 @@
+figcaption
+  font-family: $f-alternative
+  color: $c-gray-dark
+  margin-top: 2.8rem
+  display: flex
+  justify-content: center
+
+  p
+    font-size: 1.4rem
+    margin: 0
+    max-width: 42em
+
+.--reveal-mode
+  margin-bottom: 10rem
+
+  mark
+    padding: .8rem .6rem
+    font-weight: 700
+
+  @supports (background-clip: text) or (-webkit-background-clip: text)
+    background-clip: text
+    background-image: linear-gradient(125deg, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0.1) 0%)
+    background-size: 300% 100%
+    background-position: 100% 50%
+
+    *
+      color: transparent
