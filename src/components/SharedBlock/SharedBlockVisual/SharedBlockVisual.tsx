@@ -8,6 +8,7 @@ type Template = 'Wide' | 'Left' | 'Right';
 export const SharedBlockVisual = ({
   image,
   template,
+  backgroundAnimation,
 }: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_Fragment): ReactElement => {
   const layout = {
     Wide: {
@@ -24,13 +25,15 @@ export const SharedBlockVisual = ({
     },
   };
 
+  const { left, top, size } = backgroundAnimation || {};
+
   return (
     <section
       className={`block --block-visual visual --${
         layout[template as Template].type
       }`}
     >
-      {true && <BackgroundGraphics data={[]} />}
+      <BackgroundGraphics left={left} top={top} size={size} />
 
       <div className="container-fluid">
         <div className="row">

@@ -1,4 +1,12 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
 ### Type definitions saved at 2023-02-16T16:17:00.871Z ###
+=======
+### Type definitions saved at 2023-02-16T15:53:24.372Z ###
+>>>>>>> 3896c0c (feat: useRevealTextAnimation hook)
+=======
+### Type definitions saved at 2023-02-17T15:55:18.673Z ###
+>>>>>>> 609e883 (feat: backgroundGraphics)
 
 enum RemoteFileFit {
   COVER
@@ -830,15 +838,31 @@ type STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT implements Node @derivedTypes @d
   reveal: Boolean
   image: STRAPI__MEDIA @link(by: "id", from: "image___NODE")
   strapi_id: Int
+  blockConf: STRAPI__COMPONENT_BLOCK_CONTEXT_BLOCK_CONF @link(by: "id", from: "blockConf___NODE")
+  backgroundAnimation: STRAPI__COMPONENT_BLOCK_CONTEXT_BACKGROUND_ANIMATION @link(by: "id", from: "backgroundAnimation___NODE")
 }
 
 type STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXTBody {
   data: STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT_BODY_TEXTNODE @link(by: "id", from: "data___NODE")
 }
 
+type STRAPI__COMPONENT_BLOCK_CONTEXT_BLOCK_CONF implements Node @dontInfer {
+  BlockWidth: String
+  BlockPosition: String
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_BLOCK_CONTEXT_BACKGROUND_ANIMATION implements Node @dontInfer {
+  size: Int
+  left: Int
+  top: Int
+  strapi_id: Int
+}
+
 type STRAPI__COMPONENT_SHARED_BLOCK_VISUAL implements Node @dontInfer {
   strapi_component: String
   template: String
+  backgroundAnimation: STRAPI__COMPONENT_BLOCK_CONTEXT_BACKGROUND_ANIMATION @link(by: "id", from: "backgroundAnimation___NODE")
   image: STRAPI__MEDIA @link(by: "id", from: "image___NODE")
   strapi_id: Int
 }
@@ -969,12 +993,6 @@ type STRAPI__COMPONENT_SHARED_BLOCK_ATTACHMENTS_GRID implements Node @dontInfer 
   title: String
   blockConf: STRAPI__COMPONENT_BLOCK_CONTEXT_BLOCK_CONF @link(by: "id", from: "blockConf___NODE")
   attachmentsGridItems: [STRAPI__COMPONENT_BLOCK_CONTEXT_ICON_ATTACHMENT_BUTTON] @link(by: "id", from: "attachmentsGridItems___NODE")
-  strapi_id: Int
-}
-
-type STRAPI__COMPONENT_BLOCK_CONTEXT_BLOCK_CONF implements Node @dontInfer {
-  BlockWidth: String
-  BlockPosition: String
   strapi_id: Int
 }
 

@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React, { useRef } from 'react';
 import { useRevealTextAnimation } from '../../../hooks';
 import { Cta } from '../../../partials/Cta';
+import { BackgroundGraphics } from '../../BackgroundGraphics';
 import { Image } from '../../Image';
 import { SharedBlockBody } from '../SharedBlockBody';
 
@@ -19,7 +20,8 @@ export const SharedBlockVisualText = ({
   reverseOrder,
   ctaLink,
   ctaText,
-  reveal
+  reveal,
+  backgroundAnimation,
 }: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT_Fragment) => {
   const visualSize = (visualWidth as VisualSize) || 'Half';
 
@@ -48,12 +50,14 @@ export const SharedBlockVisualText = ({
 
   const fullWidthLayout = visualSize === 'Full';
 
+  const { left, top, size } = backgroundAnimation || {};
+
   return (
     <section
       className={`block --block-visual-text`}
       style={{ backgroundColor: 'transparent' }}
     >
-      {/* {backgroundGraphics && <BackgroundGraphics data={backgroundGraphics} />} */}
+      <BackgroundGraphics {...{ left, top, size }} />
       <div className="container-fluid">
         <div
           className={classNames(
@@ -93,7 +97,7 @@ export const SharedBlockVisualText = ({
               {body && (
                 <SharedBlockBody
                   forwardRef={elementRef}
-                  className={classNames(reveal && "--reveal-mode")}
+                  className={classNames(reveal && '--reveal-mode')}
                   data={body as Queries.SharedBlockBodyFragment}
                 />
               )}
