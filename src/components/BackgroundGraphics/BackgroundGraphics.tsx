@@ -4,7 +4,15 @@ import { animated, useSpring } from 'react-spring';
 
 import './BackgroundGraphics.sass';
 
-export const BackgroundGraphics = ({ data }: any) => {
+export const BackgroundGraphics = ({
+  size,
+  top,
+  left,
+}: {
+  size?: number | null;
+  left?: number | null;
+  top?: number | null;
+}) => {
   const ref = useRef<HTMLDivElement>(null);
   const [{ offset }, set] = useSpring(() => ({ offset: 0 }));
 
@@ -21,38 +29,29 @@ export const BackgroundGraphics = ({ data }: any) => {
 
   const calc = (origin: number) => `translate3d(0, ${origin * 0.05}px, 0)`;
 
-  return (
-    <>
-      {data.map((el, key) => {
-        const { size, xposition, yposition } = el;
-
-        return (
-          <div
-            key={key}
-            ref={ref}
-            className="background-graphics"
-            style={{
-              position: `absolute`,
-              display: `block`,
-              top: `${yposition}%`,
-              left: `${xposition}%`,
-              zIndex: -1,
-            }}
-          >
-            <animated.span
-              style={{
-                display: `block`,
-                position: `relative`,
-                width: `${size / 10}rem`,
-                height: `${size / 10}rem`,
-                backgroundColor: `#ebfdff`,
-                borderRadius: `50%`,
-                transform: offset.to(calc),
-              }}
-            />
-          </div>
-        );
-      })}
-    </>
-  );
+  return size && left && top ? (
+    <div
+      ref={ref}
+      className="background-graphics"
+      style={{
+        position: `absolute`,
+        display: `block`,
+        top: `${top}%`,
+        left: `${left}%`,
+        zIndex: -1,
+      }}
+    >
+      <animated.span
+        style={{
+          display: `block`,
+          position: `relative`,
+          width: `${size}px`,
+          height: `${size}px`,
+          backgroundColor: `#ebfdff`,
+          borderRadius: `50%`,
+          transform: offset.to(calc),
+        }}
+      />
+    </div>
+  ): null;
 };
