@@ -19,7 +19,7 @@ export const SharedBlockVisualText = ({
   caption,
   visualWidth,
   reverseOrder,
-  ctaLink,
+  link,
   ctaText,
   reveal,
   backgroundAnimation,
@@ -114,11 +114,8 @@ export const SharedBlockVisualText = ({
                   data={body as Queries.SharedBlockBodyFragment}
                 />
               )}
-              {ctaLink && ctaText && (
-                <Cta
-                  label={ctaText}
-                  href={`${process.env.API_URL}/${ctaLink}`}
-                />
+              {link && ctaText && (
+                <Cta label={ctaText} href={`${process.env.API_URL}/${link}`} />
               )}
             </div>
           </div>
