@@ -16,9 +16,8 @@ export const useRevealTextAnimation = ({
     const ctx = gsap.context(() => {
       const marks = [...(elementRef.current?.querySelectorAll('mark') || [])];
 
-      gsap.fromTo(
+      gsap.to(
         elementRef.current,
-        { color: 'transparent' },
         {
           backgroundPosition: '0% 50%',
           ease: 'none',
