@@ -109,7 +109,7 @@ export const query = graphql`
       visualWidth
       eyelet
       reverseOrder
-      ctaLink
+      link
       ctaText
       reveal
       youtubeVideo

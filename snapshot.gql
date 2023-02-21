@@ -1,4 +1,4 @@
-### Type definitions saved at 2023-02-21T09:41:00.240Z ###
+### Type definitions saved at 2023-02-21T14:32:43.302Z ###
 
 enum RemoteFileFit {
   COVER
@@ -822,13 +822,13 @@ type STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT implements Node @derivedTypes @d
   title: String
   body: STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXTBody
   ctaText: String
-  ctaLink: String
   eyelet: String
   youtubeVideo: String
   caption: String
   visualWidth: String
   reverseOrder: Boolean
   reveal: Boolean
+  link: String
   backgroundAnimation: STRAPI__COMPONENT_BLOCK_CONTEXT_BACKGROUND_ANIMATION @link(by: "id", from: "backgroundAnimation___NODE")
   image: STRAPI__MEDIA @link(by: "id", from: "image___NODE")
   strapi_id: Int
