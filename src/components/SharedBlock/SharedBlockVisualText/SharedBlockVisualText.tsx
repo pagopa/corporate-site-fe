@@ -4,6 +4,7 @@ import { useRevealTextAnimation } from '../../../hooks';
 import { Cta } from '../../../partials/Cta';
 import { BackgroundGraphics } from '../../BackgroundGraphics';
 import { Image } from '../../Image';
+import { Video } from '../../Video';
 import { SharedBlockBody } from '../SharedBlockBody';
 
 import './SharedBlockVisualText.sass';
@@ -22,6 +23,7 @@ export const SharedBlockVisualText = ({
   ctaText,
   reveal,
   backgroundAnimation,
+  youtubeVideo,
 }: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT_Fragment) => {
   const visualSize = (visualWidth as VisualSize) || 'Half';
 
@@ -54,11 +56,23 @@ export const SharedBlockVisualText = ({
 
   return (
     <section
-      className={`block --block-visual-text`}
+      className={classNames(
+        'block --block-visual-text',
+        youtubeVideo && '--has-video',
+        youtubeVideo && !(body || title || eyelet) && '--only-video'
+      )}
       style={{ backgroundColor: 'transparent' }}
     >
       <BackgroundGraphics {...{ left, top, size }} />
       <div className="container-fluid">
+        {youtubeVideo && (
+          <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 pt-5 pt-lg-0">
+            <Video
+              video={youtubeVideo}
+              image={(image as Queries.STRAPI__MEDIA) || null}
+            />
+          </div>
+        )}
         <div
           className={classNames(
             `row align-items-center`,
@@ -71,18 +85,17 @@ export const SharedBlockVisualText = ({
               {title && <h1>{title}</h1>}
             </div>
           )}
-          <div className={`col-12 ${columns[visualSize]?.visual}`}>
-            {image?.localFile?.childImageSharp?.gatsbyImageData && (
-              <div className="block__visual">
-                {image && (
+          {!youtubeVideo &&
+            image?.localFile?.childImageSharp?.gatsbyImageData && (
+              <div className={`col-12 ${columns[visualSize]?.visual}`}>
+                <div className="block__visual">
                   <Image
                     data={image as Queries.STRAPI__MEDIA}
                     caption={caption}
                   />
-                )}
+                </div>
               </div>
             )}
-          </div>
           <div
             className={classNames(
               'col-12',
