@@ -112,6 +112,7 @@ export const query = graphql`
       ctaLink
       ctaText
       reveal
+      youtubeVideo
       backgroundAnimation {
         ...BackgroundAnimation
       }

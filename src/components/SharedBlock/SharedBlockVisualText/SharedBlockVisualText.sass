@@ -23,5 +23,17 @@ figcaption
     background-size: 300% 100%
     background-position: 100% 50%
 
-    *
-      color: transparent
+.--has-video
+
+  &:not(.--only-video)
+    .video
+      margin-bottom: 18rem
+
+      @media(max-width: $tablet - 1)
+        margin-bottom: 8rem
+
+  @media (min-width: $tablet)
+    text-align: left
+
+    .wysiwyg
+      text-align: left
