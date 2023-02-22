@@ -1,5 +1,6 @@
 import { graphql } from 'gatsby';
 import * as React from 'react';
+import { PressReleaseList } from '../PressRelease';
 import { SharedBlockAttachmentGrid } from '../SharedBlock/SharedBlockAttachmentGrid';
 import { SharedBlockAttachmentList } from '../SharedBlock/SharedBlockAttachmentList';
 import { SharedBlockContentsList } from '../SharedBlock/SharedBlockContentsList/SharedBlockContentsList';
@@ -27,6 +28,7 @@ const componentsMap: {
   STRAPI__COMPONENT_SHARED_BLOCK_PROJECTS_CAROUSEL: SharedBlockProjectsCarousel,
   STRAPI__COMPONENT_SHARED_BLOCK_LOGO_LINKS: SharedBlockLogoLinks,
   STRAPI__COMPONENT_SHARED_BLOCK_HERO_SLIDER: SharedBlockHeroSlider,
+  STRAPI__COMPONENT_SHARED_BLOCK_PRESS_RELEASE: PressReleaseList,
 };
 
 const Block = ({ block }: { block: Queries.BlocksFragment }) => {
@@ -220,6 +222,10 @@ export const query = graphql`
         linkLabel
         title
       }
+    }
+    ... on STRAPI__COMPONENT_SHARED_BLOCK_PRESS_RELEASE {
+      id
+      title
     }
   }
 `;
