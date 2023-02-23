@@ -2,6 +2,8 @@ import type { ReactElement } from 'react';
 import React from 'react';
 import { Image } from '../../Image';
 
+import './SharedBlockLogoLinks.sass';
+
 export const SharedBlockLogoLinks = ({
   title,
   logoLinks,
@@ -16,7 +18,7 @@ export const SharedBlockLogoLinks = ({
             {title && <h4>{title}</h4>}
 
             {logoLinks?.length && (
-              <div className="row">
+              <div className="row align-items-center">
                 {logoLinks.map((logo, key) => {
                   const { attachment, link } = logo || {};
 
@@ -30,18 +32,18 @@ export const SharedBlockLogoLinks = ({
                       key={key}
                     >
                       <div className="logo-link">
-                        {link && (
+                        {link && attachment ? (
                           <a
                             href={link}
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            {attachment && (
-                              <Image
-                                data={attachment as Queries.STRAPI__MEDIA}
-                              />
-                            )}
+                            <Image data={attachment as Queries.STRAPI__MEDIA} />
                           </a>
+                        ) : (
+                          attachment && (
+                            <Image data={attachment as Queries.STRAPI__MEDIA} />
+                          )
                         )}
                       </div>
                     </div>
