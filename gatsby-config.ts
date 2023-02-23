@@ -117,6 +117,14 @@ const config: GatsbyConfig = {
               },
             },
           },
+          {
+            singularName: 'university-collaboration',
+            pluginOptions: {
+              i18n: {
+                locale: 'all',
+              },
+            },
+          },
         ],
       },
     },
