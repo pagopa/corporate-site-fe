@@ -1,0 +1,88 @@
+.pagination
+  display: flex
+  width: 100%
+  justify-content: center
+  align-items: center
+  font-family: $f-alternative
+  font-weight: 500
+  margin-bottom: 14rem
+
+  ul
+    display: flex
+    margin-left: 2rem 
+    margin-right: 2rem
+
+  &__nav
+    display: flex
+    align-items: center
+    justify-content: center
+    padding: .6rem 2rem
+    height: 4rem
+    border: 2px solid $c-black
+    font-size: 1.8rem
+    cursor: pointer
+    
+    &::after, &::before
+      position: relative
+      top: 1px
+      width: 1.6rem
+      height: 1rem
+      background-size: contain
+      background-position: center center
+      background-repeat: no-repeat
+    
+    &.--next
+      &::after
+        content: ''
+        margin-left: .8rem
+        background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="16" height="10"%3E%3Cpath fill="%23171717" fill-rule="nonzero" d="M10.3 9.7a1 1 0 001.4 0l4-4a1 1 0 000-1.4l-4-4a1 1 0 00-1.4 1.4L12.59 4H1c-.55 0-1 .39-1 .97A1 1 0 001 6h11.59l-2.3 2.3a1 1 0 000 1.4z"/%3E%3C/svg%3E')
+    
+    &.--prev
+      &::before
+        content: ''
+        margin-right: .8rem
+        transform: rotate(-180deg)
+        background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="16" height="10"%3E%3Cpath fill="%23171717" fill-rule="nonzero" d="M10.3 9.7a1 1 0 001.4 0l4-4a1 1 0 000-1.4l-4-4a1 1 0 00-1.4 1.4L12.59 4H1c-.55 0-1 .39-1 .97A1 1 0 001 6h11.59l-2.3 2.3a1 1 0 000 1.4z"/%3E%3C/svg%3E')
+    
+    @media (max-width: $mobile - 1)
+      &::after, &::before
+        margin: 0 !important
+
+      > span
+        display: none
+    
+    &:disabled, &[aria-disabled="true"]
+      border: none
+      cursor: not-allowed
+      color: $c-gray-dark
+
+      &::after, &::before
+        opacity: .3
+
+  &__page
+    margin: 0 .6rem
+
+    &:not(.is-current)
+      cursor: pointer
+
+    > span, > a
+      width: 4rem
+      height: 4rem
+      border-radius: 50%
+      display: flex
+      align-items: center 
+      justify-content: center
+
+    &.is-current
+      > span, > a
+        background-color: $c-brand
+        color: #FFF
+
+  &.--reactpaginate
+
+    li
+      &:first-child
+        margin-right: 2rem
+
+      &:last-child
+        margin-left: 2rem 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { graphql, useStaticQuery } from 'gatsby';
 import {
@@ -13,6 +13,8 @@ import { SharedBlockBody } from '../SharedBlock/SharedBlockBody';
 
 import './UniversityCollaborationList.sass';
 import './Accordion.sass';
+import './Pagination.sass';
+import ReactPaginate from 'react-paginate';
 
 const UniversityCollaborationItem = ({
   data,
@@ -41,6 +43,64 @@ const UniversityCollaborationItem = ({
   );
 };
 
+const PaginatedEntriesList = ({
+  collaborations,
+  itemsPerPage = 4,
+}: {
+  collaborations: Queries.UniversityCollaborationFragment[];
+  itemsPerPage?: number;
+}) => {
+  const [currentItems, setCurrentItems] = useState<
+    Queries.UniversityCollaborationFragment[] | null
+  >(null);
+  const [pageCount, setPageCount] = useState<number>(0);
+  const [itemOffset, setItemOffset] = useState<number>(0);
+
+  useEffect(() => {
+    const endOffset = itemOffset + itemsPerPage;
+    setCurrentItems(collaborations.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(collaborations.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage]);
+
+  const handlePageClick = (event: { selected: number }) => {
+    const newOffset = (event.selected * itemsPerPage) % collaborations.length;
+    setItemOffset(newOffset);
+  };
+
+  return (
+    <>
+      {currentItems && (
+        <Accordion allowZeroExpanded className="accordion --university">
+          {currentItems.map((collaboration, key) => {
+            return (
+              <UniversityCollaborationItem data={collaboration} key={key} />
+            );
+          })}
+          <ReactPaginate
+            nextLabel="Avanti"
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={3}
+            marginPagesDisplayed={2}
+            pageCount={pageCount}
+            previousLabel="Precedente"
+            pageClassName="pagination__page"
+            pageLinkClassName="page-link"
+            previousClassName=""
+            previousLinkClassName="pagination__nav --prev"
+            nextClassName=""
+            nextLinkClassName="pagination__nav --next"
+            breakLabel="..."
+            breakClassName="page-item"
+            breakLinkClassName="page-link"
+            containerClassName="pagination --reactpaginate"
+            activeClassName="is-current"
+          />
+        </Accordion>
+      )}
+    </>
+  );
+};
+
 const EntriesList = ({
   collaborations,
 }: {
@@ -63,6 +123,7 @@ const EntriesList = ({
 
 export const UniversityCollaborationList = ({
   title,
+  pagination
 }: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_UNIVERSITY_ACCORDION_Fragment) => {
   const query = useStaticQuery(graphql`
     fragment UniversityCollaboration on STRAPI_UNIVERSITY_COLLABORATION {
@@ -106,7 +167,8 @@ export const UniversityCollaborationList = ({
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
             <h4>{title}</h4>
 
-            <EntriesList collaborations={orderedEntries} />
+            {!pagination && <EntriesList collaborations={orderedEntries} />}
+            {pagination && <PaginatedEntriesList collaborations={orderedEntries} />}
           </div>
         </div>
       </div>
