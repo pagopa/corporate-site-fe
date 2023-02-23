@@ -3,24 +3,24 @@ import React from 'react';
 import { Image } from '../Image';
 import placeholder from '../../images/placeholder.png';
 
-import './PostEventsItem.sass';
+import './Article.sass';
 import { Cta } from '../../partials/Cta';
 
-type PostEvent =
+type Article =
   | Queries.PostFragment
   | Queries.EventFragment
   | Queries.NewsletterFragment;
 
-function isEvent(post: PostEvent): post is Queries.EventFragment {
-  return post.__typename === 'STRAPI_EVENT';
+function isEvent(article: Article): article is Queries.EventFragment {
+  return article.__typename === 'STRAPI_EVENT';
 }
 
-export const PostEventsItem = ({ post }: { post: PostEvent }) => {
+export const Article = ({ article }: { article: Article }) => {
   const {
     i18n: { language },
   } = useTranslation();
 
-  const { title, slug, body, featuredImage } = post || {};
+  const { title, slug, body, featuredImage } = article || {};
 
   const dateOptions: Intl.DateTimeFormatOptions = {
     year: 'numeric',
@@ -28,7 +28,7 @@ export const PostEventsItem = ({ post }: { post: PostEvent }) => {
     day: 'numeric',
   };
 
-  const baseDate = isEvent(post) ? post?.startDate : post?.updatedAt;
+  const baseDate = isEvent(article) ? article?.startDate : article?.updatedAt;
   const theDate = baseDate
     ? new Date(baseDate).toLocaleDateString(language, dateOptions)
     : '';
@@ -43,19 +43,19 @@ export const PostEventsItem = ({ post }: { post: PostEvent }) => {
   };
 
   return (
-    <article className={`post${isEvent(post) ? ' --event' : ''}`}>
+    <article className={`article{isEvent(article) ? ' --event' : ''}`}>
       <div>
-        <div className="post__image" data-label={labelMap[post.__typename]}>
+        <div className="article__image" data-label={labelMap[article.__typename]}>
           {featuredImage && (
             <Image data={featuredImage as Queries.STRAPI__MEDIA} />
           )}
           {!featuredImage && <img src={placeholder} alt="" />}
         </div>
-        <div className="post__date">
+        <div className="article__date">
           <h4>{theDate}</h4>
-          {'timeStart' in post && 'timeEnd' in post && (
+          {'timeStart' in article && 'timeEnd' in article && (
             <h4>
-              {`ore: ${post.timeStart}${post.timeEnd ? ' - post.timeEnd' : ''}`}
+              {`ore: ${article.timeStart}${article.timeEnd ? ' - ' + article.timeEnd : ''}`}
             </h4>
           )}
         </div>

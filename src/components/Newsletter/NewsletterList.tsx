@@ -2,7 +2,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import React from 'react';
 import { useLocalizedQuery } from '../../hooks';
 import { Layout } from '../../partials/Layout';
-import {PostEventsItem} from '../PostEvents';
+import { Article } from '../Article';
 
 export const NewsletterList = () => {
   const query = useStaticQuery(graphql`
@@ -52,7 +52,7 @@ export const NewsletterList = () => {
                 {newsletter?.map((news, key) => {
                   return (
                     <div className="col-12 col-lg-6 d-flex" key={key}>
-                      <PostEventsItem post={news} />
+                      <Article article={news} />
                     </div>
                   );
                 })}
