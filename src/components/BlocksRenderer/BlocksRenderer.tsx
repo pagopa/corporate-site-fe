@@ -13,6 +13,7 @@ import { SharedBlockLogoLinks } from '../SharedBlock/SharedBlockLogoLinks';
 import { SharedBlockProjectsCarousel } from '../SharedBlock/SharedBlockProjectsCarousel';
 import { SharedBlockVisual } from '../SharedBlock/SharedBlockVisual';
 import { SharedBlockVisualText } from '../SharedBlock/SharedBlockVisualText';
+import { UniversityCollaborationList } from '../UniversityCollaboration';
 
 // This object is used to map Strapi component names to React components
 const componentsMap: {
@@ -31,6 +32,8 @@ const componentsMap: {
   STRAPI__COMPONENT_SHARED_BLOCK_HERO_SLIDER: SharedBlockHeroSlider,
   STRAPI__COMPONENT_SHARED_BLOCK_PRESS_RELEASE: PressReleaseList,
   STRAPI__COMPONENT_SHARED_BLOCK_NEWS_AND_EVENTS: PostEventsList,
+  STRAPI__COMPONENT_SHARED_BLOCK_UNIVERSITY_ACCORDION:
+    UniversityCollaborationList,
 };
 
 const Block = ({ block }: { block: Queries.BlocksFragment }) => {
@@ -230,6 +233,10 @@ export const query = graphql`
     }
     ... on STRAPI__COMPONENT_SHARED_BLOCK_NEWS_AND_EVENTS {
       id
+    }
+    ... on STRAPI__COMPONENT_SHARED_BLOCK_UNIVERSITY_ACCORDION {
+      id
+      title
     }
   }
 `;
