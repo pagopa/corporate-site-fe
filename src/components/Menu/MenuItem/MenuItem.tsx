@@ -7,7 +7,6 @@ export const navigationItemFragment = graphql`
   fragment NavigationItem on StrapiNavigationItems {
     external
     id
-    slug
     title
     uiRouterKey
     path

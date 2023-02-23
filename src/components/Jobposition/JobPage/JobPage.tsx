@@ -1,6 +1,6 @@
 import { graphql } from 'gatsby';
 import React from 'react';
-import {SharedBlockBody} from '../../SharedBlock/SharedBlockBody';
+import { Body } from '../../Remark/Body';
 import { JobIntro } from '../JobIntro';
 
 const iframeURL = 'https://pagopa.applytojob.com/apply/__JOBID__';
@@ -43,7 +43,7 @@ export const JobPage = ({
                   <div className="row">
                     <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
                       {block?.title && <h4>{block.title}</h4>}
-                      {block?.body && <SharedBlockBody data={block?.body} />}
+                      {block?.body && <Body data={block?.body} />}
                     </div>
                   </div>
                 </div>
