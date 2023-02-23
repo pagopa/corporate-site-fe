@@ -1,6 +1,6 @@
 import { graphql, PageProps } from 'gatsby';
 import React from 'react';
-import { BlocksRenderer } from '../components/BlocksRenderer';
+import { BlocksRenderer } from '../components/SharedBlocks/BlocksRenderer';
 import { Layout } from '../partials/Layout';
 
 export const query = graphql`

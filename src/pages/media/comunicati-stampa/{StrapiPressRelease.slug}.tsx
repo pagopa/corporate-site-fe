@@ -1,7 +1,7 @@
 import { graphql, PageProps } from 'gatsby';
 import { useTranslation } from 'gatsby-plugin-react-i18next/dist';
 import React from 'react';
-import {SharedBlockBody} from '../../../components/SharedBlock/SharedBlockBody';
+import { Body } from '../../../components/Remark/Body';
 import { Layout } from '../../../partials/Layout';
 
 export const query = graphql`
@@ -76,7 +76,7 @@ export default function Component({
               <div className="row">
                 <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
                   <h4>{theDate}</h4>
-                  {body && <SharedBlockBody data={body} />}
+                  {body && <Body data={body} />}
                 </div>
               </div>
             </div>

@@ -1,6 +1,6 @@
 import { graphql } from 'gatsby';
 import React from 'react';
-import {SharedBlockBody} from '../../SharedBlock/SharedBlockBody';
+import { Body } from '../../Remark/Body';
 
 const dateFormatOptions: Intl.DateTimeFormatOptions = {
   year: 'numeric',
@@ -17,7 +17,12 @@ export const SharedBlockFragment = graphql`
     title
     useFeaturedImage
     body {
-      ...SharedBlockBody
+      data {
+        childMarkdownRemark {
+          html
+        }
+        id
+      }
     }
   }
 `;
@@ -30,7 +35,7 @@ export const JobIntroFragment = graphql`
     openPositions
     selectedPeople
     blocks {
-      ...SharedBlock
+      ...Blocks
     }
   }
 `;
@@ -121,7 +126,7 @@ export const JobIntro = ({
         {block?.body && (
           <div className="row job__intro">
             <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-              <SharedBlockBody data={block?.body} />
+              <Body data={block?.body} />
             </div>
           </div>
         )}

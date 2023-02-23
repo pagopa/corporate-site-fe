@@ -12,7 +12,6 @@ export const mainNavigationItemFragment = graphql`
     id
     order
     key
-    slug
     title
     uiRouterKey
     locale

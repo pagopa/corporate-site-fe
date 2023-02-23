@@ -8,8 +8,8 @@ import {
   IGatsbyImageData,
   ImageDataLike,
 } from 'gatsby-plugin-image';
-import {NewsletterBanner} from '../../../components/NewsletterBanner';
-import {SharedBlockBody} from '../../../components/SharedBlock/SharedBlockBody';
+import { NewsletterBanner } from '../../../components/NewsletterBanner';
+import { Body } from '../../../components/Remark/Body';
 
 export const query = graphql`
   fragment EventIntro on STRAPI_EVENT {
@@ -182,7 +182,7 @@ export default function Component({
               <div className="row">
                 <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
                   <h4>{theDate}</h4>
-                  <SharedBlockBody data={body} />
+                  <Body data={body} />
                 </div>
               </div>
             </div>
