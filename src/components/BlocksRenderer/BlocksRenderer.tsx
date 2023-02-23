@@ -1,5 +1,6 @@
 import { graphql } from 'gatsby';
 import * as React from 'react';
+import { NewsletterList } from '../Newsletter';
 import { PostEventsList } from '../PostEvents';
 import { PressReleaseList } from '../PressRelease';
 import { SharedBlockAttachmentGrid } from '../SharedBlock/SharedBlockAttachmentGrid';
@@ -34,6 +35,7 @@ const componentsMap: {
   STRAPI__COMPONENT_SHARED_BLOCK_NEWS_AND_EVENTS: PostEventsList,
   STRAPI__COMPONENT_SHARED_BLOCK_UNIVERSITY_ACCORDION:
     UniversityCollaborationList,
+  STRAPI__COMPONENT_SHARED_BLOCK_NEWSLETTER: NewsletterList,
 };
 
 const Block = ({ block }: { block: Queries.BlocksFragment }) => {
@@ -48,7 +50,7 @@ export const BlocksRenderer = ({
   blocks: ReadonlyArray<Queries.BlocksFragment>;
 }) => (
   <>
-    {blocks.map((block, index) => (
+    {blocks?.map((block, index) => (
       <Block key={index} block={block} />
     ))}
   </>
@@ -238,6 +240,9 @@ export const query = graphql`
       id
       title
       pagination
+    }
+    ... on STRAPI__COMPONENT_SHARED_BLOCK_NEWSLETTER {
+      id
     }
   }
 `;

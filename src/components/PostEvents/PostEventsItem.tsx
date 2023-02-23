@@ -6,7 +6,10 @@ import placeholder from '../../images/placeholder.png';
 import './PostEventsItem.sass';
 import { Cta } from '../../partials/Cta';
 
-type PostEvent = Queries.PostFragment | Queries.EventFragment;
+type PostEvent =
+  | Queries.PostFragment
+  | Queries.EventFragment
+  | Queries.NewsletterFragment;
 
 function isEvent(post: PostEvent): post is Queries.EventFragment {
   return post.__typename === 'STRAPI_EVENT';
@@ -36,37 +39,34 @@ export const PostEventsItem = ({ post }: { post: PostEvent }) => {
   const labelMap = {
     STRAPI_POST: 'Post',
     STRAPI_EVENT: 'Eventi',
+    STRAPI_NEWSLETTER: 'Newsletter',
   };
 
   return (
-    <>
-      <article className={`post${isEvent(post) ? ' --event' : ''}`}>
-        <div>
-          <div className="post__image" data-label={labelMap[post.__typename]}>
-            {featuredImage && (
-              <Image data={featuredImage as Queries.STRAPI__MEDIA} />
-            )}
-            {!featuredImage && <img src={placeholder} alt="" />}
-          </div>
-          <div className="post__date">
-            <h4>{theDate}</h4>
-            {'timeStart' in post && 'timeEnd' in post && (
-              <h4>
-                {`ore: ${post.timeStart}${
-                  post.timeEnd ? ' - post.timeEnd' : ''
-                }`}
-              </h4>
-            )}
-          </div>
-          <h4 className="--primary --medium">{title}</h4>
-          {abstract && abstract}
+    <article className={`post${isEvent(post) ? ' --event' : ''}`}>
+      <div>
+        <div className="post__image" data-label={labelMap[post.__typename]}>
+          {featuredImage && (
+            <Image data={featuredImage as Queries.STRAPI__MEDIA} />
+          )}
+          {!featuredImage && <img src={placeholder} alt="" />}
         </div>
+        <div className="post__date">
+          <h4>{theDate}</h4>
+          {'timeStart' in post && 'timeEnd' in post && (
+            <h4>
+              {`ore: ${post.timeStart}${post.timeEnd ? ' - post.timeEnd' : ''}`}
+            </h4>
+          )}
+        </div>
+        <h4 className="--primary --medium">{title}</h4>
+        {abstract && abstract}
+      </div>
 
-        <Cta
-          href={slug || '#'}
-          label={language === 'it' ? 'Scopri' : 'Discover'}
-        />
-      </article>
-    </>
+      <Cta
+        href={slug || '#'}
+        label={language === 'it' ? 'Scopri' : 'Discover'}
+      />
+    </article>
   );
 };
