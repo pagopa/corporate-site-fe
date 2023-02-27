@@ -1,12 +1,7 @@
-import React from 'react';
-import {
-  GatsbyImage,
-  GatsbyImageProps,
-  getImage,
-  IGatsbyImageData,
-} from 'gatsby-plugin-image';
+import { GatsbyImage, getImage, IGatsbyImageData } from 'gatsby-plugin-image';
 import { IGatsbyImageParent } from 'gatsby-plugin-image/dist/src/components/hooks';
 import type { ReactElement } from 'react';
+import React from 'react';
 
 export type ImageProps = {
   data: Queries.STRAPI__MEDIA;

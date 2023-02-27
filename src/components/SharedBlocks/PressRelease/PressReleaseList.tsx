@@ -3,6 +3,7 @@ import { useTranslation } from 'gatsby-plugin-react-i18next';
 import React from 'react';
 import { useLocalizedQuery } from '../../../hooks';
 import { Cta } from '../../../partials/Cta';
+import { Pagination } from '../../Pagination';
 
 const PressReleaseItem = ({
   pressRelease,
@@ -82,13 +83,13 @@ export const PressReleaseList = () => {
       <div className="container-fluid">
         <div className="row">
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-            {pressReleases?.map(pressRelease => (
-              <PressReleaseItem pressRelease={pressRelease} />
-            ))}
-            {/* <Pagination */}
-            {/*   context={pageContext} */}
-            {/*   baseUri={uri.replace(/\/$/, '')} */}
-            {/* /> */}
+            <Pagination
+              data={pressReleases}
+              renderItem={(item: Queries.PressReleaseFragment) => (
+                <PressReleaseItem pressRelease={item} />
+              )}
+              keyExtractor={item => item.id}
+            />
           </div>
         </div>
       </div>

@@ -3,6 +3,7 @@ import React from 'react';
 import { useLocalizedQuery } from '../../../hooks';
 import { Layout } from '../../../partials/Layout';
 import { Article } from '../../Article';
+import { Pagination } from '../../Pagination';
 
 export const NewsletterList = () => {
   const query = useStaticQuery(graphql`
@@ -49,18 +50,16 @@ export const NewsletterList = () => {
           <div className="row">
             <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
               <div className="row">
-                {newsletter?.map((news, key) => {
-                  return (
-                    <div className="col-12 col-lg-6 d-flex" key={key}>
-                      <Article article={news} />
+                <Pagination
+                  data={newsletter}
+                  keyExtractor={item => item.id}
+                  renderItem={item => (
+                    <div className="col-12 col-lg-6 d-flex">
+                      <Article article={item} />
                     </div>
-                  );
-                })}
+                  )}
+                />
               </div>
-              {/* <Pagination */}
-              {/*   context={pageContext} */}
-              {/*   baseUri={uri.replace(/\/$/, '')} */}
-              {/* /> */}
             </div>
           </div>
         </div>

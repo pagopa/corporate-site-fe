@@ -1,10 +1,10 @@
 import { useTranslation } from 'gatsby-plugin-react-i18next';
 import React from 'react';
-import { Image } from '../Image';
 import placeholder from '../../images/placeholder.png';
+import { Image } from '../Image';
 
-import './Article.sass';
 import { Cta } from '../../partials/Cta';
+import './Article.sass';
 
 type Article =
   | Queries.PostFragment
@@ -43,9 +43,12 @@ export const Article = ({ article }: { article: Article }) => {
   };
 
   return (
-    <article className={`article{isEvent(article) ? ' --event' : ''}`}>
-      <div>
-        <div className="article__image" data-label={labelMap[article.__typename]}>
+    <article className={`article${isEvent(article) ? ' --event' : ''}`}>
+      <div className="mb-4">
+        <div
+          className="article__image"
+          data-label={labelMap[article.__typename]}
+        >
           {featuredImage && (
             <Image data={featuredImage as Queries.STRAPI__MEDIA} />
           )}
@@ -55,7 +58,9 @@ export const Article = ({ article }: { article: Article }) => {
           <h4>{theDate}</h4>
           {'timeStart' in article && 'timeEnd' in article && (
             <h4>
-              {`ore: ${article.timeStart}${article.timeEnd ? ' - ' + article.timeEnd : ''}`}
+              {`ore: ${article.timeStart}${
+                article.timeEnd ? ' - ' + article.timeEnd : ''
+              }`}
             </h4>
           )}
         </div>
