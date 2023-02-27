@@ -1,5 +1,5 @@
 import { graphql, useStaticQuery } from 'gatsby';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Cta } from '../Cta/';
 
@@ -33,6 +33,16 @@ export const MenuService = () => {
     type: 'allFooterLeftJson',
     query,
   });
+
+  useEffect(() => {
+    const openOTPreferences = () => {
+      if ('OneTrust' in window && window?.OneTrust)
+        (window?.OneTrust as any)?.ToggleInfoDisplay();
+    };
+    const otButton = document.querySelector('.ot-preferences');
+    otButton?.addEventListener('click', openOTPreferences);
+    return () => otButton?.removeEventListener('click', openOTPreferences);
+  }, []);
 
   return (
     <nav className="menu-service">
