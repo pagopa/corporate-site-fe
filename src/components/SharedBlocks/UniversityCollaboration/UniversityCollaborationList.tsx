@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-
 import { graphql, useStaticQuery } from 'gatsby';
+import React from 'react';
 import {
   Accordion,
   AccordionItem,
@@ -8,13 +7,12 @@ import {
   AccordionItemHeading,
   AccordionItemPanel,
 } from 'react-accessible-accordion';
-
-import './UniversityCollaborationList.sass';
-import './Accordion.sass';
-import './Pagination.sass';
-import ReactPaginate from 'react-paginate';
-import { Body } from '../../Remark/Body';
 import { useLocalizedQuery } from '../../../hooks';
+import { Pagination } from '../../Pagination/Pagination';
+import '../../Pagination/Pagination.sass';
+import { Body } from '../../Remark/Body';
+import './Accordion.sass';
+import './UniversityCollaborationList.sass';
 
 const UniversityCollaborationItem = ({
   data,
@@ -37,7 +35,7 @@ const UniversityCollaborationItem = ({
       </AccordionItemHeading>
 
       <AccordionItemPanel className="accordion-entry__content">
-        <Body data={body} />
+        {body && <Body data={body} />}
       </AccordionItemPanel>
     </AccordionItem>
   );
@@ -45,59 +43,19 @@ const UniversityCollaborationItem = ({
 
 const PaginatedEntriesList = ({
   collaborations,
-  itemsPerPage = 4,
 }: {
   collaborations: Queries.UniversityCollaborationFragment[];
-  itemsPerPage?: number;
 }) => {
-  const [currentItems, setCurrentItems] = useState<
-    Queries.UniversityCollaborationFragment[] | null
-  >(null);
-  const [pageCount, setPageCount] = useState<number>(0);
-  const [itemOffset, setItemOffset] = useState<number>(0);
-
-  useEffect(() => {
-    const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(collaborations.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(collaborations.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage]);
-
-  const handlePageClick = (event: { selected: number }) => {
-    const newOffset = (event.selected * itemsPerPage) % collaborations.length;
-    setItemOffset(newOffset);
-  };
-
   return (
-    <>
-      {currentItems && (
+    <Pagination
+      keyExtractor={item => item.id}
+      data={collaborations}
+      renderItem={(item: Queries.UniversityCollaborationFragment) => (
         <Accordion allowZeroExpanded className="accordion --university">
-          {currentItems.map((collaboration, key) => {
-            return (
-              <UniversityCollaborationItem data={collaboration} key={key} />
-            );
-          })}
-          <ReactPaginate
-            nextLabel="Avanti"
-            onPageChange={handlePageClick}
-            pageRangeDisplayed={3}
-            marginPagesDisplayed={2}
-            pageCount={pageCount}
-            previousLabel="Precedente"
-            pageClassName="pagination__page"
-            pageLinkClassName="page-link"
-            previousClassName=""
-            previousLinkClassName="pagination__nav --prev"
-            nextClassName=""
-            nextLinkClassName="pagination__nav --next"
-            breakLabel="..."
-            breakClassName="page-item"
-            breakLinkClassName="page-link"
-            containerClassName="pagination --reactpaginate"
-            activeClassName="is-current"
-          />
+          <UniversityCollaborationItem data={item} />
         </Accordion>
       )}
-    </>
+    />
   );
 };
 
@@ -128,11 +86,13 @@ export const UniversityCollaborationList = ({
   const query = useStaticQuery(graphql`
     fragment UniversityCollaboration on STRAPI_UNIVERSITY_COLLABORATION {
       title
+      id
       body {
         data {
           childMarkdownRemark {
             html
           }
+          id
         }
       }
       locale

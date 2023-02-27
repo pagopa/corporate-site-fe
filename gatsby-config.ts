@@ -51,7 +51,7 @@ const config: GatsbyConfig = {
     {
       resolve: 'gatsby-source-strapi',
       options: {
-        apiURL: process.env.STRAPI_API_URL || 'http://localhost:1337',
+        apiURL: process.env.STRAPI_API_URL,
         accessToken: process.env.STRAPI_TOKEN,
         queryLimit: 1000,
         collectionTypes: [
@@ -131,7 +131,7 @@ const config: GatsbyConfig = {
     {
       resolve: 'gatsby-source-strapi-plugin-navigation_local',
       options: {
-        apiURL: process.env.STRAPI_API_URL || 'http://localhost:1337',
+        apiURL: process.env.STRAPI_API_URL,
         navigation: [
           { key: 'MainMenu', id: 6, locale: 'en' },
           { key: 'MainMenu', id: 7, locale: 'it' },

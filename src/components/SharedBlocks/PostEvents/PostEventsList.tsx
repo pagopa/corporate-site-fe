@@ -2,6 +2,7 @@ import React from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import { useLocalizedQuery } from '../../../hooks';
 import { Article } from '../../Article';
+import { Pagination } from '../../Pagination';
 
 export const PostEventsList = () => {
   const eventQuery = useStaticQuery(graphql`
@@ -78,20 +79,16 @@ export const PostEventsList = () => {
   return (
     <section className="press-release-list">
       <div className="container-fluid">
-        <div className="row">
-          <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-            <div className="row">
-              {postEventsCollection?.map(postEvent => (
-                <div className="col-12 col-lg-6 d-flex" key={postEvent.id}>
-                  <Article article={postEvent} />
-                </div>
-              ))}
-            </div>
-            {/* <Pagination */}
-            {/*   context={pageContext} */}
-            {/*   baseUri={uri.replace(/\/$/, '')} */}
-            {/* /> */}
-          </div>
+        <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 row">
+          <Pagination
+            data={postEventsCollection}
+            keyExtractor={item => item.id}
+            renderItem={item => (
+              <div className="col-12 col-lg-6 d-flex row">
+                <Article article={item} />
+              </div>
+            )}
+          />
         </div>
       </div>
     </section>
