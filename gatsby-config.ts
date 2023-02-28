@@ -26,6 +26,7 @@ const config: GatsbyConfig = {
     `gatsby-plugin-sharp`,
     `gatsby-plugin-image`,
     `gatsby-transformer-json`,
+    `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-transformer-remark`,
       options: {

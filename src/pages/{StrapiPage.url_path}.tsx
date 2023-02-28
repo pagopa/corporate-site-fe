@@ -1,5 +1,6 @@
-import { graphql, PageProps } from 'gatsby';
+import { graphql, HeadProps, PageProps } from 'gatsby';
 import React from 'react';
+import { SEO } from '../components/SEO';
 import { BlocksRenderer } from '../components/SharedBlocks/BlocksRenderer';
 import { Layout } from '../partials/Layout';
 
@@ -10,6 +11,20 @@ export const query = graphql`
       slug
       blocks {
         ...Blocks
+      }
+      seo {
+        metaImage {
+          localFile {
+            publicURL
+          }
+        }
+        metaTitle
+        metaDescription
+        metaSocial {
+          description
+          title
+          socialNetwork
+        }
       }
     }
   }
@@ -30,3 +45,7 @@ export default function Component({
   }
   return null;
 }
+
+export const Head = ({
+  data: { strapiPage },
+}: HeadProps<Queries.StrapiPageQuery>) => <SEO meta={strapiPage?.seo} />;
