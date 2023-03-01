@@ -21,7 +21,6 @@ export type SEOProps = {
 
 export const SEO = ({ meta }: SEOProps) => {
   const { siteMetadata } = useSiteMetadata() || {};
-  console.debug(meta);
 
   const seo = {
     title: meta?.metaTitle || siteMetadata?.metaTitle || '',
@@ -33,7 +32,6 @@ export const SEO = ({ meta }: SEOProps) => {
   };
 
   const { language } = useI18next();
-  console.debug(language);
   return (
     <>
       <Helmet
