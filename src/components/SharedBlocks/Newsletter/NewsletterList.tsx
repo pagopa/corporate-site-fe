@@ -55,7 +55,12 @@ export const NewsletterList = () => {
                   keyExtractor={item => item.id}
                   renderItem={item => (
                     <div className="col-12 col-lg-6 d-flex">
-                      <Article article={item} />
+                      <Article
+                        article={{
+                          ...item,
+                          slug: `${process.env.API_URL}/media/newsletter-outer-space/${item.slug}`,
+                        }}
+                      />
                     </div>
                   )}
                 />
@@ -64,7 +69,6 @@ export const NewsletterList = () => {
           </div>
         </div>
       </section>
-
       {/* {bannerNewsletter && <NewsletterBanner />} */}
     </Layout>
   );

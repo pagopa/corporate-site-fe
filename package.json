@@ -23,6 +23,7 @@
 		"dotenv": "^16.0.3",
 		"gatsby": "^5.4.2",
 		"gatsby-plugin-image": "^3.4.0",
+		"gatsby-plugin-react-helmet": "^6.7.0",
 		"gatsby-plugin-react-i18next": "^3.0.1",
 		"gatsby-plugin-sass": "^6.4.0",
 		"gatsby-plugin-schema-snapshot": "^4.5.0",

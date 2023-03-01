@@ -1,4 +1,4 @@
-### Type definitions saved at 2023-02-27T15:47:24.687Z ###
+### Type definitions saved at 2023-03-01T13:24:56.086Z ###
 
 enum RemoteFileFit {
   COVER
@@ -813,6 +813,21 @@ type STRAPI__MEDIAFormatsThumbnail {
   height: Int
 }
 
+type STRAPI__COMPONENT_SHARED_SEO implements Node @dontInfer {
+  metaTitle: String
+  metaDescription: String
+  strapi_id: Int
+  metaImage: STRAPI__MEDIA @link(by: "id", from: "metaImage___NODE")
+  metaSocial: [STRAPI__COMPONENT_SHARED_META_SOCIAL] @link(by: "id", from: "metaSocial___NODE")
+}
+
+type STRAPI__COMPONENT_SHARED_META_SOCIAL implements Node @dontInfer {
+  socialNetwork: String
+  title: String
+  description: String
+  strapi_id: Int
+}
+
 type STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT_BODY_TEXTNODE implements Node @dontInfer {
   body: String
 }
@@ -890,6 +905,7 @@ type STRAPI_PROJECT implements Node @dontInfer {
   featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
   carouselImage: STRAPI__MEDIA @link(by: "id", from: "carouselImage___NODE")
   blocks: [STRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LISTSTRAPI__COMPONENT_SHARED_BLOCK_INTROSTRAPI__COMPONENT_SHARED_BLOCK_LIST_ATTACHMENTSSTRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXTUnion] @link(by: "id", from: "blocks___NODE")
+  seo: STRAPI__COMPONENT_SHARED_SEO @link(by: "id", from: "seo___NODE")
   strapi_id: Int
 }
 
@@ -1067,6 +1083,7 @@ type STRAPI_UNIVERSITY_COLLABORATION implements Node @derivedTypes @dontInfer {
   locale: String
   url_path: String
   strapi_id: Int
+  seo: STRAPI__COMPONENT_SHARED_SEO @link(by: "id", from: "seo___NODE")
 }
 
 type STRAPI_UNIVERSITY_COLLABORATIONBody {
@@ -1090,6 +1107,7 @@ type STRAPI_PRESS_RELEASE implements Node @derivedTypes @dontInfer {
   eyelet: String
   url_path: String
   strapi_id: Int
+  seo: STRAPI__COMPONENT_SHARED_SEO @link(by: "id", from: "seo___NODE")
 }
 
 type STRAPI_PRESS_RELEASEBody {
@@ -1113,6 +1131,7 @@ type STRAPI_POST implements Node @derivedTypes @dontInfer {
   locale: String
   url_path: String
   featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
+  seo: STRAPI__COMPONENT_SHARED_SEO @link(by: "id", from: "seo___NODE")
   strapi_id: Int
 }
 
@@ -1131,6 +1150,7 @@ type STRAPI_PAGE implements Node @dontInfer {
   url_path: String
   blocks: [STRAPI__COMPONENT_SHARED_BLOCK_ACCORDIONSTRAPI__COMPONENT_SHARED_BLOCK_ATTACHMENTS_GRIDSTRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LISTSTRAPI__COMPONENT_SHARED_BLOCK_CTA_BANNERSTRAPI__COMPONENT_SHARED_BLOCK_CTA_GRIDSTRAPI__COMPONENT_SHARED_BLOCK_HERO_SLIDERSTRAPI__COMPONENT_SHARED_BLOCK_INTROSTRAPI__COMPONENT_SHARED_BLOCK_LOGO_LINKSSTRAPI__COMPONENT_SHARED_BLOCK_NEWSLETTERSTRAPI__COMPONENT_SHARED_BLOCK_NEWS_AND_EVENTSSTRAPI__COMPONENT_SHARED_BLOCK_PRESS_RELEASESTRAPI__COMPONENT_SHARED_BLOCK_PROJECTS_CAROUSELSTRAPI__COMPONENT_SHARED_BLOCK_UNIVERSITY_ACCORDIONSTRAPI__COMPONENT_SHARED_BLOCK_VISUALSTRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXTUnion] @link(by: "id", from: "blocks___NODE")
   strapi_id: Int
+  seo: STRAPI__COMPONENT_SHARED_SEO @link(by: "id", from: "seo___NODE")
   featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
 }
 
@@ -1153,36 +1173,12 @@ type STRAPI_NEWSLETTER implements Node @derivedTypes @dontInfer {
   locale: String
   url_path: String
   featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
+  seo: STRAPI__COMPONENT_SHARED_SEO @link(by: "id", from: "seo___NODE")
   strapi_id: Int
 }
 
-type STRAPI_NEWSLETTERBody @derivedTypes {
-  medias: [STRAPI_NEWSLETTERBodyMedias]
+type STRAPI_NEWSLETTERBody {
   data: STRAPI_NEWSLETTER_BODY_TEXTNODE @link(by: "id", from: "data___NODE")
-}
-
-type STRAPI_NEWSLETTERBodyMedias @derivedTypes {
-  alternativeText: String
-  url: String
-  src: String
-  localFile: File @link(by: "id", from: "localFile___NODE")
-  file: STRAPI_NEWSLETTERBodyMediasFile
-}
-
-type STRAPI_NEWSLETTERBodyMediasFile {
-  id: Int
-  name: String
-  alternativeText: String
-  width: Int
-  height: Int
-  hash: String
-  ext: String
-  mime: String
-  size: Float
-  url: String
-  provider: String
-  createdAt: Date @dateformat
-  updatedAt: Date @dateformat
 }
 
 type STRAPI_JOBPOSITION implements Node @derivedTypes @dontInfer {
@@ -1205,6 +1201,7 @@ type STRAPI_JOBPOSITION implements Node @derivedTypes @dontInfer {
   url_path: String
   featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
   blocks: [STRAPI__COMPONENT_SHARED_BLOCK_INTRO] @link(by: "id", from: "blocks___NODE")
+  seo: STRAPI__COMPONENT_SHARED_SEO @link(by: "id", from: "seo___NODE")
   strapi_id: Int
 }
 
@@ -1257,6 +1254,7 @@ type STRAPI_EVENT implements Node @derivedTypes @dontInfer {
   eventVenue: String
   url_path: String
   featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
+  seo: STRAPI__COMPONENT_SHARED_SEO @link(by: "id", from: "seo___NODE")
   strapi_id: Int
 }
 

@@ -10,6 +10,7 @@ import {
 } from 'gatsby-plugin-image';
 import { NewsletterBanner } from '../../../components/NewsletterBanner';
 import { Body } from '../../../components/Remark/Body';
+import { SEO } from '../../../components/SEO';
 
 export const query = graphql`
   fragment EventIntro on STRAPI_EVENT {
@@ -39,6 +40,20 @@ export const query = graphql`
           childImageSharp {
             gatsbyImageData(layout: CONSTRAINED)
           }
+        }
+      }
+      seo {
+        metaImage {
+          localFile {
+            publicURL
+          }
+        }
+        metaTitle
+        metaDescription
+        metaSocial {
+          description
+          title
+          socialNetwork
         }
       }
     }
@@ -147,6 +162,7 @@ export default function Component({
 
     return (
       <Layout>
+        <SEO meta={strapiEvent?.seo} />;
         <article className="post-article">
           <EventIntro
             {...{
@@ -188,7 +204,6 @@ export default function Component({
             </div>
           </div>
         </article>
-
         {true && <NewsletterBanner />}
       </Layout>
     );

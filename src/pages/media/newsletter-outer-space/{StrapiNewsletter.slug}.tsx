@@ -9,6 +9,7 @@ import { useTranslation } from 'gatsby-plugin-react-i18next/dist';
 import React from 'react';
 import { NewsletterBanner } from '../../../components/NewsletterBanner';
 import { Body } from '../../../components/Remark/Body';
+import { SEO } from '../../../components/SEO';
 import { Layout } from '../../../partials/Layout';
 
 export const query = graphql`
@@ -39,6 +40,20 @@ export const query = graphql`
           childImageSharp {
             gatsbyImageData(layout: CONSTRAINED)
           }
+        }
+      }
+      seo {
+        metaImage {
+          localFile {
+            publicURL
+          }
+        }
+        metaTitle
+        metaDescription
+        metaSocial {
+          description
+          title
+          socialNetwork
         }
       }
     }
@@ -85,6 +100,7 @@ export default function Component({
 
     return (
       <Layout>
+        <SEO meta={strapiNewsletter?.seo} />;
         <article className="post-article">
           <Intro eyelet={eyelet} title={title} />
 
