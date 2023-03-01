@@ -2,6 +2,7 @@ import { graphql, PageProps } from 'gatsby';
 import { useTranslation } from 'gatsby-plugin-react-i18next/dist';
 import React from 'react';
 import { Body } from '../../../components/Remark/Body';
+import { SEO } from '../../../components/SEO';
 import { Layout } from '../../../partials/Layout';
 
 export const query = graphql`
@@ -23,6 +24,20 @@ export const query = graphql`
           childMarkdownRemark {
             html
           }
+        }
+      }
+      seo {
+        metaImage {
+          localFile {
+            publicURL
+          }
+        }
+        metaTitle
+        metaDescription
+        metaSocial {
+          description
+          title
+          socialNetwork
         }
       }
     }
@@ -68,6 +83,7 @@ export default function Component({
 
     return (
       <Layout>
+        <SEO meta={strapiPressRelease?.seo} />;
         <article className="post-article">
           <Intro eyelet={eyelet} title={title} />
 
