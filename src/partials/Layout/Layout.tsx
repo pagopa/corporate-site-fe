@@ -28,26 +28,28 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
     type: 'allStrapiNavigation',
   });
 
-  const reservedMenu = menuNodes?.filter(
-    node => node?.key === PagoPA.MENU.RESERVED_MENU
-  );
-  const mainMenu = menuNodes?.filter(
-    node => node?.key === PagoPA.MENU.MAIN_MENU
-  );
-  const footerMain = menuNodes?.filter(
-    node => node?.key === PagoPA.MENU.FOOTER_MAIN
-  );
-  const footerBottom = menuNodes?.filter(
-    node => node?.key === PagoPA.MENU.FOOTER_BOTTOM
+  const { ReservedMenu, MainMenu, FooterTop, FooterBottom } = menuNodes.reduce<
+    Record<PagoPA.MENU, Queries.MainNavigationItemFragment[]>
+  >(
+    (acc, node) => {
+      const key = node.key as PagoPA.MENU;
+      return { ...acc, [key]: [...acc[key], node] };
+    },
+    {
+      [PagoPA?.MENU.MAIN_MENU]: [],
+      [PagoPA?.MENU.RESERVED_MENU]: [],
+      [PagoPA?.MENU.FOOTER_TOP]: [],
+      [PagoPA?.MENU.FOOTER_BOTTOM]: [],
+    }
   );
 
   return (
     <>
-      <Header {...{ reservedMenu, mainMenu }} />
+      <Header reservedMenu={ReservedMenu} mainMenu={MainMenu} />
       <SEO />
       <HeadScripts />
       <main>{children}</main>
-      <Footer {...{ footerMain, footerBottom }} />
+      <Footer footerBottom={FooterBottom} footerTop={FooterTop} />
     </>
   );
 };

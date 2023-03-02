@@ -1,13 +1,13 @@
 import React from 'react';
 import { Cta } from '../Cta';
-import './MenuFooter.sass';
+import './FooterBottom.sass';
 
 type MenuFooterProps = {
   menu: Queries.MainNavigationItemFragment[];
 };
 
-export const MenuFooter = ({ menu }: MenuFooterProps) => (
-  <nav className="menu-footer">
+export const FooterBottom = ({ menu }: MenuFooterProps) => (
+  <nav className="footer-bottom">
     <ul>
       {menu?.map(item => {
         return item?.title && item?.path ? (

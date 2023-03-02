@@ -2,17 +2,17 @@ import React from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import { useLocalizedQuery } from '../../hooks';
 import { Logo } from '../Logo';
-import { MenuService } from '../MenuService';
-import { MenuFooter } from '../MenuFooter';
 import { Socials } from '../Socials';
 import './Footer.sass';
+import { FooterBottom } from '../FooterBottom';
+import { FooterTop } from '../FooterTop';
 
 type FooterProps = {
-  footerMain: Queries.MainNavigationItemFragment[];
+  footerTop: Queries.MainNavigationItemFragment[];
   footerBottom: Queries.MainNavigationItemFragment[];
 };
 
-export const Footer = ({ footerMain, footerBottom }: FooterProps) => {
+export const Footer = ({ footerTop, footerBottom }: FooterProps) => {
   const query = useStaticQuery(graphql`
     fragment FooterLeft on FooterLeftJson {
       company
@@ -43,14 +43,14 @@ export const Footer = ({ footerMain, footerBottom }: FooterProps) => {
               <Logo version="light" />
             </div>
             <div className="col-12 col-md-10 col-lg-8">
-              <MenuService menu={footerMain} />
+              <FooterTop menu={footerTop} />
             </div>
           </div>
         </div>
         <div className="footer__bottom">
           <div className="row justify-content-between flex-row-reverse">
             <div className="col-12 col-md-auto">
-              <MenuFooter menu={footerBottom} />
+              <FooterBottom menu={footerBottom} />
             </div>
             <div className="col-12 col-md-auto">
               <div className="d-flex mb-4">

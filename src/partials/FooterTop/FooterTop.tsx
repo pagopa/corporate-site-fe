@@ -1,24 +1,18 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useCookiesDialog } from '../../hooks';
 import { Cta } from '../Cta/';
-import './MenuService.sass';
+import './FooterTop.sass';
 
-type MenuServiceProps = {
+type FooterTopProps = {
   menu: Queries.MainNavigationItemFragment[];
 };
 
-export const MenuService = ({ menu }: MenuServiceProps) => {
-  useEffect(() => {
-    const openOTPreferences = () => {
-      if ('OneTrust' in window && window?.OneTrust)
-        (window?.OneTrust as any)?.ToggleInfoDisplay();
-    };
-    const otButton = document.querySelector('.ot-preferences');
-    otButton?.addEventListener('click', openOTPreferences);
-    return () => otButton?.removeEventListener('click', openOTPreferences);
-  }, []);
+export const FooterTop = ({ menu }: FooterTopProps) => {
+
+  useCookiesDialog({ selector: '.ot-preferences' });
 
   return (
-    <nav className="menu-service">
+    <nav className="footer-top">
       <ul>
         {menu?.map((item: Queries.MainNavigationItemFragment | null) => {
           return item?.title && item?.path ? (
