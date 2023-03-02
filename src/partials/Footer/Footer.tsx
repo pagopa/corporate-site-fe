@@ -45,13 +45,6 @@ export const Footer = () => {
           </div>
         </div>
         <div className="footer__bottom">
-          {/* <div className="row justify-content-between flex-row-reverse">
-            <div className="col-12 col-md-auto">
-              <Language currentLocale={locale} />
-            </div>
-            <div className="col">
-            </div>
-          </div> */}
           <div className="row justify-content-between flex-row-reverse">
             <div className="col-12 col-md-auto">
               <MenuFooter />
