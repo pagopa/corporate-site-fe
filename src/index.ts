@@ -4,6 +4,7 @@ export * from './components/Image';
 export * from './components/Jobposition/JobEntry';
 export * from './components/Jobposition/JobIntro';
 export * from './components/Jobposition/JobPage';
+export * from './components/Jobposition/JobPastList';
 export * from './components/Menu';
 export * from './components/NewsletterBanner';
 export * from './components/Pagination';

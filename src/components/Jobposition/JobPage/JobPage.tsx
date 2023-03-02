@@ -9,7 +9,11 @@ export const JobPageFragment = graphql`
   fragment JobPage on STRAPI_JOBPOSITION {
     applicationLink
     embedIdentifier
+    title
     ...JobIntro
+    blocks {
+      ...Blocks
+    }
   }
 `;
 
@@ -20,8 +24,6 @@ type JobPageProps = {
 export const JobPage = ({
   data: { embedIdentifier, applicationLink, ...jobIntro },
 }: JobPageProps) => {
-  // const { jobIframe } = useWpOptionsPage().various
-
   const hasTextBlocks = !!jobIntro?.blocks?.length;
   const hasEmbedForm = !!embedIdentifier;
 
@@ -34,22 +36,20 @@ export const JobPage = ({
       <JobIntro data={jobIntro} />
 
       {hasTextBlocks &&
-        jobIntro?.blocks
-          ?.slice(1)
-          .map((block: Queries.SharedBlockFragment | null) => {
-            return (
-              <section className="job__section" key={block?.id}>
-                <div className="container-fluid">
-                  <div className="row">
-                    <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-                      {block?.title && <h4>{block.title}</h4>}
-                      {block?.body && <Body data={block?.body} />}
-                    </div>
+        jobIntro?.blocks?.map((block, key) => {
+          return (
+            <section className="job__section" key={key}>
+              <div className="container-fluid">
+                <div className="row">
+                  <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+                    {block?.title && <h4>{block.title}</h4>}
+                    {block?.body && <Body data={block?.body} />}
                   </div>
                 </div>
-              </section>
-            );
-          })}
+              </div>
+            </section>
+          );
+        })}
 
       {applicationLink && (
         <div className="container-fluid">

@@ -1,31 +1,11 @@
 import { graphql } from 'gatsby';
 import React from 'react';
-import { Body } from '../../Remark/Body';
 
 const dateFormatOptions: Intl.DateTimeFormatOptions = {
   year: 'numeric',
   month: '2-digit',
   day: '2-digit',
 };
-
-export const SharedBlockFragment = graphql`
-  fragment SharedBlock on STRAPI__COMPONENT_SHARED_BLOCK_INTRO {
-    eyelet
-    id
-    isEventLanding
-    strapi_id
-    title
-    useFeaturedImage
-    body {
-      data {
-        childMarkdownRemark {
-          html
-        }
-        id
-      }
-    }
-  }
-`;
 
 export const JobIntroFragment = graphql`
   fragment JobIntro on STRAPI_JOBPOSITION {
@@ -34,9 +14,8 @@ export const JobIntroFragment = graphql`
     openDate
     openPositions
     selectedPeople
-    blocks {
-      ...Blocks
-    }
+    title
+    eyelet
   }
 `;
 
@@ -47,13 +26,12 @@ export const JobIntro = ({
     openDate,
     openPositions,
     selectedPeople,
-    blocks,
+    title,
+    eyelet,
   },
 }: {
   data: Queries.JobIntroFragment;
 }) => {
-  const block: Queries.SharedBlockFragment | null = blocks ? blocks[0] : null;
-
   const startDate = openDate
     ? new Date(openDate).toLocaleDateString('it', dateFormatOptions)
     : null;
@@ -67,12 +45,12 @@ export const JobIntro = ({
   return (
     <header className="block --block-intro intro --job">
       <div className="container-fluid">
-        {block && (
+        {title && (
           <div className="row">
             <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
               <div className="intro__heading">
-                {block.eyelet && <h4>{block.eyelet}</h4>}
-                {block.title && <h1>{block.title}</h1>}
+                {eyelet && <h4>{eyelet}</h4>}
+                {title && <h1>{title}</h1>}
               </div>
             </div>
           </div>
@@ -122,14 +100,6 @@ export const JobIntro = ({
             )}
           </div>
         </div>
-
-        {block?.body && (
-          <div className="row job__intro">
-            <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-              <Body data={block?.body} />
-            </div>
-          </div>
-        )}
       </div>
     </header>
   );
