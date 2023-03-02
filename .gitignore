@@ -4,4 +4,3 @@ public
 src/gatsby-types.d.ts
 .env.development
 .vim
-.ctirc

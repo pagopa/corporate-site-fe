@@ -138,6 +138,8 @@ const config: GatsbyConfig = {
           { key: 'MainMenu', id: 7, locale: 'it' },
           { key: 'ReservedMenu', id: 8, locale: 'it' },
           { key: 'ReservedMenu', id: 9, locale: 'en' },
+          { key: 'FooterMenu', id: 10, locale: 'it' },
+          { key: 'FooterMenu', id: 11, locale: 'en' },
         ],
         type: 'TREE', // optional
         token: process.env.STRAPI_TOKEN, // optional
