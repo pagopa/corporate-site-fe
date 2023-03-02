@@ -2,7 +2,11 @@ import React from 'react';
 
 import './JobEntry.sass';
 
-export const JobEntry = ({ jobposition }: { jobposition: any }) => (
+export const JobEntry = ({
+  jobposition,
+}: {
+  jobposition: Queries.JobpositionFragment;
+}) => (
   <article className="job-entry">
     <h4 className="--primary job-entry__title">
       {jobposition?.title}

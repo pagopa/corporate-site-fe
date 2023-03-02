@@ -15,6 +15,7 @@ import { ProjectsCarousel } from './ProjectsCarousel';
 import { Visual } from './Visual';
 import { VisualText } from './VisualText';
 import { UniversityCollaborationList } from './UniversityCollaboration';
+import { JobpositionList } from './Jobposition';
 
 // This object is used to map Strapi component names to React components
 const componentsMap: {
@@ -36,6 +37,7 @@ const componentsMap: {
   STRAPI__COMPONENT_SHARED_BLOCK_UNIVERSITY_ACCORDION:
     UniversityCollaborationList,
   STRAPI__COMPONENT_SHARED_BLOCK_NEWSLETTER: NewsletterList,
+  STRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTING: JobpositionList,
 };
 
 const Block = ({ block }: { block: Queries.BlocksFragment }) => {
@@ -246,6 +248,9 @@ export const query = graphql`
       pagination
     }
     ... on STRAPI__COMPONENT_SHARED_BLOCK_NEWSLETTER {
+      id
+    }
+    ... on STRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTING {
       id
     }
   }

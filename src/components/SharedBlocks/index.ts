@@ -6,6 +6,7 @@ export * from './CtaBanner';
 export * from './CtaGrid';
 export * from './HeroSlider';
 export * from './Intro';
+export * from './Jobposition';
 export * from './LogoLinks';
 export * from './Newsletter';
 export * from './PostEvents';
