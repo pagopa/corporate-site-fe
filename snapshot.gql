@@ -1,4 +1,4 @@
-### Type definitions saved at 2023-03-02T09:17:59.127Z ###
+### Type definitions saved at 2023-03-02T09:49:49.774Z ###
 
 enum RemoteFileFit {
   COVER
@@ -1287,13 +1287,7 @@ type FooterRightJsonUsefulLinks {
   label: String
 }
 
-type FooterLeftJson implements Node @derivedTypes @childOf(types: ["File"]) @dontInfer {
+type FooterLeftJson implements Node @childOf(types: ["File"]) @dontInfer {
   company: String
-  usefulLinks: [FooterLeftJsonUsefulLinks]
   locale: String
-}
-
-type FooterLeftJsonUsefulLinks {
-  label: String
-  url: String
 }

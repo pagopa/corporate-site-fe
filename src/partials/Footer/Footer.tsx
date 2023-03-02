@@ -1,15 +1,18 @@
 import React from 'react';
-
-import { Logo } from '../Logo/Logo';
-import { Socials } from '../Socials/Socials';
-import { MenuFooter } from '../MenuFooter/MenuFooter';
-import { MenuService } from '../MenuService/MenuService';
-
-import './Footer.sass';
 import { graphql, useStaticQuery } from 'gatsby';
-import { useLocalizedQuery } from '../../hooks/useLocalizedQuery';
+import { useLocalizedQuery } from '../../hooks';
+import { Logo } from '../Logo';
+import { MenuService } from '../MenuService';
+import { MenuFooter } from '../MenuFooter';
+import { Socials } from '../Socials';
+import './Footer.sass';
 
-export const Footer = () => {
+type FooterProps = {
+  footerMain: Queries.MainNavigationItemFragment[];
+  footerBottom: Queries.MainNavigationItemFragment[];
+};
+
+export const Footer = ({ footerMain, footerBottom }: FooterProps) => {
   const query = useStaticQuery(graphql`
     fragment FooterLeft on FooterLeftJson {
       company
@@ -40,14 +43,14 @@ export const Footer = () => {
               <Logo version="light" />
             </div>
             <div className="col-12 col-md-10 col-lg-8">
-              <MenuService />
+              <MenuService menu={footerMain} />
             </div>
           </div>
         </div>
         <div className="footer__bottom">
           <div className="row justify-content-between flex-row-reverse">
             <div className="col-12 col-md-auto">
-              <MenuFooter />
+              <MenuFooter menu={footerBottom} />
             </div>
             <div className="col-12 col-md-auto">
               <div className="d-flex mb-4">

@@ -1,13 +1,13 @@
+import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
 import { SEO } from '../../components/SEO';
+import { useLocalizedQuery } from '../../hooks';
+import '../../sass/app.sass';
+import { PagoPA } from '../../types';
 import { Footer } from '../Footer';
 import { Header } from '../Header';
 import { HeadScripts } from './HeadScripts';
-import '../../sass/app.sass';
 import './Layout.sass';
-import { useStaticQuery, graphql } from 'gatsby';
-import { useLocalizedQuery } from '../../hooks';
-import { PagoPA } from '../../types';
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   const query: Queries.MainNavigationQuery = useStaticQuery(graphql`
@@ -34,14 +34,20 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
   const mainMenu = menuNodes?.filter(
     node => node?.key === PagoPA.MENU.MAIN_MENU
   );
+  const footerMain = menuNodes?.filter(
+    node => node?.key === PagoPA.MENU.FOOTER_MAIN
+  );
+  const footerBottom = menuNodes?.filter(
+    node => node?.key === PagoPA.MENU.FOOTER_BOTTOM
+  );
 
   return (
     <>
-      <Header reservedMenu={reservedMenu} mainMenu={mainMenu} />
+      <Header {...{ reservedMenu, mainMenu }} />
       <SEO />
       <HeadScripts />
       <main>{children}</main>
-      <Footer />
+      <Footer {...{ footerMain, footerBottom }} />
     </>
   );
 };
