@@ -1,4 +1,4 @@
-### Type definitions saved at 2023-03-01T13:24:56.086Z ###
+### Type definitions saved at 2023-03-02T10:20:14.623Z ###
 
 enum RemoteFileFit {
   COVER
@@ -704,6 +704,7 @@ type StrapiNavigation implements Node @derivedTypes @dontInfer {
   external: Boolean
   items: [StrapiNavigationItems]
   highlight: Boolean
+  related: StrapiNavigationRelated
 }
 
 type StrapiNavigationItems @derivedTypes {
@@ -721,6 +722,20 @@ type StrapiNavigationItems @derivedTypes {
 }
 
 type StrapiNavigationItemsRelated {
+  id: Int
+  title: String
+  slug: String
+  createdAt: Date @dateformat
+  updatedAt: Date @dateformat
+  publishedAt: Date @dateformat
+  url_path_id: String
+  locale: String
+  _xcontentType: String @proxy(from: "__contentType")
+  navigationItemId: Int
+  _xtemplateName: String @proxy(from: "__templateName")
+}
+
+type StrapiNavigationRelated {
   id: Int
   title: String
   slug: String
@@ -816,9 +831,9 @@ type STRAPI__MEDIAFormatsThumbnail {
 type STRAPI__COMPONENT_SHARED_SEO implements Node @dontInfer {
   metaTitle: String
   metaDescription: String
-  strapi_id: Int
   metaImage: STRAPI__MEDIA @link(by: "id", from: "metaImage___NODE")
   metaSocial: [STRAPI__COMPONENT_SHARED_META_SOCIAL] @link(by: "id", from: "metaSocial___NODE")
+  strapi_id: Int
 }
 
 type STRAPI__COMPONENT_SHARED_META_SOCIAL implements Node @dontInfer {
@@ -1262,23 +1277,7 @@ type STRAPI_EVENTBody {
   data: STRAPI_EVENT_BODY_TEXTNODE @link(by: "id", from: "data___NODE")
 }
 
-type FooterRightJson implements Node @derivedTypes @childOf(types: ["File"]) @dontInfer {
-  locale: String
-  usefulLinks: [FooterRightJsonUsefulLinks]
-}
-
-type FooterRightJsonUsefulLinks {
-  url: String
-  label: String
-}
-
-type FooterLeftJson implements Node @derivedTypes @childOf(types: ["File"]) @dontInfer {
+type FooterLeftJson implements Node @childOf(types: ["File"]) @dontInfer {
   company: String
-  usefulLinks: [FooterLeftJsonUsefulLinks]
   locale: String
-}
-
-type FooterLeftJsonUsefulLinks {
-  label: String
-  url: String
 }
