@@ -1,4 +1,4 @@
-### Type definitions saved at 2023-03-02T12:33:59.669Z ###
+### Type definitions saved at 2023-03-03T11:54:51.199Z ###
 
 enum RemoteFileFit {
   COVER
@@ -840,6 +840,7 @@ type STRAPI__COMPONENT_SHARED_META_SOCIAL implements Node @dontInfer {
   socialNetwork: String
   title: String
   description: String
+  image: STRAPI__MEDIA @link(by: "id", from: "image___NODE")
   strapi_id: Int
 }
 
@@ -1236,9 +1237,9 @@ type STRAPI_JOBPOSITION implements Node @derivedTypes @dontInfer {
   localizations: STRAPI_JOBPOSITIONLocalizations
   url_path: String
   blocks: [STRAPI__COMPONENT_SHARED_BLOCK_INTRO] @link(by: "id", from: "blocks___NODE")
-  seo: STRAPI__COMPONENT_SHARED_SEO @link(by: "id", from: "seo___NODE")
   strapi_id: Int
   featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
+  seo: STRAPI__COMPONENT_SHARED_SEO @link(by: "id", from: "seo___NODE")
 }
 
 type STRAPI_JOBPOSITIONLocalizations @derivedTypes {
@@ -1296,6 +1297,19 @@ type STRAPI_EVENT implements Node @derivedTypes @dontInfer {
 
 type STRAPI_EVENTBody {
   data: STRAPI_EVENT_BODY_TEXTNODE @link(by: "id", from: "data___NODE")
+}
+
+type STRAPI_CT_ALIAS implements Node @dontInfer {
+  createdAt: Date @dateformat
+  updatedAt: Date @dateformat
+  publishedAt: Date @dateformat
+  url_path_id: String
+  locale: String
+  slug: String
+  from: String
+  to: String
+  url_path: String
+  strapi_id: Int
 }
 
 type FooterLeftJson implements Node @childOf(types: ["File"]) @dontInfer {

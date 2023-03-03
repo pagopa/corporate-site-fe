@@ -126,6 +126,14 @@ const config: GatsbyConfig = {
               },
             },
           },
+          {
+            singularName: 'ct-alias',
+            pluginOptions: {
+              i18n: {
+                locale: 'all',
+              },
+            },
+          },
         ],
       },
     },
@@ -162,6 +170,7 @@ const config: GatsbyConfig = {
       resolve: `gatsby-plugin-schema-snapshot`,
       options: {
         path: `snapshot.gql`,
+        withFieldTypes: true,
         update: process.env.GATSBY_UPDATE_SCHEMA_SNAPSHOT,
       },
     },
