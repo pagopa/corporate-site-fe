@@ -180,9 +180,6 @@ const config: GatsbyConfig = {
         languages: ['it', 'en'],
         fallbackLanguage: 'en',
         generateDefaultLanguagePage: true,
-        i18nextOptions: {
-          debug: true,
-        },
       },
     },
   ],
