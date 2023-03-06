@@ -15,7 +15,8 @@
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit",
     "ctix": "ctix create --overwrite",
-    "e2e": "playwright test -x"
+    "e2e": "playwright test -x",
+    "codegen": "playwright codegen --lang=it"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.6",
