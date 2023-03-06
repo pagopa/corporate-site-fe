@@ -15,8 +15,9 @@
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit",
     "ctix": "ctix create --overwrite",
-    "e2e": "playwright test -x",
-    "codegen": "playwright codegen --lang=it"
+    "spec": "playwright test -x",
+    "codegen": "playwright codegen --lang=it",
+    "e2e": "codeceptjs run"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.6",
@@ -61,6 +62,8 @@
     "@types/react-dom": "^18.0.10",
     "@types/react-helmet": "^6.1.6",
     "@types/youtube-player": "^5.5.7",
+    "codeceptjs": "^3.4.1",
+    "codeceptjs-resemblehelper": "^1.9.6",
     "ctix": "^1.8.2",
     "gremlins.js": "^2.2.0",
     "ts-node": "10.9.1",
