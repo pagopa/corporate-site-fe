@@ -101,7 +101,7 @@ const Video = ({ image, video }: VideoProps) => {
       )}
 
       {videoPreview && !isPlaying && !videoActive && image?.localFile && (
-        <>{image && <Image data={image} />}</>
+        <>{image && <Image className="video__picture" data={image} />}</>
       )}
 
       {videoPreview && !videoActive && (

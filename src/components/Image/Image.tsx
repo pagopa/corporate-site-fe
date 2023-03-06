@@ -6,11 +6,16 @@ import React from 'react';
 export type ImageProps = {
   data: Queries.STRAPI__MEDIA;
   caption?: string | null;
+  className?: string;
 };
 
-export const Image = ({ data, caption }: ImageProps): ReactElement => (
+export const Image = ({
+  data,
+  caption,
+  className,
+}: ImageProps): ReactElement => (
   <>
-    <figure>
+    <figure className={className}>
       <GatsbyImage
         image={
           getImage(data.localFile as IGatsbyImageParent) as IGatsbyImageData
