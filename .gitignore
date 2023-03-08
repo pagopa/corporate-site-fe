@@ -4,3 +4,6 @@ public
 src/gatsby-types.d.ts
 .env.development
 .vim
+/test-results/
+/playwright-report/
+/playwright/.cache/

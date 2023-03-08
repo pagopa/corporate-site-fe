@@ -38,9 +38,8 @@ export default function Component({
   if (title && slug) {
     return (
       <Layout>
-        <SEO meta={strapiPage?.seo} />;
+        <SEO meta={strapiPage?.seo} />
         <BlocksRenderer blocks={blocks as Queries.BlocksFragment[]} />
-        {/* {bannerNewsletter && <NewsletterBanner />} */}
       </Layout>
     );
   }

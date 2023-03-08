@@ -1,4 +1,4 @@
-### Type definitions saved at 2023-03-03T11:54:51.199Z ###
+### Type definitions saved at 2023-03-06T11:08:10.851Z ###
 
 enum RemoteFileFit {
   COVER
@@ -1267,6 +1267,7 @@ type STRAPI_JOBPOSITIONLocalizationsDataAttributes {
   publishedAt: Date @dateformat
   url_path_id: String
   locale: String
+  eyelet: String
   url_path: String
 }
 
@@ -1300,14 +1301,14 @@ type STRAPI_EVENTBody {
 }
 
 type STRAPI_CT_ALIAS implements Node @dontInfer {
+  from: String
+  to: String
+  slug: String
   createdAt: Date @dateformat
   updatedAt: Date @dateformat
   publishedAt: Date @dateformat
   url_path_id: String
   locale: String
-  slug: String
-  from: String
-  to: String
   url_path: String
   strapi_id: Int
 }
