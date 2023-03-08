@@ -1,4 +1,4 @@
-### Type definitions saved at 2023-03-08T15:25:23.306Z ###
+### Type definitions saved at 2023-03-08T16:32:37.644Z ###
 
 enum RemoteFileFit {
   COVER
@@ -1071,10 +1071,13 @@ type STRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LIST implements Node @dontInfer {
   template: String
   contentsItems: [STRAPI__COMPONENT_BLOCK_CONTEXT_CONTENT_ITEMS] @link(by: "id", from: "contentsItems___NODE")
   strapi_id: Int
+  blockConf: STRAPI__COMPONENT_BLOCK_CONTEXT_BLOCK_CONF @link(by: "id", from: "blockConf___NODE")
 }
 
 type STRAPI__COMPONENT_SHARED_BLOCK_CONTACTS_LIST implements Node @dontInfer {
   strapi_component: String
+  title: String
+  blockConf: STRAPI__COMPONENT_BLOCK_CONTEXT_BLOCK_CONF @link(by: "id", from: "blockConf___NODE")
   contacts: [STRAPI__COMPONENT_BLOCK_CONTEXT_TITLE_EMAIL] @link(by: "id", from: "contacts___NODE")
   strapi_id: Int
 }

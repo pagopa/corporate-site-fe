@@ -44,11 +44,11 @@ export const Accordion = ({
     Wide: `col-md-10 offset-md-1`,
   };
 
-  if (BlockPosition === 'left') {
+  if (BlockPosition === 'Left') {
     columns.Standard = `col-md-10 offset-md-1 col-lg-8 offset-lg-1`;
     columns.Wide = `col-md-10 offset-md-1`;
   }
-  if (BlockPosition === 'right') {
+  if (BlockPosition === 'Right') {
     columns.Standard = `col-md-10 offset-md-1 col-lg-8 offset-lg-1`;
     columns.Wide = `col-md-10 offset-md-3`;
   }

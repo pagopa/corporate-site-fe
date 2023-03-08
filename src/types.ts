@@ -5,4 +5,6 @@ export namespace PagoPA {
     FOOTER_TOP = 'FooterTop',
     FOOTER_BOTTOM = 'FooterBottom',
   }
+
+  export type BlockConfig = Record<'Standard' | 'Wide', string>;
 }
