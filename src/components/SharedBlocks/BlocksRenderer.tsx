@@ -16,6 +16,7 @@ import { Visual } from './Visual';
 import { VisualText } from './VisualText';
 import { UniversityCollaborationList } from './UniversityCollaboration';
 import { JobpositionList } from './Jobposition';
+import { Accordion } from './Accordion';
 
 // This object is used to map Strapi component names to React components
 const componentsMap: {
@@ -38,6 +39,7 @@ const componentsMap: {
     UniversityCollaborationList,
   STRAPI__COMPONENT_SHARED_BLOCK_NEWSLETTER: NewsletterList,
   STRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTING: JobpositionList,
+  STRAPI__COMPONENT_SHARED_BLOCK_ACCORDION: Accordion,
 };
 
 const Block = ({ block }: { block: Queries.BlocksFragment }) => {
@@ -72,6 +74,17 @@ export const query = graphql`
         gatsbyImageData(layout: CONSTRAINED)
       }
     }
+  }
+  fragment Accordion on STRAPI__COMPONENT_BLOCK_CONTEXT_ACCORDION_ITEM {
+    content {
+      data {
+        childMarkdownRemark {
+          html
+        }
+        id
+      }
+    }
+    heading
   }
   fragment Blocks on SHARED_BLOCKS_UNION {
     __typename
@@ -252,6 +265,17 @@ export const query = graphql`
     }
     ... on STRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTING {
       id
+    }
+    ... on STRAPI__COMPONENT_SHARED_BLOCK_ACCORDION {
+      id
+      title
+      accordionItems {
+        ...Accordion
+      }
+      blockConf {
+        BlockWidth
+        BlockPosition
+      }
     }
   }
 `;
