@@ -4,7 +4,7 @@ import type { ReactElement } from 'react';
 import React from 'react';
 
 export type ImageProps = {
-  data: Queries.STRAPI__MEDIA;
+  data: Queries.ImageFragment | Queries.STRAPI__MEDIA;
   caption?: string | null;
   className?: string;
 };

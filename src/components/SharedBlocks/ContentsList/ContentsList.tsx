@@ -1,4 +1,5 @@
 import React from 'react';
+import { Cta } from '../../../partials/Cta';
 import { Image } from '../../Image';
 import { Body } from '../../Remark/Body';
 
@@ -18,7 +19,7 @@ export const ContentsList = ({
           {contentsItems?.length && (
             <div className="row">
               {contentsItems.map((block, key) => {
-                const { title, body, image } = block || {};
+                const { title, body, image, link, linkLabel } = block || {};
 
                 const isOdd = key % 2;
                 const hasOffset = template === 'Staggered' && isOdd;
@@ -31,9 +32,10 @@ export const ContentsList = ({
                     key={key}
                   >
                     <div className={`blocks-list-entry`}>
-                      {image && <Image data={image as Queries.STRAPI__MEDIA} />}
+                      {image && <Image data={image as Queries.STRAPI__MEDIA}/>}
                       {title && <h4>{title}</h4>}
                       {body && <Body data={body} />}
+                      {link && <Cta href={link} label={linkLabel} />}
                     </div>
                   </div>
                 );

@@ -1,43 +1,49 @@
 import { graphql } from 'gatsby';
 import * as React from 'react';
-import { NewsletterList } from './Newsletter';
-import { PostEventsList } from './PostEvents';
-import { PressReleaseList } from './PressRelease';
+import { Accordion } from './Accordion';
 import { AttachmentGrid } from './AttachmentGrid';
 import { AttachmentList } from './AttachmentList';
+import { ContactsList } from './ContactsList';
 import { ContentsList } from './ContentsList/ContentsList';
 import { CtaBanner } from './CtaBanner/CtaBanner';
 import { CtaGrid } from './CtaGrid';
 import { HeroSlider } from './HeroSlider';
 import { Intro } from './Intro/Intro';
+import { JobpositionList } from './Jobposition';
 import { LogoLinks } from './LogoLinks';
+import { MapBox } from './MapBox';
+import { NewsletterList } from './Newsletter';
+import { PostEventsList } from './PostEvents';
+import { PressReleaseList } from './PressRelease';
 import { ProjectsCarousel } from './ProjectsCarousel';
+import { UniversityCollaborationList } from './UniversityCollaboration';
 import { Visual } from './Visual';
 import { VisualText } from './VisualText';
-import { UniversityCollaborationList } from './UniversityCollaboration';
-import { JobpositionList } from './Jobposition';
 
 // This object is used to map Strapi component names to React components
 const componentsMap: {
   [key: string]: (props: any) => JSX.Element;
 } = {
+  STRAPI__COMPONENT_SHARED_BLOCK_ACCORDION: Accordion,
   STRAPI__COMPONENT_SHARED_BLOCK_ATTACHMENTS_GRID: AttachmentGrid,
+  STRAPI__COMPONENT_SHARED_BLOCK_CONTACTS_LIST: ContactsList,
   STRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LIST: ContentsList,
   STRAPI__COMPONENT_SHARED_BLOCK_CTA_BANNER: CtaBanner,
   STRAPI__COMPONENT_SHARED_BLOCK_CTA_GRID: CtaGrid,
-  STRAPI__COMPONENT_SHARED_BLOCK_INTRO: Intro,
-  STRAPI__COMPONENT_SHARED_BLOCK_LIST_ATTACHMENTS: AttachmentList,
-  STRAPI__COMPONENT_SHARED_BLOCK_VISUAL: Visual,
-  STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT: VisualText,
-  STRAPI__COMPONENT_SHARED_BLOCK_PROJECTS_CAROUSEL: ProjectsCarousel,
-  STRAPI__COMPONENT_SHARED_BLOCK_LOGO_LINKS: LogoLinks,
   STRAPI__COMPONENT_SHARED_BLOCK_HERO_SLIDER: HeroSlider,
-  STRAPI__COMPONENT_SHARED_BLOCK_PRESS_RELEASE: PressReleaseList,
+  STRAPI__COMPONENT_SHARED_BLOCK_INTRO: Intro,
+  STRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTING: JobpositionList,
+  STRAPI__COMPONENT_SHARED_BLOCK_LIST_ATTACHMENTS: AttachmentList,
+  STRAPI__COMPONENT_SHARED_BLOCK_LOGO_LINKS: LogoLinks,
+  STRAPI__COMPONENT_SHARED_BLOCK_MAP_BOX: MapBox,
   STRAPI__COMPONENT_SHARED_BLOCK_NEWS_AND_EVENTS: PostEventsList,
+  STRAPI__COMPONENT_SHARED_BLOCK_NEWSLETTER: NewsletterList,
+  STRAPI__COMPONENT_SHARED_BLOCK_PRESS_RELEASE: PressReleaseList,
+  STRAPI__COMPONENT_SHARED_BLOCK_PROJECTS_CAROUSEL: ProjectsCarousel,
   STRAPI__COMPONENT_SHARED_BLOCK_UNIVERSITY_ACCORDION:
     UniversityCollaborationList,
-  STRAPI__COMPONENT_SHARED_BLOCK_NEWSLETTER: NewsletterList,
-  STRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTING: JobpositionList,
+  STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT: VisualText,
+  STRAPI__COMPONENT_SHARED_BLOCK_VISUAL: Visual,
 };
 
 const Block = ({ block }: { block: Queries.BlocksFragment }) => {
@@ -72,6 +78,17 @@ export const query = graphql`
         gatsbyImageData(layout: CONSTRAINED)
       }
     }
+  }
+  fragment Accordion on STRAPI__COMPONENT_BLOCK_CONTEXT_ACCORDION_ITEM {
+    content {
+      data {
+        childMarkdownRemark {
+          html
+        }
+        id
+      }
+    }
+    heading
   }
   fragment Blocks on SHARED_BLOCKS_UNION {
     __typename
@@ -145,6 +162,8 @@ export const query = graphql`
       template
       contentsItems {
         title
+        link
+        linkLabel
         body {
           data {
             childMarkdownRemark {
@@ -252,6 +271,48 @@ export const query = graphql`
     }
     ... on STRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTING {
       id
+    }
+    ... on STRAPI__COMPONENT_SHARED_BLOCK_ACCORDION {
+      id
+      title
+      accordionItems {
+        ...Accordion
+      }
+      blockConf {
+        BlockWidth
+        BlockPosition
+      }
+    }
+    ... on STRAPI__COMPONENT_SHARED_BLOCK_MAP_BOX {
+      id
+      mapBoxItems {
+        title
+        linkLabel
+        link
+        body {
+          data {
+            childMarkdownRemark {
+              html
+            }
+            id
+          }
+        }
+      }
+      image {
+        ...Image
+      }
+    }
+    ... on STRAPI__COMPONENT_SHARED_BLOCK_CONTACTS_LIST {
+      id
+      title
+      contacts {
+        email
+        title
+      }
+      blockConf {
+        BlockWidth
+        BlockPosition
+      }
     }
   }
 `;
