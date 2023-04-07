@@ -1,0 +1,76 @@
+name: "Deploy AWS"
+
+on:
+  push:
+    branches:
+      - strapi-refactoring
+    paths:
+      - 'src/**'
+      - '.github/workflows/*.yml'
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning' 
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+      environment:
+        description: 'Which environment to update.'
+        type: choice
+        default: 'dev'
+        required: true 
+        options:
+        - dev
+        - prod
+  # Allows external webhook trigger
+  repository_dispatch:
+    types:
+      - webhook
+
+env:
+  AWS_REGION: eu-central-1
+ 
+defaults:
+  run:
+    shell: bash
+    working-directory: src
+
+permissions:
+  id-token: write   # This is required for requesting the JWT
+  contents: read    # This is required for actions/checkout
+
+jobs:
+  deploy:
+    name: "deploy"
+    runs-on: ubuntu-22.04
+    environment: ${{ inputs.environment }} 
+    steps:
+      - name: Checkout
+        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3
+              
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
+        with:
+          role-to-assume: ${{ secrets.IAM_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Use Node.js
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        with:
+          node-version: 16
+      - name: Build
+        env: 
+          STRAPI_TOKEN: ${{ secrets.STRAPI_TOKEN }}
+          STRAPI_API_URL: ${{ vars.STRAPI_URL }}
+        run: |
+          yarn install
+          yarn build
+      - name: s3-publish
+        uses: jonelantha/gatsby-s3-action@6886fa8db9cb48761715caac380ee6861b00ed12
+        with:
+          dest-s3-bucket: ${{ vars.AWS_BUCKET }}
+          cloudfront-id-to-invalidate: ${{ vars.AWS_CLOUDFRONT_ID }}
+          public-source-path: src/public
