@@ -298,9 +298,6 @@ export const query = graphql`
           }
         }
       }
-      image {
-        ...Image
-      }
     }
     ... on STRAPI__COMPONENT_SHARED_BLOCK_CONTACTS_LIST {
       id
