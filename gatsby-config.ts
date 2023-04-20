@@ -171,14 +171,14 @@ const config: GatsbyConfig = {
       options: {
         path: `snapshot.gql`,
         withFieldTypes: true,
-        update: process.env.GATSBY_UPDATE_SCHEMA_SNAPSHOT,
+        update: process.env.GATSBY_UPDATE_SCHEMA_SNAPSHOT=="false" ? false : true,
       },
     },
     {
       resolve: 'gatsby-plugin-react-i18next',
       options: {
         languages: ['it', 'en'],
-        fallbackLanguage: 'en',
+        fallbackLanguage: 'it',
         generateDefaultLanguagePage: true,
       },
     },
