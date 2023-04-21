@@ -12,7 +12,6 @@ export const JobpositionList = () => {
     fragment Jobposition on STRAPI_JOBPOSITION {
       id
       slug
-      url_path
       title
       isNew
       locale

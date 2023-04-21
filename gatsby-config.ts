@@ -142,14 +142,14 @@ const config: GatsbyConfig = {
       options: {
         apiURL: process.env.STRAPI_API_URL,
         navigation: [
-          { key: 'MainMenu', id: 6, locale: 'en' },
-          { key: 'MainMenu', id: 7, locale: 'it' },
-          { key: 'ReservedMenu', id: 8, locale: 'it' },
+          /*{ key: 'MainMenu', id: 6, locale: 'en' },*/
+          { key: 'MainMenu', id: 2, locale: 'it' },
+          /*{ key: 'ReservedMenu', id: 8, locale: 'it' },
           { key: 'ReservedMenu', id: 9, locale: 'en' },
           { key: 'FooterTop', id: 10, locale: 'it' },
           { key: 'FooterTop', id: 11, locale: 'en' },
           { key: 'FooterBottom', id: 12, locale: 'it' },
-          { key: 'FooterBottom', id: 13, locale: 'en' },
+          { key: 'FooterBottom', id: 13, locale: 'en' },*/
         ],
         type: 'TREE', // optional
         token: process.env.STRAPI_TOKEN, // optional

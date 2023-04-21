@@ -54,7 +54,6 @@ export const PressReleaseList = () => {
       bannerNewsletter
       eyelet
       title
-      url_path
       body {
         data {
           body

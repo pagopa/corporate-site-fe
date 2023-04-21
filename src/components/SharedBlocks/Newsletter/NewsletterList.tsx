@@ -19,7 +19,6 @@ export const NewsletterList = () => {
       featuredImage {
         ...Image
       }
-      url_path
       body {
         data {
           body
