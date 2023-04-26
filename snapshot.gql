@@ -1,4 +1,4 @@
-### Type definitions saved at 2023-03-08T16:32:37.644Z ###
+### Type definitions saved at 2023-04-21T13:19:27.262Z ###
 
 enum RemoteFileFit {
   COVER
@@ -679,7 +679,7 @@ type MarkdownWordCount {
   words: Int
 }
 
-type MarkdownRemark implements Node @childOf(mimeTypes: ["text/markdown", "text/x-markdown"], types: ["STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT_BODY_TEXTNODE", "STRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTING_BODY_TEXTNODE", "STRAPI__COMPONENT_SHARED_BLOCK_INTRO_BODY_TEXTNODE", "STRAPI__COMPONENT_BLOCK_CONTEXT_TITLE_TEXT_LINK_BODY_TEXTNODE", "STRAPI__COMPONENT_BLOCK_CONTEXT_CONTENT_ITEMS_BODY_TEXTNODE", "STRAPI__COMPONENT_BLOCK_CONTEXT_ACCORDION_ITEM_CONTENT_TEXTNODE", "STRAPI_UNIVERSITY_COLLABORATION_BODY_TEXTNODE", "STRAPI_PRESS_RELEASE_BODY_TEXTNODE", "STRAPI_POST_BODY_TEXTNODE", "STRAPI_NEWSLETTER_BODY_TEXTNODE", "STRAPI_EVENT_BODY_TEXTNODE"]) @derivedTypes @dontInfer {
+type MarkdownRemark implements Node @childOf(mimeTypes: ["text/markdown", "text/x-markdown"], types: ["STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT_BODY_TEXTNODE", "STRAPI__COMPONENT_SHARED_BLOCK_TEXT_VIDEO_OPTION_BODY_TEXTNODE", "STRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTING_BODY_TEXTNODE", "STRAPI__COMPONENT_SHARED_BLOCK_INTRO_BODY_TEXTNODE", "STRAPI__COMPONENT_BLOCK_CONTEXT_TITLE_TEXT_LINK_BODY_TEXTNODE", "STRAPI__COMPONENT_BLOCK_CONTEXT_CONTENT_ITEMS_BODY_TEXTNODE", "STRAPI__COMPONENT_BLOCK_CONTEXT_ACCORDION_ITEM_CONTENT_TEXTNODE", "STRAPI_UNIVERSITY_COLLABORATION_BODY_TEXTNODE", "STRAPI_PRESS_RELEASE_BODY_TEXTNODE", "STRAPI_POST_BODY_TEXTNODE", "STRAPI_NEWSLETTER_BODY_TEXTNODE", "STRAPI_EVENT_BODY_TEXTNODE"]) @derivedTypes @dontInfer {
   frontmatter: MarkdownRemarkFrontmatter
   excerpt: String
   rawMarkdownBody: String
@@ -704,7 +704,6 @@ type StrapiNavigation implements Node @derivedTypes @dontInfer {
   external: Boolean
   items: [StrapiNavigationItems]
   highlight: Boolean
-  related: StrapiNavigationRelated
 }
 
 type StrapiNavigationItems @derivedTypes {
@@ -728,25 +727,26 @@ type StrapiNavigationItemsRelated {
   createdAt: Date @dateformat
   updatedAt: Date @dateformat
   publishedAt: Date @dateformat
-  url_path_id: String
   locale: String
+  url_path: String
   _xcontentType: String @proxy(from: "__contentType")
   navigationItemId: Int
   _xtemplateName: String @proxy(from: "__templateName")
 }
 
-type StrapiNavigationRelated {
-  id: Int
-  title: String
-  slug: String
-  createdAt: Date @dateformat
-  updatedAt: Date @dateformat
-  publishedAt: Date @dateformat
-  url_path_id: String
-  locale: String
-  _xcontentType: String @proxy(from: "__contentType")
-  navigationItemId: Int
-  _xtemplateName: String @proxy(from: "__templateName")
+type StrapiComponentSharedSeoStructureddataJsonnodeJson implements Node @derivedTypes @childOf(types: ["STRAPI__COMPONENT_SHARED_SEO_STRUCTUREDDATA_JSONNODE"]) @dontInfer {
+  name: String
+  _type: String @proxy(from: "@type")
+  author: StrapiComponentSharedSeoStructureddataJsonnodeJsonAuthor
+  _context: String @proxy(from: "@context")
+  prepTime: String
+  description: String
+  datePublished: Date @dateformat
+}
+
+type StrapiComponentSharedSeoStructureddataJsonnodeJsonAuthor {
+  name: String
+  _type: String @proxy(from: "@type")
 }
 
 type SocialsJson implements Node @derivedTypes @childOf(types: ["File"]) @dontInfer {
@@ -763,6 +763,7 @@ type SocialsJsonLinks {
 type STRAPI__MEDIA implements Node @derivedTypes @dontInfer {
   name: String
   alternativeText: String
+  caption: String
   width: Int
   height: Int
   formats: STRAPI__MEDIAFormats
@@ -778,35 +779,11 @@ type STRAPI__MEDIA implements Node @derivedTypes @dontInfer {
 }
 
 type STRAPI__MEDIAFormats @derivedTypes {
-  large: STRAPI__MEDIAFormatsLarge
   small: STRAPI__MEDIAFormatsSmall
-  medium: STRAPI__MEDIAFormatsMedium
   thumbnail: STRAPI__MEDIAFormatsThumbnail
 }
 
-type STRAPI__MEDIAFormatsLarge {
-  ext: String
-  url: String
-  hash: String
-  mime: String
-  name: String
-  size: Float
-  width: Int
-  height: Int
-}
-
 type STRAPI__MEDIAFormatsSmall {
-  ext: String
-  url: String
-  hash: String
-  mime: String
-  name: String
-  size: Float
-  width: Int
-  height: Int
-}
-
-type STRAPI__MEDIAFormatsMedium {
   ext: String
   url: String
   hash: String
@@ -828,12 +805,32 @@ type STRAPI__MEDIAFormatsThumbnail {
   height: Int
 }
 
+type STRAPI__COMPONENT_SHARED_SEO_STRUCTUREDDATA_JSONNODE implements Node @derivedTypes @childOf(types: ["STRAPI__COMPONENT_SHARED_SEO"]) @dontInfer {
+  name: String
+  _type: String @proxy(from: "@type")
+  author: STRAPI__COMPONENT_SHARED_SEO_STRUCTUREDDATA_JSONNODEAuthor
+  _context: String @proxy(from: "@context")
+  prepTime: String
+  description: String
+  datePublished: Date @dateformat
+}
+
+type STRAPI__COMPONENT_SHARED_SEO_STRUCTUREDDATA_JSONNODEAuthor {
+  name: String
+  _type: String @proxy(from: "@type")
+}
+
 type STRAPI__COMPONENT_SHARED_SEO implements Node @dontInfer {
   metaTitle: String
   metaDescription: String
-  strapi_id: Int
+  keywords: String
+  metaRobots: String
+  metaViewport: String
+  canonicalURL: String
+  structuredData: STRAPI__COMPONENT_SHARED_SEO_STRUCTUREDDATA_JSONNODE @link(by: "id", from: "structuredData___NODE")
   metaImage: STRAPI__MEDIA @link(by: "id", from: "metaImage___NODE")
   metaSocial: [STRAPI__COMPONENT_SHARED_META_SOCIAL] @link(by: "id", from: "metaSocial___NODE")
+  strapi_id: Int
 }
 
 type STRAPI__COMPONENT_SHARED_META_SOCIAL implements Node @dontInfer {
@@ -851,19 +848,19 @@ type STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT_BODY_TEXTNODE implements Node @d
 type STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT implements Node @derivedTypes @dontInfer {
   strapi_component: String
   title: String
-  body: STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXTBody
   ctaText: String
+  link: String
   eyelet: String
   youtubeVideo: String
   caption: String
   visualWidth: String
   reverseOrder: Boolean
+  backgroundColor: String
+  body: STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXTBody
   reveal: Boolean
-  link: String
   backgroundAnimation: STRAPI__COMPONENT_BLOCK_CONTEXT_BACKGROUND_ANIMATION @link(by: "id", from: "backgroundAnimation___NODE")
   image: STRAPI__MEDIA @link(by: "id", from: "image___NODE")
   strapi_id: Int
-  blockConf: STRAPI__COMPONENT_BLOCK_CONTEXT_BLOCK_CONF @link(by: "id", from: "blockConf___NODE")
 }
 
 type STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXTBody {
@@ -877,17 +874,18 @@ type STRAPI__COMPONENT_BLOCK_CONTEXT_BACKGROUND_ANIMATION implements Node @dontI
   strapi_id: Int
 }
 
-type STRAPI__COMPONENT_BLOCK_CONTEXT_BLOCK_CONF implements Node @dontInfer {
-  BlockWidth: String
-  BlockPosition: String
-  strapi_id: Int
-}
-
 type STRAPI__COMPONENT_SHARED_BLOCK_VISUAL implements Node @dontInfer {
   strapi_component: String
   template: String
+  blockConf: STRAPI__COMPONENT_BLOCK_CONTEXT_BLOCK_CONF @link(by: "id", from: "blockConf___NODE")
   backgroundAnimation: STRAPI__COMPONENT_BLOCK_CONTEXT_BACKGROUND_ANIMATION @link(by: "id", from: "backgroundAnimation___NODE")
   image: STRAPI__MEDIA @link(by: "id", from: "image___NODE")
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_BLOCK_CONTEXT_BLOCK_CONF implements Node @dontInfer {
+  BlockWidth: String
+  BlockPosition: String
   strapi_id: Int
 }
 
@@ -895,8 +893,47 @@ type STRAPI__COMPONENT_SHARED_BLOCK_UNIVERSITY_ACCORDION implements Node @dontIn
   strapi_component: String
   title: String
   pagination: Boolean
+  blockConf: STRAPI__COMPONENT_BLOCK_CONTEXT_BLOCK_CONF @link(by: "id", from: "blockConf___NODE")
   strapi_id: Int
 }
+
+type STRAPI__COMPONENT_SHARED_BLOCK_TEXT_VIDEO_OPTION_BODY_TEXTNODE implements Node @dontInfer {
+  body: String
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_TEXT_VIDEO_OPTION implements Node @derivedTypes @dontInfer {
+  strapi_component: String
+  title: String
+  eyelet: String
+  isCentered: Boolean
+  body: STRAPI__COMPONENT_SHARED_BLOCK_TEXT_VIDEO_OPTIONBody
+  link: String
+  video: String
+  ctaText: String
+  videoImage: STRAPI__MEDIA @link(by: "id", from: "videoImage___NODE")
+  ctaLink: STRAPI_PAGE @link(by: "id", from: "ctaLink___NODE")
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_TEXT_VIDEO_OPTIONBody {
+  data: STRAPI__COMPONENT_SHARED_BLOCK_TEXT_VIDEO_OPTION_BODY_TEXTNODE @link(by: "id", from: "data___NODE")
+}
+
+type STRAPI_PAGE implements Node @dontInfer {
+  title: String
+  slug: String
+  createdAt: Date @dateformat
+  updatedAt: Date @dateformat
+  publishedAt: Date @dateformat
+  locale: String
+  url_path: String
+  featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
+  blocks: [STRAPI__COMPONENT_SHARED_BLOCK_ACCORDIONSTRAPI__COMPONENT_SHARED_BLOCK_ATTACHMENTS_GRIDSTRAPI__COMPONENT_SHARED_BLOCK_CONTACTS_LISTSTRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LISTSTRAPI__COMPONENT_SHARED_BLOCK_CTA_BANNERSTRAPI__COMPONENT_SHARED_BLOCK_CTA_GRIDSTRAPI__COMPONENT_SHARED_BLOCK_HERO_SLIDERSTRAPI__COMPONENT_SHARED_BLOCK_INTROSTRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTINGSTRAPI__COMPONENT_SHARED_BLOCK_LIST_ATTACHMENTSSTRAPI__COMPONENT_SHARED_BLOCK_LOGO_LINKSSTRAPI__COMPONENT_SHARED_BLOCK_MAP_BOXSTRAPI__COMPONENT_SHARED_BLOCK_MEDIA_HIGHLIGHTSSTRAPI__COMPONENT_SHARED_BLOCK_NEWSLETTERSTRAPI__COMPONENT_SHARED_BLOCK_NEWS_AND_EVENTSSTRAPI__COMPONENT_SHARED_BLOCK_PRESS_RELEASESTRAPI__COMPONENT_SHARED_BLOCK_PROJECTS_CAROUSELSTRAPI__COMPONENT_SHARED_BLOCK_TEXT_VIDEO_OPTIONSTRAPI__COMPONENT_SHARED_BLOCK_UNIVERSITY_ACCORDIONSTRAPI__COMPONENT_SHARED_BLOCK_VISUALSTRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXTUnion] @link(by: "id", from: "blocks___NODE")
+  seo: STRAPI__COMPONENT_SHARED_SEO @link(by: "id", from: "seo___NODE")
+  strapi_id: Int
+}
+
+union STRAPI__COMPONENT_SHARED_BLOCK_ACCORDIONSTRAPI__COMPONENT_SHARED_BLOCK_ATTACHMENTS_GRIDSTRAPI__COMPONENT_SHARED_BLOCK_CONTACTS_LISTSTRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LISTSTRAPI__COMPONENT_SHARED_BLOCK_CTA_BANNERSTRAPI__COMPONENT_SHARED_BLOCK_CTA_GRIDSTRAPI__COMPONENT_SHARED_BLOCK_HERO_SLIDERSTRAPI__COMPONENT_SHARED_BLOCK_INTROSTRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTINGSTRAPI__COMPONENT_SHARED_BLOCK_LIST_ATTACHMENTSSTRAPI__COMPONENT_SHARED_BLOCK_LOGO_LINKSSTRAPI__COMPONENT_SHARED_BLOCK_MAP_BOXSTRAPI__COMPONENT_SHARED_BLOCK_MEDIA_HIGHLIGHTSSTRAPI__COMPONENT_SHARED_BLOCK_NEWSLETTERSTRAPI__COMPONENT_SHARED_BLOCK_NEWS_AND_EVENTSSTRAPI__COMPONENT_SHARED_BLOCK_PRESS_RELEASESTRAPI__COMPONENT_SHARED_BLOCK_PROJECTS_CAROUSELSTRAPI__COMPONENT_SHARED_BLOCK_TEXT_VIDEO_OPTIONSTRAPI__COMPONENT_SHARED_BLOCK_UNIVERSITY_ACCORDIONSTRAPI__COMPONENT_SHARED_BLOCK_VISUALSTRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXTUnion = STRAPI__COMPONENT_SHARED_BLOCK_ACCORDION | STRAPI__COMPONENT_SHARED_BLOCK_ATTACHMENTS_GRID | STRAPI__COMPONENT_SHARED_BLOCK_CONTACTS_LIST | STRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LIST | STRAPI__COMPONENT_SHARED_BLOCK_CTA_BANNER | STRAPI__COMPONENT_SHARED_BLOCK_CTA_GRID | STRAPI__COMPONENT_SHARED_BLOCK_HERO_SLIDER | STRAPI__COMPONENT_SHARED_BLOCK_INTRO | STRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTING | STRAPI__COMPONENT_SHARED_BLOCK_LIST_ATTACHMENTS | STRAPI__COMPONENT_SHARED_BLOCK_LOGO_LINKS | STRAPI__COMPONENT_SHARED_BLOCK_MAP_BOX | STRAPI__COMPONENT_SHARED_BLOCK_MEDIA_HIGHLIGHTS | STRAPI__COMPONENT_SHARED_BLOCK_NEWSLETTER | STRAPI__COMPONENT_SHARED_BLOCK_NEWS_AND_EVENTS | STRAPI__COMPONENT_SHARED_BLOCK_PRESS_RELEASE | STRAPI__COMPONENT_SHARED_BLOCK_PROJECTS_CAROUSEL | STRAPI__COMPONENT_SHARED_BLOCK_TEXT_VIDEO_OPTION | STRAPI__COMPONENT_SHARED_BLOCK_UNIVERSITY_ACCORDION | STRAPI__COMPONENT_SHARED_BLOCK_VISUAL | STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT
 
 type STRAPI__COMPONENT_SHARED_BLOCK_PROJECTS_CAROUSEL implements Node @dontInfer {
   strapi_component: String
@@ -915,27 +952,25 @@ type STRAPI_PROJECT implements Node @dontInfer {
   createdAt: Date @dateformat
   updatedAt: Date @dateformat
   publishedAt: Date @dateformat
-  url_path_id: String
   locale: String
-  url_path: String
   featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
   carouselImage: STRAPI__MEDIA @link(by: "id", from: "carouselImage___NODE")
-  blocks: [STRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LISTSTRAPI__COMPONENT_SHARED_BLOCK_INTROSTRAPI__COMPONENT_SHARED_BLOCK_LIST_ATTACHMENTSSTRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXTUnion] @link(by: "id", from: "blocks___NODE")
+  blocks: [STRAPI__COMPONENT_SHARED_BLOCK_VISUAL] @link(by: "id", from: "blocks___NODE")
   seo: STRAPI__COMPONENT_SHARED_SEO @link(by: "id", from: "seo___NODE")
   strapi_id: Int
 }
 
-union STRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LISTSTRAPI__COMPONENT_SHARED_BLOCK_INTROSTRAPI__COMPONENT_SHARED_BLOCK_LIST_ATTACHMENTSSTRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXTUnion = STRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LIST | STRAPI__COMPONENT_SHARED_BLOCK_INTRO | STRAPI__COMPONENT_SHARED_BLOCK_LIST_ATTACHMENTS | STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT
-
 type STRAPI__COMPONENT_SHARED_BLOCK_PRESS_RELEASE implements Node @dontInfer {
   strapi_component: String
   title: String
+  link: String
   strapi_id: Int
 }
 
 type STRAPI__COMPONENT_SHARED_BLOCK_NEWS_AND_EVENTS implements Node @dontInfer {
   strapi_component: String
   title: String
+  link: String
   strapi_id: Int
 }
 
@@ -945,9 +980,39 @@ type STRAPI__COMPONENT_SHARED_BLOCK_NEWSLETTER implements Node @dontInfer {
   strapi_id: Int
 }
 
+type STRAPI__COMPONENT_SHARED_BLOCK_MEDIA_HIGHLIGHTS implements Node @dontInfer {
+  strapi_component: String
+  title: String
+  posts: [STRAPI_POST] @link(by: "id", from: "posts___NODE")
+  strapi_id: Int
+}
+
+type STRAPI_POST implements Node @derivedTypes @dontInfer {
+  title: String
+  eyelet: String
+  body: STRAPI_POSTBody
+  bannerNewsletter: Boolean
+  slug: String
+  createdAt: Date @dateformat
+  updatedAt: Date @dateformat
+  publishedAt: Date @dateformat
+  locale: String
+  featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
+  eyeletCTA: STRAPI_PAGE @link(by: "id", from: "eyeletCTA___NODE")
+  seo: STRAPI__COMPONENT_SHARED_SEO @link(by: "id", from: "seo___NODE")
+  strapi_id: Int
+}
+
+type STRAPI_POSTBody {
+  data: STRAPI_POST_BODY_TEXTNODE @link(by: "id", from: "data___NODE")
+}
+
+type STRAPI_POST_BODY_TEXTNODE implements Node @dontInfer {
+  body: String
+}
+
 type STRAPI__COMPONENT_SHARED_BLOCK_MAP_BOX implements Node @dontInfer {
   strapi_component: String
-  image: STRAPI__MEDIA @link(by: "id", from: "image___NODE")
   mapBoxItems: [STRAPI__COMPONENT_BLOCK_CONTEXT_TITLE_TEXT_LINK] @link(by: "id", from: "mapBoxItems___NODE")
   strapi_id: Int
 }
@@ -995,8 +1060,9 @@ type STRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTING_BODY_TEXTNODE implements Node @
 type STRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTING implements Node @derivedTypes @dontInfer {
   strapi_component: String
   title: String
+  eyelet: String
   body: STRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTINGBody
-  commons: [STRAPI__COMPONENT_BLOCK_CONTEXT_JOBS_LIST_COMMONS] @link(by: "id", from: "commons___NODE")
+  links: [STRAPI__COMPONENT_BLOCK_CONTEXT_LINK_ATTACHMENT] @link(by: "id", from: "links___NODE")
   strapi_id: Int
 }
 
@@ -1004,24 +1070,20 @@ type STRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTINGBody {
   data: STRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTING_BODY_TEXTNODE @link(by: "id", from: "data___NODE")
 }
 
-type STRAPI__COMPONENT_BLOCK_CONTEXT_JOBS_LIST_COMMONS implements Node @dontInfer {
-  strapi_id: Int
-}
-
 type STRAPI__COMPONENT_SHARED_BLOCK_INTRO_BODY_TEXTNODE implements Node @dontInfer {
   body: String
 }
 
 type STRAPI__COMPONENT_SHARED_BLOCK_INTRO implements Node @derivedTypes @dontInfer {
+  strapi_component: String
   title: String
   eyelet: String
-  body: STRAPI__COMPONENT_SHARED_BLOCK_INTROBody
   useFeaturedImage: Boolean
   isEventLanding: Boolean
-  strapi_id: Int
-  strapi_component: String
-  introMenu: [STRAPI__COMPONENT_BLOCK_CONTEXT_TITLE_TEXT_LINK] @link(by: "id", from: "introMenu___NODE")
+  body: STRAPI__COMPONENT_SHARED_BLOCK_INTROBody
   image: STRAPI__MEDIA @link(by: "id", from: "image___NODE")
+  introMenu: [STRAPI__COMPONENT_BLOCK_CONTEXT_TITLE_TEXT_LINK] @link(by: "id", from: "introMenu___NODE")
+  strapi_id: Int
 }
 
 type STRAPI__COMPONENT_SHARED_BLOCK_INTROBody {
@@ -1053,6 +1115,7 @@ type STRAPI__COMPONENT_BLOCK_CONTEXT_CONTENT_ITEMS_BODY_TEXTNODE implements Node
 
 type STRAPI__COMPONENT_SHARED_BLOCK_CTA_GRID implements Node @dontInfer {
   strapi_component: String
+  blockConf: STRAPI__COMPONENT_BLOCK_CONTEXT_BLOCK_CONF @link(by: "id", from: "blockConf___NODE")
   ctaGridItems: [STRAPI__COMPONENT_BLOCK_CONTEXT_TITLE_TEXT_LINK] @link(by: "id", from: "ctaGridItems___NODE")
   strapi_id: Int
 }
@@ -1069,9 +1132,9 @@ type STRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LIST implements Node @dontInfer {
   strapi_component: String
   title: String
   template: String
+  background: STRAPI__MEDIA @link(by: "id", from: "background___NODE")
   contentsItems: [STRAPI__COMPONENT_BLOCK_CONTEXT_CONTENT_ITEMS] @link(by: "id", from: "contentsItems___NODE")
   strapi_id: Int
-  blockConf: STRAPI__COMPONENT_BLOCK_CONTEXT_BLOCK_CONF @link(by: "id", from: "blockConf___NODE")
 }
 
 type STRAPI__COMPONENT_SHARED_BLOCK_CONTACTS_LIST implements Node @dontInfer {
@@ -1098,6 +1161,7 @@ type STRAPI__COMPONENT_SHARED_BLOCK_ATTACHMENTS_GRID implements Node @dontInfer 
 
 type STRAPI__COMPONENT_BLOCK_CONTEXT_ICON_ATTACHMENT_BUTTON implements Node @dontInfer {
   buttonLabel: String
+  icon: STRAPI__MEDIA @link(by: "id", from: "icon___NODE")
   attachment: STRAPI__MEDIA @link(by: "id", from: "attachment___NODE")
   strapi_id: Int
 }
@@ -1107,12 +1171,14 @@ type STRAPI__COMPONENT_SHARED_BLOCK_ACCORDION implements Node @dontInfer {
   title: String
   accordionItems: [STRAPI__COMPONENT_BLOCK_CONTEXT_ACCORDION_ITEM] @link(by: "id", from: "accordionItems___NODE")
   blockConf: STRAPI__COMPONENT_BLOCK_CONTEXT_BLOCK_CONF @link(by: "id", from: "blockConf___NODE")
+  backgroundAnimation: STRAPI__COMPONENT_BLOCK_CONTEXT_BACKGROUND_ANIMATION @link(by: "id", from: "backgroundAnimation___NODE")
   strapi_id: Int
 }
 
 type STRAPI__COMPONENT_BLOCK_CONTEXT_ACCORDION_ITEM implements Node @derivedTypes @dontInfer {
   heading: String
   content: STRAPI__COMPONENT_BLOCK_CONTEXT_ACCORDION_ITEMContent
+  attachments: [STRAPI__MEDIA] @link(by: "id", from: "attachments___NODE")
   strapi_id: Int
 }
 
@@ -1138,11 +1204,9 @@ type STRAPI_UNIVERSITY_COLLABORATION implements Node @derivedTypes @dontInfer {
   createdAt: Date @dateformat
   updatedAt: Date @dateformat
   publishedAt: Date @dateformat
-  url_path_id: String
   locale: String
-  url_path: String
-  strapi_id: Int
   seo: STRAPI__COMPONENT_SHARED_SEO @link(by: "id", from: "seo___NODE")
+  strapi_id: Int
 }
 
 type STRAPI_UNIVERSITY_COLLABORATIONBody {
@@ -1157,63 +1221,20 @@ type STRAPI_PRESS_RELEASE implements Node @derivedTypes @dontInfer {
   title: String
   bannerNewsletter: Boolean
   slug: String
+  body: STRAPI_PRESS_RELEASEBody
+  eyelet: String
   createdAt: Date @dateformat
   updatedAt: Date @dateformat
   publishedAt: Date @dateformat
-  url_path_id: String
   locale: String
-  body: STRAPI_PRESS_RELEASEBody
-  eyelet: String
-  url_path: String
-  strapi_id: Int
+  featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
   seo: STRAPI__COMPONENT_SHARED_SEO @link(by: "id", from: "seo___NODE")
+  strapi_id: Int
 }
 
 type STRAPI_PRESS_RELEASEBody {
   data: STRAPI_PRESS_RELEASE_BODY_TEXTNODE @link(by: "id", from: "data___NODE")
 }
-
-type STRAPI_POST_BODY_TEXTNODE implements Node @dontInfer {
-  body: String
-}
-
-type STRAPI_POST implements Node @derivedTypes @dontInfer {
-  title: String
-  eyelet: String
-  body: STRAPI_POSTBody
-  bannerNewsletter: Boolean
-  slug: String
-  createdAt: Date @dateformat
-  updatedAt: Date @dateformat
-  publishedAt: Date @dateformat
-  url_path_id: String
-  locale: String
-  url_path: String
-  featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
-  seo: STRAPI__COMPONENT_SHARED_SEO @link(by: "id", from: "seo___NODE")
-  strapi_id: Int
-}
-
-type STRAPI_POSTBody {
-  data: STRAPI_POST_BODY_TEXTNODE @link(by: "id", from: "data___NODE")
-}
-
-type STRAPI_PAGE implements Node @dontInfer {
-  title: String
-  slug: String
-  createdAt: Date @dateformat
-  updatedAt: Date @dateformat
-  publishedAt: Date @dateformat
-  url_path_id: String
-  locale: String
-  url_path: String
-  blocks: [STRAPI__COMPONENT_SHARED_BLOCK_ACCORDIONSTRAPI__COMPONENT_SHARED_BLOCK_ATTACHMENTS_GRIDSTRAPI__COMPONENT_SHARED_BLOCK_CONTACTS_LISTSTRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LISTSTRAPI__COMPONENT_SHARED_BLOCK_CTA_BANNERSTRAPI__COMPONENT_SHARED_BLOCK_CTA_GRIDSTRAPI__COMPONENT_SHARED_BLOCK_HERO_SLIDERSTRAPI__COMPONENT_SHARED_BLOCK_INTROSTRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTINGSTRAPI__COMPONENT_SHARED_BLOCK_LOGO_LINKSSTRAPI__COMPONENT_SHARED_BLOCK_MAP_BOXSTRAPI__COMPONENT_SHARED_BLOCK_NEWSLETTERSTRAPI__COMPONENT_SHARED_BLOCK_NEWS_AND_EVENTSSTRAPI__COMPONENT_SHARED_BLOCK_PRESS_RELEASESTRAPI__COMPONENT_SHARED_BLOCK_PROJECTS_CAROUSELSTRAPI__COMPONENT_SHARED_BLOCK_UNIVERSITY_ACCORDIONSTRAPI__COMPONENT_SHARED_BLOCK_VISUALSTRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXTUnion] @link(by: "id", from: "blocks___NODE")
-  strapi_id: Int
-  seo: STRAPI__COMPONENT_SHARED_SEO @link(by: "id", from: "seo___NODE")
-  featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
-}
-
-union STRAPI__COMPONENT_SHARED_BLOCK_ACCORDIONSTRAPI__COMPONENT_SHARED_BLOCK_ATTACHMENTS_GRIDSTRAPI__COMPONENT_SHARED_BLOCK_CONTACTS_LISTSTRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LISTSTRAPI__COMPONENT_SHARED_BLOCK_CTA_BANNERSTRAPI__COMPONENT_SHARED_BLOCK_CTA_GRIDSTRAPI__COMPONENT_SHARED_BLOCK_HERO_SLIDERSTRAPI__COMPONENT_SHARED_BLOCK_INTROSTRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTINGSTRAPI__COMPONENT_SHARED_BLOCK_LOGO_LINKSSTRAPI__COMPONENT_SHARED_BLOCK_MAP_BOXSTRAPI__COMPONENT_SHARED_BLOCK_NEWSLETTERSTRAPI__COMPONENT_SHARED_BLOCK_NEWS_AND_EVENTSSTRAPI__COMPONENT_SHARED_BLOCK_PRESS_RELEASESTRAPI__COMPONENT_SHARED_BLOCK_PROJECTS_CAROUSELSTRAPI__COMPONENT_SHARED_BLOCK_UNIVERSITY_ACCORDIONSTRAPI__COMPONENT_SHARED_BLOCK_VISUALSTRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXTUnion = STRAPI__COMPONENT_SHARED_BLOCK_ACCORDION | STRAPI__COMPONENT_SHARED_BLOCK_ATTACHMENTS_GRID | STRAPI__COMPONENT_SHARED_BLOCK_CONTACTS_LIST | STRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LIST | STRAPI__COMPONENT_SHARED_BLOCK_CTA_BANNER | STRAPI__COMPONENT_SHARED_BLOCK_CTA_GRID | STRAPI__COMPONENT_SHARED_BLOCK_HERO_SLIDER | STRAPI__COMPONENT_SHARED_BLOCK_INTRO | STRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTING | STRAPI__COMPONENT_SHARED_BLOCK_LOGO_LINKS | STRAPI__COMPONENT_SHARED_BLOCK_MAP_BOX | STRAPI__COMPONENT_SHARED_BLOCK_NEWSLETTER | STRAPI__COMPONENT_SHARED_BLOCK_NEWS_AND_EVENTS | STRAPI__COMPONENT_SHARED_BLOCK_PRESS_RELEASE | STRAPI__COMPONENT_SHARED_BLOCK_PROJECTS_CAROUSEL | STRAPI__COMPONENT_SHARED_BLOCK_UNIVERSITY_ACCORDION | STRAPI__COMPONENT_SHARED_BLOCK_VISUAL | STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT
 
 type STRAPI_NEWSLETTER_BODY_TEXTNODE implements Node @dontInfer {
   body: String
@@ -1223,14 +1244,13 @@ type STRAPI_NEWSLETTER implements Node @derivedTypes @dontInfer {
   title: String
   eyelet: String
   bannerNewsletter: Boolean
-  body: STRAPI_NEWSLETTERBody
   slug: String
+  body: STRAPI_NEWSLETTERBody
   createdAt: Date @dateformat
   updatedAt: Date @dateformat
   publishedAt: Date @dateformat
-  url_path_id: String
   locale: String
-  url_path: String
+  eyeletCTA: STRAPI_PAGE @link(by: "id", from: "eyeletCTA___NODE")
   featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
   seo: STRAPI__COMPONENT_SHARED_SEO @link(by: "id", from: "seo___NODE")
   strapi_id: Int
@@ -1240,8 +1260,9 @@ type STRAPI_NEWSLETTERBody {
   data: STRAPI_NEWSLETTER_BODY_TEXTNODE @link(by: "id", from: "data___NODE")
 }
 
-type STRAPI_JOBPOSITION implements Node @derivedTypes @dontInfer {
+type STRAPI_JOBPOSITION implements Node @dontInfer {
   title: String
+  eyelet: String
   isNew: Boolean
   openDate: Date @dateformat
   closeDate: Date @dateformat
@@ -1254,44 +1275,11 @@ type STRAPI_JOBPOSITION implements Node @derivedTypes @dontInfer {
   createdAt: Date @dateformat
   updatedAt: Date @dateformat
   publishedAt: Date @dateformat
-  url_path_id: String
   locale: String
-  eyelet: String
-  localizations: STRAPI_JOBPOSITIONLocalizations
-  url_path: String
-  blocks: [STRAPI__COMPONENT_SHARED_BLOCK_INTRO] @link(by: "id", from: "blocks___NODE")
-  strapi_id: Int
   featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
+  blocks: [STRAPI__COMPONENT_SHARED_BLOCK_INTRO] @link(by: "id", from: "blocks___NODE")
   seo: STRAPI__COMPONENT_SHARED_SEO @link(by: "id", from: "seo___NODE")
-}
-
-type STRAPI_JOBPOSITIONLocalizations @derivedTypes {
-  data: [STRAPI_JOBPOSITIONLocalizationsData]
-}
-
-type STRAPI_JOBPOSITIONLocalizationsData @derivedTypes {
-  id: Int
-  attributes: STRAPI_JOBPOSITIONLocalizationsDataAttributes
-}
-
-type STRAPI_JOBPOSITIONLocalizationsDataAttributes {
-  title: String
-  isNew: Boolean
-  openDate: Date @dateformat
-  closeDate: Date @dateformat
-  openPositions: String
-  hiredPositions: String
-  selectedPeople: String
-  embedIdentifier: String
-  applicationLink: String
-  slug: String
-  createdAt: Date @dateformat
-  updatedAt: Date @dateformat
-  publishedAt: Date @dateformat
-  url_path_id: String
-  locale: String
-  eyelet: String
-  url_path: String
+  strapi_id: Int
 }
 
 type STRAPI_EVENT_BODY_TEXTNODE implements Node @dontInfer {
@@ -1307,14 +1295,14 @@ type STRAPI_EVENT implements Node @derivedTypes @dontInfer {
   startTime: String
   endTime: String
   slug: String
+  eventVenue: String
   createdAt: Date @dateformat
   updatedAt: Date @dateformat
   publishedAt: Date @dateformat
-  url_path_id: String
   locale: String
-  eventVenue: String
-  url_path: String
   featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
+  post: STRAPI_POST @link(by: "id", from: "post___NODE")
+  eyeletCTA: STRAPI_PAGE @link(by: "id", from: "eyeletCTA___NODE")
   seo: STRAPI__COMPONENT_SHARED_SEO @link(by: "id", from: "seo___NODE")
   strapi_id: Int
 }
@@ -1330,9 +1318,7 @@ type STRAPI_CT_ALIAS implements Node @dontInfer {
   createdAt: Date @dateformat
   updatedAt: Date @dateformat
   publishedAt: Date @dateformat
-  url_path_id: String
   locale: String
-  url_path: String
   strapi_id: Int
 }
 

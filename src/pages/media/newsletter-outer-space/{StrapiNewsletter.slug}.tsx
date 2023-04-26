@@ -21,7 +21,6 @@ export const query = graphql`
     strapiNewsletter(id: { eq: $id }) {
       id
       slug
-      url_path
       publishedAt
       bannerNewsletter
       ...NewsletterIntro

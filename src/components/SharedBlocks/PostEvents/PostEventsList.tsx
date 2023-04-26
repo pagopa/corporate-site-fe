@@ -14,7 +14,6 @@ export const PostEventsList = () => {
       locale
       title
       updatedAt
-      url_path
       body {
         data {
           body
@@ -34,7 +33,6 @@ export const PostEventsList = () => {
       startDate
       startTime
       endTime
-      url_path
       body {
         data {
           body

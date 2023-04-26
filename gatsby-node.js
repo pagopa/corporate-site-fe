@@ -26,3 +26,17 @@ exports.createSchemaCustomization = ({ actions }) => {
   `;
   createTypes(typeDefs);
 };
+
+exports.createResolvers = ({ createResolvers }) => {
+  createResolvers({
+    STRAPI_PAGE: {
+      permalink: {
+        type: 'String',
+        resolve: async ({ slug, url_path }) => {
+          const permalink = url_path ? `${url_path}${slug}` : `/${slug}`;
+          return permalink;
+        },
+      },
+    },
+  });
+};

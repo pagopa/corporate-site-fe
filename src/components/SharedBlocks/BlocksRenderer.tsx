@@ -215,7 +215,6 @@ export const query = graphql`
       title
       projects {
         carouselTitle
-        url_path
         carouselImage {
           ...Image
         }

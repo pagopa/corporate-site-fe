@@ -15,7 +15,6 @@ export const query = graphql`
       id
       slug
       bannerNewsletter
-      url_path
       publishedAt
       ...PressReleaseIntro
       body {
