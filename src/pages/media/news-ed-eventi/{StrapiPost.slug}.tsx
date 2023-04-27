@@ -97,7 +97,7 @@ export default function Component({
 
     return (
       <Layout>
-        <SEO meta={strapiPost?.seo} />;
+        <SEO meta={strapiPost?.seo} title={strapiPost.title} featuredImage={strapiPost.featuredImage} />;
         <article className="post-article">
           <Intro eyelet={eyelet} title={title} />
 

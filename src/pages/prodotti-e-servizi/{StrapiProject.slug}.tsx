@@ -12,6 +12,9 @@ export const query = graphql`
       blocks {
         ...Blocks
       }
+      featuredImage {
+        ...Image
+      }
       seo {
         metaImage {
           localFile {
@@ -38,7 +41,7 @@ export default function Component({
   if (title && slug) {
     return (
       <Layout>
-        <SEO meta={strapiProject?.seo} />
+        <SEO meta={strapiProject?.seo} title={strapiProject.title} featuredImage={strapiProject.featuredImage}/>
         <BlocksRenderer blocks={blocks as Queries.BlocksFragment[]} />
         {/* {bannerNewsletter && <NewsletterBanner />} */}
       </Layout>
