@@ -17,10 +17,11 @@ export type SEOProps = {
       readonly socialNetwork: string | null;
     } | null> | null;
   };
-  title: string;
+  title?: string;
+  featuredImage?: Queries.ImageFragment;
 };
 
-export const SEO = ({ meta, title }: SEOProps) => {
+export const SEO = ({ meta, title, featuredImage }: SEOProps) => {
   const { language } = useI18next();
   const { siteMetadata } = useSiteMetadata() || {};
 
@@ -30,7 +31,7 @@ export const SEO = ({ meta, title }: SEOProps) => {
     metaSocial: !!meta?.metaSocial?.length? meta.metaSocial : siteMetadata?.metaSocial || [],
     metaImage: meta?.metaImage
       ? `${process.env.API_URL}${meta?.metaImage?.localFile?.publicURL}`
-      : '',
+      : `${process.env.STRAPI_API_URL}${featuredImage?.url}`
   };
 
   return (
