@@ -17,6 +17,9 @@ export const query = graphql`
       bannerNewsletter
       publishedAt
       ...PressReleaseIntro
+      featuredImage {
+        ...Image
+      }
       body {
         data {
           id
@@ -82,7 +85,7 @@ export default function Component({
 
     return (
       <Layout>
-        <SEO meta={strapiPressRelease?.seo} />;
+        <SEO meta={strapiPressRelease?.seo} title={strapiPressRelease.title} featuredImage={strapiPressRelease.featuredImage} />;
         <article className="post-article">
           <Intro eyelet={eyelet} title={title} />
 

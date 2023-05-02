@@ -99,7 +99,7 @@ export default function Component({
 
     return (
       <Layout>
-        <SEO meta={strapiNewsletter?.seo} />;
+        <SEO meta={strapiNewsletter?.seo} title={strapiNewsletter.title} featuredImage={strapiNewsletter.featuredImage} />;
         <article className="post-article">
           <Intro eyelet={eyelet} title={title} />
 

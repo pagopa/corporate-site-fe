@@ -8,6 +8,9 @@ export const query = graphql`
   query StrapiJobposition($id: String) {
     strapiJobposition(id: { eq: $id }) {
       ...JobPage
+      featuredImage {
+        ...Image
+      }
       seo {
         metaImage {
           localFile {
@@ -31,7 +34,7 @@ export default function Component({
 }: PageProps<Queries.StrapiJobpositionQuery>) {
   return (
     <Layout>
-      <SEO meta={strapiJobposition?.seo} />;
+        <SEO meta={strapiJobposition?.seo} title={strapiJobposition.title} featuredImage={strapiJobposition.featuredImage} />;
       <JobPage data={strapiJobposition as Queries.JobPageFragment} />
     </Layout>
   );

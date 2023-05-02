@@ -17,21 +17,23 @@ export type SEOProps = {
       readonly socialNetwork: string | null;
     } | null> | null;
   };
+  title?: string;
+  featuredImage?: Queries.ImageFragment;
 };
 
-export const SEO = ({ meta }: SEOProps) => {
+export const SEO = ({ meta, title, featuredImage }: SEOProps) => {
+  const { language } = useI18next();
   const { siteMetadata } = useSiteMetadata() || {};
 
   const seo = {
-    title: meta?.metaTitle || siteMetadata?.metaTitle || '',
+    title: meta?.metaTitle || `${title? title + ' - ' : ''}${siteMetadata?.metaTitle}` || siteMetadata?.title || '',
     description: meta?.metaDescription || siteMetadata?.metaDescription || '',
-    twitter: meta?.metaSocial?.find(social => social?.title === 'twitter'),
+    metaSocial: !!meta?.metaSocial?.length? meta.metaSocial : siteMetadata?.metaSocial || [],
     metaImage: meta?.metaImage
       ? `${process.env.API_URL}${meta?.metaImage?.localFile?.publicURL}`
-      : '',
+      : `${process.env.STRAPI_API_URL}${featuredImage?.url}`
   };
 
-  const { language } = useI18next();
   return (
     <>
       <Helmet
@@ -68,18 +70,20 @@ export const SEO = ({ meta }: SEOProps) => {
             property: `og:type`,
             content: `website`,
           },
+          ...seo?.metaSocial?.map((social) => ([
           {
-            name: `twitter:card`,
+            name: `${social.socialNetwork}:card`,
             content: `summary`,
           },
           {
-            name: `twitter:title`,
-            content: seo?.twitter?.title || '',
+            name: `${social.socialNetwork}:title`,
+            content: social?.title || '',
           },
           {
-            name: `twitter:description`,
-            content: seo?.twitter?.description || '',
+            name: `${social.socialNetwork}:description`,
+            content: social?.description|| '',
           },
+          ])).flat()
         ]}
       />
 

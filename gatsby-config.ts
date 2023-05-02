@@ -5,14 +5,16 @@ dotenv.config({ path: __dirname + `/.env.${process.env.NODE_ENV}` });
 
 const config: GatsbyConfig = {
   siteMetadata: {
-    metaTitle: `PagoPA`,
+    metaTitle: `PagoPA S.p.A.`,
     metaDescription: `PagoPA S.p.A. è una società pubblica ad alto livello specialistico, che ha la mission di diffondere i servizi pubblici digitali attraverso lo sviluppo di progetti innovativi e la gestione di infrastrutture tecnologiche strategiche per accompagnare la modernizzazione della Pubblica Amministrazione e del Paese.`,
-    metaSocial: {
-      socialNetwork: `twitter`,
-      title: `https://www.twitterdomain.tld`,
-      description: `author`,
-      image: `/site-icon.png`,
-    },
+    metaSocial: [
+      {
+        description: `author`,
+        image: `/site-icon.png`,
+        socialNetwork: `twitter`,
+        title: `https://twitter.com/PagoPA`,
+      }
+    ],
     keywords: `random-stuff`,
     metaRobots: `stuff`,
     metaViewport: `width=device-width, initial-scale=1, shrink-to-fit=no`,
@@ -142,14 +144,14 @@ const config: GatsbyConfig = {
       options: {
         apiURL: process.env.STRAPI_API_URL,
         navigation: [
-          /*{ key: 'MainMenu', id: 6, locale: 'en' },*/
-          { key: 'MainMenu', id: 2, locale: 'it' },
-          /*{ key: 'ReservedMenu', id: 8, locale: 'it' },
-          { key: 'ReservedMenu', id: 9, locale: 'en' },
-          { key: 'FooterTop', id: 10, locale: 'it' },
-          { key: 'FooterTop', id: 11, locale: 'en' },
-          { key: 'FooterBottom', id: 12, locale: 'it' },
-          { key: 'FooterBottom', id: 13, locale: 'en' },*/
+          /*{ key: 'MainMenu', id: 6, locale: 'en' },
+            { key: 'MainMenu', id: 2, locale: 'it' },
+            { key: 'ReservedMenu', id: 8, locale: 'it' },
+            { key: 'ReservedMenu', id: 9, locale: 'en' },
+            { key: 'FooterTop', id: 10, locale: 'it' },
+            { key: 'FooterTop', id: 11, locale: 'en' },
+            { key: 'FooterBottom', id: 12, locale: 'it' },
+            { key: 'FooterBottom', id: 13, locale: 'en' },*/
         ],
         type: 'TREE', // optional
         token: process.env.STRAPI_TOKEN, // optional

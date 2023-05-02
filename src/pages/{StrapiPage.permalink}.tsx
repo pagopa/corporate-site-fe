@@ -9,6 +9,9 @@ export const query = graphql`
     strapiPage(id: { eq: $id }) {
       title
       slug
+      featuredImage {
+        ...Image
+      }
       blocks {
         ...Blocks
       }
@@ -38,7 +41,11 @@ export default function Component({
   if (title && slug) {
     return (
       <Layout>
-        <SEO meta={strapiPage?.seo} />
+        <SEO
+          meta={strapiPage?.seo}
+          title={strapiPage.title}
+          featuredImage={strapiPage.featuredImage}
+        />
         <BlocksRenderer blocks={blocks as Queries.BlocksFragment[]} />
       </Layout>
     );

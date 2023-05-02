@@ -162,7 +162,7 @@ export default function Component({
 
     return (
       <Layout>
-        <SEO meta={strapiEvent?.seo} />;
+        <SEO meta={strapiEvent?.seo} title={strapiEvent.title} featuredImage={strapiEvent.featuredImage} />;
         <article className="post-article">
           <EventIntro
             {...{
