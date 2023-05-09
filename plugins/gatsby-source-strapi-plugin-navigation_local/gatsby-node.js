@@ -6,11 +6,15 @@ exports.sourceNodes = async (
   { actions: { createNode }, createNodeId, createContentDigest, reporter },
   { apiURL, token, navigation, type }
 ) => {
-  const getUrl = id =>
-    `${apiURL}/api/navigation/render/${id}${type ? `?type=${type}` : ''}`;
+  // This function returns the url to fetch the navigation from
+  const getUrl = id => {
+    const url = `${apiURL}/api/navigation/render/${id}`;
+    return type ? `${url}?type=${type}` : url;
+  };
 
+  // This function creates a node for the navigation
   const createNavigationNode = (item, locale, key) => {
-    const node = {
+    createNode({
       ...item,
       key,
       locale,
@@ -22,21 +26,23 @@ exports.sourceNodes = async (
         content: JSON.stringify(item),
         contentDigest: createContentDigest(item),
       },
-    };
-
-    createNode(node);
+    });
   };
 
   await Promise.all(
-    Object.entries(navigation)?.map(async ([key, values]) => {
-      Object.entries(values)?.map(async ([locale, idOrSlug]) => {
+    // loop over the navigation object
+    Object.entries(navigation).map(async ([key, values]) => {
+      // loop over the locales
+      Object.entries(values).map(async ([locale, idOrSlug]) => {
         try {
-          const headers = token ? { Authorization: `Bearer ${token}` } : {};
-          const url = getUrl(idOrSlug);
+          const headers = token ? { Authorization: `Bearer ${token}` } : {}; // create the headers for the fetch request
+          const url = getUrl(idOrSlug); // get the url to fetch the navigation from
           const response = await fetch(url, { headers });
+          // log the response
           const msg = `plugin-navigation_local: [${key}-${locale}] ${url} ${response.status} ${response.statusText}`;
           reporter[response.ok ? 'success' : 'warn'](msg);
           if (response.ok) {
+            // create the node for the navigation
             const [node] = await response.json();
             createNavigationNode(node, locale, key);
           }
@@ -49,3 +55,4 @@ exports.sourceNodes = async (
 
   reporter.success('Successfully sourced navigation items.');
 };
+
