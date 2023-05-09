@@ -1,60 +1,51 @@
 const fetch = require('node-fetch');
 
-function buildUrls(navigation, apiURL, type) {
-  const getUrl = id =>
-    `${apiURL}/api/navigation/render/${id}${type ? `?type=${type}` : ''}`;
-
-  return navigation.map(navigationObj => getUrl(navigationObj.id));
-}
-
-const fetchNavigationItems = async (urls, headers) => {
-  return await Promise.all(
-    urls.map(async u => {
-      const response = await fetch(u, {
-        headers: headers,
-      });
-      return await response.json();
-    })
-  );
-};
-
 const STRAPI_NODE_TYPE = `StrapiNavigation`;
 
 exports.sourceNodes = async (
   { actions: { createNode }, createNodeId, createContentDigest, reporter },
-  { apiURL, token, navigation, type, languages }
+  { apiURL, token, navigation, type }
 ) => {
-  const urls = buildUrls(navigation, apiURL, type, languages);
+  const getUrl = id =>
+    `${apiURL}/api/navigation/render/${id}${type ? `?type=${type}` : ''}`;
 
-  const headers = {};
+  const createNavigationNode = (item, locale, key) => {
+    const node = {
+      ...item,
+      key,
+      locale,
+      id: createNodeId(`${STRAPI_NODE_TYPE}-${item.id}`),
+      parent: null,
+      children: [],
+      internal: {
+        type: STRAPI_NODE_TYPE,
+        content: JSON.stringify(item),
+        contentDigest: createContentDigest(item),
+      },
+    };
 
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
-  }
+    createNode(node);
+  };
 
-  const navigationItemsArr = await fetchNavigationItems(urls, headers);
-
-  navigationItemsArr.map((navigationItems, index) =>
-    navigationItems.map(item => {
-
-      const keys = { ...navigation[index] };
-
-      const node = {
-        ...keys,
-        ...item,
-        id: createNodeId(`${STRAPI_NODE_TYPE}-${item.id.toString()}`),
-        parent: null,
-        children: [],
-        internal: {
-          type: STRAPI_NODE_TYPE,
-          content: JSON.stringify(item),
-          contentDigest: createContentDigest(item),
-        },
-      };
-
-      createNode(node);
+  await Promise.all(
+    Object.entries(navigation)?.map(async ([key, values]) => {
+      Object.entries(values)?.map(async ([locale, idOrSlug]) => {
+        try {
+          const headers = token ? { Authorization: `Bearer ${token}` } : {};
+          const url = getUrl(idOrSlug);
+          const response = await fetch(url, { headers });
+          const msg = `plugin-navigation_local: [${key}-${locale}] ${url} ${response.status} ${response.statusText}`;
+          reporter[response.ok ? 'success' : 'warn'](msg);
+          if (response.ok) {
+            const [node] = await response.json();
+            createNavigationNode(node, locale, key);
+          }
+        } catch (e) {
+          reporter.error(e);
+        }
+      });
     })
   );
 
-  reporter.success('Successfully sourced all navigation items.');
+  reporter.success('Successfully sourced navigation items.');
 };
