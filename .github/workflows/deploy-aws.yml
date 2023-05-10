@@ -21,11 +21,11 @@ on:
       environment:
         description: 'Which environment to update.'
         type: choice
-        default: 'dev'
+        default: 'development'
         required: true 
         options:
-        - dev
-        - prod
+        - development
+        - production
   # Allows external webhook trigger
   repository_dispatch:
     types:
