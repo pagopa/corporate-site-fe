@@ -1,9 +1,12 @@
-node_modules/
 .cache/
-public
-src/gatsby-types.d.ts
+.conf/*.development
+.conf/*.production
+.conf/*.staging
 .env.development
 .vim
-/test-results/
 /playwright-report/
 /playwright/.cache/
+/test-results/
+node_modules/
+public
+src/gatsby-types.d.ts

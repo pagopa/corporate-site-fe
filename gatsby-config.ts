@@ -1,7 +1,13 @@
 import type { GatsbyConfig } from 'gatsby';
 import * as dotenv from 'dotenv';
 
-dotenv.config({ path: __dirname + `/.env.${process.env.NODE_ENV}` });
+dotenv.config({
+  path: __dirname + `/.conf/navigation.${process.env.NODE_ENV}`,
+});
+dotenv.config({
+  path: __dirname + `/.env.${process.env.NODE_ENV}`,
+  override: true,
+});
 
 const config: GatsbyConfig = {
   siteMetadata: {
@@ -13,7 +19,7 @@ const config: GatsbyConfig = {
         image: `/site-icon.png`,
         socialNetwork: `twitter`,
         title: `https://twitter.com/PagoPA`,
-      }
+      },
     ],
     keywords: `random-stuff`,
     metaRobots: `stuff`,
@@ -143,16 +149,24 @@ const config: GatsbyConfig = {
       resolve: 'gatsby-source-strapi-plugin-navigation_local',
       options: {
         apiURL: process.env.STRAPI_API_URL,
-        navigation: [
-          /*{ key: 'MainMenu', id: 6, locale: 'en' },
-            { key: 'MainMenu', id: 2, locale: 'it' },
-            { key: 'ReservedMenu', id: 8, locale: 'it' },
-            { key: 'ReservedMenu', id: 9, locale: 'en' },
-            { key: 'FooterTop', id: 10, locale: 'it' },
-            { key: 'FooterTop', id: 11, locale: 'en' },
-            { key: 'FooterBottom', id: 12, locale: 'it' },
-            { key: 'FooterBottom', id: 13, locale: 'en' },*/
-        ],
+        navigation: {
+          MainMenu: {
+            it: process.env.MAIN_MENU_IT,
+            en: process.env.MAIN_MENU_EN,
+          },
+          ReservedMenu: {
+            it: process.env.RESERVED_MENU_IT,
+            en: process.env.RESERVED_MENU_EN,
+          },
+          FooterTop: {
+            it: process.env.FOOTER_TOP_IT,
+            en: process.env.FOOTER_TOP_EN,
+          },
+          FooterBottom: {
+            it: process.env.FOOTER_BOTTOM_IT,
+            en: process.env.FOOTER_BOTTOM_EN,
+          },
+        },
         type: 'TREE', // optional
         token: process.env.STRAPI_TOKEN, // optional
       },
@@ -173,7 +187,8 @@ const config: GatsbyConfig = {
       options: {
         path: `snapshot.gql`,
         withFieldTypes: true,
-        update: process.env.GATSBY_UPDATE_SCHEMA_SNAPSHOT=="false" ? false : true,
+        update:
+          process.env.GATSBY_UPDATE_SCHEMA_SNAPSHOT == 'false' ? false : true,
       },
     },
     {

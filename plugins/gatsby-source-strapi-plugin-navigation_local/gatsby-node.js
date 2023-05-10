@@ -1,60 +1,58 @@
 const fetch = require('node-fetch');
 
-function buildUrls(navigation, apiURL, type) {
-  const getUrl = id =>
-    `${apiURL}/api/navigation/render/${id}${type ? `?type=${type}` : ''}`;
-
-  return navigation.map(navigationObj => getUrl(navigationObj.id));
-}
-
-const fetchNavigationItems = async (urls, headers) => {
-  return await Promise.all(
-    urls.map(async u => {
-      const response = await fetch(u, {
-        headers: headers,
-      });
-      return await response.json();
-    })
-  );
-};
-
 const STRAPI_NODE_TYPE = `StrapiNavigation`;
 
 exports.sourceNodes = async (
   { actions: { createNode }, createNodeId, createContentDigest, reporter },
-  { apiURL, token, navigation, type, languages }
+  { apiURL, token, navigation, type }
 ) => {
-  const urls = buildUrls(navigation, apiURL, type, languages);
+  // This function returns the url to fetch the navigation from
+  const getUrl = id => {
+    const url = `${apiURL}/api/navigation/render/${id}`;
+    return type ? `${url}?type=${type}` : url;
+  };
 
-  const headers = {};
+  // This function creates a node for the navigation
+  const createNavigationNode = (item, locale, key) => {
+    createNode({
+      ...item,
+      key,
+      locale,
+      id: createNodeId(`${STRAPI_NODE_TYPE}-${item.id}`),
+      parent: null,
+      children: [],
+      internal: {
+        type: STRAPI_NODE_TYPE,
+        content: JSON.stringify(item),
+        contentDigest: createContentDigest(item),
+      },
+    });
+  };
 
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
-  }
-
-  const navigationItemsArr = await fetchNavigationItems(urls, headers);
-
-  navigationItemsArr.map((navigationItems, index) =>
-    navigationItems.map(item => {
-
-      const keys = { ...navigation[index] };
-
-      const node = {
-        ...keys,
-        ...item,
-        id: createNodeId(`${STRAPI_NODE_TYPE}-${item.id.toString()}`),
-        parent: null,
-        children: [],
-        internal: {
-          type: STRAPI_NODE_TYPE,
-          content: JSON.stringify(item),
-          contentDigest: createContentDigest(item),
-        },
-      };
-
-      createNode(node);
+  await Promise.all(
+    // loop over the navigation object
+    Object.entries(navigation).map(async ([key, values]) => {
+      // loop over the locales
+      Object.entries(values).map(async ([locale, idOrSlug]) => {
+        try {
+          const headers = token ? { Authorization: `Bearer ${token}` } : {}; // create the headers for the fetch request
+          const url = getUrl(idOrSlug); // get the url to fetch the navigation from
+          const response = await fetch(url, { headers });
+          // log the response
+          const msg = `plugin-navigation_local: [${key}-${locale}] ${url} ${response.status} ${response.statusText}`;
+          reporter[response.ok ? 'success' : 'warn'](msg);
+          if (response.ok) {
+            // create the node for the navigation
+            const [node] = await response.json();
+            createNavigationNode(node, locale, key);
+          }
+        } catch (e) {
+          reporter.error(e);
+        }
+      });
     })
   );
 
-  reporter.success('Successfully sourced all navigation items.');
+  reporter.success('Successfully sourced navigation items.');
 };
+
