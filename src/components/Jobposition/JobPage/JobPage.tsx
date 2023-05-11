@@ -5,18 +5,6 @@ import { JobIntro } from '../JobIntro';
 
 const iframeURL = 'https://pagopa.applytojob.com/apply/__JOBID__';
 
-export const JobPageFragment = graphql`
-  fragment JobPage on STRAPI_JOBPOSITION {
-    applicationLink
-    embedIdentifier
-    title
-    ...JobIntro
-    blocks {
-      ...Blocks
-    }
-  }
-`;
-
 type JobPageProps = {
   data: Queries.JobPageFragment;
 };

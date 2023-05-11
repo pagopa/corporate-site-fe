@@ -5,6 +5,24 @@ import { Layout } from '../../partials/Layout';
 import { SEO } from '../../components/SEO';
 
 export const query = graphql`
+  fragment JobIntro on STRAPI_JOBPOSITION {
+    closeDate
+    hiredPositions
+    openDate
+    openPositions
+    selectedPeople
+    title
+    eyelet
+  }
+  fragment JobPage on STRAPI_JOBPOSITION {
+    applicationLink
+    embedIdentifier
+    title
+    ...JobIntro
+    blocks {
+      ...Blocks
+    }
+  }
   query StrapiJobposition($id: String) {
     strapiJobposition(id: { eq: $id }) {
       ...JobPage
@@ -34,7 +52,12 @@ export default function Component({
 }: PageProps<Queries.StrapiJobpositionQuery>) {
   return (
     <Layout>
-      <SEO meta={strapiJobposition?.seo} title={strapiJobposition.title} featuredImage={strapiJobposition.featuredImage} />
+      <SEO
+        meta={strapiJobposition?.seo}
+        title={strapiJobposition.title}
+        featuredImage={strapiJobposition.featuredImage}
+      />
+      ;
       <JobPage data={strapiJobposition as Queries.JobPageFragment} />
     </Layout>
   );

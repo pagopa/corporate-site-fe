@@ -75,49 +75,45 @@ const Intro = ({ eyelet, title }: Queries.PressReleaseIntroFragment) => {
 export default function Component({
   data: { strapiPressRelease },
 }: PageProps<Queries.StrapiPressReleaseQuery>) {
-  const { publishedAt, eyelet, title, body } = strapiPressRelease || {};
+  const { publishedAt, eyelet, title, body, slug } = strapiPressRelease || {};
 
   const {
     i18n: { language },
   } = useTranslation();
 
-  if (publishedAt && eyelet && title && body) {
-    const dateOptions: Intl.DateTimeFormatOptions = {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    };
-    const theDate = new Date(publishedAt).toLocaleDateString(
-      language,
-      dateOptions
-    );
+  const dateOptions: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+  const theDate = new Date(publishedAt).toLocaleDateString(
+    language,
+    dateOptions
+  );
 
-    return (
-      <Layout>
-        <SEO
-          meta={strapiPressRelease?.seo}
-          title={strapiPressRelease.title}
-          featuredImage={strapiPressRelease.featuredImage}
-        />
-        ;
-        <article className="post-article">
-          <Intro eyelet={eyelet} title={title} />
+  return title && slug? (
+    <Layout>
+      <SEO
+        meta={strapiPressRelease?.seo}
+        title={strapiPressRelease.title}
+        featuredImage={strapiPressRelease.featuredImage}
+      />
+      ;
+      <article className="post-article">
+        <Intro eyelet={eyelet} title={title} />
 
-          <div className="post-article__body">
-            <div className="container-fluid">
-              <div className="row">
-                <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-                  <h4>{theDate}</h4>
-                  {body && <Body data={body} />}
-                </div>
+        <div className="post-article__body">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+                <h4>{theDate}</h4>
+                {body && <Body data={body} />}
               </div>
             </div>
           </div>
-        </article>
-        {/* {bannerNewsletter && <NewsletterBanner />} */}
-      </Layout>
-    );
-  }
-
-  return null;
+        </div>
+      </article>
+      {/* {bannerNewsletter && <NewsletterBanner />} */}
+    </Layout>
+  ) : null;
 }

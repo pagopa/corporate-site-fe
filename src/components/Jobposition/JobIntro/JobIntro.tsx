@@ -7,18 +7,6 @@ const dateFormatOptions: Intl.DateTimeFormatOptions = {
   day: '2-digit',
 };
 
-export const JobIntroFragment = graphql`
-  fragment JobIntro on STRAPI_JOBPOSITION {
-    closeDate
-    hiredPositions
-    openDate
-    openPositions
-    selectedPeople
-    title
-    eyelet
-  }
-`;
-
 export const JobIntro = ({
   data: {
     closeDate,

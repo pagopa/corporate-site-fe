@@ -88,66 +88,69 @@ const Intro = ({ eyelet, title }: Queries.NewsletterIntroFragment) => {
 export default function Component({
   data: { strapiNewsletter },
 }: PageProps<Queries.StrapiNewsletterQuery>) {
-  const { publishedAt, eyelet, title, body, bannerNewsletter, featuredImage } =
-    strapiNewsletter || {};
+  const {
+    publishedAt,
+    eyelet,
+    title,
+    body,
+    bannerNewsletter,
+    featuredImage,
+    slug,
+  } = strapiNewsletter || {};
 
   const {
     i18n: { language },
   } = useTranslation();
 
-  if (publishedAt && eyelet && title && body && featuredImage) {
-    const dateOptions: Intl.DateTimeFormatOptions = {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    };
-    const theDate = new Date(publishedAt).toLocaleDateString(
-      language,
-      dateOptions
-    );
+  const dateOptions: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+  const theDate = new Date(publishedAt).toLocaleDateString(
+    language,
+    dateOptions
+  );
 
-    return (
-      <Layout>
-        <SEO
-          meta={strapiNewsletter?.seo}
-          title={strapiNewsletter.title}
-          featuredImage={strapiNewsletter.featuredImage}
-        />
-        ;
-        <article className="post-article">
-          <Intro eyelet={eyelet} title={title} />
+  return title && slug ? (
+    <Layout>
+      <SEO
+        meta={strapiNewsletter?.seo}
+        title={strapiNewsletter.title}
+        featuredImage={strapiNewsletter.featuredImage}
+      />
+      ;
+      <article className="post-article">
+        <Intro eyelet={eyelet} title={title} />
 
-          <div className="post-article__body">
-            <div className="container-fluid">
-              {featuredImage?.localFile?.childImageSharp?.gatsbyImageData && (
-                <figure className="post-article__visual">
-                  <div className="row">
-                    <div className="col-12 col-lg-10 offset-lg-1 d-flex align-items-center justify-content-center">
-                      <GatsbyImage
-                        image={
-                          getImage(
-                            featuredImage.localFile as ImageDataLike
-                          ) as IGatsbyImageData
-                        }
-                        alt={featuredImage.alternativeText || 'featuredImage'}
-                      />
-                    </div>
+        <div className="post-article__body">
+          <div className="container-fluid">
+            {featuredImage?.localFile?.childImageSharp?.gatsbyImageData && (
+              <figure className="post-article__visual">
+                <div className="row">
+                  <div className="col-12 col-lg-10 offset-lg-1 d-flex align-items-center justify-content-center">
+                    <GatsbyImage
+                      image={
+                        getImage(
+                          featuredImage.localFile as ImageDataLike
+                        ) as IGatsbyImageData
+                      }
+                      alt={featuredImage.alternativeText || 'featuredImage'}
+                    />
                   </div>
-                </figure>
-              )}
-              <div className="row">
-                <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-                  <h4>{theDate}</h4>
-                  <Body data={body} />
                 </div>
+              </figure>
+            )}
+            <div className="row">
+              <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+                <h4>{theDate}</h4>
+                <Body data={body} />
               </div>
             </div>
           </div>
-        </article>
-        {bannerNewsletter && <NewsletterBanner />}
-      </Layout>
-    );
-  }
-
-  return null;
+        </div>
+      </article>
+      {bannerNewsletter && <NewsletterBanner />}
+    </Layout>
+  ) : null;
 }
