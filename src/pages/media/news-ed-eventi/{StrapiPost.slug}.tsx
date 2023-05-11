@@ -17,16 +17,7 @@ export const query = graphql`
     title
     eyelet
   }
-  query StrapiPost($id: String, $language: String) {
-    allLocale(filter: { language: { eq: $language } }) {
-      edges {
-        node {
-          language
-          data
-          ns
-        }
-      }
-    }
+  query StrapiPost($id: String) {
     strapiPost(id: { eq: $id }) {
       ...PostIntro
       bannerNewsletter
