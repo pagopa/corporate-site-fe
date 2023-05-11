@@ -17,7 +17,16 @@ export const query = graphql`
     eyelet
     title
   }
-  query StrapiNewsletter($id: String) {
+  query StrapiNewsletter($id: String, $language: String) {
+    allLocale(filter: { language: { eq: $language } }) {
+      edges {
+        node {
+          language
+          data
+          ns
+        }
+      }
+    }
     strapiNewsletter(id: { eq: $id }) {
       id
       slug
@@ -99,7 +108,12 @@ export default function Component({
 
     return (
       <Layout>
-        <SEO meta={strapiNewsletter?.seo} title={strapiNewsletter.title} featuredImage={strapiNewsletter.featuredImage} />;
+        <SEO
+          meta={strapiNewsletter?.seo}
+          title={strapiNewsletter.title}
+          featuredImage={strapiNewsletter.featuredImage}
+        />
+        ;
         <article className="post-article">
           <Intro eyelet={eyelet} title={title} />
 

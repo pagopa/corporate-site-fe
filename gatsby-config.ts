@@ -58,6 +58,13 @@ const config: GatsbyConfig = {
       },
     },
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/src/locales`,
+        name: `locale`,
+      },
+    },
+    {
       resolve: 'gatsby-source-strapi',
       options: {
         apiURL: process.env.STRAPI_API_URL,
@@ -194,6 +201,8 @@ const config: GatsbyConfig = {
     {
       resolve: 'gatsby-plugin-react-i18next',
       options: {
+        localeJsonNodeName: `allLocale`,
+        localeJsonSourceName: `locale`,
         languages: ['it', 'en'],
         fallbackLanguage: 'it',
         generateDefaultLanguagePage: true,

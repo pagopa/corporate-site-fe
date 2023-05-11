@@ -5,7 +5,16 @@ import { BlocksRenderer } from '../../components/SharedBlocks/BlocksRenderer';
 import { Layout } from '../../partials/Layout';
 
 export const query = graphql`
-  query StrapiProject($id: String) {
+  query StrapiProject($id: String, $language: String) {
+    allLocale(filter: { language: { eq: $language } }) {
+      edges {
+        node {
+          language
+          data
+          ns
+        }
+      }
+    }
     strapiProject(id: { eq: $id }) {
       title
       slug
@@ -41,7 +50,11 @@ export default function Component({
   if (title && slug) {
     return (
       <Layout>
-        <SEO meta={strapiProject?.seo} title={strapiProject.title} featuredImage={strapiProject.featuredImage}/>
+        <SEO
+          meta={strapiProject?.seo}
+          title={strapiProject.title}
+          featuredImage={strapiProject.featuredImage}
+        />
         <BlocksRenderer blocks={blocks as Queries.BlocksFragment[]} />
         {/* {bannerNewsletter && <NewsletterBanner />} */}
       </Layout>
