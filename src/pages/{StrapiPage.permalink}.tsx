@@ -5,16 +5,7 @@ import { BlocksRenderer } from '../components/SharedBlocks/BlocksRenderer';
 import { Layout } from '../partials/Layout';
 
 export const query = graphql`
-  query StrapiPage($id: String, $language: String) {
-    allLocale(filter: { language: { eq: $language } }) {
-      edges {
-        node {
-          language
-          data
-          ns
-        }
-      }
-    }
+  query StrapiPage($id: String) {
     strapiPage(id: { eq: $id }) {
       title
       slug

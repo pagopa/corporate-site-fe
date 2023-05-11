@@ -10,16 +10,7 @@ export const query = graphql`
     eyelet
     title
   }
-  query StrapiPressRelease($id: String, $language: String) {
-    allLocale(filter: { language: { eq: $language } }) {
-      edges {
-        node {
-          language
-          data
-          ns
-        }
-      }
-    }
+  query StrapiPressRelease($id: String) {
     strapiPressRelease(id: { eq: $id }) {
       id
       slug
@@ -94,12 +85,7 @@ export default function Component({
 
     return (
       <Layout>
-        <SEO
-          meta={strapiPressRelease?.seo}
-          title={strapiPressRelease.title}
-          featuredImage={strapiPressRelease.featuredImage}
-        />
-        ;
+        <SEO meta={strapiPressRelease?.seo} title={strapiPressRelease.title} featuredImage={strapiPressRelease.featuredImage} />;
         <article className="post-article">
           <Intro eyelet={eyelet} title={title} />
 

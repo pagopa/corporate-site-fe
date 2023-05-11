@@ -22,16 +22,7 @@ export const query = graphql`
     startTime
     eventVenue
   }
-  query StrapiEvent($id: String, $language: String) {
-    allLocale(filter: { language: { eq: $language } }) {
-      edges {
-        node {
-          language
-          data
-          ns
-        }
-      }
-    }
+  query StrapiEvent($id: String) {
     strapiEvent(id: { eq: $id }) {
       ...EventIntro
       body {
@@ -80,7 +71,6 @@ const EventIntro = ({
   const {
     i18n: { language },
   } = useTranslation();
-
   return (
     <header className="block --block-intro intro --event">
       <div className="container-fluid">
@@ -172,12 +162,7 @@ export default function Component({
 
     return (
       <Layout>
-        <SEO
-          meta={strapiEvent?.seo}
-          title={strapiEvent.title}
-          featuredImage={strapiEvent.featuredImage}
-        />
-        ;
+        <SEO meta={strapiEvent?.seo} title={strapiEvent.title} featuredImage={strapiEvent.featuredImage} />;
         <article className="post-article">
           <EventIntro
             {...{

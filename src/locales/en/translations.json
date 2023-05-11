@@ -1,4 +1,0 @@
-{
-  "_comment1": "Required to avoid console errors. See: https://github.com/microapps/gatsby-plugin-react-i18next/issues/116",
-  "_comment2": "This file can be used to translate strings on the client. See: https://github.com/microapps/gatsby-plugin-react-i18next/tree/master"
-}
