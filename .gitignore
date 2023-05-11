@@ -3,6 +3,8 @@
 .conf/*.production
 .conf/*.staging
 .env.development
+.env.production
+.env.staging
 .vim
 /playwright-report/
 /playwright/.cache/
