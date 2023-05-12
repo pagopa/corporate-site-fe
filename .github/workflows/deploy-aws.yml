@@ -65,6 +65,7 @@ jobs:
         env:
           STRAPI_TOKEN: ${{ secrets.STRAPI_TOKEN }}
           STRAPI_API_URL: ${{ vars.STRAPI_URL }}
+          GATSBY_UPDATE_SCHEMA_SNAPSHOT: ${{ vars.GATSBY_UPDATE_SCHEMA_SNAPSHOT }}
         run: |
           yarn install
           yarn build
