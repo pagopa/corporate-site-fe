@@ -14,7 +14,7 @@ const PressReleaseItem = ({
     i18n: { language },
   } = useTranslation();
 
-  const { body, slug, title, updatedAt, id } = pressRelease || {};
+  const { body, slug, title, publishedAt, id } = pressRelease || {};
 
   const dateOptions: Intl.DateTimeFormatOptions = {
     year: 'numeric',
@@ -22,15 +22,15 @@ const PressReleaseItem = ({
     day: 'numeric',
   };
 
-  const theDate = updatedAt
-    ? new Date(updatedAt).toLocaleDateString(language, dateOptions)
+  const theDate = publishedAt
+    ? new Date(publishedAt).toLocaleDateString(language, dateOptions)
     : '';
 
   const text = body?.data?.body?.replace(/(<([^>]+)>)/gi, '');
   const abstract = text?.split(' ').splice(0, 36).join(' ');
 
   return (
-    <article className="press-release" key={id}>
+    <article className="press-release py-5" key={id}>
       <div>
         <h4>{theDate}</h4>
         <h3 className="--light">{title}</h3>
@@ -50,7 +50,7 @@ export const PressReleaseList = () => {
       locale
       id
       slug
-      updatedAt
+      publishedAt
       bannerNewsletter
       eyelet
       title
@@ -61,7 +61,7 @@ export const PressReleaseList = () => {
       }
     }
     query AllPressReleases {
-      allStrapiPressRelease {
+      allStrapiPressRelease(sort: { publishedAt: DESC }) {
         nodes {
           ...PressRelease
         }
@@ -83,6 +83,7 @@ export const PressReleaseList = () => {
         <div className="row">
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
             <Pagination
+              itemsPerPage={12}
               data={pressReleases}
               renderItem={(item: Queries.PressReleaseFragment) => (
                 <PressReleaseItem pressRelease={item} />
