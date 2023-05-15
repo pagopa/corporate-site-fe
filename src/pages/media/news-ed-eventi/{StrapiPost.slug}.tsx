@@ -31,6 +31,7 @@ export const query = graphql`
       ...PostIntro
       bannerNewsletter
       updatedAt
+      publishedAt
       body {
         data {
           id
@@ -86,49 +87,53 @@ const Intro = ({ eyelet, title }: Queries.PostIntroFragment) => {
 export default function Component({
   data: { strapiPost },
 }: PageProps<Queries.StrapiPostQuery>) {
-  const { body, eyelet, updatedAt, featuredImage, title, bannerNewsletter } =
+  const { body, eyelet, publishedAt, featuredImage, title, bannerNewsletter } =
     strapiPost || {};
 
   const {
     i18n: { language },
   } = useTranslation();
 
-  if (body && eyelet && updatedAt && featuredImage && title) {
+  if (body && eyelet && publishedAt && featuredImage && title) {
     const dateOptions: Intl.DateTimeFormatOptions = {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
     };
-    const theDate = new Date(updatedAt).toLocaleDateString(
+    const theDate = new Date(publishedAt).toLocaleDateString(
       language,
       dateOptions
     );
 
     return (
       <Layout>
-        <SEO meta={strapiPost?.seo} title={strapiPost.title} featuredImage={strapiPost.featuredImage} />;
+        <SEO
+          meta={strapiPost?.seo}
+          title={strapiPost.title}
+          featuredImage={strapiPost.featuredImage}
+        />
+        ;
         <article className="post-article">
           <Intro eyelet={eyelet} title={title} />
 
           <div className="post-article__body">
             <div className="container-fluid">
-              {featuredImage?.localFile?.childImageSharp?.gatsbyImageData &&
-                featuredImage?.alternativeText && (
-                  <figure className="post-article__visual">
-                    <div className="row">
-                      <div className="col-12 col-lg-10 offset-lg-1 d-flex align-items-center justify-content-center">
-                        <GatsbyImage
-                          image={
-                            getImage(
-                              featuredImage.localFile as ImageDataLike
-                            ) as IGatsbyImageData
-                          }
-                          alt={featuredImage.alternativeText}
-                        />
-                      </div>
+              {featuredImage?.localFile?.childImageSharp?.gatsbyImageData && (
+                <figure className="post-article__visual">
+                  <div className="row">
+                    <div className="col-12 col-lg-10 offset-lg-1 d-flex align-items-center justify-content-center">
+                      <GatsbyImage
+                        image={
+                          getImage(
+                            featuredImage.localFile as ImageDataLike
+                          ) as IGatsbyImageData
+                        }
+                        alt={featuredImage?.alternativeText}
+                      />
                     </div>
-                  </figure>
-                )}
+                  </div>
+                </figure>
+              )}
 
               <div className="row">
                 <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">

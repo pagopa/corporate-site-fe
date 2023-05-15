@@ -14,6 +14,7 @@ export const PostEventsList = () => {
       locale
       title
       updatedAt
+      publishedAt
       body {
         data {
           body
@@ -30,6 +31,7 @@ export const PostEventsList = () => {
       eyelet
       locale
       title
+      publishedAt
       startDate
       startTime
       endTime
@@ -43,12 +45,12 @@ export const PostEventsList = () => {
       }
     }
     query AllStrapiPostsEvents {
-      allStrapiPost {
+      allStrapiPost(sort: { publishedAt: DESC }) {
         nodes {
           ...Post
         }
       }
-      allStrapiEvent {
+      allStrapiEvent(sort: { publishedAt: DESC }) {
         nodes {
           ...Event
         }
@@ -73,13 +75,17 @@ export const PostEventsList = () => {
   });
 
   const postEventsCollection = [...posts, ...events];
+  const postEventsCollectionSorted = postEventsCollection.sort((a, b) =>
+    a.publishedAt > b.publishedAt ? -1 : a.publishedAt < b.publishedAt ? 1 : 0
+  );
 
   return (
     <section className="press-release-list">
       <div className="container-fluid">
         <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 row">
           <Pagination
-            data={postEventsCollection}
+            data={postEventsCollectionSorted}
+            itemsPerPage={12}
             keyExtractor={item => item.id}
             renderItem={item => (
               <div className="col-12 col-lg-6 d-flex row">

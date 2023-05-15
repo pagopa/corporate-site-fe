@@ -28,7 +28,7 @@ export const Article = ({ article }: { article: Article }) => {
     day: 'numeric',
   };
 
-  const baseDate = isEvent(article) ? article?.startDate : article?.updatedAt;
+  const baseDate = isEvent(article) ? article?.startDate : article?.publishedAt;
   const theDate = baseDate
     ? new Date(baseDate).toLocaleDateString(language, dateOptions)
     : '';
@@ -37,7 +37,7 @@ export const Article = ({ article }: { article: Article }) => {
   const abstract = text?.split(' ').splice(0, 14).join(' ');
 
   const labelMap = {
-    STRAPI_POST: 'Post',
+    STRAPI_POST: 'News',
     STRAPI_EVENT: 'Eventi',
     STRAPI_NEWSLETTER: 'Newsletter',
   };

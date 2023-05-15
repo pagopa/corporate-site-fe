@@ -21,6 +21,7 @@ export const query = graphql`
     startDate
     startTime
     eventVenue
+    publishedAt
   }
   query StrapiEvent($id: String, $language: String) {
     allLocale(filter: { language: { eq: $language } }) {
@@ -42,6 +43,7 @@ export const query = graphql`
           }
         }
       }
+      publishedAt
       featuredImage {
         url
         alternativeText
@@ -147,81 +149,68 @@ export default function Component({
     startTime,
     title,
     eventVenue,
+    publishedAt,
   } = strapiEvent || {};
 
-  if (
-    body &&
-    endDate &&
-    endTime &&
-    eyelet &&
-    featuredImage &&
-    startDate &&
-    startTime &&
-    title &&
-    eventVenue
-  ) {
-    const dateOptions: Intl.DateTimeFormatOptions = {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    };
-    const theDate = new Date(startDate).toLocaleDateString(
-      language,
-      dateOptions
-    );
+  const dateOptions: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+  const theDate = new Date(publishedAt).toLocaleDateString(
+    language,
+    dateOptions
+  );
 
-    return (
-      <Layout>
-        <SEO
-          meta={strapiEvent?.seo}
-          title={strapiEvent.title}
-          featuredImage={strapiEvent.featuredImage}
+  return (
+    <Layout>
+      <SEO
+        meta={strapiEvent?.seo}
+        title={strapiEvent.title}
+        featuredImage={strapiEvent.featuredImage}
+      />
+      ;
+      <article className="post-article">
+        <EventIntro
+          {...{
+            body,
+            endDate,
+            endTime,
+            eyelet,
+            startDate,
+            startTime,
+            title,
+            eventVenue,
+          }}
         />
-        ;
-        <article className="post-article">
-          <EventIntro
-            {...{
-              body,
-              endDate,
-              endTime,
-              eyelet,
-              startDate,
-              startTime,
-              title,
-              eventVenue,
-            }}
-          />
-          <div className="post-article__body">
-            <div className="container-fluid">
-              {featuredImage?.localFile?.childImageSharp?.gatsbyImageData &&
-                featuredImage?.alternativeText && (
-                  <figure className="post-article__visual">
-                    <div className="row">
-                      <div className="col-12 col-lg-10 offset-lg-1 d-flex align-items-center justify-content-center">
-                        <GatsbyImage
-                          image={
-                            getImage(
-                              featuredImage.localFile as ImageDataLike
-                            ) as IGatsbyImageData
-                          }
-                          alt={featuredImage.alternativeText}
-                        />
-                      </div>
-                    </div>
-                  </figure>
-                )}
-              <div className="row">
-                <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-                  <h4>{theDate}</h4>
-                  <Body data={body} />
+        <div className="post-article__body">
+          <div className="container-fluid">
+            {featuredImage?.localFile?.childImageSharp?.gatsbyImageData && (
+              <figure className="post-article__visual">
+                <div className="row">
+                  <div className="col-12 col-lg-10 offset-lg-1 d-flex align-items-center justify-content-center">
+                    <GatsbyImage
+                      image={
+                        getImage(
+                          featuredImage.localFile as ImageDataLike
+                        ) as IGatsbyImageData
+                      }
+                      alt={featuredImage?.alternativeText}
+                    />
+                  </div>
                 </div>
+              </figure>
+            )}
+            <div className="row">
+              <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+                <h4>{theDate}</h4>
+                <Body data={body} />
               </div>
             </div>
           </div>
-        </article>
-        {true && <NewsletterBanner />}
-      </Layout>
-    );
-  }
-  return null;
+        </div>
+      </article>
+      {true && <NewsletterBanner />}
+    </Layout>
+  );
 }
