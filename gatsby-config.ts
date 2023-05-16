@@ -73,6 +73,9 @@ const config: GatsbyConfig = {
         collectionTypes: [
           {
             singularName: 'jobposition',
+            queryParams: {
+              populate: 'deep',
+            },
             pluginOptions: {
               i18n: {
                 locale: 'all',
