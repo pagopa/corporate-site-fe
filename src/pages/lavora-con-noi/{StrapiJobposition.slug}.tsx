@@ -34,7 +34,7 @@ export default function Component({
 }: PageProps<Queries.StrapiJobpositionQuery>) {
   return (
     <Layout>
-        <SEO meta={strapiJobposition?.seo} title={strapiJobposition.title} featuredImage={strapiJobposition.featuredImage} />;
+      <SEO meta={strapiJobposition?.seo} title={strapiJobposition.title} featuredImage={strapiJobposition.featuredImage} />
       <JobPage data={strapiJobposition as Queries.JobPageFragment} />
     </Layout>
   );
