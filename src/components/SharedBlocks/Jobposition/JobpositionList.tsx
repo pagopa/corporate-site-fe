@@ -35,21 +35,26 @@ export const JobpositionList = () => {
     type: 'allStrapiJobposition',
   });
 
-  const { openJobs, pastJobs } = allStrapiJobposition.reduce<
-    Record<'openJobs' | 'pastJobs', Queries.JobpositionFragment[]>
-  >(
-    (acc, job) => {
-      const now = new Date().getTime();
-      const jobExpiration = job?.closeDate
-        ? new Date(job.closeDate).getTime()
-        : now;
+  const byRecentJobOpening = (
+    job: Queries.JobpositionFragment,
+    nextJob: Queries.JobpositionFragment
+  ) => new Date(nextJob.openDate).getTime() - new Date(job.openDate).getTime();
 
-      return jobExpiration >= now
-        ? { ...acc, openJobs: [...acc.openJobs, job] }
-        : { ...acc, pastJobs: [...acc.pastJobs, job] };
-    },
-    { openJobs: [], pastJobs: [] }
-  );
+  const { openJobs, pastJobs } = allStrapiJobposition
+    .sort(byRecentJobOpening)
+    .reduce<Record<'openJobs' | 'pastJobs', Queries.JobpositionFragment[]>>(
+      (acc, job) => {
+        const now = new Date().getTime();
+        const jobExpiration = job?.closeDate
+          ? new Date(job.closeDate).getTime()
+          : now;
+
+        return jobExpiration >= now
+          ? { ...acc, openJobs: [...acc.openJobs, job] }
+          : { ...acc, pastJobs: [...acc.pastJobs, job] };
+      },
+      { openJobs: [], pastJobs: [] }
+    );
 
   return (
     <section className="block --block-jobs-listing jobs-listing">
@@ -58,11 +63,9 @@ export const JobpositionList = () => {
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
             <ul>
               {openJobs.map(jobposition => (
-                <Link key={jobposition?.id} to={jobposition?.slug || '/#'}>
-                  <div className="p-4">
-                    <JobEntry jobposition={jobposition} />
-                  </div>
-                </Link>
+                <div className="p-4">
+                  <JobEntry jobposition={jobposition} />
+                </div>
               ))}
             </ul>
             <JobPastList pastJobs={pastJobs} />
