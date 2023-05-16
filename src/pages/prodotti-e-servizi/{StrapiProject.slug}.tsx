@@ -47,18 +47,15 @@ export default function Component({
 }: PageProps<Queries.StrapiProjectQuery>) {
   const { title, slug, blocks } = strapiProject || {};
 
-  if (title && slug) {
-    return (
-      <Layout>
-        <SEO
-          meta={strapiProject?.seo}
-          title={strapiProject.title}
-          featuredImage={strapiProject.featuredImage}
-        />
-        <BlocksRenderer blocks={blocks as Queries.BlocksFragment[]} />
-        {/* {bannerNewsletter && <NewsletterBanner />} */}
-      </Layout>
-    );
-  }
-  return null;
+  return title && slug ? (
+    <Layout>
+      <SEO
+        meta={strapiProject?.seo}
+        title={strapiProject.title}
+        featuredImage={strapiProject.featuredImage}
+      />
+      <BlocksRenderer blocks={blocks as Queries.BlocksFragment[]} />
+      {/* {bannerNewsletter && <NewsletterBanner />} */}
+    </Layout>
+  ) : null;
 }

@@ -29,6 +29,7 @@ export const query = graphql`
     }
     strapiPost(id: { eq: $id }) {
       ...PostIntro
+      slug
       bannerNewsletter
       updatedAt
       publishedAt
@@ -87,38 +88,42 @@ const Intro = ({ eyelet, title }: Queries.PostIntroFragment) => {
 export default function Component({
   data: { strapiPost },
 }: PageProps<Queries.StrapiPostQuery>) {
-  const { body, eyelet, publishedAt, featuredImage, title, bannerNewsletter } =
-    strapiPost || {};
+  const {
+    body,
+    eyelet,
+    updatedAt,
+    featuredImage,
+    title,
+    bannerNewsletter,
+    slug,
+  } = strapiPost || {};
 
   const {
     i18n: { language },
   } = useTranslation();
 
-  if (body && eyelet && publishedAt && featuredImage && title) {
-    const dateOptions: Intl.DateTimeFormatOptions = {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    };
-    const theDate = new Date(publishedAt).toLocaleDateString(
-      language,
-      dateOptions
-    );
+  const dateOptions: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+  const theDate = new Date(updatedAt).toLocaleDateString(language, dateOptions);
 
-    return (
-      <Layout>
-        <SEO
-          meta={strapiPost?.seo}
-          title={strapiPost.title}
-          featuredImage={strapiPost.featuredImage}
-        />
-        ;
-        <article className="post-article">
-          <Intro eyelet={eyelet} title={title} />
+  return title && slug ? (
+    <Layout>
+      <SEO
+        meta={strapiPost?.seo}
+        title={strapiPost.title}
+        featuredImage={strapiPost.featuredImage}
+      />
+      ;
+      <article className="post-article">
+        <Intro eyelet={eyelet} title={title} />
 
-          <div className="post-article__body">
-            <div className="container-fluid">
-              {featuredImage?.localFile?.childImageSharp?.gatsbyImageData && (
+        <div className="post-article__body">
+          <div className="container-fluid">
+            {featuredImage?.localFile?.childImageSharp?.gatsbyImageData &&
+              featuredImage?.alternativeText && (
                 <figure className="post-article__visual">
                   <div className="row">
                     <div className="col-12 col-lg-10 offset-lg-1 d-flex align-items-center justify-content-center">
@@ -128,24 +133,23 @@ export default function Component({
                             featuredImage.localFile as ImageDataLike
                           ) as IGatsbyImageData
                         }
-                        alt={featuredImage?.alternativeText}
+                        alt={featuredImage.alternativeText}
                       />
                     </div>
                   </div>
                 </figure>
               )}
 
-              <div className="row">
-                <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-                  <h4>{theDate}</h4>
-                  <Body data={body} />
-                </div>
+            <div className="row">
+              <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+                <h4>{theDate}</h4>
+                <Body data={body} />
               </div>
             </div>
           </div>
-        </article>
-        {bannerNewsletter && <NewsletterBanner />}
-      </Layout>
-    );
-  }
+        </div>
+      </article>
+      {bannerNewsletter && <NewsletterBanner />}
+    </Layout>
+  ) : null;
 }

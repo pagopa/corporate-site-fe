@@ -35,6 +35,7 @@ export const query = graphql`
     }
     strapiEvent(id: { eq: $id }) {
       ...EventIntro
+      slug
       body {
         data {
           id
@@ -149,7 +150,7 @@ export default function Component({
     startTime,
     title,
     eventVenue,
-    publishedAt,
+    slug,
   } = strapiEvent || {};
 
   const dateOptions: Intl.DateTimeFormatOptions = {
@@ -157,12 +158,9 @@ export default function Component({
     month: 'long',
     day: 'numeric',
   };
-  const theDate = new Date(publishedAt).toLocaleDateString(
-    language,
-    dateOptions
-  );
+  const theDate = new Date(startDate).toLocaleDateString(language, dateOptions);
 
-  return (
+  return title && slug ? (
     <Layout>
       <SEO
         meta={strapiEvent?.seo}
@@ -185,22 +183,23 @@ export default function Component({
         />
         <div className="post-article__body">
           <div className="container-fluid">
-            {featuredImage?.localFile?.childImageSharp?.gatsbyImageData && (
-              <figure className="post-article__visual">
-                <div className="row">
-                  <div className="col-12 col-lg-10 offset-lg-1 d-flex align-items-center justify-content-center">
-                    <GatsbyImage
-                      image={
-                        getImage(
-                          featuredImage.localFile as ImageDataLike
-                        ) as IGatsbyImageData
-                      }
-                      alt={featuredImage?.alternativeText}
-                    />
+            {featuredImage?.localFile?.childImageSharp?.gatsbyImageData &&
+              featuredImage?.alternativeText && (
+                <figure className="post-article__visual">
+                  <div className="row">
+                    <div className="col-12 col-lg-10 offset-lg-1 d-flex align-items-center justify-content-center">
+                      <GatsbyImage
+                        image={
+                          getImage(
+                            featuredImage.localFile as ImageDataLike
+                          ) as IGatsbyImageData
+                        }
+                        alt={featuredImage.alternativeText}
+                      />
+                    </div>
                   </div>
-                </div>
-              </figure>
-            )}
+                </figure>
+              )}
             <div className="row">
               <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
                 <h4>{theDate}</h4>
@@ -212,5 +211,5 @@ export default function Component({
       </article>
       {true && <NewsletterBanner />}
     </Layout>
-  );
+  ) : null;
 }
