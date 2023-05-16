@@ -100,7 +100,7 @@ export const UniversityCollaborationList = ({
       isActive
     }
     query allUniversityCollaboration {
-      allStrapiUniversityCollaboration {
+      allStrapiUniversityCollaboration(sort: { publishedAt: DESC }) {
         nodes {
           ...UniversityCollaboration
         }
@@ -121,7 +121,7 @@ export const UniversityCollaborationList = ({
   );
 
   return (
-    <section className="block --block-universityaccordion block-universityaccordion">
+    <section className="block --block-universityaccordion block-universityaccordion my-4">
       <div className="container-fluid">
         <div className="row">
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
