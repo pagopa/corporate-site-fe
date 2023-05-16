@@ -29,7 +29,6 @@ export const Menu = ({
   main?: Queries.MainNavigationItemFragment[];
   reserved?: Queries.MainNavigationItemFragment[];
 }) => {
-
   const sortMenuByOrder = (
     menu: Queries.MainNavigationItemFragment[] | undefined
   ) =>
@@ -60,7 +59,7 @@ export const Menu = ({
           {sortedReserved?.map((item: Queries.MainNavigationItemFragment) => {
             return (
               <MenuNavigation
-                className="reserved-navigation"
+                className="reserved-navigation menu-reserved__item highlight"
                 item={item}
                 key={item.id}
               />

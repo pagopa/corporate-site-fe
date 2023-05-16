@@ -13,8 +13,8 @@ exports.sourceNodes = async (
   };
 
   // This function creates a node for the navigation
-  const createNavigationNode = (item, locale, key) => {
-    createNode({
+  const createNavigationNode = async (item, locale, key) => {
+    await createNode({
       ...item,
       key,
       locale,
@@ -42,9 +42,11 @@ exports.sourceNodes = async (
           const msg = `plugin-navigation_local: [${key}-${locale}] ${url} ${response.status} ${response.statusText}`;
           reporter[response.ok ? 'success' : 'warn'](msg);
           if (response.ok) {
+            const navNodes = await response.json();
             // create the node for the navigation
-            const [node] = await response.json();
-            createNavigationNode(node, locale, key);
+            navNodes.map(async navNode => {
+              await createNavigationNode(navNode, locale, key);
+            });
           }
         } catch (e) {
           reporter.error(e);
@@ -55,4 +57,3 @@ exports.sourceNodes = async (
 
   reporter.success('Successfully sourced navigation items.');
 };
-
