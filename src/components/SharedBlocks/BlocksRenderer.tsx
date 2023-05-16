@@ -269,6 +269,26 @@ export const query = graphql`
       id
     }
     ... on STRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTING {
+      eyelet
+      title
+      links {
+        link
+        attachment {
+          url
+        }
+      }
+      body {
+        data {
+          childMarkdownRemark {
+            html
+          }
+          id
+        }
+      }
+      commons {
+        title
+        body
+      }
       id
     }
     ... on STRAPI__COMPONENT_SHARED_BLOCK_ACCORDION {

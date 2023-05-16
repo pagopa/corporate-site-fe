@@ -1202,6 +1202,13 @@ type STRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTING implements Node
   links: [STRAPI__COMPONENT_BLOCK_CONTEXT_LINK_ATTACHMENT]
     @link(by: "id", from: "links___NODE")
   strapi_id: Int
+  commons: [STRAPI__COMPONENT_BLOCK_CONTEXT_JOBS_LIST_COMMONS] @link(by: "id", from: "commons___NODE")
+}
+
+type STRAPI__COMPONENT_BLOCK_CONTEXT_JOBS_LIST_COMMONS implements Node @dontInfer {
+  title: String
+  body: String
+  strapi_id: Int
 }
 
 type STRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTINGBody {
