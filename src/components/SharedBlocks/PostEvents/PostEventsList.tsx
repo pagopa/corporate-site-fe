@@ -3,8 +3,14 @@ import { graphql, useStaticQuery } from 'gatsby';
 import { useLocalizedQuery } from '../../../hooks';
 import { Article } from '../../Article';
 import { Pagination } from '../../Pagination';
+import { Cta } from '../../../partials/Cta';
 
-export const PostEventsList = () => {
+export const PostEventsList = ({
+  pageSlug,
+  title,
+}: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_NEWS_AND_EVENTS_Fragment & {
+  pageSlug: string;
+}) => {
   const eventQuery = useStaticQuery(graphql`
     fragment Post on STRAPI_POST {
       __typename
@@ -21,7 +27,17 @@ export const PostEventsList = () => {
         }
       }
       featuredImage {
-        ...Image
+        localFile {
+          childImageSharp {
+            gatsbyImageData(
+              layout: FULL_WIDTH
+              aspectRatio: 1.33
+              width: 460
+              height: 346
+              transformOptions: { cropFocus: ATTENTION }
+            )
+          }
+        }
       }
     }
     fragment Event on STRAPI_EVENT {
@@ -41,7 +57,17 @@ export const PostEventsList = () => {
         }
       }
       featuredImage {
-        ...Image
+        localFile {
+          childImageSharp {
+            gatsbyImageData(
+              layout: FULL_WIDTH
+              aspectRatio: 1.33
+              width: 460
+              height: 346
+              transformOptions: { cropFocus: ATTENTION }
+            )
+          }
+        }
       }
     }
     query AllStrapiPostsEvents {
@@ -79,21 +105,35 @@ export const PostEventsList = () => {
     a.publishedAt > b.publishedAt ? -1 : a.publishedAt < b.publishedAt ? 1 : 0
   );
 
+  const isPreview = pageSlug === 'media';
+
   return (
-    <section className="press-release-list">
-      <div className="container-fluid">
-        <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 row">
-          <Pagination
-            data={postEventsCollectionSorted}
-            itemsPerPage={12}
-            keyExtractor={item => item.id}
-            renderItem={item => (
-              <div className="col-12 col-lg-6 d-flex row">
-                <Article article={item} />
-              </div>
-            )}
+    <section
+      className={`${
+        isPreview ? 'block' : ''
+      } d-flex row justify-content-center`}
+    >
+      <div className="col-8">
+        {title && <h1>{title}</h1>}
+        <Pagination
+          className={`container-fluid row justify-content-evenly m-0 p-0`}
+          data={postEventsCollectionSorted}
+          itemsPerPage={isPreview ? 2 : 12}
+          keyExtractor={item => item.id}
+          navHidden={isPreview}
+          renderItem={item => (
+            <div className="col-lg-6 d-flex my-1">
+              <Article article={item} />
+            </div>
+          )}
+        />
+        {isPreview && (
+          <Cta
+            label={'SCOPRI TUTTE LE NEWS E GLI EVENTI'}
+            href={'news-ed-eventi'}
+            variant="link"
           />
-        </div>
+        )}
       </div>
     </section>
   );

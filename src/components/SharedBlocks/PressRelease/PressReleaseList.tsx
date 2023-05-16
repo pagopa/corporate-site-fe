@@ -7,8 +7,10 @@ import { Pagination } from '../../Pagination';
 
 const PressReleaseItem = ({
   pressRelease,
+  isPreview,
 }: {
   pressRelease: Queries.PressReleaseFragment;
+  isPreview?: boolean;
 }) => {
   const {
     i18n: { language },
@@ -30,21 +32,34 @@ const PressReleaseItem = ({
   const abstract = text?.split(' ').splice(0, 36).join(' ');
 
   return (
-    <article className="press-release py-5" key={id}>
+    <article className="d-flex flex-column justify-content-between" key={id}>
       <div>
         <h4>{theDate}</h4>
-        <h3 className="--light">{title}</h3>
-        <div className="wysiwyg">
+        {isPreview ? (
+          <h4 className="--primary --medium">{title}</h4>
+        ) : (
+          <h3 className="--light">{title}</h3>
+        )}
+        <div>
           <p>{abstract}...</p>
         </div>
       </div>
 
-      {slug && <Cta href={slug} label="Leggi" />}
+      {slug && (
+        <div className="d-flex justify-content-start">
+          <Cta href={slug} label="Leggi" />
+        </div>
+      )}
     </article>
   );
 };
 
-export const PressReleaseList = () => {
+export const PressReleaseList = ({
+  title,
+  pageSlug,
+}: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_PRESS_RELEASE_Fragment & {
+  pageSlug: string;
+}) => {
   const queryResult = useStaticQuery(graphql`
     fragment PressRelease on STRAPI_PRESS_RELEASE {
       locale
@@ -77,21 +92,39 @@ export const PressReleaseList = () => {
     query: queryResult,
   });
 
+  const isPreview = pageSlug === 'media';
+
   return (
-    <section className="press-release-list">
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-            <Pagination
-              itemsPerPage={12}
-              data={pressReleases}
-              renderItem={(item: Queries.PressReleaseFragment) => (
-                <PressReleaseItem pressRelease={item} />
-              )}
-              keyExtractor={item => item.id}
-            />
-          </div>
-        </div>
+    <section
+      className={`${
+        isPreview ? 'block' : ''
+      } d-flex row justify-content-center`}
+    >
+      <div className="col-8">
+        {title && <h1>{title}</h1>}
+        <Pagination
+          className={`container-fluid row m-0 p-0 justify-content-center ${
+            isPreview ? 'flex-row' : ''
+          }`}
+          data={pressReleases}
+          itemsPerPage={isPreview ? 2 : 12}
+          keyExtractor={item => item.id}
+          navHidden={isPreview}
+          renderItem={(item: Queries.PressReleaseFragment) => (
+            <div
+              className={`${isPreview ? 'col-lg-6' : 'col-lg-9'} d-flex my-5`}
+            >
+              <PressReleaseItem pressRelease={item} isPreview={isPreview} />
+            </div>
+          )}
+        />
+        {isPreview && (
+          <Cta
+            label={'LEGGI TUTTI I COMUNICATI STAMPA'}
+            href={'comunicati-stampa'}
+            variant="link"
+          />
+        )}
       </div>
     </section>
   );

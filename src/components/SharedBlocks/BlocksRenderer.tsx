@@ -46,20 +46,28 @@ const componentsMap: {
   STRAPI__COMPONENT_SHARED_BLOCK_VISUAL: Visual,
 };
 
-const Block = ({ block }: { block: Queries.BlocksFragment }) => {
+const Block = ({
+  block,
+  pageSlug,
+}: {
+  block: Queries.BlocksFragment;
+  pageSlug?: string;
+}) => {
   const Component = componentsMap[block.__typename];
-  return !!Component ? <Component {...block} /> : null;
+  return !!Component ? <Component {...block} pageSlug={pageSlug} /> : null;
 };
 
 // This function renders a list of blocks
 export const BlocksRenderer = ({
   blocks,
+  pageSlug,
 }: {
   blocks: ReadonlyArray<Queries.BlocksFragment>;
+  pageSlug?: string;
 }) => (
   <>
     {blocks?.map((block, index) => (
-      <Block key={index} block={block} />
+      <Block key={index} block={block} pageSlug={pageSlug} />
     ))}
   </>
 );
@@ -255,10 +263,12 @@ export const query = graphql`
       }
     }
     ... on STRAPI__COMPONENT_SHARED_BLOCK_PRESS_RELEASE {
+      title
       id
     }
     ... on STRAPI__COMPONENT_SHARED_BLOCK_NEWS_AND_EVENTS {
       id
+      title
     }
     ... on STRAPI__COMPONENT_SHARED_BLOCK_UNIVERSITY_ACCORDION {
       id

@@ -55,7 +55,7 @@ export default function Component({
           title={strapiPage.title}
           featuredImage={strapiPage.featuredImage}
         />
-        <BlocksRenderer blocks={blocks as Queries.BlocksFragment[]} />
+        <BlocksRenderer pageSlug={slug} blocks={blocks as Queries.BlocksFragment[]} />
       </Layout>
     );
   }
