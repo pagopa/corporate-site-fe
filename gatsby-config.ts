@@ -9,7 +9,6 @@ dotenv.config({
   override: true,
 });
 
-console.log(process.env)
 
 const config: GatsbyConfig = {
   siteMetadata: {

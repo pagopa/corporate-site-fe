@@ -66,6 +66,14 @@ jobs:
           STRAPI_TOKEN: ${{ secrets.STRAPI_TOKEN }}
           STRAPI_API_URL: ${{ vars.STRAPI_URL }}
           GATSBY_UPDATE_SCHEMA_SNAPSHOT: ${{ vars.GATSBY_UPDATE_SCHEMA_SNAPSHOT }}
+          MAIN_MENU_IT: ${{ vars.MAIN_MENU_IT }}
+          MAIN_MENU_EN: ${{ vars.MAIN_MENU_EN }}
+          RESERVED_MENU_IT: ${{ vars.RESERVED_MENU_IT }}
+          RESERVED_MENU_EN: ${{ vars.RESERVED_MENU_EN }}
+          FOOTER_TOP_IT: ${{ vars.FOOTER_TOP_IT }}
+          FOOTER_TOP_EN: ${{ vars.FOOTER_TOP_EN }}
+          FOOTER_BOTTOM_IT: ${{ vars.FOOTER_BOTTOM_IT }}
+          FOOTER_BOTTOM_EN: ${{ vars.FOOTER_BOTTOM_EN }}
         run: |
           yarn install
           yarn build
