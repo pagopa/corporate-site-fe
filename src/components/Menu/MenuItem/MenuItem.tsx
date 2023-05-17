@@ -6,6 +6,7 @@ import '../Menu.sass';
 export const navigationItemFragment = graphql`
   fragment NavigationItem on StrapiNavigationItems {
     external
+    type
     id
     title
     uiRouterKey
@@ -20,17 +21,23 @@ export const MenuItem = ({
   item: Queries.NavigationItemFragment | Queries.MainNavigationItemFragment;
   disabled?: boolean;
 }) => {
-  const { title, external, path } = item;
+  const { title, external, path, type } = item;
 
-  if (disabled) {
-    return <span>{title}</span>;
-  } else if (external) {
+  if (external) {
     return (
       <a href={path || '#'} target="_blank" rel="noopener noreferrer">
         {title}
       </a>
     );
+  } else if (type == 'INTERNAL') {
+    return <a href={path || '#'}>{title}</a>;
+  } else if (disabled) {
+    return <span>{title}</span>;
   } else {
-    return <Link activeClassName='is-current' to={path || '#'}>{title}</Link>;
+    return (
+      <Link activeClassName="is-current" to={path || '#'}>
+        {title}
+      </Link>
+    );
   }
 };
