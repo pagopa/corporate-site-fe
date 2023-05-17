@@ -45,7 +45,7 @@ export const VisualText = ({
       content: `col-md-6 col-lg-5`,
     },
     Full: {
-      visual: `col-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2`,
+      visual: `col-md-9 offset-md-1`,
       content: `col-md-5 offset-md-5`,
     },
   };
@@ -80,7 +80,7 @@ export const VisualText = ({
           )}
         >
           {fullWidthLayout && (
-            <div className={classNames('col-9', columns['Full'].visual)}>
+            <div className="col-12 col-md-10 offset-md-1">
               {eyelet && <h4>{eyelet}</h4>}
               {title && <h1>{title}</h1>}
             </div>
@@ -99,12 +99,10 @@ export const VisualText = ({
           <div
             className={classNames(
               'col-12',
-              fullWidthLayout
-                ? columns[visualSize].visual
-                : columns[visualSize].content
+              columns[visualSize][!image || !body ? 'visual' : 'content']
             )}
           >
-            <div className={`block__${fullWidthLayout ? 'visual' : 'content'}`}>
+            <div className={`block__content`}>
               {!fullWidthLayout && eyelet && <h4>{eyelet}</h4>}
               {!fullWidthLayout && title && <h1>{title}</h1>}
               {body && (
