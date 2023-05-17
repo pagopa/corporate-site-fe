@@ -20,8 +20,6 @@ export const NewsletterList = () => {
         localFile {
           childImageSharp {
             gatsbyImageData(
-              layout: FULL_WIDTH
-              aspectRatio: 1.33
               width: 460
               height: 346
               transformOptions: { cropFocus: ATTENTION }
