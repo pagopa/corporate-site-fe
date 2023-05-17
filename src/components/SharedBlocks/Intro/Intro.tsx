@@ -20,7 +20,8 @@ const IntroMenu = ({ menu }: IntroMenuProps) => {
         {menu.map((item, key) => {
           const { link, title, linkLabel } = item || {};
           if (link) {
-            const isCurrent = pathname.split('/').includes(link);
+            const linkWithoutSlashes = link.split('/').pop();
+            const isCurrent = pathname.split('/').includes(linkWithoutSlashes);
             return (
               <li key={key} className={classNames(isCurrent && 'is-current')}>
                 {linkLabel ||
