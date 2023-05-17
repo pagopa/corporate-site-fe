@@ -14,12 +14,14 @@ export const AttachmentList = ({
             <ul>
               {links?.map(linkItem => {
                 const { id, link, attachment } = linkItem || {};
-                return id && link && attachment?.url ? (
+                // simpleLink is a field populated ex "Hello | www.google.it"
+                const isSimpleLink = link.split('|').length > 1 ? true : false;
+                return id && link && (attachment?.url || isSimpleLink) ? (
                   <li key={id}>
                     <Cta
-                      label={link}
+                      label={isSimpleLink ? link.split('|')[0] : link}
                       variant="link"
-                      href={attachment?.url}
+                      href={attachment?.url || link.split('|')[1]}
                       blank
                     />
                   </li>
