@@ -153,6 +153,14 @@ const config: GatsbyConfig = {
               },
             },
           },
+          {
+            singularName: 'innovation-announcement',
+            pluginOptions: {
+              i18n: {
+                locale: 'all',
+              },
+            },
+          },
         ],
       },
     },
