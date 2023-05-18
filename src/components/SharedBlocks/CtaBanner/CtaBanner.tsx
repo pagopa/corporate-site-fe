@@ -20,7 +20,7 @@ export const CtaBanner = ({
             <div className="col-12 col-md-5 col-lg-3 d-flex justify-content-md-end align-items-start">
               <Cta
                 label={(linkLabel || title) as string}
-                href={`${process.env.API_URL}/${link}`}
+                href={`${link}`}
                 variant="white-hollow"
               />
             </div>

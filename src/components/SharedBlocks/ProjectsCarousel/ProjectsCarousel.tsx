@@ -68,7 +68,7 @@ export const ProjectsCarousel = ({
                     carouselImage,
                     carouselTitle,
                     featuredImage,
-                    url_path,
+                    slug,
                   } = item || {};
 
                   return (
@@ -91,10 +91,10 @@ export const ProjectsCarousel = ({
                               <p>{carouselAbstract}</p>
                             </div>
                           )}
-                          {url_path && carouselCtaLabel && (
+                          {carouselCtaLabel && (
                             <Cta
                               label={carouselCtaLabel}
-                              href={url_path}
+                              href={`/it/prodotti-e-servizi/${slug}`}
                               variant="white-hollow"
                             />
                           )}

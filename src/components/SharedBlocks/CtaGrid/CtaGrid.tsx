@@ -20,7 +20,13 @@ export const CtaGrid = ({
                       <div className="cta-grid__entry">
                         <div>
                           <h4 className="cta-grid__title --primary">{title}</h4>
-                          <p className="cta-grid__text">{body.data?.body}</p>
+                          <p
+                            className="cta-grid__text"
+                            dangerouslySetInnerHTML={{
+                              __html: body.data?.childMarkdownRemark
+                                ?.html as string,
+                            }}
+                          ></p>
                         </div>
                         <div>
                           <Cta

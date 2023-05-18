@@ -210,7 +210,10 @@ export const query = graphql`
       ctaGridItems {
         body {
           data {
-            body
+            childMarkdownRemark {
+              html
+            }
+            id
           }
         }
         title
@@ -237,6 +240,7 @@ export const query = graphql`
         }
         carouselAbstract
         carouselCtaLabel
+        slug
       }
     }
     ... on STRAPI__COMPONENT_SHARED_BLOCK_LOGO_LINKS {

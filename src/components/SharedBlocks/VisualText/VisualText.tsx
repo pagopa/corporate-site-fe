@@ -91,9 +91,7 @@ export const VisualText = ({
       <Body forwardRef={elementRef} data={body} />
     );
 
-  const VisualCtas = () => (
-    <Cta label={ctaText} href={`${process.env.API_URL}/${link}`} />
-  );
+  const VisualCtas = () => <Cta label={ctaText} href={link} />;
 
   const VisualTitle = () =>
     visualSize === 'Small' ? <h2>{title}</h2> : <h1>{title}</h1>;
@@ -141,7 +139,6 @@ export const VisualText = ({
     >
       <BackgroundGraphics {...{ left, top, size }} />
       <div className="container-fluid">
-        {youtubeVideo && <VisualVideo />}
         <div
           className={classNames(
             `row align-items-center`,
@@ -149,6 +146,7 @@ export const VisualText = ({
           )}
         >
           {image ? <WithImage /> : <TextOnly />}
+          {youtubeVideo && <VisualVideo />}
         </div>
       </div>
     </section>
