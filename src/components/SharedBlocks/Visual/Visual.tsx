@@ -3,7 +3,7 @@ import React from 'react';
 import { BackgroundGraphics } from '../../BackgroundGraphics';
 import { Image } from '../../Image';
 
-type Template = 'Wide' | 'Left' | 'Right';
+const templates = ['Wide', 'Left', 'Right'];
 
 export const Visual = ({
   image,
@@ -26,19 +26,18 @@ export const Visual = ({
   };
 
   const { left, top, size } = backgroundAnimation || {};
+  const { type, columns } = templates.includes(template)
+    ? layout[template]
+    : layout.Wide;
 
   return (
-    <section
-      className={`block --block-visual visual --${
-        layout[template as Template].type
-      }`}
-    >
+    <section className={`block --block-visual visual --${type}`}>
       <BackgroundGraphics left={left} top={top} size={size} />
 
       <div className="container-fluid">
         <div className="row">
-          <div className={`col-12 ${layout[template as Template].columns}`}>
-            <Image data={image as Queries.STRAPI__MEDIA} />
+          <div className={`col-12 ${columns}`}>
+            <Image data={image} />
           </div>
         </div>
       </div>

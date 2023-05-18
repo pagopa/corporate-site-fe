@@ -30,8 +30,8 @@ export const PostEventsList = ({
         localFile {
           childImageSharp {
             gatsbyImageData(
-              width: 460
-              height: 346
+              layout: FULL_WIDTH
+              aspectRatio: 1.33
               transformOptions: { cropFocus: ATTENTION }
             )
           }
@@ -58,8 +58,8 @@ export const PostEventsList = ({
         localFile {
           childImageSharp {
             gatsbyImageData(
-              width: 460
-              height: 346
+              layout: FULL_WIDTH
+              aspectRatio: 1.33
               transformOptions: { cropFocus: ATTENTION }
             )
           }
@@ -109,10 +109,14 @@ export const PostEventsList = ({
         isPreview ? 'block' : ''
       } d-flex row justify-content-center`}
     >
-      <div className="col-8">
+      <div className={isPreview ? 'col-8' : 'col-9'}>
         {title && <h1>{title}</h1>}
         <Pagination
-          className={`container-fluid row justify-content-evenly m-0 p-0`}
+          className={
+            isPreview
+              ? 'container-fluid row justify-content-evenly m-0 p-0'
+              : `row col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2`
+          }
           data={postEventsCollectionSorted}
           itemsPerPage={isPreview ? 2 : 12}
           keyExtractor={item => item.id}
