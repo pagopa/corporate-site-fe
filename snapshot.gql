@@ -1414,6 +1414,8 @@ type STRAPI_INNOVATION_ANNOUNCEMENT implements Node @derivedTypes @dontInfer {
   locale: String
   featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
   strapi_id: Int
+  blocks: [STRAPI__COMPONENT_SHARED_BLOCK_LIST_ATTACHMENTS]
+    @link(by: "id", from: "blocks___NODE")
 }
 
 type STRAPI_INNOVATION_ANNOUNCEMENTBody {

@@ -27,6 +27,9 @@ export const query = graphql`
       bannerNewsletter
       updatedAt
       publishedAt
+      blocks {
+        ...Blocks
+      }
       body {
         data {
           id
@@ -76,7 +79,8 @@ export default function Component({
     i18n: { language },
   } = useTranslation();
 
-  const { body, eyelet, title, slug } = strapiInnovationAnnouncement || {};
+  const { body, eyelet, title, slug, blocks } =
+    strapiInnovationAnnouncement || {};
 
   return title && slug ? (
     <Layout>
@@ -97,6 +101,10 @@ export default function Component({
             </div>
           </div>
         </div>
+        <BlocksRenderer
+          pageSlug={slug}
+          blocks={blocks as Queries.BlocksFragment[]}
+        />
       </article>
       {true && <NewsletterBanner />}
     </Layout>

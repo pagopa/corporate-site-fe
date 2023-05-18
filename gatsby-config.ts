@@ -155,6 +155,9 @@ const config: GatsbyConfig = {
           },
           {
             singularName: 'innovation-announcement',
+            queryParams: {
+              populate: 'deep',
+            },
             pluginOptions: {
               i18n: {
                 locale: 'all',
