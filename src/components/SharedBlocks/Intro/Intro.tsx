@@ -50,10 +50,7 @@ export const Intro = ({
 }: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_INTRO_Fragment) => {
   return (
     <section
-      className={classNames(
-        'block --block-intro intro',
-        !image && !body && 'mb-0 --nocontent'
-      )}
+      className={classNames('block --block-intro intro', 'mb-0 --nocontent')}
     >
       <div className="container-fluid">
         {(title || eyelet) && (
@@ -74,11 +71,13 @@ export const Intro = ({
             </div>
           </div>
         )}
-        <div>
-          <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-            {body && <Body data={body} />}
+        {body && (
+          <div>
+            <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+              <Body data={body} />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
