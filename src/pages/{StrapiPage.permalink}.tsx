@@ -46,7 +46,6 @@ export default function Component({
   data: { strapiPage },
 }: PageProps<Queries.StrapiPageQuery>) {
   const { title, slug, blocks } = strapiPage || {};
-
   if (title && slug) {
     return (
       <Layout>
@@ -55,7 +54,10 @@ export default function Component({
           title={strapiPage.title}
           featuredImage={strapiPage.featuredImage}
         />
-        <BlocksRenderer pageSlug={slug} blocks={blocks as Queries.BlocksFragment[]} />
+        <BlocksRenderer
+          pageSlug={slug}
+          blocks={blocks as Queries.BlocksFragment[]}
+        />
       </Layout>
     );
   }

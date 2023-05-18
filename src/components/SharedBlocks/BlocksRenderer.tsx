@@ -15,6 +15,7 @@ import { MapBox } from './MapBox';
 import { NewsletterList } from './Newsletter';
 import { PostEventsList } from './PostEvents';
 import { PressReleaseList } from './PressRelease';
+import { InnovationAnnounList } from './InnovationAnnoun';
 import { ProjectsCarousel } from './ProjectsCarousel';
 import { UniversityCollaborationList } from './UniversityCollaboration';
 import { Visual } from './Visual';
@@ -39,6 +40,7 @@ const componentsMap: {
   STRAPI__COMPONENT_SHARED_BLOCK_NEWS_AND_EVENTS: PostEventsList,
   STRAPI__COMPONENT_SHARED_BLOCK_NEWSLETTER: NewsletterList,
   STRAPI__COMPONENT_SHARED_BLOCK_PRESS_RELEASE: PressReleaseList,
+  STRAPI__COMPONENT_SHARED_BLOCK_INNOVATION_ANNOUNCEMENTS: InnovationAnnounList,
   STRAPI__COMPONENT_SHARED_BLOCK_PROJECTS_CAROUSEL: ProjectsCarousel,
   STRAPI__COMPONENT_SHARED_BLOCK_UNIVERSITY_ACCORDION:
     UniversityCollaborationList,
@@ -130,6 +132,10 @@ export const query = graphql`
           url
         }
       }
+    }
+    ... on STRAPI__COMPONENT_SHARED_BLOCK_INNOVATION_ANNOUNCEMENTS {
+      title
+      id
     }
     ... on STRAPI__COMPONENT_SHARED_BLOCK_VISUAL {
       template
