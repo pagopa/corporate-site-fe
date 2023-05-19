@@ -24,6 +24,7 @@ export const VisualText = ({
   reveal,
   backgroundAnimation,
   youtubeVideo,
+  backgroundColor,
 }: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT_Fragment) => {
   const visualSize = (visualWidth as VisualSize) || 'Half';
 
@@ -133,9 +134,10 @@ export const VisualText = ({
         'block ',
         image ? '--block-visual-text' : '--block-text',
         youtubeVideo && '--has-video',
+        backgroundColor && '--has-bg-color',
         !(body || title || eyelet) && youtubeVideo && '--only-video'
       )}
-      style={{ backgroundColor: 'transparent' }}
+      style={{ backgroundColor: backgroundColor || 'transparent' }}
     >
       <BackgroundGraphics {...{ left, top, size }} />
       <div className="container-fluid">

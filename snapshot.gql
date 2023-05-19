@@ -1027,6 +1027,7 @@ type STRAPI_PAGE implements Node @dontInfer {
   createdAt: Date @dateformat
   updatedAt: Date @dateformat
   publishedAt: Date @dateformat
+  bannerNewsletter: Boolean
   locale: String
   url_path: String
   featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")

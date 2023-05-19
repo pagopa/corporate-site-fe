@@ -3,6 +3,7 @@ import React from 'react';
 import { SEO } from '../components/SEO';
 import { BlocksRenderer } from '../components/SharedBlocks/BlocksRenderer';
 import { Layout } from '../partials/Layout';
+import { NewsletterBanner } from '../components/NewsletterBanner';
 
 export const query = graphql`
   query StrapiPage($id: String, $language: String) {
@@ -18,6 +19,7 @@ export const query = graphql`
     strapiPage(id: { eq: $id }) {
       title
       slug
+      bannerNewsletter
       featuredImage {
         ...Image
       }
@@ -45,7 +47,7 @@ export const query = graphql`
 export default function Component({
   data: { strapiPage },
 }: PageProps<Queries.StrapiPageQuery>) {
-  const { title, slug, blocks } = strapiPage || {};
+  const { title, slug, blocks, bannerNewsletter } = strapiPage || {};
   if (title && slug) {
     return (
       <Layout>
@@ -58,6 +60,7 @@ export default function Component({
           pageSlug={slug}
           blocks={blocks as Queries.BlocksFragment[]}
         />
+        {bannerNewsletter && <NewsletterBanner />}
       </Layout>
     );
   }
