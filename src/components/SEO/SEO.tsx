@@ -25,13 +25,24 @@ export const SEO = ({ meta, title, featuredImage }: SEOProps) => {
   const { language } = useI18next();
   const { siteMetadata } = useSiteMetadata() || {};
 
+  const seoImageFromCMS = meta?.metaImage
+    ? `${meta?.metaImage?.localFile?.publicURL}`
+    : `${featuredImage?.url}`;
+
   const seo = {
-    title: meta?.metaTitle || `${title? title + ' - ' : ''}${siteMetadata?.metaTitle}` || siteMetadata?.title || '',
+    title:
+      meta?.metaTitle ||
+      `${title ? title + ' - ' : ''}${siteMetadata?.metaTitle}` ||
+      siteMetadata?.title ||
+      '',
     description: meta?.metaDescription || siteMetadata?.metaDescription || '',
-    metaSocial: !!meta?.metaSocial?.length? meta.metaSocial : siteMetadata?.metaSocial || [],
-    metaImage: meta?.metaImage
-      ? `${process.env.API_URL}${meta?.metaImage?.localFile?.publicURL}`
-      : `${process.env.STRAPI_API_URL}${featuredImage?.url}`
+    metaSocial: !!meta?.metaSocial?.length
+      ? meta.metaSocial
+      : siteMetadata?.metaSocial || [],
+    metaImage:
+      seoImageFromCMS != 'undefined'
+        ? seoImageFromCMS
+        : 'https://www.pagopa.it/imagedefault.jpg',
   };
 
   return (
@@ -70,20 +81,22 @@ export const SEO = ({ meta, title, featuredImage }: SEOProps) => {
             property: `og:type`,
             content: `website`,
           },
-          ...seo?.metaSocial?.map((social) => ([
-          {
-            name: `${social.socialNetwork}:card`,
-            content: `summary`,
-          },
-          {
-            name: `${social.socialNetwork}:title`,
-            content: social?.title || '',
-          },
-          {
-            name: `${social.socialNetwork}:description`,
-            content: social?.description|| '',
-          },
-          ])).flat()
+          ...seo?.metaSocial
+            ?.map(social => [
+              {
+                name: `${social.socialNetwork}:card`,
+                content: `summary`,
+              },
+              {
+                name: `${social.socialNetwork}:title`,
+                content: social?.title || '',
+              },
+              {
+                name: `${social.socialNetwork}:description`,
+                content: social?.description || '',
+              },
+            ])
+            .flat(),
         ]}
       />
 
@@ -144,6 +157,10 @@ export const SEO = ({ meta, title, featuredImage }: SEOProps) => {
             "url": "https://www.pagopa.it/it/"
           }`}
         </script>
+      </Helmet>
+      <Helmet>
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       </Helmet>
     </>
   );

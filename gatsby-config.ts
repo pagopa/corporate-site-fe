@@ -22,8 +22,6 @@ const config: GatsbyConfig = {
         title: `https://twitter.com/PagoPA`,
       },
     ],
-    keywords: `random-stuff`,
-    metaRobots: `stuff`,
     metaViewport: `width=device-width, initial-scale=1, shrink-to-fit=no`,
   },
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.

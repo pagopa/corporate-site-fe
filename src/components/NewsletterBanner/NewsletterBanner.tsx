@@ -259,7 +259,7 @@ export const NewsletterBanner = () => {
                   <em>
                     Inserendo il tuo indirizzo email stai accettando la{' '}
                     <a
-                      href={'${siteUrl}/${locale}/privacy-policy/'}
+                      href={'/it/privacy-policy/'}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
