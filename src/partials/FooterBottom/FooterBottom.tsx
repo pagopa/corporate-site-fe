@@ -13,7 +13,7 @@ export const FooterBottom = ({ menu }: MenuFooterProps) => (
         return item?.title && item?.path ? (
           <li key={item?.path}>
             <Cta
-              href={`${process.env.API_URL}${item?.path}`}
+              href={`${item?.path}`}
               label={item?.title}
               variant="link-simple"
             />

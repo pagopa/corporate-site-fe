@@ -6,7 +6,6 @@ import { Body } from '../../Remark';
 import './MapBox.sass';
 
 export const MapBox = ({
-  image,
   mapBoxItems,
 }: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_MAP_BOX_Fragment) => {
   return (
@@ -16,13 +15,12 @@ export const MapBox = ({
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
             <div className="map-box__inner">
               <div className="row justify-content-center">
-                {image && (
-                  <div className="col-12 col-md-5 pe-md-0">
-                    <figure>
-                      <Image data={image} />
-                    </figure>
-                  </div>
-                )}
+                <div className="col-12 col-md-5 pe-md-0">
+                  <figure>
+                    <img src={'/sede.jpg'} alt="Sede" />
+                  </figure>
+                </div>
+
                 <div className="col-12 col-md-7">
                   <div className="map-box__locations">
                     {mapBoxItems.map((item, key) => {

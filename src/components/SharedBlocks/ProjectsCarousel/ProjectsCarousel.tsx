@@ -40,7 +40,7 @@ export const ProjectsCarousel = ({
       </div>
       <div className="container-fluid">
         <div className="row d-flex align-items-center">
-          <div className="col-12 col-md-10 offset-md-1">
+          <div className="col-12 ">
             <div className="projects-carousel__content">
               <Swiper
                 speed={swiperCommons.speed}

@@ -8,7 +8,6 @@ type FooterTopProps = {
 };
 
 export const FooterTop = ({ menu }: FooterTopProps) => {
-
   useCookiesDialog({ selector: '.ot-preferences' });
 
   return (
@@ -20,7 +19,7 @@ export const FooterTop = ({ menu }: FooterTopProps) => {
               {item.path && (
                 <Cta
                   label={item.title || ''}
-                  href={`${process.env.API_URL}${item?.path}`}
+                  href={`${item?.path}`}
                   blank
                   variant="link-simple"
                 />
@@ -30,7 +29,7 @@ export const FooterTop = ({ menu }: FooterTopProps) => {
         })}
         <li>
           <button id="ot-sdk-btn" className="cta --link-simple ot-preferences">
-            <span>Preferenze cookie MOCK</span>
+            <span>Preferenze cookie</span>
           </button>
         </li>
       </ul>

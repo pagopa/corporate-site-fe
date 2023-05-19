@@ -8,7 +8,10 @@ const ContactsList = ({
   blockConf,
   title,
 }: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_CONTACTS_LIST_Fragment) => {
-  const { BlockPosition, BlockWidth } = blockConf;
+  const { BlockPosition, BlockWidth } = blockConf || {
+    BlockPosition: '',
+    BlockWidth: '',
+  };
 
   // center default
   const columns: PagoPA.BlockConfig = {
