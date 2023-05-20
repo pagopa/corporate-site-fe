@@ -12,6 +12,7 @@ dotenv.config({
 
 const config: GatsbyConfig = {
   siteMetadata: {
+    siteUrl: `https://www.pagopa.it`,
     metaTitle: `PagoPA S.p.A.`,
     metaDescription: `PagoPA S.p.A. è una società pubblica ad alto livello specialistico, che ha la mission di diffondere i servizi pubblici digitali attraverso lo sviluppo di progetti innovativi e la gestione di infrastrutture tecnologiche strategiche per accompagnare la modernizzazione della Pubblica Amministrazione e del Paese.`,
     metaSocial: [
@@ -34,6 +35,7 @@ const config: GatsbyConfig = {
     `gatsby-plugin-image`,
     `gatsby-transformer-json`,
     `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-sitemap`,
     {
       resolve: `gatsby-transformer-remark`,
       options: {
@@ -216,7 +218,7 @@ const config: GatsbyConfig = {
       options: {
         localeJsonNodeName: `allLocale`,
         localeJsonSourceName: `locale`,
-        languages: ['it', 'en'],
+        languages: ['it'],
         fallbackLanguage: 'it',
         generateDefaultLanguagePage: true,
       },

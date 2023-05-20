@@ -253,6 +253,7 @@ type Site implements Node @derivedTypes @dontInfer {
 }
 
 type SiteSiteMetadata @derivedTypes {
+  siteUrl: String
   title: String
   description: String
   metaTitle: String

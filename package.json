@@ -33,6 +33,7 @@
     "gatsby-plugin-sass": "^6.4.0",
     "gatsby-plugin-schema-snapshot": "^4.9.0",
     "gatsby-plugin-sharp": "^5.4.0",
+    "gatsby-plugin-sitemap": "^6.10.0",
     "gatsby-source-filesystem": "^5.5.0",
     "gatsby-source-strapi": "^3.2.0",
     "gatsby-transformer-inline-svg": "^1.2.0",
