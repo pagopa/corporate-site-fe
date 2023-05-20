@@ -1185,6 +1185,7 @@ type STRAPI__COMPONENT_SHARED_BLOCK_LOGO_LINKS implements Node @dontInfer {
 type STRAPI__COMPONENT_BLOCK_CONTEXT_LINK_ATTACHMENT implements Node
   @dontInfer {
   link: String
+  label: String
   attachment: STRAPI__MEDIA @link(by: "id", from: "attachment___NODE")
   strapi_id: Int
 }

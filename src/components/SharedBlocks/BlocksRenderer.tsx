@@ -128,8 +128,10 @@ export const query = graphql`
       linksAttachments {
         id
         link
+        label
         attachment {
           url
+          name
         }
       }
     }
@@ -199,6 +201,7 @@ export const query = graphql`
         buttonLabel
         attachment {
           url
+          name
         }
       }
       blockConf {
@@ -296,6 +299,7 @@ export const query = graphql`
         link
         attachment {
           url
+          name
         }
       }
       body {

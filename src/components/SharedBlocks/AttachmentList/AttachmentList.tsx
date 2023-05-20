@@ -13,19 +13,19 @@ export const AttachmentList = ({
             {title && <h4>{title}</h4>}
             <ul>
               {links?.map(linkItem => {
-                const { id, link, attachment } = linkItem || {};
-                // simpleLink is a field populated ex "Hello | www.google.it"
-                const isSimpleLink = link.split('|').length > 1 ? true : false;
-                return id && link && (attachment?.url || isSimpleLink) ? (
-                  <li key={id}>
-                    <Cta
-                      label={isSimpleLink ? link.split('|')[0] : link}
-                      variant="link"
-                      href={attachment?.url || link.split('|')[1]}
-                      blank
-                    />
-                  </li>
-                ) : null;
+                const { id, link, attachment, label } = linkItem || {};
+                if (link || attachment || label) {
+                  return id ? (
+                    <li key={id}>
+                      <Cta
+                        label={label || attachment?.name || link}
+                        variant="link"
+                        href={attachment?.url || link}
+                        blank
+                      />
+                    </li>
+                  ) : null;
+                }
               })}
             </ul>
           </div>
