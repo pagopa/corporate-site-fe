@@ -1,4 +1,4 @@
-name: 'Deploy AWS'
+name: 'Deploy Preview AWS'
 
 on:
   push:
@@ -82,4 +82,4 @@ jobs:
         with:
           dest-s3-bucket: ${{ vars.AWS_BUCKET_PREVIEW }}
           cloudfront-id-to-invalidate: ${{ vars.AWS_CLOUDFRONT_PREVIEW_ID }}
-          public-source-path: public
+          public-source-path: src/public
