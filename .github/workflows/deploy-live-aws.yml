@@ -1,4 +1,4 @@
-name: "Deploy Live AWS"
+name: 'Deploy Live AWS'
 
 on:
   push:
@@ -12,20 +12,20 @@ on:
       logLevel:
         description: 'Log level'
         required: true
-        default: 'warning' 
+        default: 'warning'
         type: choice
         options:
-        - info
-        - warning
-        - debug
+          - info
+          - warning
+          - debug
       environment:
         description: 'Which environment to update.'
         type: choice
         default: 'dev'
-        required: true 
+        required: true
         options:
-        - dev
-        - prod
+          - dev
+          - prod
   # Allows external webhook trigger
   repository_dispatch:
     types:
@@ -33,25 +33,25 @@ on:
 
 env:
   AWS_REGION: eu-central-1
- 
+
 defaults:
   run:
     shell: bash
     working-directory: src
 
 permissions:
-  id-token: write   # This is required for requesting the JWT
-  contents: read    # This is required for actions/checkout
+  id-token: write # This is required for requesting the JWT
+  contents: read # This is required for actions/checkout
 
 jobs:
   deploy:
-    name: deploy ${{ inputs.environment }} 
+    name: deploy ${{ inputs.environment }}
     runs-on: ubuntu-22.04
-    environment: ${{ inputs.environment }} 
+    environment: ${{ inputs.environment }}
     steps:
       - name: Checkout
         uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3
-              
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
         with:
@@ -60,11 +60,20 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
-          node-version: 16
+          node-version: 18
       - name: Build
-        env: 
+        env:
           STRAPI_TOKEN: ${{ secrets.STRAPI_TOKEN }}
           STRAPI_API_URL: ${{ vars.STRAPI_URL }}
+          GATSBY_UPDATE_SCHEMA_SNAPSHOT: ${{ vars.GATSBY_UPDATE_SCHEMA_SNAPSHOT }}
+          MAIN_MENU_IT: ${{ vars.MAIN_MENU_IT }}
+          MAIN_MENU_EN: ${{ vars.MAIN_MENU_EN }}
+          RESERVED_MENU_IT: ${{ vars.RESERVED_MENU_IT }}
+          RESERVED_MENU_EN: ${{ vars.RESERVED_MENU_EN }}
+          FOOTER_TOP_IT: ${{ vars.FOOTER_TOP_IT }}
+          FOOTER_TOP_EN: ${{ vars.FOOTER_TOP_EN }}
+          FOOTER_BOTTOM_IT: ${{ vars.FOOTER_BOTTOM_IT }}
+          FOOTER_BOTTOM_EN: ${{ vars.FOOTER_BOTTOM_EN }}
         run: |
           yarn install
           yarn build
