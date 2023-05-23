@@ -1,0 +1,28 @@
+{
+  "name": "gatsby-plugin-remark",
+  "version": "1.0.0",
+  "description": "Custom remark nodes",
+  "author": {
+    "name": "Michele Moio",
+    "email": "michele.moio@protonmail.com"
+  },
+  "keywords": [
+    "gatsby",
+    "strapi",
+    "gatsby-plugin",
+    "gatsby-source",
+    "strapi-plugin",
+    "strapi-plugin-navigation",
+    "gatsby-remark-transformer"
+  ],
+  "dependencies": {
+    "mdast-util-to-string": "^3.1.1",
+    "unist-util-visit": "^2"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "gatsby": "^2.29.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  }
+}

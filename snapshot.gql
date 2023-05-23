@@ -1,0 +1,1542 @@
+### Type definitions saved at 2023-04-21T13:19:27.262Z ###
+
+enum RemoteFileFit {
+  COVER
+  FILL
+  OUTSIDE
+  CONTAIN
+}
+
+enum RemoteFileFormat {
+  AUTO
+  JPG
+  PNG
+  WEBP
+  AVIF
+}
+
+enum RemoteFileLayout {
+  FIXED
+  FULL_WIDTH
+  CONSTRAINED
+}
+
+enum RemoteFilePlaceholder {
+  DOMINANT_COLOR
+  BLURRED
+  TRACED_SVG
+  NONE
+}
+
+enum RemoteFileCropFocus {
+  CENTER
+  TOP
+  RIGHT
+  BOTTOM
+  LEFT
+  ENTROPY
+  EDGES
+  FACES
+}
+
+type RemoteFileResize {
+  width: Int
+  height: Int
+  src: String
+}
+
+"""
+Remote Interface
+"""
+interface RemoteFile {
+  id: ID!
+  mimeType: String!
+  filename: String!
+  filesize: Int
+  width: Int
+  height: Int
+  publicUrl: String!
+  resize(
+    width: Int
+    height: Int
+    aspectRatio: Float
+    fit: RemoteFileFit = COVER
+
+    """
+    The image formats to generate. Valid values are AUTO (meaning the same
+    format as the source image), JPG, PNG, WEBP and AVIF.
+    The default value is [AUTO, WEBP, AVIF], and you should rarely need to
+    change this. Take care if you specify JPG or PNG when you do
+    not know the formats of the source images, as this could lead to unwanted
+    results such as converting JPEGs to PNGs. Specifying
+    both PNG and JPG is not supported and will be ignored.
+    """
+    format: RemoteFileFormat = AUTO
+    cropFocus: [RemoteFileCropFocus]
+    quality: Int = 75
+  ): RemoteFileResize
+
+  """
+  Data used in the <GatsbyImage /> component. See https://gatsby.dev/img for more info.
+  """
+  gatsbyImage(
+    """
+    The layout for the image.
+    FIXED: A static image sized, that does not resize according to the screen width
+    FULL_WIDTH: The image resizes to fit its container. Pass a "sizes" option if
+    it isn't going to be the full width of the screen.
+    CONSTRAINED: Resizes to fit its container, up to a maximum width, at which point it will remain fixed in size.
+    """
+    layout: RemoteFileLayout = CONSTRAINED
+
+    """
+    The display width of the generated image for layout = FIXED, and the display
+    width of the largest image for layout = CONSTRAINED.
+    The actual largest image resolution will be this value multiplied by the largest value in outputPixelDensities
+    Ignored if layout = FLUID.
+    """
+    width: Int
+
+    """
+    If set, the height of the generated image. If omitted, it is calculated from
+    the supplied width, matching the aspect ratio of the source image.
+    """
+    height: Int
+
+    """
+    Format of generated placeholder image, displayed while the main image loads.
+    BLURRED: a blurred, low resolution image, encoded as a base64 data URI
+    DOMINANT_COLOR: a solid color, calculated from the dominant color of the image (default).
+    TRACED_SVG: deprecated. Will use DOMINANT_COLOR.
+    NONE: no placeholder. Set the argument "backgroundColor" to use a fixed background color.
+    """
+    placeholder: RemoteFilePlaceholder = DOMINANT_COLOR
+
+    """
+    If set along with width or height, this will set the value of the other
+    dimension to match the provided aspect ratio, cropping the image if needed.
+    If neither width or height is provided, height will be set based on the intrinsic width of the source image.
+    """
+    aspectRatio: Float
+
+    """
+    The image formats to generate. Valid values are AUTO (meaning the same
+    format as the source image), JPG, PNG, WEBP and AVIF.
+    The default value is [AUTO, WEBP, AVIF], and you should rarely need to
+    change this. Take care if you specify JPG or PNG when you do
+    not know the formats of the source images, as this could lead to unwanted
+    results such as converting JPEGs to PNGs. Specifying
+    both PNG and JPG is not supported and will be ignored.
+    """
+    formats: [RemoteFileFormat!] = [AUTO, WEBP, AVIF]
+
+    """
+    A list of image pixel densities to generate for FIXED and CONSTRAINED
+    images. You should rarely need to change this. It will never generate images
+    larger than the source, and will always include a 1x image.
+    Default is [ 1, 2 ] for fixed images, meaning 1x, 2x, and [0.25, 0.5, 1, 2]
+    for fluid. In this case, an image with a fluid layout and width = 400 would
+    generate images at 100, 200, 400 and 800px wide.
+    """
+    outputPixelDensities: [Float] = [0.25, 0.5, 1, 2]
+
+    """
+    Specifies the image widths to generate. You should rarely need to change
+    this. For FIXED and CONSTRAINED images it is better to allow these to be
+    determined automatically,
+    based on the image size. For FULL_WIDTH images this can be used to override
+    the default, which is [750, 1080, 1366, 1920].
+    It will never generate any images larger than the source.
+    """
+    breakpoints: [Int] = [750, 1080, 1366, 1920]
+
+    """
+    The "sizes" property, passed to the img tag. This describes the display size of the image.
+    This does not affect the generated images, but is used by the browser to
+    decide which images to download. You can leave this blank for fixed images,
+    or if the responsive image
+    container will be the full width of the screen. In these cases we will generate an appropriate value.
+    """
+    sizes: String
+
+    """
+    Background color applied to the wrapper, or when "letterboxing" an image to another aspect ratio.
+    """
+    backgroundColor: String
+    fit: RemoteFileFit = COVER
+    cropFocus: [RemoteFileCropFocus]
+    quality: Int = 75
+  ): GatsbyImageData
+}
+
+type File implements Node @dontInfer {
+  sourceInstanceName: String!
+  absolutePath: String!
+  relativePath: String!
+  extension: String!
+  size: Int!
+  prettySize: String!
+  modifiedTime: Date! @dateformat
+  accessTime: Date! @dateformat
+  changeTime: Date! @dateformat
+  birthTime: Date! @dateformat
+  root: String!
+  dir: String!
+  base: String!
+  ext: String!
+  name: String!
+  relativeDirectory: String!
+  dev: Int!
+  mode: Int!
+  nlink: Int!
+  uid: Int!
+  gid: Int!
+  rdev: Int!
+  ino: Float!
+  atimeMs: Float!
+  mtimeMs: Float!
+  ctimeMs: Float!
+  atime: Date! @dateformat
+  mtime: Date! @dateformat
+  ctime: Date! @dateformat
+  birthtime: Date @deprecated(reason: "Use `birthTime` instead")
+  birthtimeMs: Float @deprecated(reason: "Use `birthTime` instead")
+  blksize: Int
+  blocks: Int
+  url: String
+}
+
+type Directory implements Node @dontInfer {
+  sourceInstanceName: String!
+  absolutePath: String!
+  relativePath: String!
+  extension: String!
+  size: Int!
+  prettySize: String!
+  modifiedTime: Date! @dateformat
+  accessTime: Date! @dateformat
+  changeTime: Date! @dateformat
+  birthTime: Date! @dateformat
+  root: String!
+  dir: String!
+  base: String!
+  ext: String!
+  name: String!
+  relativeDirectory: String!
+  dev: Int!
+  mode: Int!
+  nlink: Int!
+  uid: Int!
+  gid: Int!
+  rdev: Int!
+  ino: Float!
+  atimeMs: Float!
+  mtimeMs: Float!
+  ctimeMs: Float!
+  atime: Date! @dateformat
+  mtime: Date! @dateformat
+  ctime: Date! @dateformat
+  birthtime: Date @deprecated(reason: "Use `birthTime` instead")
+  birthtimeMs: Float @deprecated(reason: "Use `birthTime` instead")
+}
+
+type Site implements Node @derivedTypes @dontInfer {
+  buildTime: Date @dateformat
+  siteMetadata: SiteSiteMetadata
+  port: Int
+  host: String
+  graphqlTypegen: SiteGraphqlTypegen
+  polyfill: Boolean
+  pathPrefix: String
+  jsxRuntime: String
+  trailingSlash: String
+}
+
+type SiteSiteMetadata @derivedTypes {
+  siteUrl: String
+  title: String
+  description: String
+  metaTitle: String
+  metaDescription: String
+  metaSocial: [SiteSiteMetadataMetaSocial]
+  keywords: String
+  metaRobots: String
+  metaViewport: String
+}
+
+type SiteSiteMetadataMetaSocial {
+  socialNetwork: String
+  title: String
+  description: String
+  image: String
+}
+
+type SiteGraphqlTypegen {
+  typesOutputPath: String
+  documentSearchPaths: [String]
+  generateOnBuild: Boolean
+}
+
+type SiteFunction implements Node @dontInfer {
+  functionRoute: String!
+  pluginName: String!
+  originalAbsoluteFilePath: String!
+  originalRelativeFilePath: String!
+  relativeCompiledFilePath: String!
+  absoluteCompiledFilePath: String!
+  matchPath: String
+}
+
+type SitePage implements Node @dontInfer {
+  path: String!
+  component: String!
+  internalComponentName: String!
+  componentChunkName: String!
+  matchPath: String
+  pageContext: JSON @proxy(from: "context", fromNode: false)
+  pluginCreator: SitePlugin @link(by: "id", from: "pluginCreatorId")
+}
+
+type SitePlugin implements Node @dontInfer {
+  resolve: String
+  name: String
+  version: String
+  nodeAPIs: [String]
+  browserAPIs: [String]
+  ssrAPIs: [String]
+  pluginFilepath: String
+  pluginOptions: JSON
+  packageJson: JSON
+}
+
+type SiteBuildMetadata implements Node @dontInfer {
+  buildTime: Date @dateformat
+}
+
+enum ImageFormat {
+  NO_CHANGE
+  AUTO
+  JPG
+  PNG
+  WEBP
+  AVIF
+}
+
+enum ImageFit {
+  COVER
+  CONTAIN
+  FILL
+  INSIDE
+  OUTSIDE
+}
+
+enum ImageLayout {
+  FIXED
+  FULL_WIDTH
+  CONSTRAINED
+}
+
+enum ImageCropFocus {
+  CENTER
+  NORTH
+  NORTHEAST
+  EAST
+  SOUTHEAST
+  SOUTH
+  SOUTHWEST
+  WEST
+  NORTHWEST
+  ENTROPY
+  ATTENTION
+}
+
+input DuotoneGradient {
+  highlight: String!
+  shadow: String!
+  opacity: Int
+}
+
+enum PotraceTurnPolicy {
+  TURNPOLICY_BLACK
+  TURNPOLICY_WHITE
+  TURNPOLICY_LEFT
+  TURNPOLICY_RIGHT
+  TURNPOLICY_MINORITY
+  TURNPOLICY_MAJORITY
+}
+
+input Potrace {
+  turnPolicy: PotraceTurnPolicy
+  turdSize: Float
+  alphaMax: Float
+  optCurve: Boolean
+  optTolerance: Float
+  threshold: Int
+  blackOnWhite: Boolean
+  color: String
+  background: String
+}
+
+type ImageSharpFixed {
+  base64: String
+  tracedSVG: String
+  aspectRatio: Float
+  width: Float!
+  height: Float!
+  src: String!
+  srcSet: String!
+  srcWebp: String
+  srcSetWebp: String
+  originalName: String
+}
+
+type ImageSharpFluid {
+  base64: String
+  tracedSVG: String
+  aspectRatio: Float!
+  src: String!
+  srcSet: String!
+  srcWebp: String
+  srcSetWebp: String
+  sizes: String!
+  originalImg: String
+  originalName: String
+  presentationWidth: Int!
+  presentationHeight: Int!
+}
+
+enum ImagePlaceholder {
+  DOMINANT_COLOR
+  TRACED_SVG
+  BLURRED
+  NONE
+}
+
+input BlurredOptions {
+  """
+  Width of the generated low-res preview. Default is 20px
+  """
+  width: Int
+
+  """
+  Force the output format for the low-res preview. Default is to use the same
+  format as the input. You should rarely need to change this
+  """
+  toFormat: ImageFormat
+}
+
+input JPGOptions {
+  quality: Int
+  progressive: Boolean = true
+}
+
+input PNGOptions {
+  quality: Int
+  compressionSpeed: Int = 4
+}
+
+input WebPOptions {
+  quality: Int
+}
+
+input AVIFOptions {
+  quality: Int
+  lossless: Boolean
+  speed: Int
+}
+
+input TransformOptions {
+  grayscale: Boolean
+  duotone: DuotoneGradient
+  rotate: Int
+  trim: Float
+  cropFocus: ImageCropFocus = ATTENTION
+  fit: ImageFit = COVER
+}
+
+type ImageSharpOriginal {
+  width: Float
+  height: Float
+  src: String
+}
+
+type ImageSharpResize {
+  src: String
+  tracedSVG: String
+  width: Int
+  height: Int
+  aspectRatio: Float
+  originalName: String
+}
+
+type ImageSharp implements Node @childOf(types: ["File"]) @dontInfer {
+  fixed(
+    width: Int
+    height: Int
+    base64Width: Int
+    jpegProgressive: Boolean = true
+    pngCompressionSpeed: Int = 4
+    grayscale: Boolean
+    duotone: DuotoneGradient
+    traceSVG: Potrace
+    quality: Int
+    jpegQuality: Int
+    pngQuality: Int
+    webpQuality: Int
+    toFormat: ImageFormat
+    toFormatBase64: ImageFormat
+    cropFocus: ImageCropFocus = ATTENTION
+    fit: ImageFit = COVER
+    background: String = "rgba(0,0,0,1)"
+    rotate: Int
+    trim: Float
+  ): ImageSharpFixed
+  fluid(
+    maxWidth: Int
+    maxHeight: Int
+    base64Width: Int
+    grayscale: Boolean
+    jpegProgressive: Boolean = true
+    pngCompressionSpeed: Int = 4
+    duotone: DuotoneGradient
+    traceSVG: Potrace
+    quality: Int
+    jpegQuality: Int
+    pngQuality: Int
+    webpQuality: Int
+    toFormat: ImageFormat
+    toFormatBase64: ImageFormat
+    cropFocus: ImageCropFocus = ATTENTION
+    fit: ImageFit = COVER
+    background: String = "rgba(0,0,0,1)"
+    rotate: Int
+    trim: Float
+    sizes: String
+
+    """
+    A list of image widths to be generated. Example: [ 200, 340, 520, 890 ]
+    """
+    srcSetBreakpoints: [Int] = []
+  ): ImageSharpFluid
+  gatsbyImageData(
+    """
+    The layout for the image.
+    FIXED: A static image sized, that does not resize according to the screen width
+    FULL_WIDTH: The image resizes to fit its container. Pass a "sizes" option if
+    it isn't going to be the full width of the screen.
+    CONSTRAINED: Resizes to fit its container, up to a maximum width, at which point it will remain fixed in size.
+    """
+    layout: ImageLayout = CONSTRAINED
+
+    """
+    The display width of the generated image for layout = FIXED, and the maximum
+    display width of the largest image for layout = CONSTRAINED.
+    Ignored if layout = FLUID.
+    """
+    width: Int
+
+    """
+    The display height of the generated image for layout = FIXED, and the
+    maximum display height of the largest image for layout = CONSTRAINED.
+    The image will be cropped if the aspect ratio does not match the source
+    image. If omitted, it is calculated from the supplied width,
+    matching the aspect ratio of the source image.
+    """
+    height: Int
+
+    """
+    If set along with width or height, this will set the value of the other
+    dimension to match the provided aspect ratio, cropping the image if needed.
+    If neither width or height is provided, height will be set based on the intrinsic width of the source image.
+    """
+    aspectRatio: Float
+
+    """
+    Format of generated placeholder image, displayed while the main image loads.
+    BLURRED: a blurred, low resolution image, encoded as a base64 data URI
+    DOMINANT_COLOR: a solid color, calculated from the dominant color of the image (default).
+    TRACED_SVG: deprecated. Will use DOMINANT_COLOR.
+    NONE: no placeholder. Set "background" to use a fixed background color.
+    """
+    placeholder: ImagePlaceholder
+
+    """
+    Options for the low-resolution placeholder image. Set placeholder to "BLURRED" to use this
+    """
+    blurredOptions: BlurredOptions
+
+    """
+    Options for traced placeholder SVGs. You also should set placeholder to "TRACED_SVG".
+    """
+    tracedSVGOptions: Potrace
+
+    """
+    The image formats to generate. Valid values are "AUTO" (meaning the same
+    format as the source image), "JPG", "PNG", "WEBP" and "AVIF".
+    The default value is [AUTO, WEBP], and you should rarely need to change
+    this. Take care if you specify JPG or PNG when you do
+    not know the formats of the source images, as this could lead to unwanted
+    results such as converting JPEGs to PNGs. Specifying
+    both PNG and JPG is not supported and will be ignored.
+    """
+    formats: [ImageFormat]
+
+    """
+    A list of image pixel densities to generate. It will never generate images
+    larger than the source, and will always include a 1x image.
+    Default is [ 1, 2 ] for FIXED images, meaning 1x and 2x and [0.25, 0.5, 1,
+    2] for CONSTRAINED. In this case, an image with a constrained layout
+    and width = 400 would generate images at 100, 200, 400 and 800px wide.
+    Ignored for FULL_WIDTH images, which use breakpoints instead
+    """
+    outputPixelDensities: [Float]
+
+    """
+    Specifies the image widths to generate. For FIXED and CONSTRAINED images it
+    is better to allow these to be determined automatically,
+    based on the image size. For FULL_WIDTH images this can be used to override
+    the default, which is [750, 1080, 1366, 1920].
+    It will never generate any images larger than the source.
+    """
+    breakpoints: [Int]
+
+    """
+    The "sizes" property, passed to the img tag. This describes the display size of the image.
+    This does not affect the generated images, but is used by the browser to decide which images to download.
+    You should usually leave this blank, and a suitable value will be calculated. The exception is if a FULL_WIDTH image
+    does not actually span the full width of the screen, in which case you should pass the correct size here.
+    """
+    sizes: String
+
+    """
+    The default quality. This is overridden by any format-specific options
+    """
+    quality: Int
+
+    """
+    Options to pass to sharp when generating JPG images.
+    """
+    jpgOptions: JPGOptions
+
+    """
+    Options to pass to sharp when generating PNG images.
+    """
+    pngOptions: PNGOptions
+
+    """
+    Options to pass to sharp when generating WebP images.
+    """
+    webpOptions: WebPOptions
+
+    """
+    Options to pass to sharp when generating AVIF images.
+    """
+    avifOptions: AVIFOptions
+
+    """
+    Options to pass to sharp to control cropping and other image manipulations.
+    """
+    transformOptions: TransformOptions
+
+    """
+    Background color applied to the wrapper. Also passed to sharp to use as a
+    background when "letterboxing" an image to another aspect ratio.
+    """
+    backgroundColor: String
+  ): GatsbyImageData!
+  original: ImageSharpOriginal
+  resize(
+    width: Int
+    height: Int
+    quality: Int
+    jpegQuality: Int
+    pngQuality: Int
+    webpQuality: Int
+    jpegProgressive: Boolean = true
+    pngCompressionLevel: Int = 9
+    pngCompressionSpeed: Int = 4
+    grayscale: Boolean
+    duotone: DuotoneGradient
+    base64: Boolean
+    traceSVG: Potrace
+    toFormat: ImageFormat
+    cropFocus: ImageCropFocus = ATTENTION
+    fit: ImageFit = COVER
+    background: String = "rgba(0,0,0,1)"
+    rotate: Int
+    trim: Float
+  ): ImageSharpResize
+}
+
+enum GatsbyImageFormat {
+  NO_CHANGE
+  AUTO
+  JPG
+  PNG
+  WEBP
+  AVIF
+}
+
+enum GatsbyImageLayout {
+  FIXED
+  FULL_WIDTH
+  CONSTRAINED
+}
+
+enum GatsbyImagePlaceholder {
+  DOMINANT_COLOR
+  TRACED_SVG
+  BLURRED
+  NONE
+}
+
+type MarkdownHeading {
+  id: String
+  value: String
+  depth: Int
+}
+
+enum MarkdownHeadingLevels {
+  h1
+  h2
+  h3
+  h4
+  h5
+  h6
+}
+
+enum MarkdownExcerptFormats {
+  PLAIN
+  HTML
+  MARKDOWN
+}
+
+type MarkdownWordCount {
+  paragraphs: Int
+  sentences: Int
+  words: Int
+}
+
+type MarkdownRemark implements Node
+  @childOf(
+    mimeTypes: ["text/markdown", "text/x-markdown"]
+    types: [
+      "STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT_BODY_TEXTNODE"
+      "STRAPI__COMPONENT_SHARED_BLOCK_TEXT_VIDEO_OPTION_BODY_TEXTNODE"
+      "STRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTING_BODY_TEXTNODE"
+      "STRAPI__COMPONENT_SHARED_BLOCK_INTRO_BODY_TEXTNODE"
+      "STRAPI__COMPONENT_BLOCK_CONTEXT_TITLE_TEXT_LINK_BODY_TEXTNODE"
+      "STRAPI__COMPONENT_BLOCK_CONTEXT_CONTENT_ITEMS_BODY_TEXTNODE"
+      "STRAPI__COMPONENT_BLOCK_CONTEXT_ACCORDION_ITEM_CONTENT_TEXTNODE"
+      "STRAPI_UNIVERSITY_COLLABORATION_BODY_TEXTNODE"
+      "STRAPI_INNOVATION_ANNOUNCEMENT_BODY_TEXTNODE"
+      "STRAPI_PRESS_RELEASE_BODY_TEXTNODE"
+      "STRAPI_POST_BODY_TEXTNODE"
+      "STRAPI_NEWSLETTER_BODY_TEXTNODE"
+      "STRAPI_EVENT_BODY_TEXTNODE"
+    ]
+  )
+  @derivedTypes
+  @dontInfer {
+  frontmatter: MarkdownRemarkFrontmatter
+  excerpt: String
+  rawMarkdownBody: String
+}
+
+type MarkdownRemarkFrontmatter {
+  title: String
+}
+
+union SHARED_BLOCKS_UNION =
+    STRAPI__COMPONENT_SHARED_BLOCK_ACCORDION
+  | STRAPI__COMPONENT_SHARED_BLOCK_ATTACHMENTS_GRID
+  | STRAPI__COMPONENT_SHARED_BLOCK_CONTACTS_LIST
+  | STRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LIST
+  | STRAPI__COMPONENT_SHARED_BLOCK_CTA_BANNER
+  | STRAPI__COMPONENT_SHARED_BLOCK_CTA_GRID
+  | STRAPI__COMPONENT_SHARED_BLOCK_HERO_SLIDER
+  | STRAPI__COMPONENT_SHARED_BLOCK_INTRO
+  | STRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTING
+  | STRAPI__COMPONENT_SHARED_BLOCK_LIST_ATTACHMENTS
+  | STRAPI__COMPONENT_SHARED_BLOCK_LOGO_LINKS
+  | STRAPI__COMPONENT_SHARED_BLOCK_MAP_BOX
+  | STRAPI__COMPONENT_SHARED_BLOCK_NEWS_AND_EVENTS
+  | STRAPI__COMPONENT_SHARED_BLOCK_NEWSLETTER
+  | STRAPI__COMPONENT_SHARED_BLOCK_PRESS_RELEASE
+  | STRAPI__COMPONENT_SHARED_BLOCK_PROJECTS_CAROUSEL
+  | STRAPI__COMPONENT_SHARED_BLOCK_UNIVERSITY_ACCORDION
+  | STRAPI__COMPONENT_SHARED_BLOCK_VISUAL
+  | STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT
+  | STRAPI__COMPONENT_SHARED_BLOCK_INNOVATION_ANNOUNCEMENTS
+
+type StrapiNavigation implements Node @derivedTypes @dontInfer {
+  key: String
+  locale: String
+  title: String
+  menuAttached: Boolean
+  order: Int
+  path: String
+  type: String
+  uiRouterKey: String
+  slug: String
+  external: Boolean
+  items: [StrapiNavigationItems]
+  highlight: Boolean
+}
+
+type StrapiNavigationItems @derivedTypes {
+  id: Int
+  title: String
+  menuAttached: Boolean
+  order: Int
+  path: String
+  type: String
+  uiRouterKey: String
+  slug: String
+  external: Boolean
+  related: StrapiNavigationItemsRelated
+  highlight: Boolean
+}
+
+type StrapiNavigationItemsRelated {
+  id: Int
+  title: String
+  slug: String
+  createdAt: Date @dateformat
+  updatedAt: Date @dateformat
+  publishedAt: Date @dateformat
+  locale: String
+  url_path: String
+  _xcontentType: String @proxy(from: "__contentType")
+  navigationItemId: Int
+  _xtemplateName: String @proxy(from: "__templateName")
+}
+
+type StrapiComponentSharedSeoStructureddataJsonnodeJson implements Node
+  @derivedTypes
+  @childOf(types: ["STRAPI__COMPONENT_SHARED_SEO_STRUCTUREDDATA_JSONNODE"])
+  @dontInfer {
+  name: String
+  _type: String @proxy(from: "@type")
+  author: StrapiComponentSharedSeoStructureddataJsonnodeJsonAuthor
+  _context: String @proxy(from: "@context")
+  prepTime: String
+  description: String
+  datePublished: Date @dateformat
+}
+
+type StrapiComponentSharedSeoStructureddataJsonnodeJsonAuthor {
+  name: String
+  _type: String @proxy(from: "@type")
+}
+
+type SocialsJson implements Node
+  @derivedTypes
+  @childOf(types: ["File"])
+  @dontInfer {
+  locale: String
+  links: [SocialsJsonLinks]
+}
+
+type SocialsJsonLinks {
+  image: String
+  label: String
+  url: String
+}
+
+type STRAPI__MEDIA implements Node @derivedTypes @dontInfer {
+  name: String
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  formats: STRAPI__MEDIAFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  createdAt: Date @dateformat
+  updatedAt: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+  strapi_id: Int
+}
+
+type STRAPI__MEDIAFormats @derivedTypes {
+  small: STRAPI__MEDIAFormatsSmall
+  thumbnail: STRAPI__MEDIAFormatsThumbnail
+}
+
+type STRAPI__MEDIAFormatsSmall {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type STRAPI__MEDIAFormatsThumbnail {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type STRAPI__COMPONENT_SHARED_SEO_STRUCTUREDDATA_JSONNODE implements Node
+  @derivedTypes
+  @childOf(types: ["STRAPI__COMPONENT_SHARED_SEO"])
+  @dontInfer {
+  name: String
+  _type: String @proxy(from: "@type")
+  author: STRAPI__COMPONENT_SHARED_SEO_STRUCTUREDDATA_JSONNODEAuthor
+  _context: String @proxy(from: "@context")
+  prepTime: String
+  description: String
+  datePublished: Date @dateformat
+}
+
+type STRAPI__COMPONENT_SHARED_SEO_STRUCTUREDDATA_JSONNODEAuthor {
+  name: String
+  _type: String @proxy(from: "@type")
+}
+
+type STRAPI__COMPONENT_SHARED_SEO implements Node @dontInfer {
+  metaTitle: String
+  metaDescription: String
+  keywords: String
+  metaRobots: String
+  metaViewport: String
+  canonicalURL: String
+  structuredData: STRAPI__COMPONENT_SHARED_SEO_STRUCTUREDDATA_JSONNODE
+    @link(by: "id", from: "structuredData___NODE")
+  metaImage: STRAPI__MEDIA @link(by: "id", from: "metaImage___NODE")
+  metaSocial: [STRAPI__COMPONENT_SHARED_META_SOCIAL]
+    @link(by: "id", from: "metaSocial___NODE")
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_SHARED_META_SOCIAL implements Node @dontInfer {
+  socialNetwork: String
+  title: String
+  description: String
+  image: STRAPI__MEDIA @link(by: "id", from: "image___NODE")
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT_BODY_TEXTNODE implements Node
+  @dontInfer {
+  body: String
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT implements Node
+  @derivedTypes
+  @dontInfer {
+  strapi_component: String
+  title: String
+  ctaText: String
+  link: String
+  eyelet: String
+  youtubeVideo: String
+  caption: String
+  visualWidth: String
+  reverseOrder: Boolean
+  backgroundColor: String
+  body: STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXTBody
+  reveal: Boolean
+  backgroundAnimation: STRAPI__COMPONENT_BLOCK_CONTEXT_BACKGROUND_ANIMATION
+    @link(by: "id", from: "backgroundAnimation___NODE")
+  image: STRAPI__MEDIA @link(by: "id", from: "image___NODE")
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXTBody {
+  data: STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT_BODY_TEXTNODE
+    @link(by: "id", from: "data___NODE")
+}
+
+type STRAPI__COMPONENT_BLOCK_CONTEXT_BACKGROUND_ANIMATION implements Node
+  @dontInfer {
+  size: Int
+  left: Int
+  top: Int
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_VISUAL implements Node @dontInfer {
+  strapi_component: String
+  template: String
+  blockConf: STRAPI__COMPONENT_BLOCK_CONTEXT_BLOCK_CONF
+    @link(by: "id", from: "blockConf___NODE")
+  backgroundAnimation: STRAPI__COMPONENT_BLOCK_CONTEXT_BACKGROUND_ANIMATION
+    @link(by: "id", from: "backgroundAnimation___NODE")
+  image: STRAPI__MEDIA @link(by: "id", from: "image___NODE")
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_BLOCK_CONTEXT_BLOCK_CONF implements Node @dontInfer {
+  BlockWidth: String
+  BlockPosition: String
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_UNIVERSITY_ACCORDION implements Node
+  @dontInfer {
+  strapi_component: String
+  title: String
+  pagination: Boolean
+  blockConf: STRAPI__COMPONENT_BLOCK_CONTEXT_BLOCK_CONF
+    @link(by: "id", from: "blockConf___NODE")
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_TEXT_VIDEO_OPTION_BODY_TEXTNODE implements Node
+  @dontInfer {
+  body: String
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_TEXT_VIDEO_OPTION implements Node
+  @derivedTypes
+  @dontInfer {
+  strapi_component: String
+  title: String
+  eyelet: String
+  isCentered: Boolean
+  body: STRAPI__COMPONENT_SHARED_BLOCK_TEXT_VIDEO_OPTIONBody
+  link: String
+  video: String
+  ctaText: String
+  videoImage: STRAPI__MEDIA @link(by: "id", from: "videoImage___NODE")
+  ctaLink: STRAPI_PAGE @link(by: "id", from: "ctaLink___NODE")
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_TEXT_VIDEO_OPTIONBody {
+  data: STRAPI__COMPONENT_SHARED_BLOCK_TEXT_VIDEO_OPTION_BODY_TEXTNODE
+    @link(by: "id", from: "data___NODE")
+}
+
+type STRAPI_PAGE implements Node @dontInfer {
+  title: String
+  slug: String
+  createdAt: Date @dateformat
+  updatedAt: Date @dateformat
+  publishedAt: Date @dateformat
+  bannerNewsletter: Boolean
+  locale: String
+  url_path: String
+  featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
+  blocks: [STRAPI__COMPONENT_SHARED_BLOCK_ACCORDIONSTRAPI__COMPONENT_SHARED_BLOCK_ATTACHMENTS_GRIDSTRAPI__COMPONENT_SHARED_BLOCK_CONTACTS_LISTSTRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LISTSTRAPI__COMPONENT_SHARED_BLOCK_CTA_BANNERSTRAPI__COMPONENT_SHARED_BLOCK_CTA_GRIDSTRAPI__COMPONENT_SHARED_BLOCK_HERO_SLIDERSTRAPI__COMPONENT_SHARED_BLOCK_INTROSTRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTINGSTRAPI__COMPONENT_SHARED_BLOCK_LIST_ATTACHMENTSSTRAPI__COMPONENT_SHARED_BLOCK_LOGO_LINKSSTRAPI__COMPONENT_SHARED_BLOCK_MAP_BOXSTRAPI__COMPONENT_SHARED_BLOCK_MEDIA_HIGHLIGHTSSTRAPI__COMPONENT_SHARED_BLOCK_NEWSLETTERSTRAPI__COMPONENT_SHARED_BLOCK_NEWS_AND_EVENTSSTRAPI__COMPONENT_SHARED_BLOCK_PRESS_RELEASESTRAPI__COMPONENT_SHARED_BLOCK_PROJECTS_CAROUSELSTRAPI__COMPONENT_SHARED_BLOCK_TEXT_VIDEO_OPTIONSTRAPI__COMPONENT_SHARED_BLOCK_UNIVERSITY_ACCORDIONSTRAPI__COMPONENT_SHARED_BLOCK_VISUALSTRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXTSTRAPI__COMPONENT_SHARED_BLOCK_INNOVATION_ANNOUNCEMENTSUnion]
+    @link(by: "id", from: "blocks___NODE")
+  seo: STRAPI__COMPONENT_SHARED_SEO @link(by: "id", from: "seo___NODE")
+  strapi_id: Int
+}
+
+union STRAPI__COMPONENT_SHARED_BLOCK_ACCORDIONSTRAPI__COMPONENT_SHARED_BLOCK_ATTACHMENTS_GRIDSTRAPI__COMPONENT_SHARED_BLOCK_CONTACTS_LISTSTRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LISTSTRAPI__COMPONENT_SHARED_BLOCK_CTA_BANNERSTRAPI__COMPONENT_SHARED_BLOCK_CTA_GRIDSTRAPI__COMPONENT_SHARED_BLOCK_HERO_SLIDERSTRAPI__COMPONENT_SHARED_BLOCK_INTROSTRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTINGSTRAPI__COMPONENT_SHARED_BLOCK_LIST_ATTACHMENTSSTRAPI__COMPONENT_SHARED_BLOCK_LOGO_LINKSSTRAPI__COMPONENT_SHARED_BLOCK_MAP_BOXSTRAPI__COMPONENT_SHARED_BLOCK_MEDIA_HIGHLIGHTSSTRAPI__COMPONENT_SHARED_BLOCK_NEWSLETTERSTRAPI__COMPONENT_SHARED_BLOCK_NEWS_AND_EVENTSSTRAPI__COMPONENT_SHARED_BLOCK_PRESS_RELEASESTRAPI__COMPONENT_SHARED_BLOCK_PROJECTS_CAROUSELSTRAPI__COMPONENT_SHARED_BLOCK_TEXT_VIDEO_OPTIONSTRAPI__COMPONENT_SHARED_BLOCK_UNIVERSITY_ACCORDIONSTRAPI__COMPONENT_SHARED_BLOCK_VISUALSTRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXTSTRAPI__COMPONENT_SHARED_BLOCK_INNOVATION_ANNOUNCEMENTSUnion =
+    STRAPI__COMPONENT_SHARED_BLOCK_ACCORDION
+  | STRAPI__COMPONENT_SHARED_BLOCK_ATTACHMENTS_GRID
+  | STRAPI__COMPONENT_SHARED_BLOCK_CONTACTS_LIST
+  | STRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LIST
+  | STRAPI__COMPONENT_SHARED_BLOCK_CTA_BANNER
+  | STRAPI__COMPONENT_SHARED_BLOCK_CTA_GRID
+  | STRAPI__COMPONENT_SHARED_BLOCK_HERO_SLIDER
+  | STRAPI__COMPONENT_SHARED_BLOCK_INTRO
+  | STRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTING
+  | STRAPI__COMPONENT_SHARED_BLOCK_LIST_ATTACHMENTS
+  | STRAPI__COMPONENT_SHARED_BLOCK_LOGO_LINKS
+  | STRAPI__COMPONENT_SHARED_BLOCK_MAP_BOX
+  | STRAPI__COMPONENT_SHARED_BLOCK_MEDIA_HIGHLIGHTS
+  | STRAPI__COMPONENT_SHARED_BLOCK_NEWSLETTER
+  | STRAPI__COMPONENT_SHARED_BLOCK_NEWS_AND_EVENTS
+  | STRAPI__COMPONENT_SHARED_BLOCK_PRESS_RELEASE
+  | STRAPI__COMPONENT_SHARED_BLOCK_PROJECTS_CAROUSEL
+  | STRAPI__COMPONENT_SHARED_BLOCK_TEXT_VIDEO_OPTION
+  | STRAPI__COMPONENT_SHARED_BLOCK_UNIVERSITY_ACCORDION
+  | STRAPI__COMPONENT_SHARED_BLOCK_VISUAL
+  | STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT
+  | STRAPI__COMPONENT_SHARED_BLOCK_INNOVATION_ANNOUNCEMENTS
+
+type STRAPI__COMPONENT_SHARED_BLOCK_PROJECTS_CAROUSEL implements Node
+  @dontInfer {
+  strapi_component: String
+  title: String
+  projects: [STRAPI_PROJECT] @link(by: "id", from: "projects___NODE")
+  strapi_id: Int
+}
+
+type STRAPI_PROJECT implements Node @dontInfer {
+  title: String
+  bannerNewsletter: Boolean
+  carouselTitle: String
+  carouselAbstract: String
+  carouselCtaLabel: String
+  slug: String
+  createdAt: Date @dateformat
+  updatedAt: Date @dateformat
+  publishedAt: Date @dateformat
+  locale: String
+  featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
+  carouselImage: STRAPI__MEDIA @link(by: "id", from: "carouselImage___NODE")
+  blocks: [STRAPI__COMPONENT_SHARED_BLOCK_ACCORDIONSTRAPI__COMPONENT_SHARED_BLOCK_ATTACHMENTS_GRIDSTRAPI__COMPONENT_SHARED_BLOCK_CONTACTS_LISTSTRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LISTSTRAPI__COMPONENT_SHARED_BLOCK_CTA_BANNERSTRAPI__COMPONENT_SHARED_BLOCK_CTA_GRIDSTRAPI__COMPONENT_SHARED_BLOCK_HERO_SLIDERSTRAPI__COMPONENT_SHARED_BLOCK_INTROSTRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTINGSTRAPI__COMPONENT_SHARED_BLOCK_LIST_ATTACHMENTSSTRAPI__COMPONENT_SHARED_BLOCK_LOGO_LINKSSTRAPI__COMPONENT_SHARED_BLOCK_MAP_BOXSTRAPI__COMPONENT_SHARED_BLOCK_MEDIA_HIGHLIGHTSSTRAPI__COMPONENT_SHARED_BLOCK_NEWSLETTERSTRAPI__COMPONENT_SHARED_BLOCK_NEWS_AND_EVENTSSTRAPI__COMPONENT_SHARED_BLOCK_PRESS_RELEASESTRAPI__COMPONENT_SHARED_BLOCK_PROJECTS_CAROUSELSTRAPI__COMPONENT_SHARED_BLOCK_TEXT_VIDEO_OPTIONSTRAPI__COMPONENT_SHARED_BLOCK_UNIVERSITY_ACCORDIONSTRAPI__COMPONENT_SHARED_BLOCK_VISUALSTRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXTSTRAPI__COMPONENT_SHARED_BLOCK_INNOVATION_ANNOUNCEMENTSUnion]
+    @link(by: "id", from: "blocks___NODE")
+  seo: STRAPI__COMPONENT_SHARED_SEO @link(by: "id", from: "seo___NODE")
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_PRESS_RELEASE implements Node @dontInfer {
+  strapi_component: String
+  title: String
+  link: String
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_NEWS_AND_EVENTS implements Node @dontInfer {
+  strapi_component: String
+  title: String
+  link: String
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_INNOVATION_ANNOUNCEMENTS implements Node
+  @dontInfer {
+  strapi_component: String
+  title: String
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_NEWSLETTER implements Node @dontInfer {
+  strapi_component: String
+  Title: String
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_MEDIA_HIGHLIGHTS implements Node
+  @dontInfer {
+  strapi_component: String
+  title: String
+  posts: [STRAPI_POST] @link(by: "id", from: "posts___NODE")
+  strapi_id: Int
+}
+
+type STRAPI_POST implements Node @derivedTypes @dontInfer {
+  title: String
+  eyelet: String
+  body: STRAPI_POSTBody
+  bannerNewsletter: Boolean
+  slug: String
+  createdAt: Date @dateformat
+  updatedAt: Date @dateformat
+  publishedAt: Date @dateformat
+  locale: String
+  featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
+  eyeletCTA: STRAPI_PAGE @link(by: "id", from: "eyeletCTA___NODE")
+  seo: STRAPI__COMPONENT_SHARED_SEO @link(by: "id", from: "seo___NODE")
+  strapi_id: Int
+}
+
+type STRAPI_POSTBody {
+  data: STRAPI_POST_BODY_TEXTNODE @link(by: "id", from: "data___NODE")
+}
+
+type STRAPI_POST_BODY_TEXTNODE implements Node @dontInfer {
+  body: String
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_MAP_BOX implements Node @dontInfer {
+  strapi_component: String
+  mapBoxItems: [STRAPI__COMPONENT_BLOCK_CONTEXT_TITLE_TEXT_LINK]
+    @link(by: "id", from: "mapBoxItems___NODE")
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_BLOCK_CONTEXT_TITLE_TEXT_LINK implements Node
+  @derivedTypes
+  @dontInfer {
+  title: String
+  body: STRAPI__COMPONENT_BLOCK_CONTEXT_TITLE_TEXT_LINKBody
+  link: String
+  linkLabel: String
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_BLOCK_CONTEXT_TITLE_TEXT_LINKBody {
+  data: STRAPI__COMPONENT_BLOCK_CONTEXT_TITLE_TEXT_LINK_BODY_TEXTNODE
+    @link(by: "id", from: "data___NODE")
+}
+
+type STRAPI__COMPONENT_BLOCK_CONTEXT_TITLE_TEXT_LINK_BODY_TEXTNODE implements Node
+  @dontInfer {
+  body: String
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_LOGO_LINKS implements Node @dontInfer {
+  strapi_component: String
+  title: String
+  logoLinks: [STRAPI__COMPONENT_BLOCK_CONTEXT_LINK_ATTACHMENT]
+    @link(by: "id", from: "logoLinks___NODE")
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_BLOCK_CONTEXT_LINK_ATTACHMENT implements Node
+  @dontInfer {
+  link: String
+  label: String
+  attachment: STRAPI__MEDIA @link(by: "id", from: "attachment___NODE")
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_LIST_ATTACHMENTS implements Node
+  @dontInfer {
+  strapi_component: String
+  title: String
+  linksAttachments: [STRAPI__COMPONENT_BLOCK_CONTEXT_LINK_ATTACHMENT]
+    @link(by: "id", from: "linksAttachments___NODE")
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTING_BODY_TEXTNODE implements Node
+  @dontInfer {
+  body: String
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTING implements Node
+  @derivedTypes
+  @dontInfer {
+  strapi_component: String
+  title: String
+  eyelet: String
+  body: STRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTINGBody
+  links: [STRAPI__COMPONENT_BLOCK_CONTEXT_LINK_ATTACHMENT]
+    @link(by: "id", from: "links___NODE")
+  strapi_id: Int
+  commons: [STRAPI__COMPONENT_BLOCK_CONTEXT_JOBS_LIST_COMMONS]
+    @link(by: "id", from: "commons___NODE")
+}
+
+type STRAPI__COMPONENT_BLOCK_CONTEXT_JOBS_LIST_COMMONS implements Node
+  @dontInfer {
+  title: String
+  body: String
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTINGBody {
+  data: STRAPI__COMPONENT_SHARED_BLOCK_JOBS_LISTING_BODY_TEXTNODE
+    @link(by: "id", from: "data___NODE")
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_INTRO_BODY_TEXTNODE implements Node
+  @dontInfer {
+  body: String
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_INTRO implements Node
+  @derivedTypes
+  @dontInfer {
+  strapi_component: String
+  title: String
+  eyelet: String
+  useFeaturedImage: Boolean
+  isEventLanding: Boolean
+  body: STRAPI__COMPONENT_SHARED_BLOCK_INTROBody
+  image: STRAPI__MEDIA @link(by: "id", from: "image___NODE")
+  introMenu: [STRAPI__COMPONENT_BLOCK_CONTEXT_TITLE_TEXT_LINK]
+    @link(by: "id", from: "introMenu___NODE")
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_INTROBody {
+  data: STRAPI__COMPONENT_SHARED_BLOCK_INTRO_BODY_TEXTNODE
+    @link(by: "id", from: "data___NODE")
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_HERO_SLIDER implements Node @dontInfer {
+  strapi_component: String
+  heroSliderItems: [STRAPI__COMPONENT_BLOCK_CONTEXT_CONTENT_ITEMS]
+    @link(by: "id", from: "heroSliderItems___NODE")
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_BLOCK_CONTEXT_CONTENT_ITEMS implements Node
+  @derivedTypes
+  @dontInfer {
+  title: String
+  body: STRAPI__COMPONENT_BLOCK_CONTEXT_CONTENT_ITEMSBody
+  link: String
+  linkLabel: String
+  image: STRAPI__MEDIA @link(by: "id", from: "image___NODE")
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_BLOCK_CONTEXT_CONTENT_ITEMSBody {
+  data: STRAPI__COMPONENT_BLOCK_CONTEXT_CONTENT_ITEMS_BODY_TEXTNODE
+    @link(by: "id", from: "data___NODE")
+}
+
+type STRAPI__COMPONENT_BLOCK_CONTEXT_CONTENT_ITEMS_BODY_TEXTNODE implements Node
+  @dontInfer {
+  body: String
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_CTA_GRID implements Node @dontInfer {
+  strapi_component: String
+  blockConf: STRAPI__COMPONENT_BLOCK_CONTEXT_BLOCK_CONF
+    @link(by: "id", from: "blockConf___NODE")
+  ctaGridItems: [STRAPI__COMPONENT_BLOCK_CONTEXT_TITLE_TEXT_LINK]
+    @link(by: "id", from: "ctaGridItems___NODE")
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_CTA_BANNER implements Node @dontInfer {
+  strapi_component: String
+  title: String
+  link: String
+  linkLabel: String
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LIST implements Node @dontInfer {
+  strapi_component: String
+  title: String
+  template: String
+  background: STRAPI__MEDIA @link(by: "id", from: "background___NODE")
+  contentsItems: [STRAPI__COMPONENT_BLOCK_CONTEXT_CONTENT_ITEMS]
+    @link(by: "id", from: "contentsItems___NODE")
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_CONTACTS_LIST implements Node @dontInfer {
+  strapi_component: String
+  title: String
+  blockConf: STRAPI__COMPONENT_BLOCK_CONTEXT_BLOCK_CONF
+    @link(by: "id", from: "blockConf___NODE")
+  contacts: [STRAPI__COMPONENT_BLOCK_CONTEXT_TITLE_EMAIL]
+    @link(by: "id", from: "contacts___NODE")
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_BLOCK_CONTEXT_TITLE_EMAIL implements Node @dontInfer {
+  title: String
+  email: String
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_ATTACHMENTS_GRID implements Node
+  @dontInfer {
+  strapi_component: String
+  title: String
+  blockConf: STRAPI__COMPONENT_BLOCK_CONTEXT_BLOCK_CONF
+    @link(by: "id", from: "blockConf___NODE")
+  attachmentsGridItems: [STRAPI__COMPONENT_BLOCK_CONTEXT_ICON_ATTACHMENT_BUTTON]
+    @link(by: "id", from: "attachmentsGridItems___NODE")
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_BLOCK_CONTEXT_ICON_ATTACHMENT_BUTTON implements Node
+  @dontInfer {
+  buttonLabel: String
+  icon: STRAPI__MEDIA @link(by: "id", from: "icon___NODE")
+  attachment: STRAPI__MEDIA @link(by: "id", from: "attachment___NODE")
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_SHARED_BLOCK_ACCORDION implements Node @dontInfer {
+  strapi_component: String
+  title: String
+  accordionItems: [STRAPI__COMPONENT_BLOCK_CONTEXT_ACCORDION_ITEM]
+    @link(by: "id", from: "accordionItems___NODE")
+  blockConf: STRAPI__COMPONENT_BLOCK_CONTEXT_BLOCK_CONF
+    @link(by: "id", from: "blockConf___NODE")
+  backgroundAnimation: STRAPI__COMPONENT_BLOCK_CONTEXT_BACKGROUND_ANIMATION
+    @link(by: "id", from: "backgroundAnimation___NODE")
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_BLOCK_CONTEXT_ACCORDION_ITEM implements Node
+  @derivedTypes
+  @dontInfer {
+  heading: String
+  content: STRAPI__COMPONENT_BLOCK_CONTEXT_ACCORDION_ITEMContent
+  attachments: [STRAPI__MEDIA] @link(by: "id", from: "attachments___NODE")
+  strapi_id: Int
+}
+
+type STRAPI__COMPONENT_BLOCK_CONTEXT_ACCORDION_ITEMContent {
+  data: STRAPI__COMPONENT_BLOCK_CONTEXT_ACCORDION_ITEM_CONTENT_TEXTNODE
+    @link(by: "id", from: "data___NODE")
+}
+
+type STRAPI__COMPONENT_BLOCK_CONTEXT_ACCORDION_ITEM_CONTENT_TEXTNODE implements Node
+  @dontInfer {
+  content: String
+}
+
+type STRAPI_UNIVERSITY_COLLABORATION_BODY_TEXTNODE implements Node @dontInfer {
+  body: String
+}
+
+type STRAPI_INNOVATION_ANNOUNCEMENT_BODY_TEXTNODE implements Node @dontInfer {
+  body: String
+}
+
+type STRAPI_UNIVERSITY_COLLABORATION implements Node @derivedTypes @dontInfer {
+  title: String
+  collaborationTypeTitle: String
+  isActive: Boolean
+  bannerNewsletter: Boolean
+  body: STRAPI_UNIVERSITY_COLLABORATIONBody
+  slug: String
+  createdAt: Date @dateformat
+  updatedAt: Date @dateformat
+  publishedAt: Date @dateformat
+  locale: String
+  seo: STRAPI__COMPONENT_SHARED_SEO @link(by: "id", from: "seo___NODE")
+  strapi_id: Int
+}
+
+type STRAPI_UNIVERSITY_COLLABORATIONBody {
+  data: STRAPI_UNIVERSITY_COLLABORATION_BODY_TEXTNODE
+    @link(by: "id", from: "data___NODE")
+}
+
+type STRAPI_INNOVATION_ANNOUNCEMENT implements Node @derivedTypes @dontInfer {
+  title: String
+  bannerNewsletter: Boolean
+  body: STRAPI_INNOVATION_ANNOUNCEMENTBody
+  eyelet: String
+  slug: String
+  createdAt: Date @dateformat
+  updatedAt: Date @dateformat
+  publishedAt: Date @dateformat
+  locale: String
+  featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
+  strapi_id: Int
+  blocks: [STRAPI__COMPONENT_SHARED_BLOCK_LIST_ATTACHMENTS]
+    @link(by: "id", from: "blocks___NODE")
+}
+
+type STRAPI_INNOVATION_ANNOUNCEMENTBody {
+  data: STRAPI_INNOVATION_ANNOUNCEMENT_BODY_TEXTNODE
+    @link(by: "id", from: "data___NODE")
+}
+
+type STRAPI_PRESS_RELEASE_BODY_TEXTNODE implements Node @dontInfer {
+  body: String
+}
+
+type STRAPI_PRESS_RELEASE implements Node @derivedTypes @dontInfer {
+  title: String
+  bannerNewsletter: Boolean
+  slug: String
+  body: STRAPI_PRESS_RELEASEBody
+  eyelet: String
+  createdAt: Date @dateformat
+  updatedAt: Date @dateformat
+  publishedAt: Date @dateformat
+  locale: String
+  featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
+  seo: STRAPI__COMPONENT_SHARED_SEO @link(by: "id", from: "seo___NODE")
+  strapi_id: Int
+}
+
+type STRAPI_PRESS_RELEASEBody {
+  data: STRAPI_PRESS_RELEASE_BODY_TEXTNODE @link(by: "id", from: "data___NODE")
+}
+
+type STRAPI_NEWSLETTER_BODY_TEXTNODE implements Node @dontInfer {
+  body: String
+}
+
+type STRAPI_NEWSLETTER implements Node @derivedTypes @dontInfer {
+  title: String
+  eyelet: String
+  bannerNewsletter: Boolean
+  slug: String
+  body: STRAPI_NEWSLETTERBody
+  createdAt: Date @dateformat
+  updatedAt: Date @dateformat
+  publishedAt: Date @dateformat
+  locale: String
+  eyeletCTA: STRAPI_PAGE @link(by: "id", from: "eyeletCTA___NODE")
+  featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
+  seo: STRAPI__COMPONENT_SHARED_SEO @link(by: "id", from: "seo___NODE")
+  strapi_id: Int
+}
+
+type STRAPI_NEWSLETTERBody {
+  data: STRAPI_NEWSLETTER_BODY_TEXTNODE @link(by: "id", from: "data___NODE")
+}
+
+type STRAPI_JOBPOSITION implements Node @dontInfer {
+  title: String
+  eyelet: String
+  isNew: Boolean
+  openDate: Date @dateformat
+  closeDate: Date @dateformat
+  openPositions: String
+  hiredPositions: String
+  selectedPeople: String
+  embedIdentifier: String
+  applicationLink: String
+  slug: String
+  createdAt: Date @dateformat
+  updatedAt: Date @dateformat
+  publishedAt: Date @dateformat
+  locale: String
+  featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
+  blocks: [STRAPI__COMPONENT_SHARED_BLOCK_INTRO]
+    @link(by: "id", from: "blocks___NODE")
+  seo: STRAPI__COMPONENT_SHARED_SEO @link(by: "id", from: "seo___NODE")
+  strapi_id: Int
+}
+
+type STRAPI_EVENT_BODY_TEXTNODE implements Node @dontInfer {
+  body: String
+}
+
+type STRAPI_EVENT implements Node @derivedTypes @dontInfer {
+  title: String
+  eyelet: String
+  body: STRAPI_EVENTBody
+  startDate: Date @dateformat
+  endDate: Date @dateformat
+  startTime: String
+  endTime: String
+  slug: String
+  eventVenue: String
+  createdAt: Date @dateformat
+  updatedAt: Date @dateformat
+  publishedAt: Date @dateformat
+  locale: String
+  featuredImage: STRAPI__MEDIA @link(by: "id", from: "featuredImage___NODE")
+  post: STRAPI_POST @link(by: "id", from: "post___NODE")
+  eyeletCTA: STRAPI_PAGE @link(by: "id", from: "eyeletCTA___NODE")
+  seo: STRAPI__COMPONENT_SHARED_SEO @link(by: "id", from: "seo___NODE")
+  strapi_id: Int
+}
+
+type STRAPI_EVENTBody {
+  data: STRAPI_EVENT_BODY_TEXTNODE @link(by: "id", from: "data___NODE")
+}
+
+type STRAPI_CT_ALIAS implements Node @dontInfer {
+  from: String
+  to: String
+  slug: String
+  createdAt: Date @dateformat
+  updatedAt: Date @dateformat
+  publishedAt: Date @dateformat
+  locale: String
+  strapi_id: Int
+}
+
+type FooterLeftJson implements Node @childOf(types: ["File"]) @dontInfer {
+  company: String
+  locale: String
+}
