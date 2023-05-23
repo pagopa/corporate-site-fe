@@ -41,7 +41,13 @@ export const MenuNavigation = ({
           {items?.map(item => {
             return (
               item && (
-                <li key={item?.id}>
+                <li
+                  key={item?.id}
+                  className={classNames(
+                    className,
+                    item.highlight && 'alternative'
+                  )}
+                >
                   <MenuItem item={item} />
                 </li>
               )

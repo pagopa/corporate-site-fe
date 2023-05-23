@@ -6,6 +6,7 @@ import '../Menu.sass';
 export const navigationItemFragment = graphql`
   fragment NavigationItem on StrapiNavigationItems {
     external
+    highlight
     type
     id
     title
