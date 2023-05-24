@@ -123,7 +123,7 @@ export const PostEventsList = ({
           navHidden={isPreview}
           renderItem={item => (
             <div className="col-lg-6 d-flex my-1">
-              <Article article={item} />
+              <Article article={item} isPreview={isPreview} />
             </div>
           )}
         />

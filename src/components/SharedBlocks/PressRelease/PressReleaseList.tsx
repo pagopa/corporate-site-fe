@@ -47,7 +47,10 @@ const PressReleaseItem = ({
 
       {slug && (
         <div className="d-flex justify-content-start">
-          <Cta href={slug} label="Leggi" />
+          <Cta
+            href={isPreview ? `./comunicati-stampa/${slug}` : slug}
+            label="Leggi"
+          />
         </div>
       )}
     </article>

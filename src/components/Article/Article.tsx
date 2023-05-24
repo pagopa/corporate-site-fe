@@ -15,7 +15,13 @@ function isEvent(article: Article): article is Queries.EventFragment {
   return article.__typename === 'STRAPI_EVENT';
 }
 
-export const Article = ({ article }: { article: Article }) => {
+export const Article = ({
+  article,
+  isPreview = false,
+}: {
+  article: Article;
+  isPreview: boolean;
+}) => {
   const {
     i18n: { language },
   } = useTranslation();
@@ -69,7 +75,7 @@ export const Article = ({ article }: { article: Article }) => {
       </div>
 
       <Cta
-        href={slug || '#'}
+        href={isPreview ? `./news-ed-eventi/${slug}` : slug}
         label={language === 'it' ? 'Scopri' : 'Discover'}
       />
     </article>
