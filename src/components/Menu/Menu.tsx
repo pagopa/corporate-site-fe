@@ -60,7 +60,7 @@ export const Menu = ({
           {sortedReserved?.map((item: Queries.MainNavigationItemFragment) => {
             return (
               <MenuNavigation
-                className="reserved-navigation menu-reserved__item highlight"
+                className="reserved-navigation menu-reserved__item "
                 item={item}
                 key={item.id}
               />
