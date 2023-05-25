@@ -233,7 +233,7 @@ export const NewsletterBanner = () => {
 
                 <Reaptcha
                   ref={reaptchaRef}
-                  sitekey="6LceNV0kAAAAAP_mEqwRZpK01jEeAltXmcFFHnaO"
+                  sitekey="6LcBa7AaAAAAAEb8kvsHtZ_09Ctd2l0XqceFUHTe"
                   size="invisible"
                   onVerify={newsletterSubmit}
                   onLoad={() => setLoading(false)}
