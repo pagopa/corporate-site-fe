@@ -4,7 +4,7 @@
 
   .swiper-container
     overflow: visible
-    
+
     .swiper-slide
       height: auto
       display: flex
@@ -16,7 +16,7 @@
 
     h2
       margin-bottom: 0
-  
+
   &__nav
     position: relative
     width: 4rem
@@ -33,13 +33,14 @@
     &.--next
       margin-left: 6rem
       background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="29" height="18"%3E%3Cpath fill="%23171717" fill-rule="nonzero" d="M21.716 1.1476l.0922.0853 6.8835 7.2086c.3452.3615.3669.916.0685 1.3017l-.0813.0927-6.8762 6.941c-.3887.3923-1.0219.3953-1.4142.0066-.3622-.3588-.3926-.926-.0894-1.3196l.0828-.0946 5.187-5.2378-24.267.0006c-.5523 0-1-.4477-1-1 0-.5128.386-.9355.8833-.9932l.1167-.0068 24.328-.0006-5.2682-5.5173c-.352-.3687-.3667-.9365-.0527-1.3216l.0854-.0923c.3687-.352.9364-.3667 1.3215-.0527z"/%3E%3C/svg%3E')
-    
+
     &.swiper-button-disabled
       opacity: .3
 
 
   &__item
     display: flex
+    height: 22em
 
     @media (max-width: $tablet - 1)
       flex-direction: column

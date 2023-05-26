@@ -21,7 +21,7 @@ export const ProjectsCarousel = ({
     <section className="block --block-project-carousel projects-carousel">
       <div className="container-fluid">
         <div className="row">
-          <div className="col-12 col-md-10 offset-md-1 d-flex align-items-center justify-content-center">
+          <div className="col-12 col-md-11 offset-md-1 d-flex align-items-center justify-content-center">
             <header className="projects-carousel__header">
               <button
                 className="projects-carousel__nav --prev"
@@ -40,7 +40,7 @@ export const ProjectsCarousel = ({
       </div>
       <div className="container-fluid">
         <div className="row d-flex align-items-center">
-          <div className="col-12 ">
+          <div className="col-12">
             <div className="projects-carousel__content">
               <Swiper
                 speed={swiperCommons.speed}
@@ -48,11 +48,11 @@ export const ProjectsCarousel = ({
                 slidesPerView={swiperCommons.slidesPerView}
                 breakpoints={{
                   992: {
-                    slidesPerView: 1.2,
+                    slidesPerView: 1.63,
                     spaceBetween: 40,
                   },
                   1200: {
-                    slidesPerView: 1.63,
+                    slidesPerView: 2,
                     spaceBetween: 60,
                   },
                 }}
@@ -85,7 +85,7 @@ export const ProjectsCarousel = ({
                             />
                           )}
                         </div>
-                        <div>
+                        <div className='project-carousel__item__cta'>
                           {carouselAbstract && (
                             <div className="wysiwyg">
                               <p>{carouselAbstract}</p>
