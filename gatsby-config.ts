@@ -45,7 +45,7 @@ const config: GatsbyConfig = {
           mergeStyleHashes: false,
           mergeDefaultDirectives: true,
           directives: {
-            "connect-src": "'self' https://*.cookielaw.org https://*.onetrust.com https://www.google-analytics.com https://api.io.italia.it",
+            "connect-src": "'self' https://*.cookielaw.org https://*.onetrust.com https://www.google-analytics.com https://api.io.italia.it *.google-analytics.com",
             "font-src": "data: 'self'",
             "frame-src": "https://www.google.com https://recaptcha.net https://www.youtube.com https://pagopa.applytojob.com",
             "img-src": "data: 'self' recaptcha.net",
