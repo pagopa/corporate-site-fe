@@ -49,7 +49,7 @@ const config: GatsbyConfig = {
             "font-src": "data: 'self'",
             "frame-src": "https://www.google.com https://recaptcha.net https://www.youtube.com https://pagopa.applytojob.com",
             "img-src": "data: 'self' recaptcha.net",
-            "script-src": "'self' 'unsafe-inline' www.youtube.com https://*.cookielaw.org https://*.onetrust.com https://www.google-analytics.com https://cdn.matomo.cloud/pagopa.matomo.cloud https://pagopa.matomo.cloud https://recaptcha.net https://www.gstatic.com https://www.google.com",
+            "script-src": "'self' 'unsafe-inline' www.youtube.com https://*.cookielaw.org https://*.onetrust.com https://www.google-analytics.com https://cdn.matomo.cloud/pagopa.matomo.cloud https://pagopa.matomo.cloud https://recaptcha.net https://www.gstatic.com https://www.google.com https://www.googletagmanager.com",
             "style-src": "'self' 'unsafe-inline' recaptcha.net"
           }
         }
