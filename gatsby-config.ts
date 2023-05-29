@@ -39,27 +39,6 @@ const config: GatsbyConfig = {
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sitemap`,
     {
-      resolve: `gatsby-plugin-csp`,
-      options: {
-        disableOnDev: true,
-        reportOnly: false,
-        mergeScriptHashes: false,
-        mergeStyleHashes: false,
-        mergeDefaultDirectives: true,
-        directives: {
-          'connect-src':
-            "'self' https://*.cookielaw.org https://*.onetrust.com https://www.google-analytics.com https://api.io.italia.it *.google-analytics.com",
-          'font-src': "data: 'self'",
-          'frame-src':
-            'https://www.google.com https://recaptcha.net https://www.youtube.com https://pagopa.applytojob.com',
-          'img-src': "data: 'self' recaptcha.net",
-          'script-src':
-            "'self' 'unsafe-inline' www.youtube.com https://*.cookielaw.org https://*.onetrust.com https://www.google-analytics.com https://cdn.matomo.cloud/pagopa.matomo.cloud https://pagopa.matomo.cloud https://recaptcha.net https://www.gstatic.com https://www.google.com https://www.googletagmanager.com",
-          'style-src': "'self' 'unsafe-inline' recaptcha.net",
-        },
-      },
-    },
-    {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [`gatsby-plugin-remark_local`],
