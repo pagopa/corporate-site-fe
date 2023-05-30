@@ -1,12 +1,6 @@
 name: 'Deploy Preview AWS'
 
 on:
-  push:
-    branches:
-      - strapi-refactoring
-    paths:
-      - 'src/**'
-      - '.github/workflows/*.yml'
   workflow_dispatch:
     inputs:
       logLevel:
