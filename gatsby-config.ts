@@ -74,7 +74,7 @@ const config: GatsbyConfig = {
         matomoUrl: 'https://pagopa.matomo.cloud',
         matomoJsScript: 'matomo.js',
         matomoPhpScript: 'matomo.php',
-        siteUrl: 'https://www.pagopa.it'
+        siteUrl: 'https://www.pagopa.it',
       },
     },
     {
@@ -233,6 +233,13 @@ const config: GatsbyConfig = {
         languages: ['it'],
         fallbackLanguage: 'it',
         generateDefaultLanguagePage: true,
+        pages: [
+          {
+            matchPath: '/:lang?',
+            getLanguageFromPath: true,
+            excludeLanguages: ['it', 'en'],
+          },
+        ],
       },
     },
   ],
