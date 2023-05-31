@@ -71,10 +71,8 @@ const config: GatsbyConfig = {
       resolve: 'gatsby-plugin-matomo',
       options: {
         siteId: '7',
-        matomoUrl: 'https://pagopa.matomo.cloud',
-        matomoJsScript: 'matomo.js',
-        matomoPhpScript: 'matomo.php',
-        siteUrl: 'https://www.pagopa.it'
+        siteUrl: 'https://www.pagopa.it',
+        localScript: '/js/matomo.js',
       },
     },
     {
