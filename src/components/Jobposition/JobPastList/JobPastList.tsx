@@ -26,7 +26,7 @@ export const JobPastList = ({
           <AccordionItemPanel className="accordion-entry__content">
             <div>
               {pastJobs.map(job => (
-                <JobEntry key={job.id} jobposition={job} />
+                <JobEntry key={job.id} jobposition={job} closed />
               ))}
             </div>
           </AccordionItemPanel>

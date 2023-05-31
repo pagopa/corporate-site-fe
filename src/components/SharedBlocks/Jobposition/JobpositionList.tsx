@@ -47,6 +47,7 @@ export const JobpositionList = ({
       slug
       title
       isNew
+      embedIdentifier
       locale
       openDate
       closeDate
