@@ -16,12 +16,13 @@ export const NewsletterList = () => {
       title
       locale
       updatedAt
+      publishedAt
       featuredImage {
         localFile {
           childImageSharp {
             gatsbyImageData(
-              layout: FULL_WIDTH
-              aspectRatio: 1.33
+              width: 460
+              height: 346
               transformOptions: { cropFocus: ATTENTION }
             )
           }
@@ -51,32 +52,26 @@ export const NewsletterList = () => {
   });
 
   return (
-    <Layout>
-      <section className="press-release-list">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-              <div className="row">
-                <Pagination
-                  data={newsletter}
-                  keyExtractor={item => item.id}
-                  renderItem={item => (
-                    <div className="col-12 col-lg-6 d-flex">
-                      <Article
-                        article={{
-                          ...item,
-                          slug: `${process.env.API_URL}/media/newsletter-outer-space/${item.slug}`,
-                        }}
-                      />
-                    </div>
-                  )}
-                />
-              </div>
+    <section className={`d-flex row justify-content-center`}>
+      <div className={'col-10'}>
+        <Pagination
+          className={`row col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2`}
+          data={newsletter}
+          itemsPerPage={2}
+          keyExtractor={item => item.id}
+          renderItem={item => (
+            <div className="col-lg-6 d-flex my-1">
+              <Article
+                isPreview={false}
+                article={{
+                  ...item,
+                  slug: `${process.env.API_URL}/media/newsletter-outer-space/${item.slug}`,
+                }}
+              />
             </div>
-          </div>
-        </div>
-      </section>
-      {/* {bannerNewsletter && <NewsletterBanner />} */}
-    </Layout>
+          )}
+        />
+      </div>
+    </section>
   );
 };

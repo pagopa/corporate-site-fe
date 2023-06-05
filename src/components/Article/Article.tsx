@@ -51,14 +51,13 @@ export const Article = ({
   return (
     <article className={`article${isEvent(article) ? ' --event' : ''}`}>
       <div className="mb-4">
-        <div
-          className="article__image"
-          data-label={labelMap[article.__typename]}
-        >
-          {featuredImage && (
+        <div className="article__image">
+          {featuredImage ? (
             <Image data={featuredImage as Queries.STRAPI__MEDIA} />
+          ) : (
+            <img src={placeholder} alt="" />
           )}
-          {!featuredImage && <img src={placeholder} alt="" />}
+          <p className="label">{labelMap[article.__typename]}</p>
         </div>
         <div className="article__date">
           <h4>{theDate}</h4>
@@ -71,7 +70,7 @@ export const Article = ({
           )}
         </div>
         <h4 className="--primary --medium">{title}</h4>
-        {abstract && abstract}
+        {abstract && abstract}...
       </div>
 
       <Cta
