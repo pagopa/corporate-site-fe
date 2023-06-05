@@ -3,7 +3,6 @@ import React from 'react';
 import { useLocalizedQuery } from '../../../hooks';
 import { Article } from '../../Article';
 import { Pagination } from '../../Pagination';
-import { useLocation } from '@reach/router';
 
 export const NewsletterList = () => {
   const query = useStaticQuery(graphql`
@@ -51,7 +50,6 @@ export const NewsletterList = () => {
     type: 'allStrapiNewsletter',
   });
 
-  const { origin } = useLocation();
   return (
     <section className={`d-flex row justify-content-center`}>
       <div className={'col-10'}>
@@ -66,7 +64,7 @@ export const NewsletterList = () => {
                 isPreview={false}
                 article={{
                   ...item,
-                  slug: `${origin}/media/newsletter-outer-space/${item.slug}`,
+                  slug: `/media/newsletter-outer-space/${item.slug}`,
                 }}
               />
             </div>
