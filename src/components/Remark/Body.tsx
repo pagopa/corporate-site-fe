@@ -14,12 +14,23 @@ export const Body = ({
   };
   className?: string;
   forwardRef?: MutableRefObject<any>;
-}) => (
-  <div
-    className={classNames('wysiwyg', className)}
-    ref={forwardRef}
-    dangerouslySetInnerHTML={{
-      __html: data?.childMarkdownRemark?.html as string,
-    }}
-  />
-);
+}) => {
+  const isProduction = process.env.NODE_ENV === 'production';
+
+  const { html } = data?.childMarkdownRemark;
+
+  // if production replace strapi assets dir name with aws dir name
+  const innerHtml = isProduction
+    ? html.replace(/\/uploads\//g, '/media/')
+    : html;
+
+  return (
+    <div
+      className={classNames('wysiwyg', className)}
+      ref={forwardRef}
+      dangerouslySetInnerHTML={{
+        __html: innerHtml,
+      }}
+    />
+  );
+};
