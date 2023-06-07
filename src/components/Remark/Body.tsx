@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import React, { MutableRefObject } from 'react';
 
+import './Body.sass';
+
 export const Body = ({
   data: { data },
   className,
