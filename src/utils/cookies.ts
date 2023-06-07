@@ -1,8 +1,9 @@
 export const search = (search: string) => {
   const cookiesArray = document.cookie.split(';');
-  const foundCookies = cookiesArray.map(cookie => {
+
+  const foundCookies = cookiesArray?.filter(cookie => {
     const cookieName = cookie.trim().split('=')[0];
-    if (cookieName.includes(search)) {
+    if (cookieName?.includes(search)) {
       return cookieName;
     }
   });
