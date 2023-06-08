@@ -68,16 +68,6 @@ const config: GatsbyConfig = {
       },
     },
     {
-      resolve: 'gatsby-plugin-matomo',
-      options: {
-        siteId: '7',
-        matomoUrl: 'https://pagopa.matomo.cloud',
-        matomoJsScript: 'matomo.js',
-        matomoPhpScript: 'matomo.php',
-        siteUrl: 'https://www.pagopa.it'
-      },
-    },
-    {
       resolve: 'gatsby-source-strapi',
       options: {
         apiURL: process.env.STRAPI_API_URL,
