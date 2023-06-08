@@ -18,13 +18,14 @@ export const Body = ({
   forwardRef?: MutableRefObject<any>;
 }) => {
   const isProduction = process.env.NODE_ENV === 'production';
-
   const { html } = data?.childMarkdownRemark;
 
-  // if production replace strapi assets dir name with aws dir name
+  const CDN_MEDIA_PATH = `${process.env.CDN_BASE_URL}/${process.env.CDN_MEDIA_DIR}/`;
+  const CMS_MEDIA_PATH = `${process.env.STRAPI_API_URL}/${process.env.STRAPI_MEDIA_DIR}/`;
+
   const innerHtml = isProduction
-    ? html.replace(/\/uploads\//g, '/media/')
-    : html;
+    ? html.replace(/\/uploads\//g, CDN_MEDIA_PATH)
+    : html.replace(/\/uploads\//g, CMS_MEDIA_PATH);
 
   return (
     <div
