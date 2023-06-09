@@ -68,6 +68,9 @@ jobs:
           FOOTER_TOP_EN: ${{ vars.FOOTER_TOP_EN }}
           FOOTER_BOTTOM_IT: ${{ vars.FOOTER_BOTTOM_IT }}
           FOOTER_BOTTOM_EN: ${{ vars.FOOTER_BOTTOM_EN }}
+          CDN_BASE_URL: ${{ vars.CDN_BASE_URL }}
+          CDN_MEDIA_DIR: ${{ vars.CDN_MEDIA_DIR }}
+          STRAPI_MEDIA_DIR: ${{ vars.STRAPI_MEDIA_DIR }}
         run: |
           yarn install
           yarn build
