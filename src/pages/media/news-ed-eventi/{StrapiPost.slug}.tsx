@@ -31,7 +31,6 @@ export const query = graphql`
       ...PostIntro
       slug
       bannerNewsletter
-      updatedAt
       publishedAt
       body {
         data {
@@ -91,7 +90,7 @@ export default function Component({
   const {
     body,
     eyelet,
-    updatedAt,
+    publishedAt,
     featuredImage,
     title,
     bannerNewsletter,
@@ -107,7 +106,7 @@ export default function Component({
     month: 'long',
     day: 'numeric',
   };
-  const theDate = new Date(updatedAt).toLocaleDateString(language, dateOptions);
+  const theDate = new Date(publishedAt).toLocaleDateString(language, dateOptions);
 
   return title && slug ? (
     <Layout>

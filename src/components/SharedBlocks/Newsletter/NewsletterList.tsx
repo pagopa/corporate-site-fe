@@ -14,7 +14,6 @@ export const NewsletterList = () => {
       eyelet
       title
       locale
-      updatedAt
       publishedAt
       featuredImage {
         localFile {

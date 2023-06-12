@@ -19,7 +19,6 @@ export const PostEventsList = ({
       eyelet
       locale
       title
-      updatedAt
       publishedAt
       body {
         data {

@@ -28,6 +28,29 @@ exports.createSchemaCustomization = ({ actions }) => {
   createTypes(typeDefs);
 };
 
+const collectionsDateOverride = [
+  'STRAPI_EVENT',
+  'STRAPI_INITIATIVE',
+  'STRAPI_NEWSLETTER',
+  'STRAPI_POST',
+  'STRAPI_PRESS_RELEASE',
+];
+
+const publishOverride = collectionsDateOverride.reduce(
+  (acc, collection) => ({
+    ...acc,
+    [collection]: {
+      publishedAt: {
+        type: 'Date',
+        resolve: async ({ publishedAt, publishOverride }) => {
+          return publishOverride ?? publishedAt;
+        },
+      },
+    },
+  }),
+  {}
+);
+
 exports.createResolvers = ({ createResolvers }) => {
   createResolvers({
     STRAPI_PAGE: {
@@ -39,5 +62,6 @@ exports.createResolvers = ({ createResolvers }) => {
         },
       },
     },
+    ...publishOverride,
   });
 };
