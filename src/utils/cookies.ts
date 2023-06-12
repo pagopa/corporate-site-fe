@@ -1,20 +1,26 @@
-export const search = (search: string) => {
-  const cookiesArray = document.cookie.split(';');
+import Cookies from 'js-cookie';
 
-  const foundCookies = cookiesArray?.filter(cookie => {
-    const cookieName = cookie.trim().split('=')[0];
-    if (cookieName?.includes(search)) {
-      return cookieName;
-    }
-  });
+export const search = (search: string): string[] => {
+  const cookies = Cookies.get();
+
+  const foundCookies = Object.entries(cookies)?.reduce<string[]>(
+    (acc, cookie) => {
+      const [cookieName, _] = cookie;
+      if (cookieName?.includes(search)) {
+        return [...acc, cookieName];
+      }
+      return acc;
+    },
+    []
+  );
 
   return foundCookies;
 };
 
 export const deleteOne = (cookieName: string) => {
-  document.cookie = cookieName + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;';
+  Cookies.remove(cookieName);
 };
 
 export const deleteMany = (cookieNames: string[]) => {
-  cookieNames.forEach(deleteOne);
+  cookieNames?.forEach(deleteOne);
 };
