@@ -21,7 +21,6 @@ export const query = graphql`
     startDate
     startTime
     eventVenue
-    publishedAt
   }
   query StrapiEvent($id: String, $language: String) {
     allLocale(filter: { language: { eq: $language } }) {
@@ -44,7 +43,6 @@ export const query = graphql`
           }
         }
       }
-      publishedAt
       featuredImage {
         url
         alternativeText
@@ -73,7 +71,6 @@ export const query = graphql`
 `;
 
 const EventIntro = ({
-  publishedAt,
   eyelet,
   title,
   endTime,
@@ -202,7 +199,7 @@ export default function Component({
             )}
             <div className="row">
               <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-                <h4>{theDate}</h4>
+                {startDate && <h4>{theDate}</h4>}
                 <Body data={body} />
               </div>
             </div>

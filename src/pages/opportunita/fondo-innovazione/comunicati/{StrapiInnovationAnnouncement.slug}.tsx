@@ -25,7 +25,6 @@ export const query = graphql`
       ...InnovIntro
       slug
       bannerNewsletter
-      updatedAt
       publishedAt
       blocks {
         ...Blocks
