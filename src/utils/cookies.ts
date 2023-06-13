@@ -18,7 +18,7 @@ export const search = (search: string): string[] => {
 };
 
 export const deleteOne = (cookieName: string) => {
-  Cookies.remove(cookieName);
+  Cookies.remove(cookieName, {path:"", domain: ".pagopa.it"});
 };
 
 export const deleteMany = (cookieNames: string[]) => {
