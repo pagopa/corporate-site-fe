@@ -40,13 +40,13 @@ variables:
     AGENT_POOL: "scorp-prod-linux"
     ENVIRONMENT: 'prod'
 
-schedules:
-- cron: '0 * * * *'
-  displayName: 'Deploy every hour'
-  branches:
-    include:
-    - main
-  always: true 
+# schedules:
+# - cron: '0 * * * *'
+#   displayName: 'Deploy every hour'
+#   branches:
+#     include:
+#     - main
+#   always: true 
 
 pool:
   name: $(AGENT_POOL)
