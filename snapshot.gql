@@ -1272,6 +1272,7 @@ type STRAPI__COMPONENT_BLOCK_CONTEXT_CONTENT_ITEMS implements Node
   linkLabel: String
   image: STRAPI__MEDIA @link(by: "id", from: "image___NODE")
   strapi_id: Int
+  youtubeVideo: String
 }
 
 type STRAPI__COMPONENT_BLOCK_CONTEXT_CONTENT_ITEMSBody {

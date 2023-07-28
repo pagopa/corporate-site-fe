@@ -275,6 +275,7 @@ export const query = graphql`
         link
         linkLabel
         title
+        youtubeVideo
       }
     }
     ... on STRAPI__COMPONENT_SHARED_BLOCK_PRESS_RELEASE {

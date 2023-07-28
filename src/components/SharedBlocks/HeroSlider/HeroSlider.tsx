@@ -11,6 +11,7 @@ import 'swiper/swiper.min.css';
 import { Cta } from '../../../partials/Cta';
 import { Image } from '../../Image';
 import { Body } from '../../Remark/Body';
+import { Video } from '../../Video';
 import './HeroSlider.sass';
 
 SwiperCore.use([Navigation, Pagination, EffectFade, Controller]);
@@ -91,11 +92,18 @@ export const HeroSlider = ({
                   }
                 >
                   {heroSliderItems.map((item, key) => {
-                    const { image } = item || {};
+                    const { image, youtubeVideo } = item || {};
                     return (
                       <SwiperSlide key={key}>
-                        {image?.localFile?.childImageSharp?.gatsbyImageData && (
-                          <Image data={image as Queries.STRAPI__MEDIA} />
+                        {youtubeVideo ? (
+                          <Video
+                            video={youtubeVideo}
+                            image={(image as Queries.STRAPI__MEDIA) || null}
+                          />
+                        ) : (
+                          image && (
+                            <Image data={image as Queries.STRAPI__MEDIA} />
+                          )
                         )}
                       </SwiperSlide>
                     );
