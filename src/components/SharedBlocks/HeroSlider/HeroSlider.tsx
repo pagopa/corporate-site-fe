@@ -18,6 +18,8 @@ SwiperCore.use([Navigation, Pagination, EffectFade, Controller]);
 
 export const HeroSlider = ({
   heroSliderItems,
+  slug,
+  id
 }: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_HERO_SLIDER_Fragment) => {
   if (heroSliderItems?.length) {
     const swiperCommons = {
@@ -30,7 +32,7 @@ export const HeroSlider = ({
     const { title, body, link, linkLabel } = heroSliderItems[0] || {};
 
     return (
-      <section className="block --hero hero">
+      <section className="block --hero hero" id={slug || id}>
         <div className="hero__background" />
         <div className="container-fluid">
           <div className="row d-flex align-items-center">

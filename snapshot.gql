@@ -1261,6 +1261,7 @@ type STRAPI__COMPONENT_SHARED_BLOCK_HERO_SLIDER implements Node @dontInfer {
   heroSliderItems: [STRAPI__COMPONENT_BLOCK_CONTEXT_CONTENT_ITEMS]
     @link(by: "id", from: "heroSliderItems___NODE")
   strapi_id: Int
+  slug: String
 }
 
 type STRAPI__COMPONENT_BLOCK_CONTEXT_CONTENT_ITEMS implements Node

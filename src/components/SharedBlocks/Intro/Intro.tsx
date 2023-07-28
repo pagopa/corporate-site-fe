@@ -27,14 +27,13 @@ const IntroMenu = ({ menu }: IntroMenuProps) => {
             const isCurrent = pathname.split('/').includes(linkWithoutSlashes);
             return (
               <li key={key} className={classNames(isCurrent && 'is-current')}>
-                {linkLabel ||
-                  (title && (
+                {(linkLabel || title) && (
                     <Cta
                       label={linkLabel || title}
                       href={isCurrent ? '#' : link}
                       variant="link-simple"
                     />
-                  ))}
+                  )}
               </li>
             );
           }
