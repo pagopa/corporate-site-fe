@@ -3,13 +3,22 @@
   padding-top: 8rem
   padding-bottom: 8rem
 
+  &--light
+    @extend .cta-banner
+    background-color: $c-brand-extralight
+
+
   @media (max-width: $mobile - 1)
     padding-top: 6rem
     padding-bottom: 6rem
-    
 
   &__title
     color: #fff
-  
+
+    &--light
+      @extend .cta-banner__title
+      color: $c-black
+
   .cta
     margin-top: 0
+

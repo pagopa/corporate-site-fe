@@ -1299,6 +1299,7 @@ type STRAPI__COMPONENT_SHARED_BLOCK_CTA_BANNER implements Node @dontInfer {
   link: String
   linkLabel: String
   strapi_id: Int
+  theme: String
 }
 
 type STRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LIST implements Node @dontInfer {

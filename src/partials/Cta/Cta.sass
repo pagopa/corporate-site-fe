@@ -87,6 +87,25 @@
       > span
         color: $c-brand
 
+  &.--black-hollow
+
+    &::before
+      background-color: #FFF
+
+    &:not(.is-loading):not(:disabled):hover
+      border-color: #FFF
+      > span
+        color: $c-black
+
+  &.--black
+
+    &::before
+      background-color: $c-black
+
+    &:not(.is-loading):not(:disabled):hover
+      border-color: $c-black
+      > span
+        color: #FFF
 
   &.--link-simple
     padding: 0
