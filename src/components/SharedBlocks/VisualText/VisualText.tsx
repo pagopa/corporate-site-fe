@@ -62,23 +62,6 @@ export const VisualText = ({
 
   const { left, top, size } = backgroundAnimation || {};
 
-  const VisualVideo = () => (
-    <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 pt-5 pt-lg-0">
-      <Video
-        video={youtubeVideo}
-        image={(image as Queries.STRAPI__MEDIA) || null}
-      />
-    </div>
-  );
-
-  const VisualImage = () => (
-    <div className={`col-12 ${columns[visualSize]?.visual}`}>
-      <div className="block__visual">
-        <Image data={image as Queries.STRAPI__MEDIA} caption={caption} />
-      </div>
-    </div>
-  );
-
   const VisualBody = () =>
     reveal ? (
       <div className="col-12 col-md-10 offset-md-1">
@@ -97,7 +80,7 @@ export const VisualText = ({
   const VisualTitle = () =>
     visualSize === 'Small' ? <h2>{title}</h2> : <h1>{title}</h1>;
 
-  const WithImage = () => (
+  const VisualMedia = () => (
     <>
       {fullWidthLayout && (
         <div className="col-12 col-md-10 offset-md-1">
@@ -105,7 +88,20 @@ export const VisualText = ({
           {title && <VisualTitle />}
         </div>
       )}
-      {image && <VisualImage />}
+      <div className={`col-12 ${columns[visualSize]?.visual}`}>
+        <div className="block__visual">
+          {youtubeVideo ? (
+            <Video
+              video={youtubeVideo}
+              image={(image as Queries.STRAPI__MEDIA) || null}
+            />
+          ) : (
+            image && (
+              <Image data={image as Queries.STRAPI__MEDIA} caption={caption} />
+            )
+          )}
+        </div>
+      </div>
       <div className={`col-12 ${columns[visualSize].content}`}>
         <div className="block__content">
           {!fullWidthLayout && eyelet && <h4>{eyelet}</h4>}
@@ -133,7 +129,6 @@ export const VisualText = ({
       className={classNames(
         'block ',
         image ? '--block-visual-text' : '--block-text',
-        youtubeVideo && '--has-video',
         backgroundColor && '--has-bg-color',
         !(body || title || eyelet) && youtubeVideo && '--only-video'
       )}
@@ -147,8 +142,7 @@ export const VisualText = ({
             reverseOrder && 'flex-row-reverse justify-content-end'
           )}
         >
-          {image ? <WithImage /> : <TextOnly />}
-          {youtubeVideo && <VisualVideo />}
+          {image || youtubeVideo ? <VisualMedia /> : <TextOnly />}
         </div>
       </div>
     </section>

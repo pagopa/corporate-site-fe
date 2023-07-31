@@ -1261,6 +1261,7 @@ type STRAPI__COMPONENT_SHARED_BLOCK_HERO_SLIDER implements Node @dontInfer {
   heroSliderItems: [STRAPI__COMPONENT_BLOCK_CONTEXT_CONTENT_ITEMS]
     @link(by: "id", from: "heroSliderItems___NODE")
   strapi_id: Int
+  slug: String
 }
 
 type STRAPI__COMPONENT_BLOCK_CONTEXT_CONTENT_ITEMS implements Node
@@ -1272,6 +1273,7 @@ type STRAPI__COMPONENT_BLOCK_CONTEXT_CONTENT_ITEMS implements Node
   linkLabel: String
   image: STRAPI__MEDIA @link(by: "id", from: "image___NODE")
   strapi_id: Int
+  youtubeVideo: String
 }
 
 type STRAPI__COMPONENT_BLOCK_CONTEXT_CONTENT_ITEMSBody {
@@ -1299,6 +1301,7 @@ type STRAPI__COMPONENT_SHARED_BLOCK_CTA_BANNER implements Node @dontInfer {
   link: String
   linkLabel: String
   strapi_id: Int
+  theme: String
 }
 
 type STRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LIST implements Node @dontInfer {

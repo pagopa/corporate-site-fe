@@ -230,6 +230,7 @@ export const query = graphql`
       title
       link
       linkLabel
+      theme
     }
     ... on STRAPI__COMPONENT_SHARED_BLOCK_PROJECTS_CAROUSEL {
       id
@@ -259,6 +260,7 @@ export const query = graphql`
     }
     ... on STRAPI__COMPONENT_SHARED_BLOCK_HERO_SLIDER {
       id
+      slug
       heroSliderItems {
         body {
           data {
@@ -274,6 +276,7 @@ export const query = graphql`
         link
         linkLabel
         title
+        youtubeVideo
       }
     }
     ... on STRAPI__COMPONENT_SHARED_BLOCK_PRESS_RELEASE {
