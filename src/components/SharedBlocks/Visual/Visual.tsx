@@ -34,13 +34,15 @@ export const Visual = ({
     <section className={`block --block-visual visual --${type}`}>
       <BackgroundGraphics left={left} top={top} size={size} />
 
-      <div className="container-fluid">
-        <div className="row">
-          <div className={`col-12 ${columns}`}>
-            <Image data={image} />
+      {image && (
+        <div className="container-fluid">
+          <div className="row">
+            <div className={`col-12 ${columns}`}>
+              <Image data={image} />
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </section>
   );
 };
