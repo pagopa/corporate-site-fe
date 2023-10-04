@@ -33,7 +33,7 @@ export const NewsletterList = () => {
       }
     }
     query AllNewsletter {
-      allStrapiNewsletter {
+      allStrapiNewsletter(sort: { publishedAt: DESC }) {
         nodes {
           ...Newsletter
         }
