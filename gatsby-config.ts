@@ -198,7 +198,7 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-plugin-sass`,
       options: {
-        additionalData: `@import "${__dirname}/src/sass/vars"`,
+        additionalData: `@import "src/sass/vars"`,
         sassOptions: {
           precision: 6,
           indentedSyntax: true,
