@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { YouTubePlayer } from 'react-youtube';
 import SwiperCore, {
   Controller,
   EffectFade,
@@ -19,8 +20,16 @@ SwiperCore.use([Navigation, Pagination, EffectFade, Controller]);
 export const HeroSlider = ({
   heroSliderItems,
   slug,
-  id
+  id,
 }: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_HERO_SLIDER_Fragment) => {
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [isSlideChange, setIsSlideChange] = useState<boolean>(false);
+
+  const handleSlideChange = currentIndex => {
+    setIsSlideChange(true);
+    setCurrentSlideIndex(currentIndex);
+  };
+
   if (heroSliderItems?.length) {
     const swiperCommons = {
       speed: 480,
@@ -92,6 +101,9 @@ export const HeroSlider = ({
                         }
                       : false
                   }
+                  onSlideChange={swiper => {
+                    handleSlideChange(swiper.activeIndex);
+                  }}
                 >
                   {heroSliderItems.map((item, key) => {
                     const { image, youtubeVideo } = item || {};
@@ -101,6 +113,8 @@ export const HeroSlider = ({
                           <Video
                             video={youtubeVideo}
                             image={(image as Queries.STRAPI__MEDIA) || null}
+                            isSlideChange={isSlideChange}
+                            currentSlideIndex={currentSlideIndex}
                           />
                         ) : (
                           image && (
