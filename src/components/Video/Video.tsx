@@ -16,9 +16,16 @@ const youtubeParser = (url: string) => {
 type VideoProps = {
   image?: Queries.STRAPI__MEDIA | null;
   video: string;
+  isSlideChange: boolean;
+  currentSlideIndex: number;
 };
 
-const Video = ({ image, video }: VideoProps) => {
+const Video = ({
+  image,
+  video,
+  isSlideChange,
+  currentSlideIndex,
+}: VideoProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [videoActive, setVideoActive] = useState(false);
   const [videoPreview, setVideoPreview] = useState(true);
@@ -41,6 +48,13 @@ const Video = ({ image, video }: VideoProps) => {
       videoInstance.pauseVideo();
     }
   };
+
+  useEffect(() => {
+    if (isSlideChange && currentSlideIndex !== 0) {
+      handleStop();
+      setVideoActive(false);
+    }
+  }, [isSlideChange, currentSlideIndex]);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
