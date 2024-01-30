@@ -25,7 +25,7 @@ export const HeroSlider = ({
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [isSlideChange, setIsSlideChange] = useState<boolean>(false);
 
-  const handleSlideChange = currentIndex => {
+  const handleSlideChange = (currentIndex: number) => {
     setIsSlideChange(true);
     setCurrentSlideIndex(currentIndex);
   };
