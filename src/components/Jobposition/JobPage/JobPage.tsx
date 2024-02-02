@@ -3,7 +3,7 @@ import { Body } from '../../Remark/Body';
 import { JobIntro } from '../JobIntro';
 
 const iframeURL =
-  'https://career55preview.sapsf.eu/sfcareer/jobreqcareer?_s.cjt=V4%2d0%2da1%2dPuLS2G1ClNW3Ge8ZOmoXG%5f9ydqphbkwr29Fgyb2ECWLfb%2db04XCuh%5f6avdqvgAwnvCLI4Zf3E8GK&jobId=__JOBID__&company=pagopaspaT1';
+  'https://career55.sapsf.eu/sfcareer/jobreqcareer?jobId=__JOBID__&company=pagopaspa';
 
 type JobPageProps = {
   data: Queries.JobPageFragment;
