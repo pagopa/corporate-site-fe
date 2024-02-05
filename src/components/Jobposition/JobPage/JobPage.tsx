@@ -1,9 +1,9 @@
-import { graphql } from 'gatsby';
-import React from 'react';
+import React, { useRef } from 'react';
 import { Body } from '../../Remark/Body';
 import { JobIntro } from '../JobIntro';
 
-const iframeURL = 'https://pagopa.applytojob.com/apply/__JOBID__';
+const iframeURL =
+  'https://career55.sapsf.eu/sfcareer/jobreqcareer?jobId=__JOBID__&company=pagopaspa';
 
 type JobPageProps = {
   data: Queries.JobPageFragment;
@@ -53,11 +53,12 @@ export const JobPage = ({
         <section className="job__form">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <iframe
+                  id="iframe-apply"
                   src={iframeCode as string}
-                  width="100%"
-                  height="1000vw"
+                  width="1000rem"
+                  height="500vw"
                 />
               </div>
             </div>
