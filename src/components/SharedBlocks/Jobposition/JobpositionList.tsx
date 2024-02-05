@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { graphql, Link, useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 import { useLocalizedQuery } from '../../../hooks';
 import { JobEntry } from '../../Jobposition/JobEntry';
 
@@ -78,14 +78,17 @@ export const JobpositionList = ({
     .sort(byRecentJobOpening)
     .reduce<Record<'openJobs' | 'pastJobs', Queries.JobpositionFragment[]>>(
       (acc, job) => {
-        const now = new Date().getTime();
-        const jobExpiration = job?.closeDate
-          ? new Date(job.closeDate).getTime()
-          : now;
+        if (!job?.closeDate) {
+          return { ...acc, openJobs: [...acc.openJobs, job] };
+        }
 
-        return jobExpiration >= now
-          ? { ...acc, openJobs: [...acc.openJobs, job] }
-          : { ...acc, pastJobs: [...acc.pastJobs, job] };
+        const now = new Date();
+        const jobExpiration = new Date(job.closeDate);
+        jobExpiration.setHours(24, 0, 0, 0);
+
+        return now >= jobExpiration
+          ? { ...acc, pastJobs: [...acc.pastJobs, job] }
+          : { ...acc, openJobs: [...acc.openJobs, job] };
       },
       { openJobs: [], pastJobs: [] }
     );
