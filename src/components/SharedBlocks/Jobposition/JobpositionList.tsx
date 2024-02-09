@@ -84,7 +84,7 @@ export const JobpositionList = ({
 
         const now = new Date();
         const jobExpiration = new Date(job.closeDate);
-        jobExpiration.setHours(24,0,0,0);
+        jobExpiration.setHours(24, 0, 0, 0);
 
         return now >= jobExpiration
           ? { ...acc, pastJobs: [...acc.pastJobs, job] }
@@ -124,9 +124,11 @@ export const JobpositionList = ({
 
             <div className="jobs-listing__disclaimer">
               <p>
-                Prima di inviare la candidatura ricorda di leggere la{' '}
+                Prima di registrarti al nostro Portale ricorda di leggere
+                l&apos;
                 <a href="https://www.pagopa.it/it/privacy-policy-candidati/">
-                  Privacy Policy
+                  Informativa Privacy e i Termini e Condizioni d'uso del
+                  servizio
                 </a>
               </p>
             </div>
