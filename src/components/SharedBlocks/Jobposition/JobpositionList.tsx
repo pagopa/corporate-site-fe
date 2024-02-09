@@ -124,9 +124,11 @@ export const JobpositionList = ({
 
             <div className="jobs-listing__disclaimer">
               <p>
-                Prima di inviare la candidatura ricorda di leggere la{' '}
+                Prima di registrarti al nostro Portale ricorda di leggere
+                l&apos;
                 <a href="https://www.pagopa.it/it/privacy-policy-candidati/">
-                  Privacy Policy
+                  Informativa Privacy e i Termini e Condizioni d'uso del
+                  servizio
                 </a>
               </p>
             </div>
