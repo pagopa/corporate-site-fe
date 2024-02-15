@@ -5,6 +5,7 @@ import { Image } from '../Image';
 
 import { Cta } from '../../partials/Cta';
 import './Article.sass';
+import { previewText } from '../../utils/previewText';
 
 type Article =
   | Queries.PostFragment
@@ -39,9 +40,6 @@ export const Article = ({
     ? new Date(baseDate).toLocaleDateString(language, dateOptions)
     : '';
 
-  const text = body?.data?.body?.replace(/(<([^>]+)>)/gi, '');
-  const abstract = text?.split(' ').splice(0, 14).join(' ');
-
   const labelMap = {
     STRAPI_POST: 'News',
     STRAPI_EVENT: 'Eventi',
@@ -70,7 +68,7 @@ export const Article = ({
           )}
         </div>
         <h4 className="--primary --medium">{title}</h4>
-        {abstract && abstract}...
+        {previewText(14, body?.data?.body)}
       </div>
 
       <Cta

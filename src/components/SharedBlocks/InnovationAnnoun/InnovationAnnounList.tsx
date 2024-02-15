@@ -4,6 +4,7 @@ import React from 'react';
 import { useLocalizedQuery } from '../../../hooks';
 import { Cta } from '../../../partials/Cta';
 import { Pagination } from '../../Pagination';
+import { previewText } from '../../../utils/previewText';
 
 const InnovItem = ({
   innovAnnoun,
@@ -28,9 +29,6 @@ const InnovItem = ({
     ? new Date(publishedAt).toLocaleDateString(language, dateOptions)
     : '';
 
-  const text = body?.data?.body?.replace(/(<([^>]+)>)/gi, '');
-  const abstract = text?.split(' ').splice(0, 36).join(' ');
-
   return (
     <article className="d-flex flex-column justify-content-between" key={id}>
       <div>
@@ -41,7 +39,7 @@ const InnovItem = ({
           <h3 className="--light">{title}</h3>
         )}
         <div>
-          <p>{abstract}...</p>
+          <p>{previewText(36, body?.data.body)}</p>
         </div>
       </div>
 
