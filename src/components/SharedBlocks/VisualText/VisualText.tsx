@@ -60,7 +60,7 @@ export const VisualText = ({
 
   const fullWidthLayout = visualSize === 'Full';
 
-  const sectionId = title.replaceAll(' ', '-').toLocaleLowerCase();
+  const sectionId = title?.replaceAll(' ', '-').toLocaleLowerCase();
 
   const { left, top, size } = backgroundAnimation || {};
 
