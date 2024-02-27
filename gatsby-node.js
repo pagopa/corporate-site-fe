@@ -57,7 +57,7 @@ exports.createResolvers = ({ createResolvers }) => {
       permalink: {
         type: 'String',
         resolve: async ({ slug, url_path, locale }) => {
-          const base_path = locale === 'en' ? '/en' : '/it';
+          const base_path = locale === 'en' ? '/en' : '';
           const permalink = url_path
             ? `${base_path}/${url_path}/${slug}`
             : `${base_path}/${slug}`;
