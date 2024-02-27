@@ -71,8 +71,9 @@ export const Footer = ({ footerTop, footerBottom }: FooterProps) => {
               <li key={lng}>
                 <a
                   onClick={() => {
+                    changeLanguage(lng);
                     window.location.assign(
-                      `/${lng}/${lng === 'it' ? '' : 'en/indexen/'}`
+                      `/${lng}${lng === 'it' ? '/' : '/indexen/'}`
                     );
                   }}
                   style={{
