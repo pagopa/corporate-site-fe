@@ -70,9 +70,9 @@ export const Footer = ({ footerTop, footerBottom }: FooterProps) => {
             {languages.map(lng => (
               <li key={lng}>
                 <a
-                  onClick={e => {
+                  onClick={() => {
                     window.location.assign(
-                      `/${lng}/${lng === 'it' ? 'it/' : 'it/en/indexen/'}`
+                      `/${lng}/${lng === 'it' ? '' : 'en/indexen/'}`
                     );
                   }}
                   style={{
