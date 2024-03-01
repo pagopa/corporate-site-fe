@@ -11,8 +11,8 @@ import './Layout.sass';
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   const query: Queries.MainNavigationQuery = useStaticQuery(graphql`
-    query MainNavigation {
-      allStrapiNavigation {
+    query MainNavigation($locale: String) {
+      allStrapiNavigation(filter: { locale: { eq: $locale } }) {
         nodes {
           ...MainNavigationItem
         }
