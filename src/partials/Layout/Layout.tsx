@@ -10,9 +10,10 @@ import { HeadScripts } from './HeadScripts';
 import './Layout.sass';
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
+  // TODO Temporary removed the locale-based filter in the query was previously added because some entries are saved with the wrong locale
   const query: Queries.MainNavigationQuery = useStaticQuery(graphql`
-    query MainNavigation($locale: String) {
-      allStrapiNavigation(filter: { locale: { eq: $locale } }) {
+    query MainNavigation {
+      allStrapiNavigation {
         nodes {
           ...MainNavigationItem
         }
