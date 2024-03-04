@@ -67,7 +67,12 @@ export const JobPage = ({
                   width="100%"
                   height="100%"
                   allowFullScreen
-                  style={{ position: 'absolute', top: 0, left: 0 }}
+                  style={{
+                    overflow: 'scroll',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                  }}
                 />
               </div>
             </div>
