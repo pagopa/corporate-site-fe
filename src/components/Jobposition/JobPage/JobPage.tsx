@@ -53,12 +53,21 @@ export const JobPage = ({
         <section className="job__form">
           <div className="container-fluid">
             <div className="row">
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <div
+                style={{
+                  paddingBottom: '56.25%',
+                  position: 'relative',
+                  display: 'block',
+                  width: '100%',
+                }}
+              >
                 <iframe
                   id="iframe-apply"
                   src={iframeCode as string}
-                  width="1000rem"
-                  height="500vw"
+                  width="100%"
+                  height="100%"
+                  allowFullScreen
+                  style={{ position: 'absolute', top: 0, left: 0 }}
                 />
               </div>
             </div>
