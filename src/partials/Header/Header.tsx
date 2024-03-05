@@ -6,6 +6,7 @@ import { Hamburger } from '../Hamburger';
 import { Logo } from '../Logo';
 import { Socials } from '../Socials';
 import './Header.sass';
+import { useI18next } from 'gatsby-plugin-react-i18next';
 
 export const Header = ({
   reservedMenu,
@@ -16,6 +17,13 @@ export const Header = ({
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const handleMobileMenu = () => setMobileMenuOpen(prev => !prev);
+  const { language } = useI18next();
+
+  // TODO Verify: The navigations of ita have for some reason the locale setted to en locale
+  const mainMenuByLang = mainMenu.filter(mm => mm.path.includes(language));
+  const reservedMenuByLang = reservedMenu.filter(rm =>
+    rm.path.includes(language)
+  );
 
   return (
     <header className={classNames('header', mobileMenuOpen && 'menu-is-open')}>
@@ -32,7 +40,7 @@ export const Header = ({
             </div>
 
             <div className="col-auto d-none d-lg-block">
-              <Menu reserved={reservedMenu} />
+              <Menu reserved={reservedMenuByLang} />
             </div>
           </div>
         </div>
@@ -42,7 +50,7 @@ export const Header = ({
         <div className="container-fluid">
           <div className="row align-items-center justify-content-between">
             <div className="col-auto">
-              <Menu main={mainMenu} reserved={reservedMenu} />
+              <Menu main={mainMenuByLang} reserved={reservedMenuByLang} />
             </div>
 
             <div className="col-auto d-none d-lg-block">
