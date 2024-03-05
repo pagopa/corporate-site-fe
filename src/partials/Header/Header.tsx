@@ -20,15 +20,10 @@ export const Header = ({
   const { language } = useI18next();
 
   // TODO Verify: The navigations of ita have for some reason the locale setted to en locale
-  // TODO Check IDs on environment variables and fix conditions
-  const mainMenuByLang =
-    language === 'it'
-      ? mainMenu.filter(mm => mm.path.includes(language))
-      : reservedMenu.filter(rm => rm.path.includes(language));
-  const reservedMenuByLang =
-    language === 'it'
-      ? reservedMenu.filter(rm => rm.path.includes(language))
-      : [];
+  const mainMenuByLang = mainMenu.filter(mm => mm.path.includes(language));
+  const reservedMenuByLang = reservedMenu.filter(rm =>
+    rm.path.includes(language)
+  );
 
   return (
     <header className={classNames('header', mobileMenuOpen && 'menu-is-open')}>
