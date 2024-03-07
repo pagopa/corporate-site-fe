@@ -57,7 +57,6 @@ export default function Component({
         title={strapiJobposition.title}
         featuredImage={strapiJobposition.featuredImage}
       />
-      ;
       <JobPage data={strapiJobposition as Queries.JobPageFragment} />
     </Layout>
   );
