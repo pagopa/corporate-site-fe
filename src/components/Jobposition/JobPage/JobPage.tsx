@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { Body } from '../../Remark/Body';
 import { JobIntro } from '../JobIntro';
+import { Cta } from '../../../partials/Cta';
 
 const iframeURL =
   'https://career55.sapsf.eu/sfcareer/jobreqcareer?jobId=__JOBID__&company=pagopaspa';
@@ -50,16 +51,11 @@ export const JobPage = ({
       )}
 
       {hasEmbedForm && (
-        <section className="job__form">
+        <section className="job__section">
           <div className="container-fluid">
             <div className="row">
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <iframe
-                  id="iframe-apply"
-                  src={iframeCode as string}
-                  width="1000rem"
-                  height="500vw"
-                />
+              <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+                <Cta href={iframeCode as string} label="Candidati ora" />
               </div>
             </div>
           </div>
