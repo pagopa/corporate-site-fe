@@ -28,12 +28,12 @@ const IntroMenu = ({ menu }: IntroMenuProps) => {
             return (
               <li key={key} className={classNames(isCurrent && 'is-current')}>
                 {(linkLabel || title) && (
-                    <Cta
-                      label={linkLabel || title}
-                      href={isCurrent ? '#' : link}
-                      variant="link-simple"
-                    />
-                  )}
+                  <Cta
+                    label={linkLabel || title}
+                    href={isCurrent ? '#' : link}
+                    variant="link-simple"
+                  />
+                )}
               </li>
             );
           }
@@ -58,7 +58,7 @@ export const Intro = ({
         {(title || eyelet) && (
           <div className="row justify-content-center">
             <div className="col-12 col-md-10 col-lg-9">
-              <div className="intro__heading">
+              <div className={title ? 'intro__heading' : 'intro'}>
                 <h4>{eyelet}</h4>
                 {introMenu && <IntroMenu menu={introMenu} />}
                 <h1>{title}</h1>
