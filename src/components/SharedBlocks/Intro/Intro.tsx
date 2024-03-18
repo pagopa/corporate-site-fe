@@ -28,12 +28,12 @@ const IntroMenu = ({ menu }: IntroMenuProps) => {
             return (
               <li key={key} className={classNames(isCurrent && 'is-current')}>
                 {(linkLabel || title) && (
-                    <Cta
-                      label={linkLabel || title}
-                      href={isCurrent ? '#' : link}
-                      variant="link-simple"
-                    />
-                  )}
+                  <Cta
+                    label={linkLabel || title}
+                    href={isCurrent ? '#' : link}
+                    variant="link-simple"
+                  />
+                )}
               </li>
             );
           }
@@ -55,17 +55,15 @@ export const Intro = ({
       className={classNames('block --block-intro intro', 'mb-0 --nocontent')}
     >
       <div className="container-fluid">
-        {(title || eyelet) && (
-          <div className="row justify-content-center">
-            <div className="col-12 col-md-10 col-lg-9">
-              <div className="intro__heading">
-                <h4>{eyelet}</h4>
-                {introMenu && <IntroMenu menu={introMenu} />}
-                <h1>{title}</h1>
-              </div>
+        <div className="row justify-content-center">
+          <div className="col-12 col-md-10 col-lg-9">
+            <div className={title ? 'intro__heading' : 'intro'}>
+              <h4>{eyelet}</h4>
+              {introMenu && <IntroMenu menu={introMenu} />}
+              <h1>{title}</h1>
             </div>
           </div>
-        )}
+        </div>
         {image && image?.localFile && (
           <div className="row">
             <div className="col-12 col-lg-10 offset-lg-1 d-flex align-items-center justify-content-center">
