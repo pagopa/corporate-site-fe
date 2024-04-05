@@ -5,6 +5,7 @@ import YouTube from 'react-youtube';
 import { YouTubePlayer, Options } from 'youtube-player/dist/types';
 import { Image } from '../Image';
 import './Video.sass';
+import { useI18next } from 'gatsby-plugin-react-i18next';
 
 const youtubeParser = (url: string) => {
   var regExp =
@@ -26,6 +27,7 @@ const Video = ({
   isSlideChange,
   currentSlideIndex,
 }: VideoProps) => {
+  const { language } = useI18next();
   const [isPlaying, setIsPlaying] = useState(false);
   const [videoActive, setVideoActive] = useState(false);
   const [videoPreview, setVideoPreview] = useState(true);
@@ -97,6 +99,7 @@ const Video = ({
       //@ts-ignore this props are missing in the type definition but used
       showInfo: 0,
       mute: 1,
+      cc_lang_pref: language,
     },
   };
 

@@ -35,7 +35,7 @@ export const Footer = ({ footerTop, footerBottom }: FooterProps) => {
     query,
   });
 
-  const { i18n, t, languages, changeLanguage, originalPath } = useI18next();
+  const { i18n, t, languages, changeLanguage } = useI18next();
 
   return (
     <footer className="footer">
