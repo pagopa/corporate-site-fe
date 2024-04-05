@@ -25,13 +25,15 @@ export const Header = ({
     rm.path.includes(language)
   );
 
+  const route = language === 'it' ? '/it' : '/en/indexen';
+
   return (
     <header className={classNames('header', mobileMenuOpen && 'menu-is-open')}>
       <div className="header__top">
         <div className="container-fluid">
           <div className="row align-items-center justify-content-between">
             <div className="col-auto">
-              <Link to="/" title="PagoPA">
+              <Link to={route} title="PagoPA">
                 <Logo title="PagoPA" menuOpen={mobileMenuOpen} />
               </Link>
             </div>

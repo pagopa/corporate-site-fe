@@ -221,7 +221,6 @@ const config: GatsbyConfig = {
         localeJsonNodeName: `allLocale`,
         localeJsonSourceName: `locale`,
         languages: ['it', 'en'],
-        fallbackLanguage: 'it',
       },
     },
   ],
