@@ -28,6 +28,11 @@ export const FooterTop = ({ menu }: FooterTopProps) => {
             </li>
           ) : null;
         })}
+        <li>
+          <button id="ot-sdk-btn" className="cta --link-simple ot-preferences">
+            <span>Preferenze cookie</span>
+          </button>
+        </li>
       </ul>
     </nav>
   );
