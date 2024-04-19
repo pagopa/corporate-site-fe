@@ -55,7 +55,7 @@
     "react-youtube": "^10.1.0",
     "reaptcha": "^1.12.1",
     "sass": "^1.57.1",
-    "sharp": "^0.30.1",
+    "sharp": "^0.32.0",
     "smoothscroll-polyfill": "^0.4.4",
     "swiper": "^9.0.5"
   },
