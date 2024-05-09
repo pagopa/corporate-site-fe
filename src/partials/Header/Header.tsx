@@ -25,7 +25,7 @@ export const Header = ({
     rm.path.includes(language)
   );
 
-  const route = language === 'it' ? '/it' : '/en/indexen';
+  const route = language === 'it' ? '/it' : '/en/homepage';
 
   return (
     <header className={classNames('header', mobileMenuOpen && 'menu-is-open')}>
