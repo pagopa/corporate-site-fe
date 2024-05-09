@@ -10,6 +10,7 @@ type FooterTopProps = {
 
 export const FooterTop = ({ menu }: FooterTopProps) => {
   useCookiesDialog({ selector: '.ot-preferences' });
+  const { language } = useI18next();
 
   return (
     <nav className="footer-top">
@@ -30,7 +31,9 @@ export const FooterTop = ({ menu }: FooterTopProps) => {
         })}
         <li>
           <button id="ot-sdk-btn" className="cta --link-simple ot-preferences">
-            <span>Preferenze cookie</span>
+            <span>
+              {language === 'it' ? 'Preferenze cookie' : 'Cookie preferences'}
+            </span>
           </button>
         </li>
       </ul>
