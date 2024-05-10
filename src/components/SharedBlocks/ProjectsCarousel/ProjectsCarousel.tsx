@@ -5,6 +5,7 @@ import 'swiper/swiper.min.css';
 import { Cta } from '../../../partials/Cta';
 import { Image } from '../../Image';
 import './ProjectsCarousel.sass';
+import { useI18next } from 'gatsby-plugin-react-i18next';
 
 export const ProjectsCarousel = ({
   title,
@@ -16,6 +17,8 @@ export const ProjectsCarousel = ({
     slidesPerView: 1.1,
     loop: true,
   };
+
+  const { language } = useI18next();
 
   return (
     <section className="block --block-project-carousel projects-carousel">
@@ -85,7 +88,7 @@ export const ProjectsCarousel = ({
                             />
                           )}
                         </div>
-                        <div className='project-carousel__item__cta'>
+                        <div className="project-carousel__item__cta">
                           {carouselAbstract && (
                             <div className="wysiwyg">
                               <p>{carouselAbstract}</p>
@@ -94,7 +97,11 @@ export const ProjectsCarousel = ({
                           {carouselCtaLabel && (
                             <Cta
                               label={carouselCtaLabel}
-                              href={`/it/prodotti-e-servizi/${slug}`}
+                              href={`/${language}/${
+                                language === 'it'
+                                  ? 'prodotti-e-servizi'
+                                  : 'products-and-services'
+                              }/${slug}`}
                               variant="white-hollow"
                             />
                           )}

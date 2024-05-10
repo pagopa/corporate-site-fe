@@ -68,3 +68,19 @@ exports.createResolvers = ({ createResolvers }) => {
     ...publishOverride,
   });
 };
+
+exports.createResolvers = ({ createResolvers }) => {
+  createResolvers({
+    STRAPI_PROJECT: {
+      permalink: {
+        type: 'String',
+        resolve: async ({ slug, locale }) => {
+          const project_path =
+            locale === 'it' ? 'prodotti-e-servizi' : 'products-and-services';
+          return `/${locale}/${project_path}/${slug}`;
+        },
+      },
+    },
+    ...publishOverride,
+  });
+};
