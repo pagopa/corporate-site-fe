@@ -65,19 +65,16 @@ exports.createResolvers = ({ createResolvers }) => {
         },
       },
     },
-    ...publishOverride,
-  });
-};
-
-exports.createResolvers = ({ createResolvers }) => {
-  createResolvers({
     STRAPI_PROJECT: {
-      permalink: {
+      slug: {
         type: 'String',
         resolve: async ({ slug, locale }) => {
+          const base_path = locale === 'en' ? '/en' : '';
           const project_path =
-            locale === 'it' ? 'prodotti-e-servizi' : 'products-and-services';
-          return `/${locale}/${project_path}/${slug}`;
+            locale === 'it'
+              ? `${base_path}/prodotti-e-servizi/${slug}`
+              : `${base_path}/products-and-services/${slug}`;
+          return project_path;
         },
       },
     },

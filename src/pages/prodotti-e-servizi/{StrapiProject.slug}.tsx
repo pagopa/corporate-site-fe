@@ -45,17 +45,24 @@ export const query = graphql`
 export default function Component({
   data: { strapiProject },
 }: PageProps<Queries.StrapiProjectQuery>) {
-  const { title, slug, blocks } = strapiProject || {};
+  if (!strapiProject) {
+    return null; // oppure un messaggio di "loading" o gestione dell'errore
+  }
 
-  return title && slug ? (
+  const { title, slug, blocks } = strapiProject;
+
+  console.log('title: ', title);
+  console.log('slug', slug);
+
+  return (
     <Layout>
       <SEO
-        meta={strapiProject?.seo}
+        meta={strapiProject.seo}
         title={strapiProject.title}
         featuredImage={strapiProject.featuredImage}
       />
       <BlocksRenderer blocks={blocks as Queries.BlocksFragment[]} />
       {/* {bannerNewsletter && <NewsletterBanner />} */}
     </Layout>
-  ) : null;
+  );
 }
