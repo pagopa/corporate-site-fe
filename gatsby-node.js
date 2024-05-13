@@ -36,6 +36,8 @@ const collectionsDateOverride = [
   'STRAPI_PRESS_RELEASE',
 ];
 
+const collectionsPathsOverride = ['SitePage'];
+
 const publishOverride = collectionsDateOverride.reduce(
   (acc, collection) => ({
     ...acc,
@@ -51,6 +53,18 @@ const publishOverride = collectionsDateOverride.reduce(
   {}
 );
 
+const pathOverride = {
+  SitePage: {
+    path: {
+      type: 'String',
+      resolve: async ({ path }) => {
+        const removeUrlPath = path.replace('/it/prodotti-e-servizi/', '');
+        return removeUrlPath;
+      },
+    },
+  },
+};
+
 exports.createResolvers = ({ createResolvers }) => {
   createResolvers({
     STRAPI_PAGE: {
@@ -58,23 +72,24 @@ exports.createResolvers = ({ createResolvers }) => {
         type: 'String',
         resolve: async ({ slug, url_path, locale }) => {
           const base_path = locale === 'en' ? '/en' : '';
-          return locale === en ? `${base_path}${url_path}${slug}` : `${slug}`;
-        },
-      },
-    },
-    STRAPI_PROJECT: {
-      slug: {
-        type: 'String',
-        resolve: async ({ slug, url_path, locale }) => {
-          const base_path = locale === 'en' ? '/en' : '';
-          const parts = url.split('/');
-          const slugValue = parts[2];
-          const permalink =
-            locale === 'en' ? `${base_path}${url_path}${slugValue}` : `${slug}`;
+          const permalink = url_path
+            ? `${base_path}/${url_path}/${slug}`
+            : `${base_path}/${slug}`;
           return permalink;
         },
       },
     },
     ...publishOverride,
+    ...pathOverride,
+    STRAPI_PROJECT: {
+      slug: {
+        type: 'String',
+        resolve: async ({ slug, url_path, locale }) => {
+          const base_path = locale === 'en' ? '/en' : '/it';
+          const permalink = `${base_path}${url_path}${slug}`;
+          return permalink;
+        },
+      },
+    },
   });
 };
