@@ -58,10 +58,7 @@ exports.createResolvers = ({ createResolvers }) => {
         type: 'String',
         resolve: async ({ slug, url_path, locale }) => {
           const base_path = locale === 'en' ? '/en' : '';
-          const permalink = url_path
-            ? `${base_path}/${url_path}/${slug}`
-            : `${base_path}/${slug}`;
-          return permalink;
+          return locale === en ? `${base_path}${url_path}${slug}` : `${slug}`;
         },
       },
     },
@@ -70,12 +67,10 @@ exports.createResolvers = ({ createResolvers }) => {
         type: 'String',
         resolve: async ({ slug, url_path, locale }) => {
           const base_path = locale === 'en' ? '/en' : '';
-          const parts = slug.split('/');
-          const slugValue = '/' + parts.slice(3, 4).join('/');
+          const parts = url.split('/');
+          const slugValue = parts[2];
           const permalink =
-            locale === 'en'
-              ? `${base_path}/${url_path}/${slugValue}`
-              : `${slug}`;
+            locale === 'en' ? `${base_path}${url_path}${slugValue}` : `${slug}`;
           return permalink;
         },
       },

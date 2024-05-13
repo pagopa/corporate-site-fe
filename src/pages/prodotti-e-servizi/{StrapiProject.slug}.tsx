@@ -17,6 +17,7 @@ export const query = graphql`
     }
     strapiProject(id: { eq: $id }) {
       title
+      url_path
       slug
       blocks {
         ...Blocks
