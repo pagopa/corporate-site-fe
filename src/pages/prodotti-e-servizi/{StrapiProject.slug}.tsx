@@ -43,10 +43,10 @@ export const query = graphql`
   }
 `;
 
-export default function Component({ data: { strapiProject } }: PageProps<any>) {
-  const { title, slug, blocks, url_path } = strapiProject || {};
-  console.log('url_path', url_path);
-  console.log('slug', slug);
+export default function Component({
+  data: { strapiProject },
+}: PageProps<Queries.StrapiProjectQuery>) {
+  const { title, slug, blocks } = strapiProject || {};
   return title && slug ? (
     <Layout>
       <SEO
