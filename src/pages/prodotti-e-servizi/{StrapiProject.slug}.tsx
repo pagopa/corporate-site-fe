@@ -42,27 +42,19 @@ export const query = graphql`
   }
 `;
 
-export default function Component({
-  data: { strapiProject },
-}: PageProps<Queries.StrapiProjectQuery>) {
-  if (!strapiProject) {
-    return null; // oppure un messaggio di "loading" o gestione dell'errore
-  }
-
-  const { title, slug, blocks } = strapiProject;
-
-  console.log('title: ', title);
+export default function Component({ data: { strapiProject } }: PageProps<any>) {
+  const { title, slug, blocks, url_path } = strapiProject || {};
+  console.log('url_path', url_path);
   console.log('slug', slug);
-
-  return (
+  return title && slug ? (
     <Layout>
       <SEO
-        meta={strapiProject.seo}
+        meta={strapiProject?.seo}
         title={strapiProject.title}
         featuredImage={strapiProject.featuredImage}
       />
       <BlocksRenderer blocks={blocks as Queries.BlocksFragment[]} />
       {/* {bannerNewsletter && <NewsletterBanner />} */}
     </Layout>
-  );
+  ) : null;
 }

@@ -48,6 +48,7 @@ export default function Component({
   data: { strapiPage },
 }: PageProps<Queries.StrapiPageQuery>) {
   const { title, slug, blocks, bannerNewsletter } = strapiPage || {};
+
   if (title && slug) {
     return (
       <Layout>

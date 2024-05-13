@@ -68,13 +68,15 @@ exports.createResolvers = ({ createResolvers }) => {
     STRAPI_PROJECT: {
       slug: {
         type: 'String',
-        resolve: async ({ slug, locale }) => {
+        resolve: async ({ slug, url_path, locale }) => {
           const base_path = locale === 'en' ? '/en' : '';
-          const project_path =
-            locale === 'it'
-              ? `${base_path}/prodotti-e-servizi/${slug}`
-              : `${base_path}/products-and-services/${slug}`;
-          return project_path;
+          const parts = slug.split('/');
+          const slugValue = '/' + parts.slice(3, 4).join('/');
+          const permalink =
+            locale === 'en'
+              ? `${base_path}/${url_path}/${slugValue}`
+              : `${slug}`;
+          return permalink;
         },
       },
     },

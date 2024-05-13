@@ -1076,6 +1076,7 @@ type STRAPI_PROJECT implements Node @dontInfer {
   carouselTitle: String
   carouselAbstract: String
   carouselCtaLabel: String
+  url_path: String
   slug: String
   createdAt: Date @dateformat
   updatedAt: Date @dateformat
