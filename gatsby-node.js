@@ -20,8 +20,7 @@ module.exports.createPages = async ({ graphql, actions }) => {
 
   result.data.allStrapiProject.nodes.forEach(node => {
     const path = `/${node.locale}${node.url_path}${node.slug}`;
-    const id = node.id;
-    const locale = node.locale;
+
     createPage({
       id: `SitePage ${path}`,
       __typename: 'SitePage',
@@ -29,11 +28,9 @@ module.exports.createPages = async ({ graphql, actions }) => {
       componentChunkName:
         'component---src-pages-prodotti-e-servizi-strapi-project-slug-tsx',
       path,
-      pageContext: {
-        id,
-        language: locale,
-        originalPath: path,
-        path,
+      context: {
+        id: node.id,
+        language: node.locale,
       },
     });
   });
