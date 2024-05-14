@@ -44,11 +44,8 @@ export const query = graphql`
 
 export default function Component({
   data: { strapiProject },
-  pageContext,
 }: PageProps<Queries.StrapiProjectQuery>) {
   const { title, blocks, slug } = strapiProject || {};
-
-  console.log('pageContext', pageContext);
 
   return title && slug ? (
     <Layout>
