@@ -1,3 +1,44 @@
+module.exports.createPages = async ({ graphql, actions }) => {
+  const { createPage } = actions;
+
+  const result = await graphql(`
+    query MyQuery {
+      allStrapiProject {
+        nodes {
+          slug
+          url_path
+          locale
+          id
+        }
+      }
+    }
+  `);
+
+  if (result.errors) {
+    throw result.errors;
+  }
+
+  result.data.allStrapiProject.nodes.forEach(node => {
+    const path = `/${node.locale}${node.url_path}${node.slug}`;
+    const id = node.id;
+    const locale = node.locale;
+    createPage({
+      id: `SitePage ${path}`,
+      __typename: 'SitePage',
+      component: `${__dirname}/src/pages/prodotti-e-servizi/{StrapiProject.slug}.tsx`,
+      componentChunkName:
+        'component---src-pages-prodotti-e-servizi-strapi-project-slug-tsx',
+      path,
+      pageContext: {
+        id,
+        language: locale,
+        originalPath: path,
+        path,
+      },
+    });
+  });
+};
+
 exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions;
   const typeDefs = `
@@ -51,21 +92,6 @@ const publishOverride = collectionsDateOverride.reduce(
   {}
 );
 
-const pathOverride = {
-  SitePage: {
-    path: {
-      type: 'String',
-      resolve: async ({ path }) => {
-        const removeUrlPath = path.replace(
-          '/it/prodotti-e-servizi//en/',
-          '/it/en/'
-        );
-        return removeUrlPath;
-      },
-    },
-  },
-};
-
 exports.createResolvers = ({ createResolvers }) => {
   createResolvers({
     STRAPI_PAGE: {
@@ -81,16 +107,5 @@ exports.createResolvers = ({ createResolvers }) => {
       },
     },
     ...publishOverride,
-    STRAPI_PROJECT: {
-      permalink: {
-        type: 'String',
-        resolve: async ({ slug, url_path, locale }) => {
-          const permalink =
-            locale === 'en' ? `/${locale}${url_path}${slug}` : `${slug}`;
-          return permalink;
-        },
-      },
-    },
-    ...pathOverride,
   });
 };

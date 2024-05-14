@@ -44,8 +44,12 @@ export const query = graphql`
 
 export default function Component({
   data: { strapiProject },
+  pageContext,
 }: PageProps<Queries.StrapiProjectQuery>) {
-  const { title, slug, blocks } = strapiProject || {};
+  const { title, blocks, slug } = strapiProject || {};
+
+  console.log('pageContext', pageContext);
+
   return title && slug ? (
     <Layout>
       <SEO
@@ -53,10 +57,7 @@ export default function Component({
         title={strapiProject.title}
         featuredImage={strapiProject.featuredImage}
       />
-      <BlocksRenderer
-        pageSlug={slug}
-        blocks={blocks as Queries.BlocksFragment[]}
-      />
+      <BlocksRenderer blocks={blocks as Queries.BlocksFragment[]} />
       {/* {bannerNewsletter && <NewsletterBanner />} */}
     </Layout>
   ) : null;
