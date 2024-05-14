@@ -36,8 +36,6 @@ const collectionsDateOverride = [
   'STRAPI_PRESS_RELEASE',
 ];
 
-const collectionsPathsOverride = ['SitePage'];
-
 const publishOverride = collectionsDateOverride.reduce(
   (acc, collection) => ({
     ...acc,
@@ -58,7 +56,10 @@ const pathOverride = {
     path: {
       type: 'String',
       resolve: async ({ path }) => {
-        const removeUrlPath = path.replace('/it/prodotti-e-servizi/', '');
+        const removeUrlPath = path.replace(
+          '/it/prodotti-e-servizi//en/',
+          '/it/en/'
+        );
         return removeUrlPath;
       },
     },
@@ -80,16 +81,16 @@ exports.createResolvers = ({ createResolvers }) => {
       },
     },
     ...publishOverride,
-    ...pathOverride,
     STRAPI_PROJECT: {
-      slug: {
+      permalink: {
         type: 'String',
         resolve: async ({ slug, url_path, locale }) => {
-          const base_path = locale === 'en' ? '/en' : '/it';
-          const permalink = `${base_path}${url_path}${slug}`;
+          const permalink =
+            locale === 'en' ? `/${locale}${url_path}${slug}` : `${slug}`;
           return permalink;
         },
       },
     },
+    ...pathOverride,
   });
 };

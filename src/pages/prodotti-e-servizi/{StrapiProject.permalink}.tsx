@@ -17,7 +17,6 @@ export const query = graphql`
     }
     strapiProject(id: { eq: $id }) {
       title
-      url_path
       slug
       blocks {
         ...Blocks
@@ -54,7 +53,10 @@ export default function Component({
         title={strapiProject.title}
         featuredImage={strapiProject.featuredImage}
       />
-      <BlocksRenderer blocks={blocks as Queries.BlocksFragment[]} />
+      <BlocksRenderer
+        pageSlug={slug}
+        blocks={blocks as Queries.BlocksFragment[]}
+      />
       {/* {bannerNewsletter && <NewsletterBanner />} */}
     </Layout>
   ) : null;
