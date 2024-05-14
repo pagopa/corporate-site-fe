@@ -17,7 +17,6 @@ export const query = graphql`
     }
     strapiProject(id: { eq: $id }) {
       title
-      url_path
       slug
       blocks {
         ...Blocks
@@ -46,7 +45,8 @@ export const query = graphql`
 export default function Component({
   data: { strapiProject },
 }: PageProps<Queries.StrapiProjectQuery>) {
-  const { title, slug, blocks } = strapiProject || {};
+  const { title, blocks, slug } = strapiProject || {};
+
   return title && slug ? (
     <Layout>
       <SEO

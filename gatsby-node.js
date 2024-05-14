@@ -1,3 +1,41 @@
+module.exports.createPages = async ({ graphql, actions }) => {
+  const { createPage } = actions;
+
+  const result = await graphql(`
+    query MyQuery {
+      allStrapiProject {
+        nodes {
+          slug
+          url_path
+          locale
+          id
+        }
+      }
+    }
+  `);
+
+  if (result.errors) {
+    throw result.errors;
+  }
+
+  result.data.allStrapiProject.nodes.forEach(node => {
+    const path = `/${node.locale}${node.url_path}${node.slug}`;
+
+    createPage({
+      id: `SitePage ${path}`,
+      __typename: 'SitePage',
+      component: `${__dirname}/src/pages/prodotti-e-servizi/{StrapiProject.slug}.tsx`,
+      componentChunkName:
+        'component---src-pages-prodotti-e-servizi-strapi-project-slug-tsx',
+      path,
+      context: {
+        id: node.id,
+        language: node.locale,
+      },
+    });
+  });
+};
+
 exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions;
   const typeDefs = `
@@ -58,19 +96,9 @@ exports.createResolvers = ({ createResolvers }) => {
         type: 'String',
         resolve: async ({ slug, url_path, locale }) => {
           const base_path = locale === 'en' ? '/en' : '';
-          return locale === en ? `${base_path}${url_path}${slug}` : `${slug}`;
-        },
-      },
-    },
-    STRAPI_PROJECT: {
-      slug: {
-        type: 'String',
-        resolve: async ({ slug, url_path, locale }) => {
-          const base_path = locale === 'en' ? '/en' : '';
-          const parts = url.split('/');
-          const slugValue = parts[2];
-          const permalink =
-            locale === 'en' ? `${base_path}${url_path}${slugValue}` : `${slug}`;
+          const permalink = url_path
+            ? `${base_path}/${url_path}/${slug}`
+            : `${base_path}/${slug}`;
           return permalink;
         },
       },
