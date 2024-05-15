@@ -6,6 +6,7 @@ import { Socials } from '../Socials';
 import './Footer.sass';
 import { FooterBottom } from '../FooterBottom';
 import { FooterTop } from '../FooterTop';
+import { useI18next } from 'gatsby-plugin-react-i18next';
 
 type FooterProps = {
   footerTop: Queries.MainNavigationItemFragment[];
@@ -34,6 +35,8 @@ export const Footer = ({ footerTop, footerBottom }: FooterProps) => {
     query,
   });
 
+  const { i18n, t, languages, changeLanguage } = useI18next();
+
   return (
     <footer className="footer">
       <div className="container-fluid">
@@ -54,12 +57,36 @@ export const Footer = ({ footerTop, footerBottom }: FooterProps) => {
             </div>
             <div className="col-12 col-md-auto">
               <div className="d-flex mb-4">
-                <h5 className="mb-0 me-5">SEGUICI SU:</h5>
+                <h5 className="mb-0 me-5">{t('followUs')}</h5>
                 <Socials />
               </div>
             </div>
             <div className="col-12 col-md-6">{localeData?.company}</div>
           </div>
+        </div>
+        <div className="row justify-content-between flex-row-reverse">
+          {/* TODO This code is temporary and will certainly be re-edited and/or moved: it is to have the language switch */}
+          <ul>
+            {languages.map(lng => (
+              <li key={lng}>
+                <a
+                  onClick={() => {
+                    changeLanguage(lng);
+                    window.location.assign(
+                      `/${lng}${lng === 'it' ? '/' : '/homepage/'}`
+                    );
+                  }}
+                  style={{
+                    cursor: 'pointer',
+                    textDecoration:
+                      i18n.resolvedLanguage === lng ? 'underline' : 'none',
+                  }}
+                >
+                  {lng}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </footer>

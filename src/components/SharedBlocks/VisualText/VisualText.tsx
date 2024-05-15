@@ -60,6 +60,8 @@ export const VisualText = ({
 
   const fullWidthLayout = visualSize === 'Full';
 
+  const sectionId = title?.replaceAll(' ', '-').toLocaleLowerCase();
+
   const { left, top, size } = backgroundAnimation || {};
 
   const VisualBody = () =>
@@ -133,6 +135,7 @@ export const VisualText = ({
         !(body || title || eyelet) && youtubeVideo && '--only-video'
       )}
       style={{ backgroundColor: backgroundColor || 'transparent' }}
+      id={sectionId}
     >
       <BackgroundGraphics {...{ left, top, size }} />
       <div className="container-fluid">

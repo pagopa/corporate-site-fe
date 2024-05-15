@@ -6,6 +6,7 @@ import { Hamburger } from '../Hamburger';
 import { Logo } from '../Logo';
 import { Socials } from '../Socials';
 import './Header.sass';
+import { useI18next } from 'gatsby-plugin-react-i18next';
 
 export const Header = ({
   reservedMenu,
@@ -16,6 +17,9 @@ export const Header = ({
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const handleMobileMenu = () => setMobileMenuOpen(prev => !prev);
+  const { language } = useI18next();
+
+  const route = language === 'it' ? '/it' : '/en/homepage';
 
   return (
     <header className={classNames('header', mobileMenuOpen && 'menu-is-open')}>
@@ -23,7 +27,7 @@ export const Header = ({
         <div className="container-fluid">
           <div className="row align-items-center justify-content-between">
             <div className="col-auto">
-              <Link to="/" title="PagoPA">
+              <Link to={route} title="PagoPA">
                 <Logo title="PagoPA" menuOpen={mobileMenuOpen} />
               </Link>
             </div>
