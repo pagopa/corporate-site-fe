@@ -19,12 +19,6 @@ export const Header = ({
   const handleMobileMenu = () => setMobileMenuOpen(prev => !prev);
   const { language } = useI18next();
 
-  // TODO Verify: The navigations of ita have for some reason the locale setted to en locale
-  const mainMenuByLang = mainMenu.filter(mm => mm.path.includes(language));
-  const reservedMenuByLang = reservedMenu.filter(rm =>
-    rm.path.includes(language)
-  );
-
   const route = language === 'it' ? '/it' : '/en/homepage';
 
   return (
@@ -42,7 +36,7 @@ export const Header = ({
             </div>
 
             <div className="col-auto d-none d-lg-block">
-              <Menu reserved={reservedMenuByLang} />
+              <Menu reserved={reservedMenu} />
             </div>
           </div>
         </div>
@@ -52,7 +46,7 @@ export const Header = ({
         <div className="container-fluid">
           <div className="row align-items-center justify-content-between">
             <div className="col-auto">
-              <Menu main={mainMenuByLang} reserved={reservedMenuByLang} />
+              <Menu main={mainMenu} reserved={reservedMenu} />
             </div>
 
             <div className="col-auto d-none d-lg-block">
