@@ -64,30 +64,6 @@ export const Footer = ({ footerTop, footerBottom }: FooterProps) => {
             <div className="col-12 col-md-6">{localeData?.company}</div>
           </div>
         </div>
-        <div className="row justify-content-between flex-row-reverse">
-          {/* TODO This code is temporary and will certainly be re-edited and/or moved: it is to have the language switch */}
-          <ul>
-            {languages.map(lng => (
-              <li key={lng}>
-                <a
-                  onClick={() => {
-                    changeLanguage(lng);
-                    window.location.assign(
-                      `/${lng}${lng === 'it' ? '/' : '/homepage/'}`
-                    );
-                  }}
-                  style={{
-                    cursor: 'pointer',
-                    textDecoration:
-                      i18n.resolvedLanguage === lng ? 'underline' : 'none',
-                  }}
-                >
-                  {lng}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
       </div>
     </footer>
   );
