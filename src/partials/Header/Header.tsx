@@ -7,6 +7,7 @@ import { Logo } from '../Logo';
 import { Socials } from '../Socials';
 import './Header.sass';
 import { useI18next } from 'gatsby-plugin-react-i18next';
+import { LanguageSwitch } from '../LanguageSwitch/LanguageSwitch';
 
 export const Header = ({
   reservedMenu,
@@ -44,13 +45,18 @@ export const Header = ({
 
       <div className="header__bottom">
         <div className="container-fluid">
-          <div className="row align-items-center justify-content-between">
+          <div className="row justify-content-between">
             <div className="col-auto">
               <Menu main={mainMenu} reserved={reservedMenu} />
             </div>
-
-            <div className="col-auto d-none d-lg-block">
-              <Socials header />
+            <div className="col-auto d-none d-lg-flex">
+              <div>
+                <Socials header />
+              </div>
+              <div className="divider" />
+              <div className="language-switch-container">
+                <LanguageSwitch />
+              </div>
             </div>
           </div>
         </div>
