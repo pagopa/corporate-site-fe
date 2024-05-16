@@ -72,6 +72,7 @@ export const LanguageSwitch = () => {
                       padding: '6px',
                       height: '28px',
                       width: '60px',
+                      cursor: 'pointer',
                     }}
                     onClick={() => handleChangeLanguage(lng)}
                   >
