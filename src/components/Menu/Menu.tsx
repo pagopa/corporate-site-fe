@@ -2,8 +2,9 @@ import React from 'react';
 import { graphql } from 'gatsby';
 
 import { MenuNavigation } from './MenuNavigation';
-
 import './Menu.sass';
+import { LanguageSwitch } from '../../partials/LanguageSwitch/LanguageSwitch';
+import { useI18next, useTranslation } from 'gatsby-plugin-react-i18next';
 
 export const mainNavigationItemFragment = graphql`
   fragment MainNavigationItem on StrapiNavigation {
@@ -30,6 +31,8 @@ export const Menu = ({
   main?: Queries.MainNavigationItemFragment[];
   reserved?: Queries.MainNavigationItemFragment[];
 }) => {
+  const { t } = useTranslation();
+
   const sortMenuByOrder = (
     menu: Queries.MainNavigationItemFragment[] | undefined
   ) =>
@@ -67,6 +70,10 @@ export const Menu = ({
             );
           })}
         </ul>
+        <div className="language-switch-container">
+          <span style={{ marginBottom: '8px' }}>{t('siteLanguage')}</span>
+          <LanguageSwitch />
+        </div>
       </nav>
     </div>
   );
