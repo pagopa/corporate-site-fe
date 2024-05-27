@@ -49,12 +49,12 @@ export const Header = ({
             <div className="col-auto">
               <Menu main={mainMenu} reserved={reservedMenu} />
             </div>
-            <div className="col-auto d-none d-lg-flex">
+            <div className={'col-auto d-lg-flex align-items-center'}>
               <div>
                 <Socials header />
               </div>
               <div className="divider" />
-              <div className="language-switch-container">
+              <div className="header-language-switch">
                 <LanguageSwitch />
               </div>
             </div>
