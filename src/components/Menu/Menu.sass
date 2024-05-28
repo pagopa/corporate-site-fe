@@ -7,7 +7,6 @@
   .menu-main,
   .menu-reserved
     margin-left: -1.6rem
-    z-index: 1
 
   @media (max-width: $tablet - 1)
     display: flex
@@ -56,6 +55,7 @@
     visibility: visible
 
 .main-navigation, .reserved-navigation
+  z-index: 2
   @media (min-width: $tablet)
     position: relative
     padding: 0 1.6rem
@@ -103,6 +103,7 @@
           visibility: visible
           transform: translate3d(-50%, 0, 0) scale(1)
           transition-delay: 0
+          z-index: 1
 
       &::after
         content: ''
@@ -284,7 +285,7 @@
           max-height: 55rem
           margin-bottom: 2rem
           opacity: 1
-
+    
 .reserved-navigation
   @media (min-width: $tablet)
       padding-left: 0
