@@ -49,10 +49,7 @@ export const Header = ({
             <div className="col-auto">
               <Menu main={mainMenu} reserved={reservedMenu} />
             </div>
-            <div
-              className={'col-auto d-lg-flex align-items-center'}
-              style={{ zIndex: -1 }}
-            >
+            <div className={'col-auto d-lg-flex align-items-center'}>
               <div>
                 <Socials header />
               </div>
