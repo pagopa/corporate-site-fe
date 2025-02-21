@@ -8,14 +8,14 @@
         "url": "https://www.linkedin.com/company/pagopa?original_referer="
       },
       {
-        "image": "/socials/twitter.svg",
-        "label": "twitter",
-        "url": "https://twitter.com/pagopa"
-      },
-      {
         "image": "/socials/instagram.svg",
         "label": "instagram",
         "url": "https://www.instagram.com/pagopaspa/"
+      },
+      {
+        "image": "/socials/threads.svg",
+        "label": "threads",
+        "url": "https://www.threads.net/@pagopaspa"
       },
       {
         "image": "/socials/youtube.svg",
@@ -33,14 +33,14 @@
         "url": "https://www.linkedin.com/company/pagopa?original_referer="
       },
       {
-        "image": "/socials/twitter.svg",
-        "label": "twitter",
-        "url": "https://twitter.com/pagopa"
-      },
-      {
         "image": "/socials/instagram.svg",
         "label": "instagram",
         "url": "https://www.instagram.com/pagopaspa/"
+      },
+      {
+        "image": "/socials/threads.svg",
+        "label": "threads",
+        "url": "https://www.threads.net/@pagopaspa"
       },
       {
         "image": "/socials/youtube.svg",
