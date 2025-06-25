@@ -4,10 +4,10 @@ import { graphql, useStaticQuery } from 'gatsby';
 import { useLocalizedQuery } from '../../../hooks';
 import { JobEntry } from '../../Jobposition/JobEntry';
 
-import { JobPastList } from '../../Jobposition/JobPastList';
-import './JobpositionList.sass';
-import { Body } from '../../Remark/Body';
 import { Cta } from '../../../partials/Cta';
+import { JobPastList } from '../../Jobposition/JobPastList';
+import { Body } from '../../Remark/Body';
+import './JobpositionList.sass';
 
 const LinksAttachments = ({
   links,
@@ -124,8 +124,8 @@ export const JobpositionList = ({
 
             <div className="jobs-listing__disclaimer">
               <p>
-                Prima di registrarti al nostro Portale ricorda di leggere
-                l&apos;
+                Prima di candidarti a uno dei nostri annunci di lavoro,
+                ricordati di leggere l&apos;
                 <a href="https://www.pagopa.it/it/privacy-policy-candidati/">
                   Informativa Privacy e i Termini e Condizioni d'uso del
                   servizio
