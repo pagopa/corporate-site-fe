@@ -27,10 +27,8 @@ export default function Component() {
 export const Head = ({ data }: HeadProps<Queries.StrapiCTAliasQuery>) => {
   return (
     <meta
-      http-equiv="refresh"
-      content={`0 url=${process.env.API_URL}/${
-        data.strapiCtAlias?.to ? data.strapiCtAlias.to : ''
-      }`}
+      httpEquiv="refresh"
+      content={`0; url=${data.strapiCtAlias.to || '/'}`}
     />
   );
 };
