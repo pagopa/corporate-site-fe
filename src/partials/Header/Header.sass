@@ -2,21 +2,72 @@
   position: fixed
   top: 0
   left: 0
-  padding-left: $section-gutter
-  padding-right: $section-gutter
   width: 100%
-  height: $header-height
+  height: auto
   background-color: #FFF
   z-index: 100
-  padding-top: 1.8rem
+  padding-left: $section-gutter
+  padding-right: $section-gutter
+  padding-top: 4rem
+  padding-bottom: 4rem
 
-  &__top
+  &.header--scrolled
+    border-bottom: 2px solid $c-gray-border
+
+  &__single
     display: flex
-    justify-content: space-between
-    margin-bottom: 1.8rem
+    justify-content: space-around
+    align-items: center
+
+  &__left
+    display: flex
+    align-items: center
+    gap: 4rem
+
+  &__main-menu
+    display: flex
+    align-items: center
+
+  &__right
+    display: flex
+    flex-direction: column
+    align-items: center
+    gap: 2.5rem
+
+  &__right-top
+    display: flex
+    align-items: center
+    padding-left: 1rem
+
+  &__right-bottom
+    display: flex
+    align-items: center
+    gap: 0.5rem
+
+  &__socials
+    display: flex
+    align-items: center
+
+  &__mobile
+    display: flex
+    align-items: center
+
+  &__mobile-menu
+    display: none
+
 
   @media (max-width: $desktop - 1)
     height: $header-height-mobile
+    padding-top: 2rem
+
+
+    &__single
+      justify-content: space-between
+      padding-right: 1.5rem
+      padding-left: 1.5rem
+
+    &.header--scrolled
+      border-bottom: none
 
     .socials
       display: none
@@ -27,11 +78,12 @@
     .hamburger
       display: block
 
+
+    &.menu-is-open
+      .header__mobile-menu
+        display: block
+
+
   @media (max-width: $mobile-xs)
     padding-left: $section-gutter-mobile
     padding-right: $section-gutter-mobile
-
-@supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none))
-  .header
-    background-color: rgba(#FFF, .75)
-    backdrop-filter: blur(1rem)

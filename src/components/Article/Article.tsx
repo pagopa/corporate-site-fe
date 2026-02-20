@@ -47,7 +47,7 @@ export const Article = ({
   };
 
   return (
-    <article className={`article${isEvent(article) ? ' --event' : ''}`}>
+    <article className={`article${isEvent(article) ? ' event' : ''}`}>
       <div className="mb-4">
         <div className="article__image">
           {featuredImage ? (
@@ -58,23 +58,30 @@ export const Article = ({
           <p className="label">{labelMap[article.__typename]}</p>
         </div>
         <div className="article__date">
-          <h4>{theDate}</h4>
+          <div>{theDate}</div>
           {'timeStart' in article && 'timeEnd' in article && (
-            <h4>
+            <div>
               {`ore: ${article.timeStart}${
                 article.timeEnd ? ' - ' + article.timeEnd : ''
               }`}
-            </h4>
+            </div>
           )}
         </div>
-        <h4 className="--primary --medium">{title}</h4>
+        {slug ? (
+          <Cta
+            as="h3"
+            href={isPreview ? `./news-ed-eventi/${slug}` : slug}
+            label={title || ''}
+            variant="link"
+            showArrow={false}
+            innerClassName="h4 primary medium"
+            className="cta--block"
+          />
+        ) : (
+          <h3 className="h4 primary medium">{title}</h3>
+        )}
         {previewText(14, body?.data?.body)}
       </div>
-
-      <Cta
-        href={isPreview ? `./news-ed-eventi/${slug}` : slug}
-        label={language === 'it' ? 'Scopri' : 'Discover'}
-      />
     </article>
   );
 };

@@ -4,7 +4,7 @@ import { graphql } from 'gatsby';
 import { MenuNavigation } from './MenuNavigation';
 import './Menu.sass';
 import { LanguageSwitch } from '../../partials/LanguageSwitch/LanguageSwitch';
-import { useI18next, useTranslation } from 'gatsby-plugin-react-i18next';
+import { useTranslation } from 'gatsby-plugin-react-i18next';
 
 export const mainNavigationItemFragment = graphql`
   fragment MainNavigationItem on StrapiNavigation {
@@ -45,7 +45,7 @@ export const Menu = ({
 
   return (
     <div className="menu-header">
-      <nav className="menu-main">
+      <nav className="menu-main" aria-label={t('navigationMain')}>
         <ul>
           {sortedMain?.map((item: Queries.MainNavigationItemFragment) => {
             return (
@@ -58,7 +58,7 @@ export const Menu = ({
           })}
         </ul>
       </nav>
-      <nav className="menu-reserved">
+      <nav className="menu-reserved" aria-label={t('navigationReserved')}>
         <ul>
           {sortedReserved?.map((item: Queries.MainNavigationItemFragment) => {
             return (

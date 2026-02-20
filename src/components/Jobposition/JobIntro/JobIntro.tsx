@@ -1,4 +1,3 @@
-import { graphql } from 'gatsby';
 import React from 'react';
 
 const dateFormatOptions: Intl.DateTimeFormatOptions = {
@@ -31,13 +30,13 @@ export const JobIntro = ({
   const hasSelectionData = selectedPeople ? true : false;
 
   return (
-    <header className="block --block-intro intro --job">
+    <header className="block block-intro intro job">
       <div className="container-fluid">
         {title && (
           <div className="row">
             <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
               <div className="intro__heading">
-                {eyelet && <h4>{eyelet}</h4>}
+                {eyelet && <p className="h4">{eyelet}</p>}
                 {title && <h1>{title}</h1>}
               </div>
             </div>
@@ -49,13 +48,13 @@ export const JobIntro = ({
             <div className="intro__data justify-content-center">
               {startDate && (
                 <div>
-                  <p className="--label">DATA APERTURA</p>
+                  <p className="label">DATA APERTURA</p>
                   <p>{startDate}</p>
                 </div>
               )}
               {endDate && (
                 <div>
-                  <p className="--label">DATA CHIUSURA</p>
+                  <p className="label">DATA CHIUSURA</p>
                   <p>{endDate}</p>
                 </div>
               )}
@@ -65,13 +64,13 @@ export const JobIntro = ({
               <div className="intro__data justify-content-center">
                 {openPositions && (
                   <div>
-                    <p className="--label">POSIZIONI RICERCATE</p>
+                    <p className="label">POSIZIONI RICERCATE</p>
                     <p>{openPositions}</p>
                   </div>
                 )}
                 {hiredPositions && (
                   <div>
-                    <p className="--label">POSIZIONI ASSUNTE</p>
+                    <p className="label">POSIZIONI ASSUNTE</p>
                     <p>{hiredPositions}</p>
                   </div>
                 )}
@@ -81,7 +80,7 @@ export const JobIntro = ({
             {hasSelectionData && (
               <div className="intro__data justify-content-center --auto-w">
                 <div>
-                  <p className="--label">PERSONE SELEZIONATE</p>
+                  <p className="label">PERSONE SELEZIONATE</p>
                   <p>{selectedPeople}</p>
                 </div>
               </div>

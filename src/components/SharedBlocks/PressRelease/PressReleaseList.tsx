@@ -32,25 +32,26 @@ const PressReleaseItem = ({
   return (
     <article className="d-flex flex-column justify-content-between" key={id}>
       <div>
-        <h4>{theDate}</h4>
-        {isPreview ? (
-          <h4 className="--primary --medium">{title}</h4>
+        <p className="h4">{theDate}</p>
+        {slug ? (
+          <Cta
+            as="h3"
+            href={isPreview ? `./comunicati-stampa/${slug}` : slug}
+            label={title || ''}
+            variant="link"
+            showArrow={false}
+            innerClassName={isPreview ? 'h4 primary medium' : 'h4 light'}
+            className="cta--block"
+          />
+        ) : isPreview ? (
+          <h4 className="primary medium">{title}</h4>
         ) : (
-          <h3 className="--light">{title}</h3>
+          <h3 className="light">{title}</h3>
         )}
         <div>
           <p>{previewText(36, body?.data.body)}</p>
         </div>
       </div>
-
-      {slug && (
-        <div className="d-flex justify-content-start">
-          <Cta
-            href={isPreview ? `./comunicati-stampa/${slug}` : slug}
-            label="Leggi"
-          />
-        </div>
-      )}
     </article>
   );
 };
@@ -102,7 +103,7 @@ export const PressReleaseList = ({
       } d-flex row justify-content-center`}
     >
       <div className="col-8">
-        {title && <h1>{title}</h1>}
+        {title && <h2 className="h1">{title}</h2>}
         <Pagination
           className={`container-fluid row m-0 p-0 justify-content-center ${
             isPreview ? 'flex-row' : ''

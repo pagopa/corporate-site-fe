@@ -18,8 +18,9 @@ export const useLocalizedQuery = <
   } = useTranslation();
 
   const nodes = query[type].nodes;
-  const localeNodes: QueryResult[] | undefined = nodes?.filter(node => node.locale === language);
+  const localeNodes: QueryResult[] | undefined = nodes?.filter(
+    node => node.locale === language
+  );
 
   return { localeNodes };
 };
-

@@ -26,7 +26,7 @@ const UniversityCollaborationItem = ({
         <AccordionItemButton className="accordion-entry__button">
           <h3>{title}</h3>
           <h4
-            className="--primary"
+            className="primary"
             data-status={isActive ? 'in corso' : 'conclusa'}
           >
             {collaborationTypeTitle}
@@ -51,7 +51,7 @@ const PaginatedEntriesList = ({
       keyExtractor={item => item.id}
       data={collaborations}
       renderItem={(item: Queries.UniversityCollaborationFragment) => (
-        <Accordion allowZeroExpanded className="accordion --university">
+        <Accordion allowZeroExpanded className="accordion university">
           <UniversityCollaborationItem data={item} />
         </Accordion>
       )}
@@ -67,7 +67,7 @@ const EntriesList = ({
   return (
     <>
       {collaborations && (
-        <Accordion allowZeroExpanded className="accordion --university">
+        <Accordion allowZeroExpanded className="accordion university">
           {collaborations.map((collaboration, key) => {
             return (
               <UniversityCollaborationItem data={collaboration} key={key} />
@@ -121,11 +121,11 @@ export const UniversityCollaborationList = ({
   );
 
   return (
-    <section className="block --block-universityaccordion block-universityaccordion my-4">
+    <section className="block block-universityaccordion block-universityaccordion my-4">
       <div className="container-fluid">
         <div className="row">
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-            <h4>{title}</h4>
+            <h2 className="h4">{title}</h2>
 
             {!pagination && <EntriesList collaborations={orderedEntries} />}
             {pagination && (

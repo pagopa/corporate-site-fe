@@ -46,15 +46,15 @@ $hero-transition-speed: .48s
     &.swiper-button-disabled
       display: none
 
-    &.--prev
+    &__prev
       left: -2.5rem
       background-color: #FFF
-      background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="10" height="18"%3E%3Cpath fill="%2300a1b0" fill-rule="nonzero" d="M0 9c0 .33.12.66.37.91l7.5 7.71c.48.5 1.27.5 1.76 0s.49-1.31 0-1.81L3.02 9l6.61-6.8c.5-.5.5-1.32 0-1.82-.48-.5-1.28-.5-1.76 0L.37 8.09a1.3 1.3 0 00-.37.9z"/%3E%3C/svg%3E')
+      background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="10" height="18"%3E%3Cpath fill="%2300818D" fill-rule="nonzero" d="M0 9c0 .33.12.66.37.91l7.5 7.71c.48.5 1.27.5 1.76 0s.49-1.31 0-1.81L3.02 9l6.61-6.8c.5-.5.5-1.32 0-1.82-.48-.5-1.28-.5-1.76 0L.37 8.09a1.3 1.3 0 00-.37.9z"/%3E%3C/svg%3E')
 
       @media (max-width: $tablet - 1)
         left: -7.5rem
 
-    &.--next
+    &__next
       right: -2.5rem
       background-color: $c-brand
       background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="10" height="18"%3E%3Cpath fill="%23FFF" fill-rule="nonzero" d="M10 9c0 .33-.12.66-.37.91l-7.5 7.71c-.48.5-1.27.5-1.76 0a1.31 1.31 0 010-1.81L6.98 9 .37 2.2a1.31 1.31 0 010-1.82c.48-.5 1.28-.5 1.76 0l7.5 7.71c.25.25.37.58.37.9z"/%3E%3C/svg%3E')
@@ -71,10 +71,7 @@ $hero-transition-speed: .48s
     transform: translateX(-50%)
     z-index: 100
     justify-content: center
-    display: none
-
-    &.swiper-pagination-bullets
-      display: flex
+    display: flex
 
     .bullet
       display: flex
@@ -83,6 +80,10 @@ $hero-transition-speed: .48s
       justify-content: center
       align-items: center
       cursor: pointer
+      border: none
+      background: none
+      padding: 0
+      margin: 0
 
       &::after
         content: ''
@@ -158,3 +159,8 @@ $hero-transition-speed: .48s
   .swiper-wrapper
     align-items: center
     transition-timing-function: ease-in-out
+
+  .hero__nav__prev
+    &:focus
+      outline: 3px solid $c-brand !important
+      outline-offset: -5px !important

@@ -1,4 +1,86 @@
 {
   "followUs": "Follow us on:",
-  "siteLanguage": "Language:"
+  "siteLanguage": "Language:",
+  "languageSwitchLabel": "Select language",
+  "currentLanguage": "Current: {{language}}",
+  "languageMenuLabel": "Select a language",
+  "menuNavigationInstructions": "Press Enter to visit the page, press Space or Down Arrow to open the submenu.",
+  "languageChangedFeedback": "Language changed to {{language}}",
+  "openMenu": "Open menu",
+  "closeMenu": "Close menu",
+  "slider": {
+    "prevSlide": "Previous",
+    "nextSlide": "Next",
+    "prevSlideMessage": "Previous",
+    "nextSlideMessage": "Next",
+    "firstSlideMessage": "This is the first slide",
+    "lastSlideMessage": "This is the last slide",
+    "paginationBulletMessage": "Go to slide {{index}}"
+  },
+  "navigationMain": "Main navigation",
+  "navigationReserved": "Secondary navigation",
+  "navigationFooterTop": "Footer navigation",
+  "navigationFooterBottom": "Footer navigation",
+  "cookiePreferences": "Cookie preferences",
+  "discover": "Discover",
+  "backToHomepage": "Back to homepage",
+  "youtubeVideo": "YouTube video",
+  "playVideo": "Play video",
+  "pauseVideo": "Pause video",
+  "resumeVideo": "Resume video",
+  "productsAndServices": "products-and-services",
+  "logoLinks": {
+    "nextGenerationEUAriaLabel": "Go to PNRR projects funded by the European Union"
+  },
+
+  "cta": {
+    "screenReaderExternal": "(external link, opens in a new tab)",
+    "screenReaderInternalWithTitle": " on {{title}}",
+    "screenReaderExternalSpecial": "on European Digital Identity Wallet (external link, opens in a new tab)",
+    "screenReaderPDF": "PDF document - opens in a new tab",
+    "discoverMoreLabel": "Discover more",
+    "projectVisionTitle": "Project vision"
+  },
+  "menuItem": {
+    "screenReaderExternal": "(external link, opens in a new tab)"
+  },
+  "intro": {
+    "projectsEyelet": "THE PROJECTS"
+  },
+  "pagination": {
+    "ariaLabel": "Pagination",
+    "nextAriaLabel": "Next page",
+    "previousAriaLabel": "Previous page",
+    "ariaLabelBuilder": "Page {{page}}",
+    "breakAriaLabels": {
+      "forward": "Jump forward",
+      "backward": "Jump backward"
+    },
+    "nextLabel": "Next",
+    "previousLabel": "Previous"
+  },
+  "newsletter": {
+    "title": "Would you like to receive<1/>our Newsletter?",
+    "requiredField": "*Required field, multiple selections allowed",
+    "followNews": "Follow news for:",
+    "groups": {
+      "citizens": "Citizens",
+      "publicAdministrations": "Public Administrations",
+      "businesses": "Businesses and Professionals",
+      "universities": "Universities and Research Centers",
+      "journalists": "Journalists"
+    },
+    "emailLabel": "Email address",
+    "emailPlaceholder": "Enter your email address",
+    "subscribeButton": "Subscribe",
+    "privacyNotice": "By entering your mail address, you agree to our <1>personal data processing notice</1> for the newsletter.",
+    "recaptchaNotice": "This form is protected by reCAPTCHA and the <1>Google Privacy Policy</1> and <2>Terms of Service</2> apply.",
+    "successMessage": "Request sent successfully. You will shortly receive an email to confirm your subscription.",
+    "errorMessage": "Unable to send the request. Please try again later.",
+    "validationErrors": {
+      "emailRequired": "Enter a valid email address (e.g. name@domain.com).",
+      "groupsRequired": "Select at least one group.",
+      "bothRequired": "Enter a valid email address and select at least one group."
+    }
+  }
 }

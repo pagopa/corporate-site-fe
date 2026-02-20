@@ -20,7 +20,7 @@ const AccordionItemComp = ({
     <AccordionItem className="accordion-entry">
       <AccordionItemHeading className="accordion-entry__header">
         <AccordionItemButton className="accordion-entry__button">
-          <h4 className="--primary">{heading}</h4>
+          <h4 className="primary">{heading}</h4>
         </AccordionItemButton>
       </AccordionItemHeading>
 
@@ -54,11 +54,11 @@ export const Accordion = ({
   }
 
   return (
-    <section className="block --block-accordion block-accordion">
+    <section className="block block-accordion">
       <div className="container-fluid">
         <div className="row">
-          <div className={`col-12 ${columns[BlockWidth]}`}>
-            <h1>{title}</h1>
+          <div className={`col-12 ${columns[BlockWidth] ?? ''}`}>
+            <h3 className="h1">{title}</h3>
 
             {accordionItems && (
               <AccordionContainer allowZeroExpanded>

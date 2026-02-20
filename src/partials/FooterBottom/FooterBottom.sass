@@ -1,5 +1,10 @@
 .footer-bottom
+  .cta.external-link::after
+    background-image: url(../../images/ui/external-link-brand.svg)
 
+  .cta.cta--link-simple.external-link:hover
+    &::after
+      background-image: url(../../images/ui/external-link-brand.svg)
   ul
     position: relative
     display: flex
@@ -14,6 +19,9 @@
 
       a
         > span
-          text-transform: uppercase !important
+          text-transform: uppercase
           text-decoration: underline
-          color: #FFF !important
+          color: #FFF
+
+
+

@@ -1,4 +1,85 @@
 {
   "followUs": "SEGUICI SU:",
-  "siteLanguage": "Lingua del sito:"
+  "siteLanguage": "Lingua del sito:",
+  "languageSwitchLabel": "Seleziona la lingua",
+  "languageMenuLabel": "Seleziona una lingua",
+  "currentLanguage": "Attuale: {{language}}",
+  "menuNavigationInstructions": "Premi Invio per visitare la pagina, premi Spazio o Freccia Giù per aprire il sottomenu.",
+  "languageChangedFeedback": "Lingua impostata su {{language}}",
+  "openMenu": "Apri menu",
+  "closeMenu": "Chiudi menu",
+  "slider": {
+    "prevSlide": "Precedente",
+    "nextSlide": "Successivo",
+    "prevSlideMessage": "Precedente",
+    "nextSlideMessage": "Successivo",
+    "firstSlideMessage": "Questa è la prima slide",
+    "lastSlideMessage": "Questa è l'ultima slide",
+    "paginationBulletMessage": "Vai alla slide {{index}}"
+  },
+  "navigationMain": "Navigazione principale",
+  "navigationReserved": "Navigazione secondaria",
+  "navigationFooterTop": "Navigazione footer",
+  "navigationFooterBottom": "Navigazione footer",
+  "cookiePreferences": "Preferenze cookie",
+  "discover": "Scopri",
+  "backToHomepage": "Vai alla home page",
+  "youtubeVideo": "Video YouTube",
+  "playVideo": "Riproduci video",
+  "pauseVideo": "Metti in pausa video",
+  "resumeVideo": "Riprendi video",
+  "productsAndServices": "prodotti-e-servizi",
+  "logoLinks": {
+    "nextGenerationEUAriaLabel": "Vai ai progetti PNRR finanziati dall'Unione Europea"
+  },
+  "cta": {
+    "screenReaderExternal": "(link esterno, si apre in una nuova scheda)",
+    "screenReaderInternalWithTitle": " su {{title}}",
+    "screenReaderExternalSpecial": "su European Digital Identity Wallet (link esterno, si apre in una nuova scheda)",
+    "screenReaderPDF": "Documento PDF - si apre in una nuova scheda",
+    "discoverMoreLabel": "Scopri di più",
+    "projectVisionTitle": "Vision di progetto"
+  },
+  "menuItem": {
+    "screenReaderExternal": "(link esterno, si apre in una nuova scheda)"
+  },
+  "intro": {
+    "projectsEyelet": "I PROGETTI"
+  },
+  "pagination": {
+    "ariaLabel": "Paginazione",
+    "nextAriaLabel": "Pagina successiva",
+    "previousAriaLabel": "Pagina precedente",
+    "ariaLabelBuilder": "Pagina {{page}}",
+    "breakAriaLabels": {
+      "forward": "Vai avanti",
+      "backward": "Vai indietro"
+    },
+    "nextLabel": "Successiva",
+    "previousLabel": "Precedente"
+  },
+  "newsletter": {
+    "title": "Vuoi ricevere la<1/>nostra Newsletter?",
+    "requiredField": "* campo obbligatorio, con possibilità di risposta multipla",
+    "followNews": "Segui le notizie per:",
+    "groups": {
+      "citizens": "Cittadini",
+      "publicAdministrations": "Pubbliche Amministrazioni",
+      "businesses": "Aziende e Professionisti",
+      "universities": "Università e Centri di Ricerca",
+      "journalists": "Giornalisti"
+    },
+    "emailLabel": "Indirizzo email",
+    "emailPlaceholder": "Inserisci la tua email",
+    "subscribeButton": "Iscriviti",
+    "privacyNotice": "Inserendo il tuo indirizzo email stai accettando la <1>nostra informativa sul trattamento dei dati personali</1> per la newsletter.",
+    "recaptchaNotice": "Form protetto tramite reCAPTCHA e <1>Google Privacy Policy</1> e <2>Termini di servizio</2> applicati.",
+    "successMessage": "Richiesta inviata correttamente. A breve riceverai una email per confermare la tua iscrizione.",
+    "errorMessage": "Non è stato possibile inviare la richiesta. Riprova più tardi.",
+    "validationErrors": {
+      "emailRequired": "Inserisci un indirizzo email valido (es. nome@dominio.it).",
+      "groupsRequired": "Seleziona almeno un gruppo.",
+      "bothRequired": "Inserisci un indirizzo email valido e seleziona almeno un gruppo."
+    }
+  }
 }

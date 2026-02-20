@@ -83,12 +83,12 @@ const EventIntro = ({
   } = useTranslation();
 
   return (
-    <header className="block --block-intro intro --event">
+    <header className="block block-intro intro event">
       <div className="container-fluid">
         <div className="row">
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
             <div className="intro__heading">
-              {eyelet && <h4>{eyelet}</h4>}
+              {eyelet && <p className="h4">{eyelet}</p>}
               {title && <h1>{title}</h1>}
             </div>
           </div>
@@ -98,7 +98,7 @@ const EventIntro = ({
             <div className="intro__data flex-wrap flex-md-nowrap">
               {startDate && (
                 <div>
-                  <p className="--label">DATA</p>
+                  <p className="label">DATA</p>
                   <p>
                     {new Date(startDate).toLocaleDateString(language, {
                       year: 'numeric',
@@ -110,7 +110,7 @@ const EventIntro = ({
               )}
               {startTime && (
                 <div>
-                  <p className="--label">ORA</p>
+                  <p className="label">ORA</p>
                   <p>
                     dalle {startTime}
                     {`${endTime ? ` alle ${endTime}` : ''}`}
@@ -119,7 +119,7 @@ const EventIntro = ({
               )}
               {eventVenue && (
                 <div>
-                  <p className="--label">LUOGO</p>
+                  <p className="label">LUOGO</p>
                   <p>{eventVenue}</p>
                 </div>
               )}

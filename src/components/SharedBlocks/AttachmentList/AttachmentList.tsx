@@ -6,7 +6,7 @@ export const AttachmentList = ({
   title,
 }: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_LIST_ATTACHMENTS_Fragment) => {
   return (
-    <section className="block --block-useful-links">
+    <section className="block block-useful-links">
       <div className="container-fluid">
         <div className="row">
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">

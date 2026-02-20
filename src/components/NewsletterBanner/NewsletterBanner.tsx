@@ -1,42 +1,68 @@
-import axios from 'axios';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Reaptcha from 'reaptcha';
-import smoothscroll from 'smoothscroll-polyfill';
 
 import './NewsletterBanner.sass';
+
+import { useTranslation, Trans } from 'gatsby-plugin-react-i18next';
 
 const endpoint =
   'https://api.io.italia.it/api/payportal/v1/newsletters/io/lists/6/recipients';
 
-const newsletterGroups = [
+type NewsletterGroup = {
+  label: string;
+  value: number;
+  checked: boolean;
+};
+
+const initialNewsletterGroups: NewsletterGroup[] = [
   {
-    label: 'Cittadini',
+    label: 'citizens',
     value: 47,
     checked: true,
   },
   {
-    label: 'Pubbliche Amministrazioni',
+    label: 'publicAdministrations',
     value: 48,
     checked: false,
   },
   {
-    label: 'Aziende e Professionisti',
+    label: 'businesses',
     value: 49,
     checked: false,
   },
   {
-    label: 'Università e Centri di Ricerca',
+    label: 'universities',
     value: 50,
     checked: false,
   },
   {
-    label: 'Giornalisti',
+    label: 'journalists',
     value: 51,
     checked: false,
   },
 ];
 
-const Checkbox = ({ label, value, checked, classes }: any) => {
+type CheckboxProps = {
+  label: string;
+  value: number;
+  checked: boolean;
+  onChange: (value: number, checked: boolean) => void;
+};
+
+const Checkbox = ({ label, value, checked, onChange }: CheckboxProps) => {
+  const { t } = useTranslation();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(value, e.target.checked);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLLabelElement>) => {
+    if (e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault();
+      onChange(value, !checked);
+    }
+  };
+
   return (
     <div className="checkbox">
       <input
@@ -44,81 +70,74 @@ const Checkbox = ({ label, value, checked, classes }: any) => {
         value={value}
         id={`cb-inp-${value}`}
         className="newsletter-group"
-        defaultChecked={checked}
+        checked={checked}
+        onChange={handleChange}
+        tabIndex={-1}
       />
-      <label htmlFor={`cb-inp-${value}`}>{label}</label>
+      <label htmlFor={`cb-inp-${value}`} tabIndex={0} onKeyDown={handleKeyDown}>
+        {t(`newsletter.groups.${label}`)}
+      </label>
     </div>
   );
 };
 
 export const NewsletterBanner = () => {
   const [loading, setLoading] = useState(true);
+  const [email, setEmail] = useState('');
+  const [groups, setGroups] = useState<NewsletterGroup[]>(
+    initialNewsletterGroups
+  );
   const [validity, setValidity] = useState(false);
-
-  const checkValidity = (
-    input: HTMLElementTagNameMap['select'],
-    options: HTMLInputElement[]
-  ) => {
-    if (input.checkValidity() && options.find((el: any) => el.checked)) {
-      setValidity(() => true);
-    } else {
-      setValidity(() => false);
-    }
-  };
+  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [isAtLeastOneChecked, setIsAtLeastOneChecked] = useState(false);
+  const [validationError, setValidationError] = useState<string | null>(null);
+  const [submitStatus, setSubmitStatus] = useState<
+    'idle' | 'success' | 'error'
+  >('idle');
 
   const reaptchaRef = useRef<Reaptcha>(null);
 
-  useEffect(() => {
-    const locationHash = window.location.hash;
-    const newsletterAnchor = document.querySelector(
-      '.newsletter-banner-anchor'
+  const { t } = useTranslation();
+
+  const handleCheckboxChange = (value: number, checked: boolean) => {
+    const newGroups = groups.map(group =>
+      group.value === value ? { ...group, checked } : group
     );
+    setGroups(newGroups);
+    checkValidity(email, newGroups);
+  };
 
-    if (locationHash === '#newsletter') {
-      smoothscroll.polyfill();
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newEmail = e.target.value;
+    setEmail(newEmail);
+    checkValidity(newEmail, groups);
+  };
 
-      setTimeout(() => {
-        newsletterAnchor?.scrollIntoView({ behavior: 'smooth' });
-      }, 500);
-    }
+  const checkValidity = (
+    currentEmail: string,
+    currentGroups: NewsletterGroup[]
+  ) => {
+    const emailValid =
+      currentEmail.trim() !== '' && /\S+@\S+\.\S+/.test(currentEmail);
+    const atLeastOneChecked = currentGroups.some(group => group.checked);
+    const isValid = emailValid && atLeastOneChecked;
 
-    const newsletterWrap: HTMLElementTagNameMap['div'] | null =
-      document.querySelector('.newsletter-banner');
+    setIsEmailValid(emailValid);
+    setIsAtLeastOneChecked(atLeastOneChecked);
+    setValidity(isValid);
 
-    if (newsletterWrap) {
-      const newsletterInput: HTMLElementTagNameMap['select'] | null =
-        newsletterWrap?.querySelector('.newsletter-email');
-
-      const newsletterOptions: HTMLInputElement[] = [
-        ...newsletterWrap?.querySelectorAll<HTMLElementTagNameMap['input']>(
-          '.newsletter-group'
-        ),
-      ];
-
-      if (newsletterInput && newsletterOptions) {
-        newsletterInput &&
-          newsletterOptions &&
-          checkValidity(newsletterInput, newsletterOptions);
-
-        newsletterInput?.addEventListener('keyup', () =>
-          checkValidity(newsletterInput, newsletterOptions)
-        );
-
-        newsletterOptions.forEach(opt =>
-          opt.addEventListener('change', () =>
-            checkValidity(newsletterInput, newsletterOptions)
-          )
-        );
-
-        return () => {
-          newsletterInput.removeEventListener('keyup', checkValidity as any);
-          newsletterOptions.forEach(opt =>
-            opt.removeEventListener('change', checkValidity as any)
-          );
-        };
+    if (!isValid) {
+      if (!emailValid && !atLeastOneChecked) {
+        setValidationError(t('newsletter.validationErrors.bothRequired'));
+      } else if (!emailValid) {
+        setValidationError(t('newsletter.validationErrors.emailRequired'));
+      } else if (!atLeastOneChecked) {
+        setValidationError(t('newsletter.validationErrors.groupsRequired'));
       }
+    } else {
+      setValidationError(null);
     }
-  }, []);
+  };
 
   const reaptchaVerify = () => {
     reaptchaRef.current?.execute();
@@ -128,101 +147,145 @@ export const NewsletterBanner = () => {
   const newsletterReset = () => {
     reaptchaRef.current?.reset();
     setLoading(false);
+    setSubmitStatus('idle');
   };
 
   const newsletterSubmit = async (recaptchaResponse: string) => {
-    const newsletterWrap: HTMLElementTagNameMap['div'] | null =
-      document.querySelector('.newsletter-banner');
+    const emailValue = email.trim();
+    const groupsValue: string[] = groups
+      .filter(group => group.checked)
+      .map(group => group.value.toString());
 
-    // newsletterSubmit = newsletterWrap.querySelector('.newsletter-submit');
-    const input: HTMLInputElement | null | undefined =
-      newsletterWrap?.querySelector('.newsletter-email');
-    // optionsWrap = newsletterWrap.querySelector('.newsletter-banner__options');
-    if (newsletterWrap) {
-      const groups: HTMLInputElement[] = [
-        ...newsletterWrap?.querySelectorAll<HTMLElementTagNameMap['input']>(
-          '.newsletter-group:checked'
-        ),
-      ];
+    const data = {
+      recaptchaToken: recaptchaResponse,
+      email: emailValue,
+      groups: groupsValue,
+    };
 
-      const emailValue = input?.value?.trim();
-      const groupsValue: string[] = groups.map(group => group.value);
-
-      const data = {
-        recaptchaToken: recaptchaResponse,
-        email: emailValue,
-        groups: groupsValue,
-      };
-
-      newsletterWrap?.classList.remove('is-success');
-      newsletterWrap?.classList.remove('is-error');
-
-      try {
-        const response = await axios({
-          method: 'post',
-          url: endpoint,
-          data: data,
-        });
-        response.status === 200 && newsletterWrap?.classList.add('is-success');
-      } catch (e) {
-        newsletterWrap?.classList.add('is-error');
-      } finally {
-        newsletterReset();
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.status === 200) {
+        setSubmitStatus('success');
       }
+    } catch (e) {
+      console.log(e);
+      setSubmitStatus('error');
+    } finally {
+      newsletterReset();
     }
   };
 
   return (
     <>
-      <div className="newsletter-banner-anchor"></div>
-      <section className="block --block-newsletter-banner newsletter-banner">
+      <div id="newsletter" className="newsletter-banner-anchor"></div>
+      <section
+        className={`block block-newsletter-banner newsletter-banner ${
+          submitStatus === 'success' ? 'is-success' : ''
+        } ${submitStatus === 'error' || validationError ? 'is-error' : ''}`}
+      >
         <div className="container-fluid">
           <div className="row">
             <div className="col-12 col-lg-10 offset-lg-1">
               <h3>
-                Vuoi ricevere la
-                <br />
-                nostra Newsletter?
+                <Trans i18nKey="newsletter.title" components={{ 1: <br /> }} />
               </h3>
             </div>
           </div>
           <div className="row">
             <div className="col-12 col-lg-10 offset-lg-1">
-              <p className="mb-3">Segui le notizie per*:</p>
+              <p className="alternative small">
+                <em>{t('newsletter.requiredField')}</em>
+              </p>
+              <p className="mb-3" aria-hidden="true">
+                {t('newsletter.followNews')}
+              </p>
             </div>
           </div>
 
-          <div className="row">
-            <div className="col-12 col-md-6 col-lg-5 offset-lg-1">
-              <ul className="newsletter-banner__options">
-                {newsletterGroups.map(({ label, value, checked }, index) => (
-                  <li key={index}>
-                    <Checkbox label={label} value={value} checked={checked} />
-                  </li>
-                ))}
-              </ul>
-              <p className="--alternative --small">
-                <em>
-                  * campo obbligatorio, con possibilità di risposta multipla
-                </em>
-              </p>
-            </div>
-            <div className="col-12 col-md-6 col-lg-5 d-flex flex-column justify-content-between">
-              <form onSubmit={e => e.preventDefault()}>
+          <form onSubmit={e => e.preventDefault()}>
+            <div className="row">
+              <div className="col-12 col-md-6 col-lg-5 offset-lg-1">
+                <fieldset className="newsletter-banner__fieldset">
+                  <legend className="newsletter-banner__legend">
+                    {t('newsletter.followNews')}
+                  </legend>
+                  <ul
+                    className="newsletter-banner__options"
+                    aria-describedby={
+                      validationError && !isAtLeastOneChecked
+                        ? 'newsletter-validation-error'
+                        : undefined
+                    }
+                  >
+                    {groups.map(({ label, value, checked }) => (
+                      <li key={value}>
+                        <Checkbox
+                          label={label}
+                          value={value}
+                          checked={checked}
+                          onChange={handleCheckboxChange}
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </fieldset>
+              </div>
+
+              <div className="col-12 col-md-6 col-lg-5">
+                <label
+                  htmlFor="email"
+                  className="newsletter-banner__email-label"
+                >
+                  {t('newsletter.emailLabel')}
+                </label>
+
                 <input
+                  id="email"
                   type="email"
-                  placeholder="Inserisci la tua email"
+                  autoComplete="email"
+                  placeholder={t('newsletter.emailPlaceholder')}
                   className="input newsletter-email"
                   required
+                  value={email}
+                  onChange={handleEmailChange}
+                  aria-describedby={
+                    validationError ? 'newsletter-validation-error' : undefined
+                  }
+                  aria-invalid={
+                    validationError && !isEmailValid ? 'true' : 'false'
+                  }
                 />
+
+                {validationError && (
+                  <div
+                    id="newsletter-validation-error"
+                    className="message error"
+                    role="alert"
+                    style={{ marginTop: '2rem' }}
+                  >
+                    <span>{validationError}</span>
+                  </div>
+                )}
+
                 <button
-                  className={`cta --white newsletter-submit${
+                  className={`cta cta--white newsletter-submit${
                     loading ? ' is-loading' : ''
                   }`}
                   onClick={reaptchaVerify}
                   disabled={!validity}
+                  aria-describedby={
+                    submitStatus === 'error'
+                      ? 'newsletter-submit-error'
+                      : undefined
+                  }
                 >
-                  <span>Iscriviti</span>
+                  <span>{t('newsletter.subscribeButton')}</span>
                   <span className="loader">
                     <span></span>
                     <span></span>
@@ -231,67 +294,84 @@ export const NewsletterBanner = () => {
                   </span>
                 </button>
 
+                <div>
+                  {submitStatus === 'success' && (
+                    <div
+                      id="newsletter-success-message"
+                      className="message success"
+                      role="status"
+                      aria-live="polite"
+                      aria-atomic="true"
+                    >
+                      <span>{t('newsletter.successMessage')}</span>
+                    </div>
+                  )}
+
+                  {submitStatus === 'error' && (
+                    <div
+                      id="newsletter-submit-error"
+                      className="message error"
+                      role="alert"
+                      aria-atomic="true"
+                    >
+                      <span>{t('newsletter.errorMessage')}</span>
+                    </div>
+                  )}
+                </div>
+
+                <div className="mt-5 mt-md-4">
+                  <p className="alternative small">
+                    <em>
+                      <Trans
+                        i18nKey="newsletter.privacyNotice"
+                        components={{
+                          1: (
+                            <a
+                              href="/it/privacy-policy/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            />
+                          ),
+                        }}
+                      />
+                    </em>
+                  </p>
+                  <p className="alternative small">
+                    <em>
+                      <Trans
+                        i18nKey="newsletter.recaptchaNotice"
+                        components={{
+                          1: (
+                            <a
+                              href="https://policies.google.com/privacy"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            />
+                          ),
+                          2: (
+                            <a
+                              href="https://policies.google.com/terms"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            />
+                          ),
+                        }}
+                      />
+                    </em>
+                  </p>
+                </div>
+
                 <Reaptcha
+                  id="google-reaptcha-id"
                   ref={reaptchaRef}
                   sitekey="6LcBa7AaAAAAAEb8kvsHtZ_09Ctd2l0XqceFUHTe"
                   size="invisible"
                   onVerify={newsletterSubmit}
                   onLoad={() => setLoading(false)}
                 />
-                <div>
-                  <div className="message --success">
-                    <span>
-                      Richiesta inviata correttamente! A breve riceverai una
-                      email per confermare la tua iscrizione.
-                    </span>
-                  </div>
-                  <div className="message --error">
-                    <span>
-                      Si è verificato un problema, si prega di riprovare più
-                      tardi.
-                    </span>
-                  </div>
-                </div>
-              </form>
-
-              <div className="mt-5 mt-md-4">
-                <p className="--alternative --small">
-                  <em>
-                    Inserendo il tuo indirizzo email stai accettando la{' '}
-                    <a
-                      href={'/it/privacy-policy/'}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      nostra informativa sul trattamento dei dati personali
-                    </a>{' '}
-                    per la newsletter.
-                  </em>
-                </p>
-                <p className="--alternative --small">
-                  <em>
-                    Form protetto tramite reCAPTCHA e{' '}
-                    <a
-                      href="https://policies.google.com/privacy"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Google Privacy Policy
-                    </a>{' '}
-                    e{' '}
-                    <a
-                      href="https://policies.google.com/terms"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Termini di servizio
-                    </a>{' '}
-                    applicati.
-                  </em>
-                </p>
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </section>
     </>

@@ -53,5 +53,5 @@ export const BackgroundGraphics = ({
         }}
       />
     </div>
-  ): null;
+  ) : null;
 };

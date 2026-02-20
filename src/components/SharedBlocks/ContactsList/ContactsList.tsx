@@ -1,5 +1,5 @@
 import React from 'react';
-import { PagoPA } from '../../../types';
+import { PagoPABlockConfig } from '../../../types';
 
 import './ContactsList.sass';
 
@@ -14,7 +14,7 @@ const ContactsList = ({
   };
 
   // center default
-  const columns: PagoPA.BlockConfig = {
+  const columns: PagoPABlockConfig = {
     Standard: `col-md-10 offset-md-1 col-lg-8 offset-lg-2`,
     Wide: `col-md-10 offset-md-1`,
   };
@@ -31,13 +31,13 @@ const ContactsList = ({
   return (
     <section
       className={`block --block-contacts-list contacts-list${
-        !title ? ' --no-title' : ''
+        !title ? ' no-title' : ''
       }`}
     >
       <div className="container-fluid">
         <div className="row align-items-center">
           <div className={`col-12 ${columns[BlockWidth]}`}>
-            {title && <h1>{title}</h1>}
+            {title && <h2 className="h1">{title}</h2>}
             <div className="row">
               {contacts.map((item, key) => {
                 const { title, email } = item;
@@ -45,7 +45,7 @@ const ContactsList = ({
                   <div className="col-12 col-md-6 d-flex" key={key}>
                     <div className="contacts-list__entry">
                       <div>
-                        <h4>{title}</h4>
+                        <h3 className="h4">{title}</h3>
                       </div>
                       <div>
                         <a
