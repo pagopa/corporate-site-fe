@@ -69,12 +69,12 @@ export const query = graphql`
 
 const Intro = ({ eyelet, title }: Queries.PostIntroFragment) => {
   return (
-    <header className="block --block-intro intro">
+    <header className="block block-intro intro">
       <div className="container-fluid">
         <div className="row">
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
             <div className="intro__heading">
-              <h4>{eyelet}</h4>
+              <p className="h4">{eyelet}</p>
               <h1>{title}</h1>
             </div>
           </div>
@@ -106,7 +106,10 @@ export default function Component({
     month: 'long',
     day: 'numeric',
   };
-  const theDate = new Date(publishedAt).toLocaleDateString(language, dateOptions);
+  const theDate = new Date(publishedAt).toLocaleDateString(
+    language,
+    dateOptions
+  );
 
   return title && slug ? (
     <Layout>

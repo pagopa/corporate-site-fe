@@ -36,7 +36,7 @@ export const SEO = ({ meta, title, featuredImage }: SEOProps) => {
       siteMetadata?.title ||
       '',
     description: meta?.metaDescription || siteMetadata?.metaDescription || '',
-    metaSocial: !!meta?.metaSocial?.length
+    metaSocial: meta?.metaSocial?.length
       ? meta.metaSocial
       : siteMetadata?.metaSocial || [],
     metaImage:
@@ -81,18 +81,18 @@ export const SEO = ({ meta, title, featuredImage }: SEOProps) => {
             property: `og:type`,
             content: `website`,
           },
-          ...seo?.metaSocial
-            ?.map(social => [
+          ...(seo.metaSocial || [])
+            .map(social => [
               {
-                name: `${social.socialNetwork}:card`,
+                name: `${social?.socialNetwork}:card`,
                 content: `summary`,
               },
               {
-                name: `${social.socialNetwork}:title`,
+                name: `${social?.socialNetwork}:title`,
                 content: social?.title || '',
               },
               {
-                name: `${social.socialNetwork}:description`,
+                name: `${social?.socialNetwork}:description`,
                 content: social?.description || '',
               },
             ])

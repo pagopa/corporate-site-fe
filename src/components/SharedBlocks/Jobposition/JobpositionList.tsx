@@ -94,12 +94,12 @@ export const JobpositionList = ({
     );
 
   return (
-    <section className="block --block-jobs-listing jobs-listing">
+    <section className="block block-jobs-listing jobs-listing">
       <div className="container-fluid">
         <div className="row">
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
             {eyelet && <h4>{eyelet}</h4>}
-            {title ? <h1>{title}</h1> : false}
+            {title ? <h2 className="h1">{title}</h2> : false}
             {body && <Body data={body} />}
             {!!commons?.length && (
               <div className="jobs-listing__common">
@@ -111,7 +111,7 @@ export const JobpositionList = ({
                       key={key}
                     >
                       <div className="col-12 col-xl-4">
-                        <h4 className="mb-0">{title}</h4>
+                        <h3 className="h4 mb-0">{title}</h3>
                       </div>
                       <div className="col-12 col-xl-8">
                         <p className="mb-0">{body}</p>
@@ -127,7 +127,7 @@ export const JobpositionList = ({
                 Prima di candidarti a uno dei nostri annunci di lavoro,
                 ricordati di leggere l&apos;
                 <a href="https://www.pagopa.it/it/privacy-policy-candidati/">
-                  Informativa Privacy e i Termini e Condizioni d'uso del
+                  Informativa Privacy e i Termini e Condizioni d&apos;uso del
                   servizio
                 </a>
               </p>
@@ -136,7 +136,7 @@ export const JobpositionList = ({
             {links && <LinksAttachments links={links} />}
             <div className="jobs-listing__list">
               {openJobs.map(jobposition => (
-                <div className="p-4">
+                <div className="p-4" key={jobposition.id}>
                   <JobEntry jobposition={jobposition} />
                 </div>
               ))}

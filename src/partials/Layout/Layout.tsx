@@ -3,7 +3,7 @@ import React from 'react';
 import { SEO } from '../../components/SEO';
 import { useLocalizedQuery } from '../../hooks';
 import '../../sass/app.sass';
-import { PagoPA } from '../../types';
+import { PAGOPA_MENU } from '../../types';
 import { Footer } from '../Footer';
 import { Header } from '../Header';
 import { HeadScripts } from './HeadScripts';
@@ -29,17 +29,17 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
   });
 
   const { ReservedMenu, MainMenu, FooterTop, FooterBottom } = menuNodes.reduce<
-    Record<PagoPA.MENU, Queries.MainNavigationItemFragment[]>
+    Record<PAGOPA_MENU, Queries.MainNavigationItemFragment[]>
   >(
     (acc, node) => {
-      const key = node.key as PagoPA.MENU;
+      const key = node.key as PAGOPA_MENU;
       return { ...acc, [key]: [...acc[key], node] };
     },
     {
-      [PagoPA?.MENU.MAIN_MENU]: [],
-      [PagoPA?.MENU.RESERVED_MENU]: [],
-      [PagoPA?.MENU.FOOTER_TOP]: [],
-      [PagoPA?.MENU.FOOTER_BOTTOM]: [],
+      [PAGOPA_MENU.MAIN_MENU]: [],
+      [PAGOPA_MENU.RESERVED_MENU]: [],
+      [PAGOPA_MENU.FOOTER_TOP]: [],
+      [PAGOPA_MENU.FOOTER_BOTTOM]: [],
     }
   );
 

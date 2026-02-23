@@ -6,17 +6,28 @@
     justify-content: flex-end
 
   li
+    a
+      display: inline-flex
+      align-items: center
+      justify-content: center
+      border-radius: 4px
+      transition: outline 0.2s ease
+
     svg
-      max-width: 1.6rem
+      width: 1rem
+      height: 1rem
+      max-width: 1rem
+      max-height: 1rem
+      scale: 1.5
+      display: block
+      fill: currentColor
 
     &:not(:first-child)
       margin-left: 2rem
 
-    svg
-      display: block
-
-  &.--in-header
+  &.in-header
     li
       svg
+        fill: $c-black
         path
           fill: $c-black

@@ -1,3 +1,6 @@
+div:has(> .newsletter-banner__email-label)
+  position: relative
+
 .newsletter-banner-anchor
   position: relative
   display: block
@@ -25,32 +28,59 @@
     background-size: 1.6rem
     margin-top: 2.2rem
 
-    &.--success
+    &.success
       background-color: #65d07b
       background-image: url(../../images/ui/icon-success.svg)
 
-    &.--error
+    &.error
       background-color: #dc7c7c
       background-image: url(../../images/ui/icon-error.svg)
 
   &.is-success
-    .message.--success
+    .message.success
       display: flex
 
   &.is-error
-    .message.--error
+    .message.error
       display: flex
 
 
   p
     font-weight: 500
 
+  a
+    &:focus-visible
+      outline: 3px solid #FFF
+      outline-offset: 3px
+
   &__options
     margin-bottom: 6rem
+
+  &__fieldset
+    border: none
+    padding: 0
+    margin: 0
+
+  &__email-label
+    position: absolute
+    top: -2rem
+    color: #FFF
+    font-size: 1.2rem
+    line-height: 1.5
+    font-weight: 500
+
+
+  &__legend
+    position: absolute
+    width: 1px
+    height: 1px
+    padding: 0
+    margin: -1px
+    overflow: hidden
+    clip: rect(0, 0, 0, 0)
+    white-space: nowrap
+    border-width: 0
 
   .checkbox
     font-weight: 500
     margin-bottom: 1.5rem
-
-  .grecaptcha-badge
-    position: absolute !important

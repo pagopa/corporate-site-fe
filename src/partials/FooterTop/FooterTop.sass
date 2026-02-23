@@ -1,4 +1,19 @@
 .footer-top
+  .cta.external-link
+    width: 100%
+    justify-content: space-between
+
+  .cta.external-link::after
+    background-image: url(../../images/ui/external-link-brand.svg)
+
+  .cta.cta--link-simple.external-link:hover
+    &::after
+      background-image: url(../../images/ui/external-link-brand.svg)
+
+  .cta.cta--link-simple.external-link:hover
+    > span
+      color: $c-brand
+
 
   ul
     position: relative
@@ -24,6 +39,9 @@
       @media (max-width: $mobile-xs - 1)
         padding-right: 1.5rem
 
+
       a, button
         text-decoration: none
         font-size: 1.4rem
+
+

@@ -1,10 +1,10 @@
-.loader 
+.loader
   position: relative
   display: none
   width: 5rem
   height: 1rem
 
-  > span 
+  > span
     position: absolute
     top: 50%
     margin-top: -.5rem
@@ -14,42 +14,42 @@
     background: #FFF
     animation-timing-function: cubic-bezier(0, 1, 1, 0)
 
-    &:nth-child(1) 
+    &:nth-child(1)
       left: .7rem
       animation: loading1 0.6s infinite
 
-    &:nth-child(2) 
+    &:nth-child(2)
       left: .7rem
       animation: loading2 0.6s infinite
 
-    &:nth-child(3) 
+    &:nth-child(3)
       left: 2.1rem
       animation: loading2 0.6s infinite
 
-    &:nth-child(4) 
+    &:nth-child(4)
       left: 3.7rem
       animation: laoding3 0.6s infinite
 
-@keyframes loading1 
-  0% 
+@keyframes loading1
+  0%
     transform: scale(0)
-  
-  100% 
+
+  100%
     transform: scale(1)
-  
-@keyframes loading2 
-  0% 
+
+@keyframes loading2
+  0%
     transform: translate(0, 0)
-  
-  100% 
+
+  100%
     transform: translate(1.6rem, 0)
 
-@keyframes laoding3 
-  0% 
+@keyframes laoding3
+  0%
     transform: scale(1)
-  
-  100% 
-    transform: scale(0)
-  
 
-  
+  100%
+    transform: scale(0)
+
+
+

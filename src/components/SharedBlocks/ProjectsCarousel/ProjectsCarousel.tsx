@@ -6,6 +6,7 @@ import { Cta } from '../../../partials/Cta';
 import { Image } from '../../Image';
 import './ProjectsCarousel.sass';
 import { useI18next } from 'gatsby-plugin-react-i18next';
+import { useTranslation } from 'gatsby-plugin-react-i18next';
 
 export const ProjectsCarousel = ({
   title,
@@ -19,24 +20,17 @@ export const ProjectsCarousel = ({
   };
 
   const { language } = useI18next();
+  const { t } = useTranslation();
 
   return (
-    <section className="block --block-project-carousel projects-carousel">
+    <section className="block block-project-carousel projects-carousel">
       <div className="container-fluid">
         <div className="row">
           <div className="col-12 col-md-11 offset-md-1 d-flex align-items-center justify-content-center">
             <header className="projects-carousel__header">
-              <button
-                className="projects-carousel__nav --prev"
-                title="prev"
-                aria-labelledby="prev"
-              />
+              <button className="projects-carousel__nav prev" />
               {title && <h2>{title}</h2>}
-              <button
-                className="projects-carousel__nav --next"
-                title="next"
-                aria-labelledby="next"
-              />
+              <button className="projects-carousel__nav next" />
             </header>
           </div>
         </div>
@@ -60,8 +54,16 @@ export const ProjectsCarousel = ({
                   },
                 }}
                 navigation={{
-                  prevEl: '.projects-carousel__nav.--prev',
-                  nextEl: '.projects-carousel__nav.--next',
+                  prevEl: '.projects-carousel__nav.prev',
+                  nextEl: '.projects-carousel__nav.next',
+                }}
+                a11y={{
+                  enabled: true,
+                  prevSlideMessage: t('slider.prevSlideMessage'),
+                  nextSlideMessage: t('slider.nextSlideMessage'),
+                  firstSlideMessage: t('slider.firstSlideMessage'),
+                  lastSlideMessage: t('slider.lastSlideMessage'),
+                  paginationBulletMessage: t('slider.paginationBulletMessage'),
                 }}
               >
                 {projects?.map((item, key) => {
@@ -75,10 +77,15 @@ export const ProjectsCarousel = ({
                   } = item || {};
 
                   return (
-                    <SwiperSlide key={key}>
+                    <SwiperSlide
+                      key={key}
+                      aria-label={carouselTitle}
+                      role="group"
+                      aria-describedby={`slide-content-${key}`}
+                    >
                       <article className="projects-carousel__item">
                         <div>
-                          <h1>{carouselTitle}</h1>
+                          <h3 id={`slide-title-${key}`}>{carouselTitle}</h3>
                           {(featuredImage || carouselImage) && (
                             <Image
                               data={
@@ -88,7 +95,10 @@ export const ProjectsCarousel = ({
                             />
                           )}
                         </div>
-                        <div className="project-carousel__item__cta">
+                        <div
+                          className="project-carousel__item__cta"
+                          id={`slide-content-${key}`}
+                        >
                           {carouselAbstract && (
                             <div className="wysiwyg">
                               <p>{carouselAbstract}</p>
@@ -97,11 +107,10 @@ export const ProjectsCarousel = ({
                           {carouselCtaLabel && (
                             <Cta
                               label={carouselCtaLabel}
-                              href={`/${language}/${
-                                language === 'it'
-                                  ? 'prodotti-e-servizi'
-                                  : 'products-and-services'
-                              }/${slug}`}
+                              title={carouselTitle}
+                              href={`/${language}/${t(
+                                'productsAndServices'
+                              )}/${slug}`}
                               variant="white-hollow"
                             />
                           )}
