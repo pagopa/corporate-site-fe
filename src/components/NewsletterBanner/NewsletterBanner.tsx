@@ -270,23 +270,7 @@ export const NewsletterBanner = () => {
                 </p>
                 <p className="--alternative --small">
                   <em>
-                    Form protetto tramite reCAPTCHA e{' '}
-                    <a
-                      href="https://policies.google.com/privacy"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Google Privacy Policy
-                    </a>{' '}
-                    e{' '}
-                    <a
-                      href="https://policies.google.com/terms"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Termini di servizio
-                    </a>{' '}
-                    applicati.
+                    Form protetto tramite reCAPTCHA.
                   </em>
                 </p>
               </div>
