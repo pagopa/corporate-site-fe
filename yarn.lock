@@ -4073,9 +4073,7 @@ codeceptjs-resemblehelper@^1.9.6:
     resemblejs "4.0.0"
 
 codeceptjs@^3.4.1:
-  version "3.5.6"
-  resolved "https://registry.yarnpkg.com/codeceptjs/-/codeceptjs-3.5.6.tgz#aff7a3d10433c2b5ca2bbe1fad970b298cbb7253"
-  integrity sha512-v18bwMa8XTQmy+Z7/Ixro/vBTOaz5lv5DoXou2TAOO2lOg7/Gwy2TO7l7+UVVWbYzEI0WqvcpdT2rZdeS7Xs6Q==
+  version "3.7.5"
   dependencies:
     "@codeceptjs/configure" "0.10.0"
     "@codeceptjs/helper" "2.0.1"
