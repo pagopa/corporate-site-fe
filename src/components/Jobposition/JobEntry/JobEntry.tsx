@@ -21,12 +21,12 @@ export const JobEntry = ({
   jobposition: Queries.JobpositionFragment;
   closed?: boolean;
 }) => (
-  <Link key={jobposition?.id} to={jobposition?.slug}>
+  <Link key={jobposition?.id} to={jobposition?.slug ?? ''}>
     <article className="job-entry">
-      <h4 className="primary job-entry__title">
+      <h3 className="h4 primary job-entry__title">
         {jobposition?.title}
         {closed || <JobStatus jobposition={jobposition} />}
-      </h4>
+      </h3>
       <p className="job-entry__timeframe">
         {jobposition?.openDate && `Data di apertura: ${jobposition.openDate}`}
         {jobposition?.closeDate &&

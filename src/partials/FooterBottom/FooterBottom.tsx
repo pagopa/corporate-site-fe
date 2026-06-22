@@ -11,7 +11,10 @@ export const FooterBottom = ({ menu }: MenuFooterProps) => {
   const { t } = useTranslation();
 
   return (
-    <nav className="footer-bottom" aria-label={t('navigationFooterBottom')}>
+    <nav
+      className="footer-bottom"
+      aria-label={t('navigationFooterBottom') ?? undefined}
+    >
       <ul>
         {menu?.map(item => {
           return item?.title && item?.path ? (

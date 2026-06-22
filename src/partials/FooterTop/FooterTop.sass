@@ -4,16 +4,15 @@
     justify-content: space-between
 
   .cta.external-link::after
-    background-image: url(../../images/ui/external-link-brand.svg)
+    background-image: url(../../images/ui/external-link.svg)
 
-  .cta.cta--link-simple.external-link:hover
-    &::after
-      background-image: url(../../images/ui/external-link-brand.svg)
+  .cta--link-simple
+    > span:not(.sr-only)
+      color: #FFF
 
-  .cta.cta--link-simple.external-link:hover
-    > span
-      color: $c-brand
-
+    &:not(.is-loading):not(:disabled):hover
+      > span:not(.sr-only)
+        color: #FFF
 
   ul
     position: relative
@@ -30,7 +29,7 @@
     li
       position: relative
       font-weight: 700
-      color: $c-brand
+      color: #FFF
       font-family: $f-alternative
       line-height: 1.2
       margin-bottom: 2rem

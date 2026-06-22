@@ -81,7 +81,15 @@ const Checkbox = ({ label, value, checked, onChange }: CheckboxProps) => {
   );
 };
 
-export const NewsletterBanner = () => {
+type NewsletterBannerProps = {
+  titleTag?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  className?: string;
+};
+
+export const NewsletterBanner = ({
+  titleTag = 'h3',
+  className = '',
+}: NewsletterBannerProps) => {
   const [loading, setLoading] = useState(true);
   const [email, setEmail] = useState('');
   const [groups, setGroups] = useState<NewsletterGroup[]>(
@@ -106,11 +114,23 @@ export const NewsletterBanner = () => {
     setGroups(newGroups);
     checkValidity(email, newGroups);
   };
-
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newEmail = e.target.value;
     setEmail(newEmail);
-    checkValidity(newEmail, groups);
+
+    if (validationError) {
+      setValidationError(null);
+    }
+
+    const emailValid = newEmail.trim() !== '' && /\S+@\S+\.\S+/.test(newEmail);
+    const atLeastOneChecked = groups.some(group => group.checked);
+
+    setIsEmailValid(emailValid);
+    setValidity(emailValid && atLeastOneChecked);
+  };
+
+  const handleEmailBlur = () => {
+    checkValidity(email, groups);
   };
 
   const checkValidity = (
@@ -181,6 +201,8 @@ export const NewsletterBanner = () => {
     }
   };
 
+  const HeadingTag = titleTag;
+
   return (
     <>
       <div id="newsletter" className="newsletter-banner-anchor"></div>
@@ -192,9 +214,9 @@ export const NewsletterBanner = () => {
         <div className="container-fluid">
           <div className="row">
             <div className="col-12 col-lg-10 offset-lg-1">
-              <h3>
+              <HeadingTag className={className}>
                 <Trans i18nKey="newsletter.title" components={{ 1: <br /> }} />
-              </h3>
+              </HeadingTag>
             </div>
           </div>
           <div className="row">
@@ -211,18 +233,21 @@ export const NewsletterBanner = () => {
           <form onSubmit={e => e.preventDefault()}>
             <div className="row">
               <div className="col-12 col-md-6 col-lg-5 offset-lg-1">
-                <fieldset className="newsletter-banner__fieldset">
+                <fieldset
+                  className="newsletter-banner__fieldset"
+                  aria-invalid={
+                    validationError && !isAtLeastOneChecked ? 'true' : 'false'
+                  }
+                  aria-describedby={
+                    validationError && !isAtLeastOneChecked
+                      ? 'newsletter-validation-error'
+                      : undefined
+                  }
+                >
                   <legend className="newsletter-banner__legend">
                     {t('newsletter.followNews')}
                   </legend>
-                  <ul
-                    className="newsletter-banner__options"
-                    aria-describedby={
-                      validationError && !isAtLeastOneChecked
-                        ? 'newsletter-validation-error'
-                        : undefined
-                    }
-                  >
+                  <ul className="newsletter-banner__options">
                     {groups.map(({ label, value, checked }) => (
                       <li key={value}>
                         <Checkbox
@@ -249,29 +274,31 @@ export const NewsletterBanner = () => {
                   id="email"
                   type="email"
                   autoComplete="email"
-                  placeholder={t('newsletter.emailPlaceholder')}
+                  placeholder={t('newsletter.emailPlaceholder') ?? undefined}
                   className="input newsletter-email"
                   required
                   value={email}
                   onChange={handleEmailChange}
-                  aria-describedby={
-                    validationError ? 'newsletter-validation-error' : undefined
-                  }
+                  onBlur={handleEmailBlur}
                   aria-invalid={
                     validationError && !isEmailValid ? 'true' : 'false'
                   }
+                  aria-describedby={
+                    validationError && !isEmailValid
+                      ? 'newsletter-validation-error'
+                      : undefined
+                  }
                 />
 
-                {validationError && (
-                  <div
-                    id="newsletter-validation-error"
-                    className="message error"
-                    role="alert"
-                    style={{ marginTop: '2rem' }}
-                  >
-                    <span>{validationError}</span>
-                  </div>
-                )}
+                <div
+                  id="newsletter-validation-error"
+                  className={validationError ? 'message error' : ''}
+                  role="alert"
+                  aria-atomic="true"
+                  style={{ marginTop: validationError ? '2rem' : '0' }}
+                >
+                  {validationError}
+                </div>
 
                 <button
                   className={`cta cta--white newsletter-submit${
@@ -295,28 +322,30 @@ export const NewsletterBanner = () => {
                 </button>
 
                 <div>
-                  {submitStatus === 'success' && (
-                    <div
-                      id="newsletter-success-message"
-                      className="message success"
-                      role="status"
-                      aria-live="polite"
-                      aria-atomic="true"
-                    >
+                  <div
+                    id="newsletter-success-message"
+                    className={
+                      submitStatus === 'success' ? 'message success' : ''
+                    }
+                    role="status"
+                    aria-live="polite"
+                    aria-atomic="true"
+                  >
+                    {submitStatus === 'success' && (
                       <span>{t('newsletter.successMessage')}</span>
-                    </div>
-                  )}
+                    )}
+                  </div>
 
-                  {submitStatus === 'error' && (
-                    <div
-                      id="newsletter-submit-error"
-                      className="message error"
-                      role="alert"
-                      aria-atomic="true"
-                    >
+                  <div
+                    id="newsletter-submit-error"
+                    className={submitStatus === 'error' ? 'message error' : ''}
+                    role="alert"
+                    aria-atomic="true"
+                  >
+                    {submitStatus === 'error' && (
                       <span>{t('newsletter.errorMessage')}</span>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
 
                 <div className="mt-5 mt-md-4">

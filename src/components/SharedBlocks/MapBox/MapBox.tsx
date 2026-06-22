@@ -22,12 +22,13 @@ export const MapBox = ({
 
                 <div className="col-12 col-md-7">
                   <div className="map-box__locations">
-                    {mapBoxItems.map((item, key) => {
+                    {mapBoxItems?.map((item, key) => {
+                      if (!item) return null;
                       const { title, body } = item;
                       return (
                         <div className="location" key={key}>
                           <h5 className="location__name">{title}</h5>
-                          <Body data={body} />
+                          {body && <Body data={body} />}
                         </div>
                       );
                     })}

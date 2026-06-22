@@ -51,12 +51,14 @@ const componentsMap: {
 const Block = ({
   block,
   pageSlug,
+  blockIndex,
 }: {
   block: Queries.BlocksFragment;
   pageSlug?: string;
+  blockIndex: number;
 }) => {
   const Component = componentsMap[block.__typename];
-  return Component ? <Component {...block} pageSlug={pageSlug} /> : null;
+  return Component ? <Component {...block} pageSlug={pageSlug} blockIndex={blockIndex} /> : null;
 };
 
 // This function renders a list of blocks
@@ -69,7 +71,7 @@ export const BlocksRenderer = ({
 }) => (
   <>
     {blocks?.map((block, index) => (
-      <Block key={index} block={block} pageSlug={pageSlug} />
+      <Block key={index} block={block} pageSlug={pageSlug} blockIndex={index} />
     ))}
   </>
 );

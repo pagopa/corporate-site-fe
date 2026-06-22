@@ -10,9 +10,8 @@ export const ContentsList = ({
   template,
   title,
 }: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_CONTENTS_LIST_Fragment) => {
-  const isSustainable = contentsItems.some(
-    el => el.title === 'Innovazione sostenibile'
-  );
+  const isSustainable =
+    contentsItems?.some(el => el?.title === 'Innovazione sostenibile') ?? false;
   return (
     <section className="block --block-blocks-list blocks-list">
       <div className="container-fluid">
@@ -44,7 +43,7 @@ export const ContentsList = ({
                           <h3 className="h4">{title}</h3>
                         )}
                         {body && <Body data={body} />}
-                        {link && <Cta href={link} label={linkLabel} />}
+                        {link && <Cta href={link} label={linkLabel ?? ''} />}
                       </div>
                     </div>
                   );

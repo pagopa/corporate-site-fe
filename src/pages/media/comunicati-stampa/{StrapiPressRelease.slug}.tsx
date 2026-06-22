@@ -75,28 +75,29 @@ const Intro = ({ eyelet, title }: Queries.PressReleaseIntroFragment) => {
 export default function Component({
   data: { strapiPressRelease },
 }: PageProps<Queries.StrapiPressReleaseQuery>) {
-  const { publishedAt, eyelet, title, body, slug } = strapiPressRelease || {};
-
   const {
     i18n: { language },
   } = useTranslation();
+
+  if (!strapiPressRelease) return null;
+
+  const { publishedAt, eyelet, title, body, slug } = strapiPressRelease;
 
   const dateOptions: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   };
-  const theDate = new Date(publishedAt).toLocaleDateString(
-    language,
-    dateOptions
-  );
+  const theDate = publishedAt
+    ? new Date(publishedAt).toLocaleDateString(language, dateOptions)
+    : '';
 
   return title && slug ? (
     <Layout>
       <SEO
-        meta={strapiPressRelease?.seo}
-        title={strapiPressRelease.title}
-        featuredImage={strapiPressRelease.featuredImage}
+        meta={strapiPressRelease.seo}
+        title={title ?? undefined}
+        featuredImage={strapiPressRelease.featuredImage ?? undefined}
       />
       ;
       <article className="post-article">
@@ -106,7 +107,7 @@ export default function Component({
           <div className="container-fluid">
             <div className="row">
               <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-                <h4>{theDate}</h4>
+                <h2 className="h4">{theDate}</h2>
                 {body && <Body data={body} />}
               </div>
             </div>

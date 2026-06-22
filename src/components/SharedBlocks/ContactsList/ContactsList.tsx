@@ -36,10 +36,15 @@ const ContactsList = ({
     >
       <div className="container-fluid">
         <div className="row align-items-center">
-          <div className={`col-12 ${columns[BlockWidth]}`}>
+          <div
+            className={`col-12 ${
+              BlockWidth ? columns[BlockWidth as 'Standard' | 'Wide'] ?? '' : ''
+            }`}
+          >
             {title && <h2 className="h1">{title}</h2>}
             <div className="row">
-              {contacts.map((item, key) => {
+              {contacts?.map((item, key) => {
+                if (!item) return null;
                 const { title, email } = item;
                 return (
                   <div className="col-12 col-md-6 d-flex" key={key}>

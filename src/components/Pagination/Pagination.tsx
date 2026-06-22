@@ -61,10 +61,10 @@ export const Pagination = <T,>({
           ))}
       </div>
       {navHidden || (
-        <nav ref={navRef} aria-label={t('pagination.ariaLabel')}>
+        <nav ref={navRef} aria-label={t('pagination.ariaLabel') ?? undefined}>
           <ReactPaginate
-            nextAriaLabel={t('pagination.nextAriaLabel')}
-            previousAriaLabel={t('pagination.previousAriaLabel')}
+            nextAriaLabel={t('pagination.nextAriaLabel') ?? undefined}
+            previousAriaLabel={t('pagination.previousAriaLabel') ?? undefined}
             ariaLabelBuilder={i =>
               t('pagination.ariaLabelBuilder', { page: i })
             }

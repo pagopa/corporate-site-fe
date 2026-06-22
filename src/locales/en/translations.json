@@ -8,11 +8,16 @@
   "languageChangedFeedback": "Language changed to {{language}}",
   "openMenu": "Open menu",
   "closeMenu": "Close menu",
+  "introMenu": {
+    "label": "Section navigation menu",
+    "open": "Open navigation",
+    "close": "Close navigation"
+  },
   "slider": {
     "prevSlide": "Previous",
     "nextSlide": "Next",
-    "prevSlideMessage": "Previous",
-    "nextSlideMessage": "Next",
+    "prevSlideMessage": "Previous project",
+    "nextSlideMessage": "Next project",
     "firstSlideMessage": "This is the first slide",
     "lastSlideMessage": "This is the last slide",
     "paginationBulletMessage": "Go to slide {{index}}"
@@ -62,7 +67,7 @@
   "newsletter": {
     "title": "Would you like to receive<1/>our Newsletter?",
     "requiredField": "*Required field, multiple selections allowed",
-    "followNews": "Follow news for:",
+    "followNews": "Follow news for*:",
     "groups": {
       "citizens": "Citizens",
       "publicAdministrations": "Public Administrations",
@@ -74,7 +79,7 @@
     "emailPlaceholder": "Enter your email address",
     "subscribeButton": "Subscribe",
     "privacyNotice": "By entering your mail address, you agree to our <1>personal data processing notice</1> for the newsletter.",
-    "recaptchaNotice": "This form is protected by reCAPTCHA and the <1>Google Privacy Policy</1> and <2>Terms of Service</2> apply.",
+    "recaptchaNotice": "This form is protected by reCAPTCHA.",
     "successMessage": "Request sent successfully. You will shortly receive an email to confirm your subscription.",
     "errorMessage": "Unable to send the request. Please try again later.",
     "validationErrors": {
@@ -82,5 +87,8 @@
       "groupsRequired": "Select at least one group.",
       "bothRequired": "Enter a valid email address and select at least one group."
     }
-  }
+  },
+  "toggleSubmenu": "Toggle submenu",
+  "toggleSubmenuFor": "Toggle submenu for {{item}}",
+  "submenuLabel": "Submenu {{item}}"
 }

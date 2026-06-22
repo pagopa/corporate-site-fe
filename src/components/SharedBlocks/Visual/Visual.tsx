@@ -26,9 +26,10 @@ export const Visual = ({
   };
 
   const { left, top, size } = backgroundAnimation || {};
-  const { type, columns } = templates.includes(template)
-    ? layout[template]
-    : layout.Wide;
+  const { type, columns } =
+    template && templates.includes(template)
+      ? layout[template as keyof typeof layout]
+      : layout.Wide;
 
   return (
     <section className={`block --block-visual visual --${type}`}>

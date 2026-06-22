@@ -21,8 +21,8 @@ export const useRevealTextAnimation = ({
     const ctx = gsap.context(() => {
       const marks = [...(elementRef.current?.querySelectorAll('mark') || [])];
 
-      // Only create animation if we have marks to animate
       if (marks.length === 0) {
+        gsap.set(elementRef.current, { backgroundPosition: '0% 50%' });
         return;
       }
 

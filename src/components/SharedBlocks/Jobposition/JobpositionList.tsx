@@ -22,7 +22,7 @@ const LinksAttachments = ({
             <li key={index}>
               {link?.attachment?.url && (
                 <Cta
-                  label={link.link}
+                  label={link.link ?? ''}
                   href={link.attachment.url}
                   variant="link"
                 />
@@ -72,7 +72,8 @@ export const JobpositionList = ({
   const byRecentJobOpening = (
     job: Queries.JobpositionFragment,
     nextJob: Queries.JobpositionFragment
-  ) => new Date(nextJob.openDate).getTime() - new Date(job.openDate).getTime();
+  ) =>
+    new Date(nextJob.openDate!).getTime() - new Date(job.openDate!).getTime();
 
   const { openJobs, pastJobs } = allStrapiJobposition
     .sort(byRecentJobOpening)
@@ -104,6 +105,7 @@ export const JobpositionList = ({
             {!!commons?.length && (
               <div className="jobs-listing__common">
                 {commons.map((feature, key) => {
+                  if (!feature) return null;
                   const { title, body } = feature;
                   return (
                     <div
@@ -133,7 +135,16 @@ export const JobpositionList = ({
               </p>
             </div>
 
-            {links && <LinksAttachments links={links} />}
+            {links && (
+              <LinksAttachments
+                links={links.filter(
+                  (
+                    l
+                  ): l is Queries.STRAPI__COMPONENT_BLOCK_CONTEXT_LINK_ATTACHMENT =>
+                    l !== null
+                )}
+              />
+            )}
             <div className="jobs-listing__list">
               {openJobs.map(jobposition => (
                 <div className="p-4" key={jobposition.id}>

@@ -69,7 +69,7 @@ export const Article = ({
         </div>
         {slug ? (
           <Cta
-            as="h3"
+            as="h2"
             href={isPreview ? `./news-ed-eventi/${slug}` : slug}
             label={title || ''}
             variant="link"
@@ -78,9 +78,9 @@ export const Article = ({
             className="cta--block"
           />
         ) : (
-          <h3 className="h4 primary medium">{title}</h3>
+          <h2 className="h4 primary medium">{title}</h2>
         )}
-        {previewText(14, body?.data?.body)}
+        {previewText(14, body?.data?.body ?? undefined)}
       </div>
     </article>
   );

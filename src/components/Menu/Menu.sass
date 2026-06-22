@@ -5,6 +5,13 @@
     display: flex
     gap: 1rem
 
+  // Ensure hidden submenus are removed from the accessibility tree.
+  // Without this, the CSS "display: block" on mobile submenus overrides
+  // the hidden attribute's default "display: none", causing screen readers
+  // (especially VoiceOver) to still read closed submenu items.
+  ul[hidden]
+    display: none !important
+
   .menu-main,
   .menu-reserved
     margin-left: -1.6rem
@@ -433,7 +440,9 @@
 
 // Focus for mobile menu (background c-brand)
 @media (max-width: $desktop - 1)
-  .menu-header .menu-trigger
+  .menu-header .menu-trigger,
+  .menu-header .menu-expand-button,
+  .menu-header .menu-item-with-submenu > a
     &:focus
       outline: 3px solid #FFF
       outline-offset: 3px
@@ -477,4 +486,75 @@
     outline: 3px solid #FFF
     outline-offset: 3px
     box-shadow: 0 0 0 1px #fff, 0 0 0 4px $c-brand
+
+// Menu expand button (for Media item with separate link and caret)
+.menu-expand-button
+  background: none
+  border: none
+  cursor: pointer
+  padding: 0
+  margin: 0
+  position: absolute
+  top: 50%
+  right: 0
+  transform: translateY(-50%)
+  width: 12px
+  height: 7px
+  display: flex
+  align-items: center
+  justify-content: center
+
+  // Hide the caret span (we'll use the button itself as caret)
+  .caret
+    display: none
+
+  // Create caret using borders (matching ::after pseudo-element)
+  &::after
+    content: ''
+    width: 0
+    height: 0
+    display: block
+    border-left: 6px solid transparent
+    border-right: 6px solid transparent
+    border-top: 7px solid currentColor
+    transition: transform $transition-fast
+    transform-origin: center center
+
+  &:focus
+    outline: 3px solid $c-brand
+    outline-offset: 3px
+
+  // Rotate caret when submenu is open
+  .is-sub-open &
+    &::after
+      transform: rotate(180deg)
+
+// Desktop styles for menu expand button
+@media (min-width: $desktop)
+  .main-navigation.w-sub,
+  .reserved-navigation.w-sub
+    // Position the button where the ::after pseudo-element would be
+    .menu-expand-button
+      margin-left: 0.8rem
+      right: 0
+
+// Mobile styles for menu expand button
+@media (max-width: $desktop - 1)
+  .main-navigation.w-sub,
+  .reserved-navigation.w-sub
+    .menu-expand-button
+      top: 2.6rem
+      right: 0.7rem
+      width: 18px
+      height: 11px
+
+      &::after
+        border-left: 9px solid transparent
+        border-right: 9px solid transparent
+        border-top: 11px solid currentColor
+
+      .is-sub-open &
+        top: 2rem
+        &::after
+          transform: rotate(-180deg)
 

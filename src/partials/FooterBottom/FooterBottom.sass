@@ -1,10 +1,15 @@
 .footer-bottom
   .cta.external-link::after
-    background-image: url(../../images/ui/external-link-brand.svg)
+    background-image: url(../../images/ui/external-link.svg)
 
-  .cta.cta--link-simple.external-link:hover
-    &::after
-      background-image: url(../../images/ui/external-link-brand.svg)
+  .cta--link-simple
+    > span:not(.sr-only)
+      color: #FFF
+
+    &:not(.is-loading):not(:disabled):hover
+      > span:not(.sr-only)
+        color: #FFF
+
   ul
     position: relative
     display: flex

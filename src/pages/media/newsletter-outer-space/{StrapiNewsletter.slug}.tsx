@@ -89,6 +89,12 @@ export default function Component({
   data: { strapiNewsletter },
 }: PageProps<Queries.StrapiNewsletterQuery>) {
   const {
+    i18n: { language },
+  } = useTranslation();
+
+  if (!strapiNewsletter) return null;
+
+  const {
     publishedAt,
     eyelet,
     title,
@@ -96,28 +102,23 @@ export default function Component({
     bannerNewsletter,
     featuredImage,
     slug,
-  } = strapiNewsletter || {};
-
-  const {
-    i18n: { language },
-  } = useTranslation();
+  } = strapiNewsletter;
 
   const dateOptions: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   };
-  const theDate = new Date(publishedAt).toLocaleDateString(
-    language,
-    dateOptions
-  );
+  const theDate = publishedAt
+    ? new Date(publishedAt).toLocaleDateString(language, dateOptions)
+    : '';
 
   return title && slug ? (
     <Layout>
       <SEO
-        meta={strapiNewsletter?.seo}
-        title={strapiNewsletter.title}
-        featuredImage={strapiNewsletter.featuredImage}
+        meta={strapiNewsletter.seo}
+        title={title ?? undefined}
+        featuredImage={featuredImage ?? undefined}
       />
       ;
       <article className="post-article">
@@ -144,7 +145,7 @@ export default function Component({
             <div className="row">
               <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
                 <h4>{theDate}</h4>
-                <Body data={body} />
+                {body && <Body data={body} />}
               </div>
             </div>
           </div>

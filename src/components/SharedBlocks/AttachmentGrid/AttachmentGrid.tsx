@@ -44,7 +44,7 @@ export const AttachmentGrid = ({
                   <div className="col-12 col-md-6 col-lg-4 d-flex" key={key}>
                     <article className="icon-box">
                       {attachment?.url && (
-                        <Cta label={buttonLabel} href={attachment?.url} />
+                        <Cta label={buttonLabel ?? ''} href={attachment?.url} />
                       )}
                     </article>
                   </div>

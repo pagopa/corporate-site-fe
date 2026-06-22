@@ -8,11 +8,16 @@
   "languageChangedFeedback": "Lingua impostata su {{language}}",
   "openMenu": "Apri menu",
   "closeMenu": "Chiudi menu",
+  "introMenu": {
+    "label": "Menu di navigazione sezione",
+    "open": "Apri navigazione",
+    "close": "Chiudi navigazione"
+  },
   "slider": {
     "prevSlide": "Precedente",
     "nextSlide": "Successivo",
-    "prevSlideMessage": "Precedente",
-    "nextSlideMessage": "Successivo",
+    "prevSlideMessage": "Progetto precedente",
+    "nextSlideMessage": "Progetto successivo",
     "firstSlideMessage": "Questa è la prima slide",
     "lastSlideMessage": "Questa è l'ultima slide",
     "paginationBulletMessage": "Vai alla slide {{index}}"
@@ -59,9 +64,9 @@
     "previousLabel": "Precedente"
   },
   "newsletter": {
-    "title": "Vuoi ricevere la<1/>nostra Newsletter?",
+    "title": "Vuoi ricevere la <1/>nostra Newsletter?",
     "requiredField": "* campo obbligatorio, con possibilità di risposta multipla",
-    "followNews": "Segui le notizie per:",
+    "followNews": "Segui le notizie per*:",
     "groups": {
       "citizens": "Cittadini",
       "publicAdministrations": "Pubbliche Amministrazioni",
@@ -73,7 +78,7 @@
     "emailPlaceholder": "Inserisci la tua email",
     "subscribeButton": "Iscriviti",
     "privacyNotice": "Inserendo il tuo indirizzo email stai accettando la <1>nostra informativa sul trattamento dei dati personali</1> per la newsletter.",
-    "recaptchaNotice": "Form protetto tramite reCAPTCHA e <1>Google Privacy Policy</1> e <2>Termini di servizio</2> applicati.",
+    "recaptchaNotice": "Form protetto tramite reCAPTCHA.",
     "successMessage": "Richiesta inviata correttamente. A breve riceverai una email per confermare la tua iscrizione.",
     "errorMessage": "Non è stato possibile inviare la richiesta. Riprova più tardi.",
     "validationErrors": {
@@ -81,5 +86,8 @@
       "groupsRequired": "Seleziona almeno un gruppo.",
       "bothRequired": "Inserisci un indirizzo email valido e seleziona almeno un gruppo."
     }
-  }
+  },
+  "toggleSubmenu": "Apri/chiudi sottomenu",
+  "toggleSubmenuFor": "Apri/chiudi sottomenu per {{item}}",
+  "submenuLabel": "Sottomenu {{item}}"
 }

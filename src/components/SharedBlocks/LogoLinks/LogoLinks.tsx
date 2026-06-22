@@ -46,8 +46,9 @@ export const LogoLinks = ({
                             rel="noopener noreferrer"
                             aria-label={
                               isNextGenerationEU
-                                ? t('logoLinks.nextGenerationEUAriaLabel')
-                                : null
+                                ? t('logoLinks.nextGenerationEUAriaLabel') ??
+                                  undefined
+                                : undefined
                             }
                           >
                             <Image data={attachment as Queries.STRAPI__MEDIA} />

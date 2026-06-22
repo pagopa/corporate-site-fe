@@ -35,48 +35,106 @@ export const Header = ({
     };
   }, [scrolled]);
 
-  // Focus trap for mobile menu
+  // Screen-reader focus trap: hide non-menu content from SR when mobile menu is open
   useEffect(() => {
-    if (!mobileMenuOpen || !mobileMenuRef.current) return;
+    const mainEl = document.querySelector('main');
+    const footerEl = document.querySelector('footer');
 
-    const focusableElements = mobileMenuRef.current.querySelectorAll(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    );
+    if (mobileMenuOpen) {
+      mainEl?.setAttribute('aria-hidden', 'true');
+      mainEl?.setAttribute('inert', '');
+      footerEl?.setAttribute('aria-hidden', 'true');
+      footerEl?.setAttribute('inert', '');
+    } else {
+      mainEl?.removeAttribute('aria-hidden');
+      mainEl?.removeAttribute('inert');
+      footerEl?.removeAttribute('aria-hidden');
+      footerEl?.removeAttribute('inert');
+    }
 
-    if (focusableElements.length === 0) return;
+    return () => {
+      mainEl?.removeAttribute('aria-hidden');
+      mainEl?.removeAttribute('inert');
+      footerEl?.removeAttribute('aria-hidden');
+      footerEl?.removeAttribute('inert');
+    };
+  }, [mobileMenuOpen]);
 
-    const firstElement = focusableElements[0] as HTMLElement;
-    const lastElement = focusableElements[
-      focusableElements.length - 1
-    ] as HTMLElement;
+  // Keyboard focus trap for mobile menu
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const mobileMenuContainer = mobileMenuRef.current;
+    const hamburgerButton = hamburgerRef.current;
+
+    const isInTrap = (el: Element | null) =>
+      (mobileMenuContainer && mobileMenuContainer.contains(el)) ||
+      el === hamburgerButton;
+
+    const getFocusableElements = (): HTMLElement[] => {
+      const selector =
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+      const candidates = [
+        hamburgerButton,
+        ...(mobileMenuContainer
+          ? Array.from(
+              mobileMenuContainer.querySelectorAll<HTMLElement>(selector)
+            )
+          : []),
+      ].filter(Boolean) as HTMLElement[];
+
+      return candidates.filter(el => {
+        if (el.hidden || el.getAttribute('aria-hidden') === 'true')
+          return false;
+        const style = window.getComputedStyle(el);
+        return style.display !== 'none' && !el.hasAttribute('disabled');
+      });
+    };
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key !== 'Tab') return;
 
-      if (e.shiftKey) {
-        // Shift + Tab
-        if (document.activeElement === firstElement) {
-          e.preventDefault();
-          lastElement.focus();
-        }
-      } else {
-        // Tab
-        if (document.activeElement === lastElement) {
-          e.preventDefault();
-          firstElement.focus();
-        }
+      const focusable = getFocusableElements();
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement as HTMLElement;
+
+      if (e.shiftKey && active === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
+      } else if (!isInTrap(active)) {
+        e.preventDefault();
+        first.focus();
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
+    const handleFocusIn = (e: FocusEvent) => {
+      const target = e.target as HTMLElement;
+      if (target === document.body) return;
 
-    // Focus on the first element when menu has been opened
-    setTimeout(() => {
-      firstElement.focus();
-    }, 100);
+      if (!isInTrap(target)) {
+        e.stopImmediatePropagation();
+        setTimeout(() => {
+          if (!isInTrap(document.activeElement)) {
+            getFocusableElements()[0]?.focus();
+          }
+        }, 0);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown, { capture: true });
+    document.addEventListener('focusin', handleFocusIn, { capture: true });
+
+    setTimeout(() => getFocusableElements()[0]?.focus(), 100);
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keydown', handleKeyDown, { capture: true });
+      document.removeEventListener('focusin', handleFocusIn, { capture: true });
     };
   }, [mobileMenuOpen]);
 
@@ -129,7 +187,7 @@ export const Header = ({
       )}
     >
       <div className="header__single">
-        <div className="header__left">
+        <div className="header__left" aria-hidden={mobileMenuOpen || undefined}>
           <Logo
             title="PagoPA"
             menuOpen={mobileMenuOpen}

@@ -35,7 +35,7 @@ const PressReleaseItem = ({
         <p className="h4">{theDate}</p>
         {slug ? (
           <Cta
-            as="h3"
+            as="h2"
             href={isPreview ? `./comunicati-stampa/${slug}` : slug}
             label={title || ''}
             variant="link"
@@ -46,10 +46,10 @@ const PressReleaseItem = ({
         ) : isPreview ? (
           <h4 className="primary medium">{title}</h4>
         ) : (
-          <h3 className="light">{title}</h3>
+          <h2 className="light">{title}</h2>
         )}
         <div>
-          <p>{previewText(36, body?.data.body)}</p>
+          <p>{previewText(36, body?.data?.body ?? undefined)}</p>
         </div>
       </div>
     </article>

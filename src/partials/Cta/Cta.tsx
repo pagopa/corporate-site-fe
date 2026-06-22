@@ -77,7 +77,7 @@ export const Cta = ({
     <>
       {isExternal ? (
         <a
-          target={blank ? '_blank' : null}
+          target={blank ? '_blank' : undefined}
           rel="noopener noreferrer"
           href={href}
           className={commonClasses}

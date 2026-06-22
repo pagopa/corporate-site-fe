@@ -52,18 +52,16 @@ export const MenuItem = ({
     return <span {...commonProps}>{title}</span>;
   } else if (external) {
     return (
-      <>
-        <a
-          {...commonProps}
-          className="external-link"
-          href={path || '#'}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {title}
-        </a>
+      <a
+        {...commonProps}
+        className="external-link"
+        href={path || '#'}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {title}
         {screenReaderOpenText}
-      </>
+      </a>
     );
   } else if (type == 'INTERNAL') {
     return (

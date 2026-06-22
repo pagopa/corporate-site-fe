@@ -13,7 +13,10 @@ export const FooterTop = ({ menu }: FooterTopProps) => {
   const { t } = useTranslation();
 
   return (
-    <nav className="footer-top" aria-label={t('navigationFooterTop')}>
+    <nav
+      className="footer-top"
+      aria-label={t('navigationFooterTop') ?? undefined}
+    >
       <ul>
         {menu?.map((item: Queries.MainNavigationItemFragment | null) => {
           return item?.title && item?.path ? (

@@ -188,7 +188,7 @@ const Video = ({
           id={`video-${videoCode}`}
           className="video__frame"
           opts={playerOptions}
-          title={t('youtubeVideo')}
+          title={t('youtubeVideo') ?? undefined}
           onReady={event => setVideoInstance(event.target)}
           onStateChange={e => setIsPlaying(e.data === 1 ? true : false)}
           onEnd={() => setVideoActive(false)}
@@ -204,7 +204,7 @@ const Video = ({
           <div className="video__curtain"></div>
           <button
             className="video__play"
-            aria-label={t('playVideo')}
+            aria-label={t('playVideo') ?? undefined}
             // Accessibility: Associate button with video title
             aria-describedby={videoLabelId}
             onClick={handlePlayStart}
@@ -219,7 +219,9 @@ const Video = ({
         <button
           ref={buttonRef}
           className="video__control"
-          aria-label={isPlaying ? t('pauseVideo') : t('resumeVideo')}
+          aria-label={
+            (isPlaying ? t('pauseVideo') : t('resumeVideo')) ?? undefined
+          }
           // Accessibility: Associate pause button with title as well
           aria-describedby={videoLabelId}
           onClick={() => (isPlaying ? handleStop() : handlePlay())}

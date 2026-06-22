@@ -42,15 +42,16 @@ export const Socials = ({ header, ariaLabelledBy }: SocialsProps) => {
       className={`socials${header ? ' in-header' : ''}`}
     >
       {socialsData?.links.map(social => {
+        if (!social) return null;
         return (
           <li key={social.url}>
             <a
-              href={social.url}
+              href={social.url ?? undefined}
               target="_blank"
-              title={social.label}
+              title={social.label ?? undefined}
               rel="noreferrer noopener"
             >
-              <ReactSVG src={social.image} wrapper="span" />
+              <ReactSVG src={social.image ?? ''} wrapper="span" />
             </a>
           </li>
         );

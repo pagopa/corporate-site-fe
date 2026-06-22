@@ -172,9 +172,13 @@ $grid-gutter-width: 3.2rem
   &__heading
     position: relative
     margin-bottom: 13.4rem
+    display: flex
+    flex-direction: column
+    align-items: center
+    gap: 4rem
 
-    h4
-      margin-bottom: 3.4rem
+    h4, p.h4
+      margin-bottom: 0
 
     &::after
       content: ''
@@ -247,52 +251,146 @@ $grid-gutter-width: 3.2rem
     flex: 0 0 100%
     display: flex
     justify-content: center
-    padding-top: 1.6rem
-    margin-bottom: 6rem
+    padding-top: 0
+    margin-bottom: 0
 
-    ul
-      display: flex
-      flex-wrap: wrap
-      justify-content: center
+    ul.intro-menu__list
+      display: inline-flex
+      flex-wrap: nowrap
+      align-items: center
+      padding: .8rem
+      gap: .8rem
+      background: $c-gray-extralight
+      border: 1px solid $c-gray-light
+      box-shadow: 0 4px 32px rgba(14, 15, 19, 0.1)
+      border-radius: 5.4rem
 
       li
         font-family: $f-primary
         font-weight: 500
-        font-size: 3.2rem
-        color: $c-gray-dark
+        font-size: 1.6rem
+        color: $c-black
         display: flex
+        border-radius: 10rem
 
         &:not(:last-child)
           &::after
-            content: '/'
-            margin-left: 1rem
-            margin-right: 1rem
-            color: $c-gray-dark
-            text-decoration: none
-            display: inline-block
-            line-height: 0.75
+            content: none
 
         &.is-current
+          background: $c-brand
+
           .cta
-            color: $c-brand
-            text-decoration: solid underline $c-brand 2px
-            text-underline-offset: 4px
+            color: white
+            text-decoration: none
+            text-underline-offset: unset
 
-            > h1
-              font-weight: 700
+            &:not(.is-loading):not(:disabled):hover
+              color: white
 
+              > span
+                color: white
+
+            > span
+              font-weight: 500
+              color: white
 
       .cta
         font-family: $f-primary
         font-weight: 500
-        font-size: 3.2rem
-        color: inherit
+        font-size: 1.6rem
+        color: $c-black
+        padding: 1.2rem 2.4rem
+        border-radius: 10rem
 
-        > h1
-          color: inherit
-          font-size: 3.2rem
-          transition: all $transition-fast $tf
-          line-height: 0.75
+        &:hover
+          color: $c-brand
 
-          &:hover
-            color: $c-brand
+    &__dropdown
+      display: none
+
+    @media (min-width: $mobile)
+      > ul.intro-menu__list > li.intro-menu__toggle-item
+        display: none
+
+    @media (max-width: $mobile - 1)
+      flex-wrap: wrap
+      gap: 0
+      justify-content: flex-start
+
+      > ul.intro-menu__list
+        display: flex
+        flex: 0 0 100%
+        min-width: 0
+
+        li:not(.is-current):not(.intro-menu__toggle-item)
+          display: none
+
+        .is-current
+          flex: 1
+
+          .cta
+            width: 100%
+            justify-content: center
+
+      &__toggle-item
+        display: flex
+        flex-shrink: 0
+        align-items: center
+        padding: 0 1.2rem
+        border-radius: 0
+
+      &__toggle
+        background: none
+        border: none
+        cursor: pointer
+        padding: 0
+        display: flex
+        align-items: center
+        line-height: 0
+
+        img
+          width: 2rem
+          height: auto
+          transition: transform $transition-fast
+
+      &.is-open
+        .intro-menu__toggle img
+          transform: rotate(180deg)
+
+        .intro-menu__dropdown
+          display: flex
+
+      &__dropdown
+        flex: 0 0 100%
+        flex-direction: column
+        padding: 0
+        gap: 0
+        background: white
+        border: none
+        box-shadow: 0px 4px 16px rgba(14, 15, 19, 0.1)
+        border-radius: .4rem
+        margin-top: .8rem
+
+        li
+          border-radius: 0
+
+          &:not(:last-child)
+            border-bottom: 1px solid #E8EBF1
+
+          .cta
+            padding: 1.2rem 1.6rem
+            width: 100%
+            color: $c-black
+            justify-content: flex-start
+            text-align: left
+
+            > span
+              color: $c-black
+              text-align: left
+
+            &:not(.is-loading):not(:disabled):hover
+              color: $c-brand
+
+              > span
+                color: $c-brand

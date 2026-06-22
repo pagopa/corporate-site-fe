@@ -13,7 +13,9 @@ import './VisualText.sass';
 type VisualSize = 'Small' | 'Half' | 'Big' | 'Full';
 
 type VisualBodyProps = {
-  body: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT_Fragment['body'];
+  body: NonNullable<
+    Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT_Fragment['body']
+  >;
   reveal: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_VISUAL_TEXT_Fragment['reveal'];
   elementRef: React.MutableRefObject<null>;
 };
@@ -38,7 +40,11 @@ type VisualCtasProps = {
 };
 
 const VisualCtas = ({ ctaText, link, title }: VisualCtasProps) => (
-  <Cta label={ctaText} href={link} title={title} />
+  <Cta
+    label={ctaText ?? ''}
+    href={link ?? undefined}
+    title={title ?? undefined}
+  />
 );
 
 type VisualTitleProps = {
@@ -52,7 +58,7 @@ const VisualTitle = ({ title, visualSize }: VisualTitleProps) => {
   const isHomepage =
     pathname === '/' || pathname === '/it/' || pathname === '/en/homepage/';
 
-  const renderHeading = isHomepage ? (
+  const renderHeading = isHomepage && visualSize === 'Half' ? (
     <h3 className="h1 primary">{title}</h3>
   ) : (
     <h2 className="h1">{title}</h2>

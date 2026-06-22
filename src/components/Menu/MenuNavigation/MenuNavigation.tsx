@@ -1,10 +1,17 @@
 import classNames from 'classnames';
-import React, { useState, useRef, FocusEventHandler, useId } from 'react';
+import React, {
+  useState,
+  useRef,
+  FocusEventHandler,
+  useId,
+  useEffect,
+} from 'react';
 import { MenuItem } from '../MenuItem';
 import '../Menu.sass';
 import { useLocation } from '@reach/router';
-import { navigate } from 'gatsby';
 import { useTranslation } from 'gatsby-plugin-react-i18next';
+
+const MOBILE_BREAKPOINT = 992;
 
 export const MenuNavigation = ({
   item,
@@ -15,16 +22,30 @@ export const MenuNavigation = ({
 }) => {
   const { t } = useTranslation();
   const [submenuOpen, setSubmenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const { pathname } = useLocation();
   const submenuId = useId();
   const menuRef = useRef<HTMLLIElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
+
   const { items, highlight } = item;
 
   const isCurrent = pathname
     .split('/')
-    .includes(item.uiRouterKey.replace(/-\d+/, '') as string);
+    .includes((item.uiRouterKey?.replace(/-\d+/, '') ?? '') as string);
   const hasChildren = !!items?.length;
 
   const handleSubmenu = () => {
@@ -33,38 +54,30 @@ export const MenuNavigation = ({
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     const target = e.target as HTMLElement;
+    const isMenuTrigger = target.classList.contains('menu-trigger');
+    const isMenuExpandButton = target.classList.contains('menu-expand-button');
 
     if (
       target instanceof HTMLButtonElement &&
-      target.classList.contains('menu-trigger')
+      (isMenuTrigger || isMenuExpandButton)
     ) {
-      // Menu triger management (first layer)
+      // Menu trigger management (first layer)
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         handleSubmenu();
-      } else if (e.key === 'ArrowDown' && submenuOpen && hasChildren) {
-        // If submenu is open, focus on the first entry of the second layer
+      } else if (e.key === 'ArrowDown' && hasChildren) {
         e.preventDefault();
-        const firstSubItem = menuRef.current?.querySelector(
-          'ul li:first-child a, ul li:first-child .menu-item'
+        const wasOpen = submenuOpen;
+        if (!wasOpen) handleSubmenu();
+        setTimeout(
+          () => {
+            const firstSubItem = menuRef.current?.querySelector<HTMLElement>(
+              'ul li:first-child a, ul li:first-child .menu-item'
+            );
+            firstSubItem?.focus();
+          },
+          wasOpen ? 0 : 150
         );
-        if (firstSubItem instanceof HTMLElement) {
-          firstSubItem.focus();
-        }
-      } else if (e.key === 'ArrowDown' && !submenuOpen && hasChildren) {
-        // If submenu is closed, open it
-        e.preventDefault();
-        handleSubmenu();
-
-        // After the submenu has been opened, focus goes to the first entry
-        setTimeout(() => {
-          const firstSubItem = menuRef.current?.querySelector(
-            'ul li:first-child a, ul li:first-child .menu-item'
-          );
-          if (firstSubItem instanceof HTMLElement) {
-            firstSubItem.focus();
-          }
-        }, 150);
       } else if (e.key === 'ArrowUp' && submenuOpen && hasChildren) {
         // If submenu is open, keypress is arrow up and we are on the first layer entry, focus goes to the last entry.
         e.preventDefault();
@@ -91,23 +104,17 @@ export const MenuNavigation = ({
 
       if (e.key === 'ArrowDown') {
         e.preventDefault();
-        const nextIndex =
-          currentIndex < subItems.length - 1 ? currentIndex + 1 : 0;
-        subItems[nextIndex]?.focus();
-
-        // If we are on the last entry and keypress is arrow down, go back to trigger
         if (currentIndex === subItems.length - 1) {
           triggerRef.current?.focus();
+        } else {
+          subItems[currentIndex + 1]?.focus();
         }
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
-        const prevIndex =
-          currentIndex > 0 ? currentIndex - 1 : subItems.length - 1;
-        subItems[prevIndex]?.focus();
-
-        // If we are in the first entry and keypress is arrow up, go back to trigger
         if (currentIndex === 0) {
           triggerRef.current?.focus();
+        } else {
+          subItems[currentIndex - 1]?.focus();
         }
       } else if (e.key === 'Escape') {
         e.preventDefault();
@@ -132,22 +139,51 @@ export const MenuNavigation = ({
   };
 
   const handleMouseEnter = () => {
-    if (window.innerWidth >= 992 && hasChildren) {
+    if (window.innerWidth >= MOBILE_BREAKPOINT && hasChildren) {
       setSubmenuOpen(true);
     }
   };
 
   const handleMouseLeave = () => {
-    if (window.innerWidth >= 992 && hasChildren) {
+    if (window.innerWidth >= MOBILE_BREAKPOINT && hasChildren) {
       setSubmenuOpen(false);
     }
   };
 
   const handleFocusOut: FocusEventHandler<HTMLLIElement> = e => {
-    if (menuRef.current && !menuRef.current.contains(e.relatedTarget)) {
-      setSubmenuOpen(false);
+    // Screen readers (e.g. TalkBack on Android) may not provide relatedTarget
+    // when swiping between elements. Use a timeout to check where focus
+    // actually went, preventing the submenu from closing during navigation.
+    if (!e.relatedTarget) {
+      setTimeout(() => {
+        const activeEl = document.activeElement;
+        if (!menuRef.current || menuRef.current.contains(activeEl)) return;
+
+        if (isMobile) {
+          // On mobile, keep the submenu open when focus moves to a sibling
+          // within the same <nav>. This prevents VoiceOver from announcing
+          // "compresso" mid-navigation; the user closes the submenu explicitly.
+          const parentNav = menuRef.current.closest('nav');
+          if (parentNav?.contains(activeEl)) return;
+        }
+
+        setSubmenuOpen(false);
+      }, 150);
+      return;
     }
+
+    if (!menuRef.current || menuRef.current.contains(e.relatedTarget)) return;
+
+    if (isMobile) {
+      // Same rationale: don't auto-close when focus stays within the nav.
+      const parentNav = menuRef.current.closest('nav');
+      if (parentNav?.contains(e.relatedTarget)) return;
+    }
+
+    setSubmenuOpen(false);
   };
+
+  const isMediaItem = item.uiRouterKey?.includes('media') ?? false;
 
   return (
     <li
@@ -165,38 +201,66 @@ export const MenuNavigation = ({
       )}
     >
       {hasChildren ? (
-        <button
-          ref={triggerRef}
-          className="menu-trigger"
-          onClick={e => {
-            e.preventDefault();
-            if (window.innerWidth < 992) {
-              handleSubmenu();
-            } else {
-              if (item.uiRouterKey.includes('media') && item.path) {
-                navigate(item.path);
-              }
-            }
-          }}
-          onMouseDown={e => e.preventDefault()}
-          aria-expanded={submenuOpen}
-          aria-haspopup="true"
-          aria-controls={submenuId}
-        >
-          <MenuItem item={item} disabled={true} />
-          {item.uiRouterKey.includes('media') && (
-            <span className="sr-only">{t('menuNavigationInstructions')}</span>
+        <div className="menu-item-with-submenu">
+          {isMediaItem && item.path ? (
+            // Media item: separate link and expansion button
+            <>
+              <MenuItem
+                item={item}
+                aria-current={isCurrent ? 'page' : undefined}
+              />
+              <button
+                ref={triggerRef}
+                className="menu-expand-button"
+                onClick={e => {
+                  e.preventDefault();
+                  handleSubmenu();
+                }}
+                onMouseDown={e => e.preventDefault()}
+                aria-expanded={submenuOpen}
+                aria-haspopup={!isMobile ? 'true' : undefined}
+                aria-controls={submenuId}
+                // aria-label={t('toggleSubmenuFor', { item: item.title })}
+              >
+                {/* Caret is created via CSS ::after pseudo-element */}
+                <span className="sr-only">
+                  {t('submenuLabel', { item: item.title })}
+                </span>
+              </button>
+            </>
+          ) : (
+            // Regular item with submenu: combined button
+            <button
+              ref={triggerRef}
+              className="menu-trigger"
+              onClick={e => {
+                e.preventDefault();
+                if (window.innerWidth < MOBILE_BREAKPOINT) {
+                  handleSubmenu();
+                }
+                // On desktop, regular items without special media handling
+                // will just toggle the submenu on click
+              }}
+              onMouseDown={e => e.preventDefault()}
+              aria-expanded={submenuOpen}
+              aria-haspopup={!isMobile ? 'true' : undefined}
+              aria-controls={submenuId}
+            >
+              <MenuItem item={item} disabled={true} />
+            </button>
           )}
-        </button>
+        </div>
       ) : (
         <MenuItem item={item} aria-current={isCurrent ? 'page' : undefined} />
       )}
       {hasChildren && (
-        <ul id={submenuId}>
+        <ul id={submenuId} hidden={!submenuOpen}>
           {items?.map(item => {
             const isCurrentSubmenu = pathname
               .split('/')
-              .includes(item.uiRouterKey.replace(/-\d+/, '') as string);
+              .includes(
+                (item?.uiRouterKey?.replace(/-\d+/, '') ?? '') as string
+              );
             return (
               item && (
                 <li
