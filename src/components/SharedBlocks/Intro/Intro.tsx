@@ -17,12 +17,12 @@ const IntroMenu = ({ menu, pathname }: IntroMenuProps) => {
   const { t } = useTranslation();
   if (!menu?.length) return <></>;
 
-  const urlSlug = pathname.replace(/\/+$/, '').split('/').pop();
+  const urlSlug = pathname.split('/').filter(Boolean).pop();
   const items = menu
     .filter(item => !!item?.link)
     .map(item => {
       const { link, title, linkLabel } = item!;
-      const slug = link!.replace(/\/+$/, '').split('/').pop();
+      const slug = link!.split('/').filter(Boolean).pop();
       return {
         link: link!,
         label: linkLabel || title,
