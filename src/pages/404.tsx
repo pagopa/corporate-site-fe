@@ -1,5 +1,4 @@
 import React from 'react';
-import { navigate } from '@reach/router';
 import { graphql } from 'gatsby';
 import { Layout } from '../partials/Layout';
 import { SEO } from '../components/SEO';

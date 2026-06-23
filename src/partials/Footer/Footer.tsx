@@ -6,7 +6,7 @@ import { Socials } from '../Socials';
 import './Footer.sass';
 import { FooterBottom } from '../FooterBottom';
 import { FooterTop } from '../FooterTop';
-import { useI18next } from 'gatsby-plugin-react-i18next';
+import { useTranslation } from 'gatsby-plugin-react-i18next';
 
 type FooterProps = {
   footerTop: Queries.MainNavigationItemFragment[];
@@ -35,7 +35,7 @@ export const Footer = ({ footerTop, footerBottom }: FooterProps) => {
     query,
   });
 
-  const { i18n, t, languages, changeLanguage } = useI18next();
+  const { t } = useTranslation();
 
   return (
     <footer className="footer">
@@ -43,7 +43,7 @@ export const Footer = ({ footerTop, footerBottom }: FooterProps) => {
         <div className="footer__top">
           <div className="row">
             <div className="col-12 col-md-2">
-              <Logo version="light" />
+              <Logo title="PagoPA" version="light" />
             </div>
             <div className="col-12 col-md-10 col-lg-8">
               <FooterTop menu={footerTop} />
@@ -57,8 +57,10 @@ export const Footer = ({ footerTop, footerBottom }: FooterProps) => {
             </div>
             <div className="col-12 col-md-auto">
               <div className="d-flex mb-4">
-                <h5 className="mb-0 me-5">{t('followUs')}</h5>
-                <Socials />
+                <div id="socialsLabelId" className="h5 mb-0 me-5">
+                  {t('followUs')}
+                </div>
+                <Socials ariaLabelledBy="socialsLabelId" />
               </div>
             </div>
             <div className="col-12 col-md-6">{localeData?.company}</div>

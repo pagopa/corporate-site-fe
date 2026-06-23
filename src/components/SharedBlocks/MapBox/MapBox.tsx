@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { Image } from '../../Image';
 import { Body } from '../../Remark';
 
 import './MapBox.sass';
@@ -9,7 +8,7 @@ export const MapBox = ({
   mapBoxItems,
 }: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_MAP_BOX_Fragment) => {
   return (
-    <section className="block --block-map-box map-box">
+    <section className="block block-map-box map-box">
       <div className="container-fluid">
         <div className="row align-items-center">
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
@@ -23,12 +22,13 @@ export const MapBox = ({
 
                 <div className="col-12 col-md-7">
                   <div className="map-box__locations">
-                    {mapBoxItems.map((item, key) => {
+                    {mapBoxItems?.map((item, key) => {
+                      if (!item) return null;
                       const { title, body } = item;
                       return (
                         <div className="location" key={key}>
                           <h5 className="location__name">{title}</h5>
-                          <Body data={body} />
+                          {body && <Body data={body} />}
                         </div>
                       );
                     })}

@@ -28,7 +28,7 @@ export const Head = ({ data }: HeadProps<Queries.StrapiCTAliasQuery>) => {
   return (
     <meta
       httpEquiv="refresh"
-      content={`0; url=${data.strapiCtAlias.to || '/'}`}
+      content={`0; url=${data.strapiCtAlias?.to || '/'}`}
     />
   );
 };

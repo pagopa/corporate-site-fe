@@ -47,21 +47,23 @@ export const query = graphql`
 export default function Component({
   data: { strapiPage },
 }: PageProps<Queries.StrapiPageQuery>) {
-  const { title, slug, blocks, bannerNewsletter } = strapiPage || {};
+  if (!strapiPage) return null;
+
+  const { title, slug, blocks, bannerNewsletter } = strapiPage;
 
   if (title && slug) {
     return (
       <Layout>
         <SEO
-          meta={strapiPage?.seo}
-          title={strapiPage.title}
-          featuredImage={strapiPage.featuredImage}
+          meta={strapiPage.seo}
+          title={title ?? undefined}
+          featuredImage={strapiPage.featuredImage ?? undefined}
         />
         <BlocksRenderer
           pageSlug={slug}
           blocks={blocks as Queries.BlocksFragment[]}
         />
-        {bannerNewsletter && <NewsletterBanner />}
+        {bannerNewsletter && <NewsletterBanner titleTag="h2" className="h3" />}
       </Layout>
     );
   }

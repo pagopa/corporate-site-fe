@@ -83,12 +83,12 @@ const EventIntro = ({
   } = useTranslation();
 
   return (
-    <header className="block --block-intro intro --event">
+    <header className="block block-intro intro event">
       <div className="container-fluid">
         <div className="row">
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
             <div className="intro__heading">
-              {eyelet && <h4>{eyelet}</h4>}
+              {eyelet && <p className="h4">{eyelet}</p>}
               {title && <h1>{title}</h1>}
             </div>
           </div>
@@ -98,7 +98,7 @@ const EventIntro = ({
             <div className="intro__data flex-wrap flex-md-nowrap">
               {startDate && (
                 <div>
-                  <p className="--label">DATA</p>
+                  <p className="label">DATA</p>
                   <p>
                     {new Date(startDate).toLocaleDateString(language, {
                       year: 'numeric',
@@ -110,7 +110,7 @@ const EventIntro = ({
               )}
               {startTime && (
                 <div>
-                  <p className="--label">ORA</p>
+                  <p className="label">ORA</p>
                   <p>
                     dalle {startTime}
                     {`${endTime ? ` alle ${endTime}` : ''}`}
@@ -119,7 +119,7 @@ const EventIntro = ({
               )}
               {eventVenue && (
                 <div>
-                  <p className="--label">LUOGO</p>
+                  <p className="label">LUOGO</p>
                   <p>{eventVenue}</p>
                 </div>
               )}
@@ -138,6 +138,8 @@ export default function Component({
     i18n: { language },
   } = useTranslation();
 
+  if (!strapiEvent) return null;
+
   const {
     body,
     endDate,
@@ -149,21 +151,23 @@ export default function Component({
     title,
     eventVenue,
     slug,
-  } = strapiEvent || {};
+  } = strapiEvent;
 
   const dateOptions: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   };
-  const theDate = new Date(startDate).toLocaleDateString(language, dateOptions);
+  const theDate = startDate
+    ? new Date(startDate).toLocaleDateString(language, dateOptions)
+    : '';
 
   return title && slug ? (
     <Layout>
       <SEO
-        meta={strapiEvent?.seo}
-        title={strapiEvent.title}
-        featuredImage={strapiEvent.featuredImage}
+        meta={strapiEvent.seo}
+        title={title ?? undefined}
+        featuredImage={featuredImage ?? undefined}
       />
       ;
       <article className="post-article">
@@ -191,7 +195,7 @@ export default function Component({
                           featuredImage.localFile as ImageDataLike
                         ) as IGatsbyImageData
                       }
-                      alt={featuredImage?.alternativeText}
+                      alt={featuredImage?.alternativeText ?? ''}
                     />
                   </div>
                 </div>
@@ -199,14 +203,14 @@ export default function Component({
             )}
             <div className="row">
               <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-                {startDate && <h4>{theDate}</h4>}
-                <Body data={body} />
+                {startDate && <h2 className="h4">{theDate}</h2>}
+                {body && <Body data={body} />}
               </div>
             </div>
           </div>
         </div>
       </article>
-      {true && <NewsletterBanner />}
+      {true && <NewsletterBanner titleTag="h2" className="h3" />}
     </Layout>
   ) : null;
 }

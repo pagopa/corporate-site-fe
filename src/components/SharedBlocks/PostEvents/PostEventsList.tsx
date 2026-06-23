@@ -57,7 +57,7 @@ export const PostEventsList = ({
         localFile {
           childImageSharp {
             gatsbyImageData(
-              layout: FULL_WIDTH
+              layout: CONSTRAINED
               aspectRatio: 1.33
               transformOptions: { cropFocus: ATTENTION }
             )
@@ -96,9 +96,11 @@ export const PostEventsList = ({
   });
 
   const postEventsCollection = [...posts, ...events];
-  const postEventsCollectionSorted = postEventsCollection.sort((a, b) =>
-    a.publishedAt > b.publishedAt ? -1 : a.publishedAt < b.publishedAt ? 1 : 0
-  );
+  const postEventsCollectionSorted = postEventsCollection.sort((a, b) => {
+    const aDate = a.publishedAt ?? '';
+    const bDate = b.publishedAt ?? '';
+    return aDate > bDate ? -1 : aDate < bDate ? 1 : 0;
+  });
 
   const isPreview = pageSlug === 'media';
 
@@ -109,7 +111,7 @@ export const PostEventsList = ({
       } d-flex row justify-content-center`}
     >
       <div className={isPreview ? 'col-8' : 'col-9'}>
-        {title && <h1>{title}</h1>}
+        {title && <h2 className="h1">{title}</h2>}
         <Pagination
           className={
             isPreview

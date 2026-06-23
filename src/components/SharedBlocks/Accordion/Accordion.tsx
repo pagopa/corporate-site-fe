@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from '@reach/router';
 
 import {
   Accordion as AccordionContainer,
@@ -20,12 +21,12 @@ const AccordionItemComp = ({
     <AccordionItem className="accordion-entry">
       <AccordionItemHeading className="accordion-entry__header">
         <AccordionItemButton className="accordion-entry__button">
-          <h4 className="--primary">{heading}</h4>
+          <span className="primary">{heading}</span>
         </AccordionItemButton>
       </AccordionItemHeading>
 
       <AccordionItemPanel className="accordion-entry__content">
-        <Body data={content} />
+        {content && <Body data={content} />}
       </AccordionItemPanel>
     </AccordionItem>
   );
@@ -36,6 +37,8 @@ export const Accordion = ({
   title,
   blockConf,
 }: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_ACCORDION_Fragment) => {
+  const { pathname } = useLocation();
+  const TitleTag = pathname.includes('fondo-innovazione') ? 'h2' : 'h3';
   const { BlockPosition, BlockWidth } = blockConf || {};
 
   // center default
@@ -54,16 +57,22 @@ export const Accordion = ({
   }
 
   return (
-    <section className="block --block-accordion block-accordion">
+    <section className="block block-accordion">
       <div className="container-fluid">
         <div className="row">
-          <div className={`col-12 ${columns[BlockWidth]}`}>
-            <h1>{title}</h1>
+          <div
+            className={`col-12 ${
+              BlockWidth ? columns[BlockWidth as 'Standard' | 'Wide'] ?? '' : ''
+            }`}
+          >
+            <TitleTag className="h1">{title}</TitleTag>
 
             {accordionItems && (
               <AccordionContainer allowZeroExpanded>
                 {accordionItems?.map((item, key) => {
-                  return <AccordionItemComp data={item} key={key} />;
+                  return item ? (
+                    <AccordionItemComp data={item} key={key} />
+                  ) : null;
                 })}
               </AccordionContainer>
             )}

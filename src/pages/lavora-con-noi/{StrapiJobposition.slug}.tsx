@@ -50,12 +50,14 @@ export const query = graphql`
 export default function Component({
   data: { strapiJobposition },
 }: PageProps<Queries.StrapiJobpositionQuery>) {
+  if (!strapiJobposition) return null;
+
   return (
     <Layout>
       <SEO
-        meta={strapiJobposition?.seo}
-        title={strapiJobposition.title}
-        featuredImage={strapiJobposition.featuredImage}
+        meta={strapiJobposition.seo}
+        title={strapiJobposition.title ?? undefined}
+        featuredImage={strapiJobposition.featuredImage ?? undefined}
       />
       <JobPage data={strapiJobposition as Queries.JobPageFragment} />
     </Layout>

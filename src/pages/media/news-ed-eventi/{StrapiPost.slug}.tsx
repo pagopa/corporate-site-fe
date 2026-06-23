@@ -69,12 +69,12 @@ export const query = graphql`
 
 const Intro = ({ eyelet, title }: Queries.PostIntroFragment) => {
   return (
-    <header className="block --block-intro intro">
+    <header className="block block-intro intro">
       <div className="container-fluid">
         <div className="row">
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
             <div className="intro__heading">
-              <h4>{eyelet}</h4>
+              <p className="h4">{eyelet}</p>
               <h1>{title}</h1>
             </div>
           </div>
@@ -88,6 +88,12 @@ export default function Component({
   data: { strapiPost },
 }: PageProps<Queries.StrapiPostQuery>) {
   const {
+    i18n: { language },
+  } = useTranslation();
+
+  if (!strapiPost) return null;
+
+  const {
     body,
     eyelet,
     publishedAt,
@@ -95,25 +101,23 @@ export default function Component({
     title,
     bannerNewsletter,
     slug,
-  } = strapiPost || {};
-
-  const {
-    i18n: { language },
-  } = useTranslation();
+  } = strapiPost;
 
   const dateOptions: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   };
-  const theDate = new Date(publishedAt).toLocaleDateString(language, dateOptions);
+  const theDate = publishedAt
+    ? new Date(publishedAt).toLocaleDateString(language, dateOptions)
+    : '';
 
   return title && slug ? (
     <Layout>
       <SEO
-        meta={strapiPost?.seo}
-        title={strapiPost.title}
-        featuredImage={strapiPost.featuredImage}
+        meta={strapiPost.seo}
+        title={title ?? undefined}
+        featuredImage={featuredImage ?? undefined}
       />
       ;
       <article className="post-article">
@@ -131,7 +135,7 @@ export default function Component({
                           featuredImage.localFile as ImageDataLike
                         ) as IGatsbyImageData
                       }
-                      alt={featuredImage?.alternativeText}
+                      alt={featuredImage?.alternativeText ?? ''}
                     />
                   </div>
                 </div>
@@ -141,13 +145,13 @@ export default function Component({
             <div className="row">
               <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
                 <h4>{theDate}</h4>
-                <Body data={body} />
+                {body && <Body data={body} />}
               </div>
             </div>
           </div>
         </div>
       </article>
-      {bannerNewsletter && <NewsletterBanner />}
+      {bannerNewsletter && <NewsletterBanner titleTag="h2" className="h3" />}
     </Layout>
   ) : null;
 }

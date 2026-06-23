@@ -23,7 +23,7 @@ import { VisualText } from './VisualText';
 
 // This object is used to map Strapi component names to React components
 const componentsMap: {
-  [key: string]: (props: any) => JSX.Element;
+  [key: string]: (props: any) => JSX.Element; // eslint-disable-line @typescript-eslint/no-explicit-any
 } = {
   STRAPI__COMPONENT_SHARED_BLOCK_ACCORDION: Accordion,
   STRAPI__COMPONENT_SHARED_BLOCK_ATTACHMENTS_GRID: AttachmentGrid,
@@ -51,12 +51,14 @@ const componentsMap: {
 const Block = ({
   block,
   pageSlug,
+  blockIndex,
 }: {
   block: Queries.BlocksFragment;
   pageSlug?: string;
+  blockIndex: number;
 }) => {
   const Component = componentsMap[block.__typename];
-  return !!Component ? <Component {...block} pageSlug={pageSlug} /> : null;
+  return Component ? <Component {...block} pageSlug={pageSlug} blockIndex={blockIndex} /> : null;
 };
 
 // This function renders a list of blocks
@@ -69,7 +71,7 @@ export const BlocksRenderer = ({
 }) => (
   <>
     {blocks?.map((block, index) => (
-      <Block key={index} block={block} pageSlug={pageSlug} />
+      <Block key={index} block={block} pageSlug={pageSlug} blockIndex={index} />
     ))}
   </>
 );

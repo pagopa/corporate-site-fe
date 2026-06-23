@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Accordion,
   AccordionItem,
-  AccordionItemHeading,
   AccordionItemButton,
   AccordionItemPanel,
 } from 'react-accessible-accordion';
@@ -17,11 +16,11 @@ export const JobPastList = ({
     <div className="jobs-listing__past">
       <Accordion allowZeroExpanded>
         <AccordionItem className="accordion-entry">
-          <AccordionItemHeading className="accordion-entry__header">
+          <div className="accordion-entry__header">
             <AccordionItemButton className="accordion-entry__button">
-              <h3 className="mb-0">Posizioni chiuse</h3>
+              <h2 className="mb-0 h3">Posizioni chiuse</h2>
             </AccordionItemButton>
-          </AccordionItemHeading>
+          </div>
 
           <AccordionItemPanel className="accordion-entry__content">
             <div>

@@ -32,14 +32,14 @@ const InnovItem = ({
   return (
     <article className="d-flex flex-column justify-content-between" key={id}>
       <div>
-        <h4>{theDate}</h4>
+        <p className="h4">{theDate}</p>
         {isPreview ? (
-          <h4 className="--primary --medium">{title}</h4>
+          <h4 className="primary medium">{title}</h4>
         ) : (
-          <h3 className="--light">{title}</h3>
+          <h2 className="light">{title}</h2>
         )}
         <div>
-          <p>{previewText(36, body?.data.body)}</p>
+          <p>{previewText(36, body?.data?.body ?? undefined)}</p>
         </div>
       </div>
 
@@ -54,7 +54,6 @@ const InnovItem = ({
 
 export const InnovationAnnounList = ({
   title,
-  pageSlug,
 }: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_INNOVATION_ANNOUNCEMENTS_Fragment & {
   pageSlug: string;
 }) => {

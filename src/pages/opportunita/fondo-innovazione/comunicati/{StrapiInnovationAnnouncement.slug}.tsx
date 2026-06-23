@@ -2,7 +2,6 @@ import { graphql, PageProps } from 'gatsby';
 import React from 'react';
 import { BlocksRenderer } from '../../../../components/SharedBlocks/BlocksRenderer';
 import { Layout } from '../../../../partials/Layout';
-import { useTranslation } from 'gatsby-plugin-react-i18next/dist';
 import { Body } from '../../../../components/Remark/Body';
 import { NewsletterBanner } from '../../../../components/NewsletterBanner';
 
@@ -51,17 +50,13 @@ export const query = graphql`
 `;
 
 const InnovIntro = ({ eyelet, title }: Queries.InnovIntroFragment) => {
-  const {
-    i18n: { language },
-  } = useTranslation();
-
   return (
-    <header className="block --block-intro intro --event">
+    <header className="block block-intro intro event">
       <div className="container-fluid">
         <div className="row">
           <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
             <div className="intro__heading">
-              {eyelet && <h4>{eyelet}</h4>}
+              {eyelet && <p className="h4">{eyelet}</p>}
               {title && <h1>{title}</h1>}
             </div>
           </div>
@@ -74,20 +69,16 @@ const InnovIntro = ({ eyelet, title }: Queries.InnovIntroFragment) => {
 export default function Component({
   data: { strapiInnovationAnnouncement },
 }: PageProps<Queries.StrapiInnovationAnnouncementQuery>) {
-  const {
-    i18n: { language },
-  } = useTranslation();
+  if (!strapiInnovationAnnouncement) return null;
 
-  const { body, eyelet, title, slug, blocks } =
-    strapiInnovationAnnouncement || {};
+  const { body, eyelet, title, slug, blocks } = strapiInnovationAnnouncement;
 
   return title && slug ? (
     <Layout>
       <article className="post-article">
         <InnovIntro
           {...{
-            body,
-            eyelet,
+            eyelet: eyelet ?? null,
             title,
           }}
         />
@@ -95,7 +86,7 @@ export default function Component({
           <div className="container-fluid">
             <div className="row">
               <div className="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-                <Body data={body} />
+                {body && <Body data={body} />}
               </div>
             </div>
           </div>
@@ -105,7 +96,7 @@ export default function Component({
           blocks={blocks as Queries.BlocksFragment[]}
         />
       </article>
-      {true && <NewsletterBanner />}
+      {true && <NewsletterBanner titleTag="h2" className="h3" />}
     </Layout>
   ) : null;
 }

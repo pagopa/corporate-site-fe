@@ -6,15 +6,25 @@ import ScrollTrigger from 'gsap/ScrollTrigger';
 export const useRevealTextAnimation = ({
   elementRef,
 }: {
-  elementRef: RefObject<any>;
+  elementRef: RefObject<HTMLElement>;
 }) => {
   useEffect(() => {
+    // Check if element exists before using GSAP
+    if (!elementRef.current) {
+      return;
+    }
+
     gsap.registerPlugin(ScrollTrigger);
 
     gsap.set(elementRef.current, { backgroundPosition: '100% 50%' });
 
     const ctx = gsap.context(() => {
       const marks = [...(elementRef.current?.querySelectorAll('mark') || [])];
+
+      if (marks.length === 0) {
+        gsap.set(elementRef.current, { backgroundPosition: '0% 50%' });
+        return;
+      }
 
       gsap.to(elementRef.current, {
         backgroundPosition: '0% 50%',
@@ -46,5 +56,5 @@ export const useRevealTextAnimation = ({
     }, elementRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [elementRef]);
 };

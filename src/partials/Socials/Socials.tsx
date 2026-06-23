@@ -5,7 +5,12 @@ import { useLocalizedQuery } from '../../hooks/useLocalizedQuery';
 
 import './Socials.sass';
 
-export const Socials = ({ header }: any) => {
+type SocialsProps = {
+  header?: boolean;
+  ariaLabelledBy?: string;
+};
+
+export const Socials = ({ header, ariaLabelledBy }: SocialsProps) => {
   const query = useStaticQuery(graphql`
     fragment Socials on SocialsJson {
       locale
@@ -32,17 +37,21 @@ export const Socials = ({ header }: any) => {
   });
 
   return socialsData?.links ? (
-    <ul className={`socials${header ? ' --in-header' : ''}`}>
-      {socialsData?.links.map((social: any) => {
+    <ul
+      aria-labelledby={ariaLabelledBy}
+      className={`socials${header ? ' in-header' : ''}`}
+    >
+      {socialsData?.links.map(social => {
+        if (!social) return null;
         return (
           <li key={social.url}>
             <a
-              href={social.url}
+              href={social.url ?? undefined}
               target="_blank"
-              title={social.label}
+              title={social.label ?? undefined}
               rel="noreferrer noopener"
             >
-              <ReactSVG src={social.image} wrapper="span" />
+              <ReactSVG src={social.image ?? ''} wrapper="span" />
             </a>
           </li>
         );

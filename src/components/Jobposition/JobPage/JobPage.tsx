@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Body } from '../../Remark/Body';
 import { JobIntro } from '../JobIntro';
 import { Cta } from '../../../partials/Cta';

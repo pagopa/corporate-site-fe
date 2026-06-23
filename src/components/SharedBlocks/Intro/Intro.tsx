@@ -1,44 +1,66 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Cta } from '../../../partials/Cta';
 import { Image } from '../../Image';
 import { useLocation } from '@reach/router';
 import classNames from 'classnames';
 import { Body } from '../../Remark/Body';
+import chevronDownBrand from '../../../images/ui/chevron-down-brand.svg';
+import { useTranslation } from 'gatsby-plugin-react-i18next';
 
 type IntroMenuProps = {
   menu: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_INTRO_Fragment['introMenu'];
+  pathname: string;
 };
 
-const IntroMenu = ({ menu }: IntroMenuProps) => {
+const IntroMenu = ({ menu, pathname }: IntroMenuProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const { t } = useTranslation();
   if (!menu?.length) return <></>;
 
-  const { pathname } = useLocation();
+  const urlSlug = pathname.split('/').filter(Boolean).pop();
+  const items = menu
+    .filter(item => !!item?.link)
+    .map(item => {
+      const { link, title, linkLabel } = item!;
+      const slug = link!.split('/').filter(Boolean).pop();
+      return {
+        link: link!,
+        label: linkLabel || title,
+        isCurrent: urlSlug === slug,
+      };
+    });
+
+  const inactiveItems = items.filter(item => !item.isCurrent);
 
   return (
-    <nav className="intro-menu">
-      <ul>
-        {menu.map((item, key) => {
-          const { link, title, linkLabel } = item || {};
-          if (link) {
-            const linkWithoutSlashes = link
-              .replace(/\/+$/, '')
-              .split('/')
-              .pop();
-            const isCurrent = pathname.split('/').includes(linkWithoutSlashes);
-            return (
-              <li key={key} className={classNames(isCurrent && 'is-current')}>
-                {(linkLabel || title) && (
-                  <Cta
-                    label={linkLabel || title}
-                    href={isCurrent ? '#' : link}
-                    variant="link-simple"
-                  />
-                )}
-              </li>
-            );
-          }
-        })}
+    <nav className={classNames('intro-menu', isOpen && 'is-open')}>
+      <ul className="intro-menu__list">
+        {items.map(({ link, label, isCurrent }, key) => (
+          <li key={key} className={classNames(isCurrent && 'is-current')}>
+            {label && <Cta label={label} href={link} variant="link-simple" />}
+          </li>
+        ))}
+        <li className="intro-menu__toggle-item">
+          <button
+            className="intro-menu__toggle"
+            onClick={() => setIsOpen(o => !o)}
+            aria-expanded={isOpen}
+            aria-controls="intro-menu-dropdown"
+            aria-label={t('introMenu.label')}
+          >
+            <img src={chevronDownBrand} alt="" aria-hidden="true" />
+          </button>
+        </li>
       </ul>
+      {inactiveItems.length > 0 && (
+        <ul id="intro-menu-dropdown" className="intro-menu__dropdown">
+          {inactiveItems.map(({ link, label }, key) => (
+            <li key={key}>
+              {label && <Cta label={label} href={link} variant="link-simple" />}
+            </li>
+          ))}
+        </ul>
+      )}
     </nav>
   );
 };
@@ -50,17 +72,29 @@ export const Intro = ({
   introMenu,
   body,
 }: Queries.Blocks_STRAPI__COMPONENT_SHARED_BLOCK_INTRO_Fragment) => {
+  const { pathname } = useLocation();
+
+  function renderEyelet() {
+    if (!eyelet) return null;
+    if (title) return <p className="h4">{eyelet}</p>;
+    return <h1 className="h4">{eyelet}</h1>;
+  }
+
   return (
     <section
-      className={classNames('block --block-intro intro', 'mb-0 --nocontent')}
+      className={classNames('block block-intro intro', 'mb-0 nocontent')}
     >
       <div className="container-fluid">
         <div className="row justify-content-center">
           <div className="col-12 col-md-10 col-lg-9">
-            <div className={title ? 'intro__heading' : 'intro'}>
-              <h4>{eyelet}</h4>
-              {introMenu && <IntroMenu menu={introMenu} />}
-              <h1>{title}</h1>
+            <div
+              className={
+                title || introMenu?.length ? 'intro__heading' : 'intro'
+              }
+            >
+              {renderEyelet()}
+              {introMenu && <IntroMenu menu={introMenu} pathname={pathname} />}
+              {title && <h1 className="h1">{title}</h1>}
             </div>
           </div>
         </div>
