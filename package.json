@@ -57,7 +57,7 @@
     "reaptcha": "^1.12.1",
     "sass": "^1.57.1",
     "sharp": "^0.30.1",
-    "swiper": "^9.0.5"
+    "swiper": "^12.0.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.31.2",
