@@ -1,8 +1,12 @@
-// Normalize non-compliant CMS color (#00B2C2) to brand color
+// Normalize non-compliant CMS colors (#00B2C2, #00A1B0) to brand color
 [style*="color:#00B2C2"],
 [style*="color: #00B2C2"],
 [style*="color:#00b2c2"],
-[style*="color: #00b2c2"]
+[style*="color: #00b2c2"],
+[style*="color:#00A1B0"],
+[style*="color: #00A1B0"],
+[style*="color:#00a1b0"],
+[style*="color: #00a1b0"]
   color: $c-brand !important
 
 // Focus styles
@@ -49,10 +53,8 @@ a, button, input, textarea, select, [tabindex]:not([tabindex="-1"])
     outline: 3px solid #FFF
     outline-offset: 3px
 
-
 html
   scroll-behavior: smooth
-
 
 .external-link
   display: flex !important
@@ -63,7 +65,6 @@ html
     &::after
       transform: translateX(.3rem)
 
-
   &::after
     content: ''
     width: 24px
@@ -73,7 +74,6 @@ html
     background-size: contain
     background-repeat: no-repeat
     transition: all $transition-fast
-
 
   @media (max-width: $desktop - 1)
     justify-content: flex-end
