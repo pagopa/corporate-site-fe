@@ -112,7 +112,7 @@ export const HeroSlider = ({
                         aria-current={
                           currentSlideIndex === index ? 'true' : undefined
                         }
-                        onClick={() => swiperRef.current?.slideTo(index)}
+                        onClick={() => swiperRef.current?.slideToLoop(index)}
                         tabIndex={isDecorative ? -1 : 0}
                       />
                     ))}
@@ -146,7 +146,7 @@ export const HeroSlider = ({
                         }
                   }
                   onSlideChange={swiper => {
-                    handleSlideChange(swiper.activeIndex);
+                    handleSlideChange(swiper.realIndex);
                   }}
                   onSwiper={swiper => {
                     swiperRef.current = swiper;
